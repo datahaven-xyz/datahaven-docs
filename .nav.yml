@@ -1,2 +1,5 @@
 nav:
  - 'Home': index.md
+ - 'Manage Data': manage-data
+ - 'Provide Storage': provide-storage
+ - 'How It Works': how-it-works
