@@ -19,7 +19,7 @@ A bucket groups related objects under a single provider and policy. Think of it 
 - **Compact on-chain summary:** The chain records a cryptographic summary, not every file.
 - **Stable anchor:** One place for pricing, accounting, and proofs across contained files.
 
-Each provider can maintain one or more buckets. Buckets are summarized on-chain so smart contracts can answer questions like "did this object exist at block N?" without bloating state. DataHaven uses Merkle/Patricia-style structures to keep on-chain state minimal yet verifiable.
+Each provider can maintain one or more buckets. Buckets are summarized on-chain so smart contracts can answer questions like "did this object exist at block N?" without bloating state. DataHaven uses Merkle-Patricia-style structures to keep on-chain state minimal yet verifiable.
 
 ### Bucket types and organization
 
