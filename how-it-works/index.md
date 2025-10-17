@@ -9,7 +9,7 @@ This section explains the core concepts and architecture of DataHaven.
 
 ## Overview
 
-This section is a plain-language tour of DataHaven. You’ll see how buckets, providers, and on-chain receipts work together so data can be stored, verified, and retrieved with confidence
+This section is a plain-language tour of DataHaven. You’ll see how buckets, providers, and on-chain receipts work together so data can be stored, verified, and retrieved with confidence.
 
 ## Topics
 
