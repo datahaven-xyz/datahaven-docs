@@ -1,4 +1,0 @@
-nav:
- - 'Overview': index.md
- - 'Quickstart': quickstart.md
- - 'Use StrageHub SDK': use-storagehub-sdk
