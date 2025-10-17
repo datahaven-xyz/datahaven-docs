@@ -1,4 +1,4 @@
 nav:
- - 'Buckets, Files, and Merkle Proofs': index.md
- - 'MSP vs BSP Roles': roles.md
- - 'Data Flow and Lifecycle': data-flow.md
+ - 'Data and Provider Model': index.md
+ - 'Buckets, Files, and Merkle Proofs': buckets-files-and-merkle-proofs.md
+ - 'Data Flow and Lifecycle': data-flow-and-lifecycle.md
