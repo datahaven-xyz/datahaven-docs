@@ -1,0 +1,3 @@
+nav:
+ - 'Security Model and Restaking': index.md
+ - 'EigenLayer AVS & Shared Security Model': eigenlayer-avs-shared-security-model.md
