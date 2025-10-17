@@ -1,5 +1,5 @@
 nav:
- - 'Use StorageHub SDK': index.md
+ - 'Use StorageHub SDK Overview': index.md
  - 'Get Started': get-started.md
  - 'Create a Bucket': create-a-bucket.md
  - 'Issue a Storage Request': issue-a-storage-request.md
