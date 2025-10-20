@@ -1,2 +1,4 @@
 nav:
  - 'Home': index.md
+ - 'How It Works': how-it-works/index.md
+

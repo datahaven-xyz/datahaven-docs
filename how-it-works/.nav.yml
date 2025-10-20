@@ -1,0 +1,4 @@
+nav:
+  - 'How It Works': index.md
+  - 'Security Model and Restaking': security-model-and-restaking
+  - 'Interoperability': interoperability
