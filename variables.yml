@@ -1,9 +1,6 @@
-# Variables for reusable values in Markdown files
-# 
-# - Use snake_case for variable names
-# - Keep values short and descriptive
-# - Reference in Markdown using {{ variable_name }}
-#
-# Example:
-# github_repo: https://github.com/datahaven-xyz/datahaven
-# spec_version: runtime-100
+networks:
+  testnet:
+    rpc_url: https://services.datahaven-dev.network/stagenet
+    wss_url: wss://services.datahaven-dev.network/stagenet
+    chain_id: 1283
+    website_faucet_amount: 1.1 HAVE tokens
