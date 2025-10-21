@@ -47,3 +47,8 @@ To begin building on a DataHaven test network, you’ll need to obtain HAVE toke
 |:--------------------------------------:|:------------------------------------------------------------------------------------------------------------------------------------------------:|
 | [DataHaven Testnet](#){target=\_blank} | The [DataHaven Testnet Faucet](#){target=\_blank} website. <br> The faucet dispenses {{ networks.testnet.website_faucet_amount }} every 24 hours |
 |                                        |
+
+
+
+TODO: CTA 1: link to UseStorageHub TypeScript SDK/Get Started
+TODO: CTA 2: link to End-to-End Storage Workflow tutorial
