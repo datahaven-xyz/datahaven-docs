@@ -38,14 +38,14 @@ Install the following dependencies:
 Add the following code to your `index.ts` file:
 
      ```ts
-     --8<-- '.snippets/code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/connect-to-the-msp-client.ts'
+     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/connect-to-the-msp-client.ts'
      ```
 
 Check MSP health before proceeding to make sure everything is running as expected:
 
      ```ts
-     --8<-- '.snippets/code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/msp-health.ts'
-     ```
+     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/msp-health.ts'
+```
 
 The response should look something like this:
 
@@ -60,14 +60,14 @@ The response should look something like this:
             rpc: { status: 'healthy' }
   }
 }
-     ```
+```
 
 ## Initialize the StorageHub Client 
 
 Add the following code to initialize the StorageHub Client:
 
      ```ts
-     --8<-- '.snippets/code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/initialize-storagehub-client.ts'
+     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/initialize-storagehub-client.ts'
      ```
 
  ??? note "It is assumed that private keys are securely stored and managed according to standard security practices."
@@ -77,7 +77,7 @@ Add the following code to initialize the StorageHub Client:
 Define bucket name and calculate the bucket id using the deriveBucketId() function within the StorageHubClient, as follows:
 
      ```ts
-     --8<-- '.snippets/code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/derive-bucket-id.ts'
+     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/derive-bucket-id.ts'
      ```
 
 The response should look something like this:
@@ -91,13 +91,13 @@ The response should look something like this:
 In order to check if the derived bucket ID is already on-chain the Polkadot API must be initialized as follows:
 
      ```ts
-     --8<-- '.snippets/code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/initialize-polkadot-api.ts'
+     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/initialize-polkadot-api.ts'
      ```
 
 Check if a bucket with that derived id already exists on-chain as follows:
 
      ```ts
-     --8<-- '.snippets/code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/does-derived-bucket-id-exist.ts'
+     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/does-derived-bucket-id-exist.ts'
      ```
 
  ??? note "The mspClient can also be used to check if the derived bucket ID already exists using the .getBucket function, however this only checks if that specific MSP contains a bucket with that ID."
@@ -107,13 +107,13 @@ Check if a bucket with that derived id already exists on-chain as follows:
 In order to prepare all the parameters needed for the .createBucket function, more data from the MSP is needed such as mspId and valuePropId. Add the following code to retrieve it:
 
      ```ts
-     --8<-- '.snippets/code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket-prep.ts'
+     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket-prep.ts'
      ```
 
 Execute the `.createBucket()` function using the storageHubClient and previously gathered parameters as follows:
 
      ```ts
-     --8<-- '.snippets/code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts'
+     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts'
      ```
 
 ## Check if Bucket is On-Chain
@@ -121,7 +121,7 @@ Execute the `.createBucket()` function using the storageHubClient and previously
 Add the following code to check if the bucket can be found on-chain, as well as to read the bucket’s data:
 
      ```ts
-     --8<-- '.snippets/code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/is-bucket-on-chain.ts'
+     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/is-bucket-on-chain.ts'
      ```
 
 ---
