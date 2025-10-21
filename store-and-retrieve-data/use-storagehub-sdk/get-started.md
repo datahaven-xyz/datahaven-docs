@@ -80,7 +80,26 @@ Within your desired project, install the SDK dependencies using the following co
     npm install @storagehub-sdk/core @storagehub-sdk/msp-client
     ```
 
-TODO: CTA 1: link to next step (Create a Storage Bucket)
-TODO: CTA 2:  link to End-to-End Storage Workflow tutorial
+---
 
+
+<div class="grid cards" markdown>
+
+-   __Create Your First Bucket__
+
+    ---
+
+    Buckets are logical containers for files. Learn how to create them using the StorageHub SDK.
+
+    [:octicons-arrow-right-24: Create a Bucket](/store-and-retrieve-data/use-storagehub-sdk/get-started.md)
+
+-   __Build a Data Workflow End-to-End__
+
+    ---
+
+    Learn step-by-step how to store a file on DataHaven and retrieve it back from the network.
+
+    [:octicons-arrow-right-24: End-to-End Storage Workflow](/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow.md)
+
+</div>
 
