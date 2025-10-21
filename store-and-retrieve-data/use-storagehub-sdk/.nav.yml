@@ -1,0 +1,13 @@
+nav:
+ - 'Overview': index.md
+ - 'Get Started': get-started.md
+ - 'Create a Bucket': create-a-bucket.md
+ - 'Issue a Storage Request': issue-a-storage-request.md
+ - 'Verify if Storage Request is on-chain': verify-if-storage-request-is-on-chain.md
+ - 'Upload Your First File': upload-your-first-file.md
+ - 'Retrieve Your Data': retrieve-your-data.md
+ - 'End-to-End Storage Workflow': end-to-end-storage-workflow.md
+ - 'Authenticate with SIWE and JWT': authenticate-with-siwe-and-jwt.md
+ - 'FAQs & Troubleshooting': faqs-and-troubleshooting.md
+
+
