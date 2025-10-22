@@ -29,7 +29,6 @@ The SDK is split into two packages for convenient separation of concerns: `@stor
 ## MSP Service Endpoints
 
 To interact with a Main Storage Provider (MSP) through `@storagehub-sdk/msp-client`, a service endpoint is required. You can use any of the following MSP base urls as an endpoint for storing and retrieving your files:
-
 - StorageHub node 
   - The MSP backend requires connection to a StorageHub blockchain node
 
