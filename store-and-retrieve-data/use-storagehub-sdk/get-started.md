@@ -1,6 +1,6 @@
 ---
 title: Get Started
-description: Get up and running quickly with the StorageHub SDK.
+description: TODO
 slug: /store-and-retrieve-data/use-storagehub-sdk/get-started
 ---
 
