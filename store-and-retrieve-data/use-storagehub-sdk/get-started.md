@@ -17,7 +17,7 @@ The SDK is split into two packages for convenient separation of concerns: `@stor
 - Backend‑agnostic building blocks (wallets, EIP‑1193, precompile helpers bridging Substrate↔EVM, Merkle/WASM utilities, HttpClient, shared types).
 - Signing, Merkle/proofs, precompile calls, low‑level HTTP, shared types.
 - This package includes EVM account‑typed helpers, WASM‑backed file utilities, and stable primitives **usable without any backend**.
-- [Read more](https://www.npmjs.com/package/@storagehub-sdk/core){taget=_blank}
+- [Read more](https://www.npmjs.com/package/@storagehub-sdk/core){target=_blank}
 
 @storagehub-sdk/msp-client
 
@@ -78,10 +78,10 @@ To initialize a package.json file, execute the following command in the terminal
     npm init
     ```
 
-The output of that command should something like this:
+The output of that command should be something like this:
 
 ```text
-Wrote to /Users/aljosamakevic/Documents/Sandbox/PaperMoon/Other/datahaven-project/package.json
+Wrote to .../datahaven-project/package.json
 
 {
   "name": "datahaven-project",
@@ -100,7 +100,7 @@ Wrote to /Users/aljosamakevic/Documents/Sandbox/PaperMoon/Other/datahaven-projec
 
 ## Add TypeScript and Node type definitions
 
-To add the Typescript and Node type definitions to your projects, execute the following command in the terminal:
+To add the TypeScript and Node type definitions to your projects, execute the following command in the terminal:
 
 ```shell
 pnpm add -D typescript ts-node @types/node
