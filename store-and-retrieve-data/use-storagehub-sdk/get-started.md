@@ -39,7 +39,7 @@ To interact with a Main Storage Provider (MSP) through `@storagehub-sdk/msp-clie
 
 ## Prerequisites
 
-System requirements
+Before you begin, ensure you have the following:
 
 - Node.js ≥ 18 (recommended LTS version)
 - pnpm, npm, or yarn for package management
