@@ -48,7 +48,7 @@ Before you begin, ensure you have the following:
 - Network endpoints (They can be found in the [Quickstart page](/store-and-retrieve-data/quick-start.md){target=_blank})
     - RPC URL
     - Web Socket URL 
-- Test tokens (They can be found in the [Quickstart page](/store-and-retrieve-data/quick-start.md){target=_blank})
+- [Test tokens](TODO: link them to the faucet){target=_blank})
 - [MSP base url](TODO)
 
 ### Installation
