@@ -1,14 +1,18 @@
 ---
 title: Create a Bucket
-description: Guide to creating a new storage bucket using StorageHub SDK.
+description: Guide on how to create a new storage bucket with the StorageHub SDK.
 ---
 
 # Create a Bucket
 
 ## Prerequisites
-- Node.js v18+ installed
-TODO link these deps and add TS install step and TS project setup step
-- Installed `@storagehub-sdk/core` and `@storagehub-sdk/msp-client` installed (described in [Get Started page](/store-and-retrieve-data/use-storagehub-sdk/get-started.md))
+- [Node.js](https://nodejs.org/en/download){target=_blank} v18+ installed
+- Project folder created
+- `package.json` file initialized
+- Typescript and Node type definitions added
+- Created a Typescript config
+- `@storagehub-sdk/core` and `@storagehub-sdk/msp-client` installed 
+See the [Get Started guide](/store-and-retrieve-data/use-storagehub-sdk/get-started.md) for detailed setup instructions.
 
 ## Install Extra Dependencies
 
