@@ -42,15 +42,19 @@ Install the following dependencies:
 
 Add the following code to your `index.ts` file:
 
+```ts title="index.ts"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/connect-to-the-msp-client.ts'
+```
 
 Check MSP health before proceeding to make sure everything is running as expected:
 
+```ts title="index.ts"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/msp-health.ts'
+```
 
 The response should look something like this:
-TODO termynal thing
-```json
+
+```text
 MSP Health Status: {
     status: 'healthy',
     version: '0.2.0',
@@ -67,19 +71,23 @@ MSP Health Status: {
 
 Add the following code to initialize the StorageHub Client:
 
- ??? note "It is assumed that private keys are securely stored and managed according to standard security practices."
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/initialize-storagehub-client.ts'
+!!! warning "It is assumed that private keys are securely stored and managed according to standard security practices."
 
+```ts title="index.ts"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/initialize-storagehub-client.ts'
+```
     
 ## Derive Bucket ID
 
 Define bucket name and calculate the bucket id using the deriveBucketId() function within the StorageHubClient, as follows:
 
+```ts title="index.ts"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/derive-bucket-id.ts'
+```
 
 The response should look something like this:
 
-```json
+```text
 Derived bucket ID: 0x5536b20fca3333b6c9ac23579b2757b774512623f926426e3b37150191140392
 ```
 
@@ -87,17 +95,21 @@ Derived bucket ID: 0x5536b20fca3333b6c9ac23579b2757b774512623f926426e3b371501911
 
 To check if the derived bucket ID is already on-chain the Polkadot API must be initialized as follows:
 
+```ts title="index.ts"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/initialize-polkadot-api.ts'
+```
 
 Check if a bucket with that derived id already exists on-chain as follows:
 
-??? note "The mspClient can also be used to check if the derived bucket ID already exists using the .getBucket function, however this only checks if that specific MSP contains a bucket with that ID."
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/does-derived-bucket-id-exist.ts'
+!!! note "The mspClient can also be used to check if the derived bucket ID already exists using the .getBucket function, however this only checks if that specific MSP contains a bucket with that ID."
 
+```ts title="index.ts"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/does-derived-bucket-id-exist.ts'
+```
 
 The response should look like this:
 
-```json
+```text
 Bucket before creation is empty: true
 ```
 
@@ -105,22 +117,27 @@ Bucket before creation is empty: true
 
 In order to prepare all the parameters needed for the .createBucket function, more data from the MSP is needed such as mspId and valuePropId. Add the following code to retrieve it:
 
+```ts title="index.ts"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket-prep.ts'
+```
 
 Execute the `.createBucket()` function using the storageHubClient and previously gathered parameters as follows:
 
+```ts title="index.ts"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts'
+```
 
 ## Check if Bucket is On-Chain
 
 Add the following code to check if the bucket can be found on-chain, as well as to read the bucket’s data:
 
+```ts title="index.ts"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/is-bucket-on-chain.ts'
-
+```
 
 The response should look something like this:
 
-```json
+```text
 Bucket data: Type(7) [Map] {
   'root' => Type(32) [Uint8Array] [
     3,
