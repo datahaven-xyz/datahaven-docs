@@ -1,6 +1,6 @@
 networks:
   testnet:
-    rpc_url: https://services.datahaven-dev.network/stagenet
-    wss_url: wss://services.datahaven-dev.network/stagenet
+    rpc_url: TODO
+    wss_url: TODO
     chain_id: 1283
     website_faucet_amount: 1.1 HAVE tokens
