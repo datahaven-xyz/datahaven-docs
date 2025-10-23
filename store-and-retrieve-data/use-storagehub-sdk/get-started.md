@@ -41,7 +41,7 @@ To interact with a Main Storage Provider (MSP) through `@storagehub-sdk/msp-clie
 
 Before you begin, ensure you have the following:
 
-- Node.js ≥ 18 (recommended LTS version)
+- Node.js ≥ 18 (recommended LTS version) installed
 - pnpm, npm, or yarn for package management
 
 Blockchain access
