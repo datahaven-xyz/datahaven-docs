@@ -1,15 +1,18 @@
-const txHashBucket = await storageHubClient.createBucket(
-  mspId,
+// Create bucket on chain
+const txHash: `0x${string}` | undefined = await storageHubClient.createBucket(
+  mspId as `0x${string}`,
   bucketName,
   isPrivate,
   valuePropId
 );
-console.log('Bucket created in tx:', txHashBucket);
-
-const receiptBucket = await publicClient.waitForTransactionReceipt({
-  hash: txHashBucket,
-});
-if (receiptBucket.status !== 'success') {
-  throw new Error(`Create bucket transaction failed: ${txHashBucket}`);
+console.log('createBucket() txHash:', txHash);
+if (!txHash) {
+  throw new Error('createBucket() did not return a transaction hash');
 }
-console.log('Bucket created receipt:', receiptBucket);
+
+// Wait for transaction receipt
+const receipt = await publicClient.waitForTransactionReceipt({ hash: txHash });
+console.log('Bucket creation receipt:', receipt);
+if (receipt.status !== 'success') {
+  throw new Error(`Bucket creation failed: ${txHash}`);
+}

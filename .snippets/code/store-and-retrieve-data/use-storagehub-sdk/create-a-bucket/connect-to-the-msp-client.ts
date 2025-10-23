@@ -6,7 +6,7 @@ async function run() {
   // for anything from @storagehub-sdk/core to work initWasm() is required on top of the file
   await initWasm();
 
-  const baseUrl = 'https://deo-dh-backend.stagenet.datahaven-infra.network/';
+  const baseUrl = 'TODO';
   const httpConfig: HttpClientConfig = { baseUrl: baseUrl };
 
   // connect to MSP Client

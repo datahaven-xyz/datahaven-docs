@@ -1,4 +1,5 @@
 import { HealthStatus } from '@storagehub-sdk/msp-client';
 
-const health: HealthStatus = await mspClient.getHealth();
-console.log('MSP service health:', health);
+const mspHealth: HealthStatus = await mspClient.info.getHealth();
+
+console.log('MSP service health:', mspHealth);
