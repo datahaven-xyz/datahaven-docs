@@ -44,7 +44,6 @@ Before you begin, ensure you have the following:
 - Node.js ≥ 18 (recommended LTS version) installed
 - pnpm, npm, or yarn installed for package management
 
-Blockchain access
 
 - Network endpoints (They can be found in the [Quickstart page](/store-and-retrieve-data/quick-start.md){target=_blank})
     - RPC URL
