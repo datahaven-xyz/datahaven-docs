@@ -52,7 +52,7 @@ Blockchain access
     - RPC URL
     - Web Socket URL 
 - Test tokens (They can be found in the [Quickstart page](/store-and-retrieve-data/quick-start.md){target=_blank})
-- MSP base url (It can be found in the MSP Service Endpoints sections of this page)
+- [MSP base url](TODO)
 
 ### Installation
 
