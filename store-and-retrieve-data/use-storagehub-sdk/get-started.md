@@ -10,7 +10,7 @@ slug: /store-and-retrieve-data/use-storagehub-sdk/get-started
 
 The StorageHub SDK is a developer toolkit that makes it easy to build on DataHaven by providing direct access to StorageHub pallet functionalities for managing storage, buckets, and proofs.
 
-The SDK is split into two packages for convenient separation of concerns: `@storagehub-sdk/core` and `@storagehub-sdk/msp-client`. Both packages run in both browser and Node.js environments. Here are the use cases for both of them:
+The SDK is split into two packages for convenient separation of concerns: `@storagehub-sdk/core` and `@storagehub-sdk/msp-client`. Both work in browser and Node.js environments. You may not always need both at once, so it’s useful to understand the purpose and typical use cases of each:
 
 @storagehub-sdk/core
 
@@ -43,17 +43,127 @@ Before you begin, ensure you have the following:
 
 - Node.js ≥ 18 (recommended LTS version) installed
 - pnpm, npm, or yarn installed for package management
-
-
-- Network endpoints (They can be found in the [Quickstart page](/store-and-retrieve-data/quick-start.md){target=_blank})
-    - RPC URL
-    - Web Socket URL 
-- [Test tokens](TODO: link them to the faucet){target=_blank})
+- [RPC endpoint URL](TODO link to that section in Quickstart)
+- [Web Socket URL](TODO link to that section in Quickstart)
+- [Test tokens](TODO: link them to the faucet){target=_blank}
 - [MSP base url](TODO)
 
-### Installation
+## Create a New Project Folder
 
-Within your desired project, install the SDK dependencies using the following commands:
+To create a new project folder, execute the following command in the terminal:
+
+```shell
+mkdir datahaven-project && cd datahaven-project
+```
+
+## Initialize a package.json file
+
+To initialize a package.json file, execute the following command in the terminal:
+
+=== "pnpm"
+
+    ```shell
+    pnpm init
+    ```
+
+=== "yarn"
+
+    ```shell
+    yarn init
+    ```
+
+=== "npm"
+
+    ```shell
+    npm init
+    ```
+
+The output of that command should something like this:
+
+```text
+Wrote to /Users/aljosamakevic/Documents/Sandbox/PaperMoon/Other/datahaven-project/package.json
+
+{
+  "name": "datahaven-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.17.0"
+}
+```
+
+## Add TypeScript and Node type definitions
+
+To add the Typescript and Node type definitions to your projects, execute the following command in the terminal:
+
+```shell
+pnpm add -D typescript ts-node @types/node
+```
+
+=== "pnpm"
+    ```bash
+    pnpm add -D typescript ts-node @types/node
+    ```
+=== "yarn"
+    ```bash
+    yarn add -D typescript ts-node @types/node
+    ```
+=== "npm"
+    ```bash
+    npm install -D typescript ts-node @types/node
+    ```
+
+If the installation is successful, your terminal should print something similar to:
+
+```text
+Packages: +20
+++++++++++++++++++++
+Progress: resolved 20, reused 20, downloaded 0, added 20, done
+
+devDependencies:
++ @types/node 24.9.1
++ ts-node 10.9.2
++ typescript 5.9.3
+```
+
+## Create a TypeScript config
+
+Create a `tsconfig.json` file in the root of your project and paste the following configuration:
+
+```json
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "nodenext",
+    "moduleResolution": "NodeNext",
+    "esModuleInterop": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "outDir": "dist",
+    "declaration": true,
+    "sourceMap": true
+  },
+  "include": ["src/**/*.ts"]
+}
+```
+
+## Initialize the src Directory
+
+To initialize the src directory, execute the following command in the root of your project:
+
+```shell
+mkdir src && touch src/index.ts
+```
+
+## Add the StorageHub SDK to Your Project
+
+Add the core and MSP client packages to your project. These libraries provide the APIs and utilities needed to interact with DataHaven’s storage network.
 
 === "pnpm"
     ```bash
@@ -67,6 +177,16 @@ Within your desired project, install the SDK dependencies using the following co
     ```bash
     npm install @storagehub-sdk/core @storagehub-sdk/msp-client
     ```
+
+```text
+Packages: +50
+++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 70, reused 70, downloaded 0, added 50, done
+
+dependencies:
++ @storagehub-sdk/core 0.2.0
++ @storagehub-sdk/msp-client 0.2.0
+```
 
 ---
 
