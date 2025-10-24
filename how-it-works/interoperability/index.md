@@ -13,4 +13,4 @@ The Snowbridge protocol enables DataHaven to serve as an on-chain decentralized 
 
 ## Topics
 
-- [Snowbridge & Cross-Chain Messaging](snowbridge-and-cross-chain-messaging.md) - Understanding the importance of Cross-chain communication for DataHaven and how the Snowbridge protocol fits into that
+- [Snowbridge and Cross-Chain Messaging](snowbridge-and-cross-chain-messaging.md) - Understanding the importance of Cross-chain communication for DataHaven and how the Snowbridge protocol fits into that

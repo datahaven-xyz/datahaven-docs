@@ -13,4 +13,4 @@ DataHaven utilizes Ethereum's validators through EigenLayer's restaking mechanis
 
 ## Topics
 
-- [EigenLayer AVS & Shared Security Model](eigenlayer-avs-shared-security-model.md) - High-level overview of restaking, how it works, and its benefits 
+- [EigenLayer AVS and Shared Security Model](eigenlayer-avs-shared-security-model.md) - High-level overview of restaking, how it works, and its benefits 
