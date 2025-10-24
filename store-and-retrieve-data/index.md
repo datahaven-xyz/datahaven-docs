@@ -3,23 +3,23 @@ title: Store and Retrieve Data Overview
 description: Overview of the complete data storage and retrieval process in DataHaven, from bucket creation to verification and file access.
 ---
 
-DataHaven is a verifiable storage network that separates storage from verification. Providers keep your file bytes off-chain, while the chain records a small, verifiable receipt so integrity can be checked at read time. This section shows at a high level how to create a bucket, upload, share access, and retrieve files.
+DataHaven is a verifiable storage network that separates storage from verification. Storage Providers hold your file bytes off-chain, while the chain records compact on-chain commitments (“receipts”) so integrity can be checked at read time. This section shows at a high level how to create a bucket, upload, and retrieve files.
 
 ## How File Storage works at a glance
 
-1. **Pick a provider and bucket**: Connect your wallet or app identity. Select a Main Storage Provider (MSP) and create or reuse a bucket. You can make it public or private (viewable only by a user who was authorized by the MSP).
+1. **Pick an MSP and bucket**: Connect your wallet or app identity. Select a Main Storage Provider (MSP) and create or reuse a bucket. Today, access is owner-only; sharing/public access is planned. Set your desired replication factor (BSP replicas).
 
-2. **Upload**: The app uploads the file to an MSP and anchors a compact on-chain receipt. The network then replicates the file to Backup Storage Providers (BSPs) to meet the configured replication target.
+2. **Upload**: Your app opens a storage request to the MSP. The MSP accepts it, stores the bytes off-chain, coordinates replication to protocol-assigned Backup Storage Providers (BSPs), and then anchors a per-bucket update on-chain (a compact commitment that indirectly commits to the file). If replication or anchoring fails, the upload aborts.
 
-3. **Retrieve**: When you download, the provider returns the bytes plus a small proof. The app can verify this against the on-chain receipt before using the data.
+3. **Retrieve**: If the storage request is fulfilled (BSP replication reached the target and the bucket’s root was anchored), the MSP returns the bytes plus a Merkle proof and your app verifies it against the bucket’s on-chain commitment. If the request is pending or expired due to insufficient BSPs, the MSP may still serve the bytes, but there’s no on-chain anchor to verify against. Treat it as not yet secured by the network until replication completes.
 
-Ready to try it in the dapp? It's a straightforward create, upload, and retrieve process.
+Ready to try it in the dapp? It’s a straightforward create, upload, and retrieve process.
 
 ## Start here: core workflows
 
-- Create a bucket to organize your data. Choose Public for shared access or Private (encrypted) for sensitive information.
-- Upload files to an MSP. The app creates a storage request and submits an on-chain transaction that anchors a tiny fingerprint of each file.
-- Retrieve files later with a lightweight integrity check against the on-chain receipt.
+- Create a bucket and choose an MSP. Access is currently owner-only; sharing/public access is on the roadmap. For confidentiality, you can encrypt files client-side before uploading.
+- Upload files: the app creates a storage request; after BSP replication acks, the MSP anchors a per-bucket update on-chain that commits to your file(s).
+- Retrieve files later with a lightweight integrity check against the bucket’s on-chain commitment.
 
 Before you jump into guides, here are a few practical notes.
 
@@ -27,9 +27,9 @@ Before you jump into guides, here are a few practical notes.
 
 As you plan your workflow, consider the following concepts:
 
-- **Costs and deposits.** Wallet and network fees apply. Creating a bucket and registering data requires a small on-chain deposit. Providers may charge periodic storage fees.
-- **Provider choice and capacity.** You pick a Main Storage Provider (MSP). Capacity, performance, and pricing are provider-specific. You can switch later by creating a new bucket with another MSP and moving your data.
-- **Extra large files.** Large uploads are supported. The app automatically handles chunking and integrity checks under the hood.
+- **Costs and deposits:** Network fees apply. Storage is billed via a prepaid deposit that streams per block.
+- **MSP choice and capacity:** You pick a Main Storage Provider (MSP). Market dynamics encourage MSPs to offer capacity and performance at competitive prices. You can reassign a bucket to a new MSP later; the new MSP rehydrates from BSP replicas (no manual copying required).
+- **Large files:** Files up to 2 GB are currently supported (subject to change). The app automatically handles chunking and integrity checks under the hood.
 
 ## Next steps
 
