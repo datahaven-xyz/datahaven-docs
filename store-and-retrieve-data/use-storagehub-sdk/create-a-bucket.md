@@ -43,7 +43,7 @@ Install the following dependencies:
 
     ```
 
-- **[`@storagehub/types-bundle`](https://www.npmjs.com/package/@storagehub/types-bundle){taget=_blank}:** Describes DataHaven’s custom on-chain types.
+- **[`@storagehub/types-bundle`](https://www.npmjs.com/package/@storagehub/types-bundle){target=_blank}:** Describes DataHaven’s custom on-chain types.
 
 - **[`@polkadot/api`](https://www.npmjs.com/package/@polkadot/api){target=_blank}:** The core JavaScript library used to talk to any Substrate-based blockchain which in our case is DataHaven.
 
