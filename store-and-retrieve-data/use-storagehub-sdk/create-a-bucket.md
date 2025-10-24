@@ -16,7 +16,7 @@ In this guide you will learn how to create your first bucket programmatically us
 - `package.json` file initialized
 - Typescript and Node type definitions added
 - Created a Typescript config
-- [@storagehub-sdk/core](https://www.npmjs.com/package/@storagehub-sdk/core) and [@storagehub-sdk/msp-client](https://www.npmjs.com/package/@storagehub-sdk/msp-client) installed 
+- [@storagehub-sdk/core](https://www.npmjs.com/package/@storagehub-sdk/core){target=_blank} and [@storagehub-sdk/msp-client](https://www.npmjs.com/package/@storagehub-sdk/msp-client){target=_blank} installed 
 
 See the [Get Started guide](/store-and-retrieve-data/use-storagehub-sdk/get-started) for detailed setup instructions.
 
