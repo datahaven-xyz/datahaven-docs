@@ -10,7 +10,7 @@ New networks face a cold-start security problem. EigenLayer addresses this with 
 
 ## What is EigenLayer?
 
-[EigenLayer](https://docs.eigencloud.xyz/){target=_blank} is a protocol built on Ethereum that introduces restaking which is a mechanism allowing staked ETH and Liquid Staking Tokens (LSTs) to secure additional networks and services beyond Ethereum itself. This extends Ethereum’s economic security to new applications, known as Autonomous Verifiable Services, orAVSs ([formerly known as Actively Validated Services](https://blog.eigencloud.xyz/redefining-avs-from-actively-validated-to-autonomous-verifiable-services/){target=_blank}), without requiring each to bootstrap its own validator set. Each AVS defines the rules that operators must follow and the proofs they must submit to show they’re executing the service correctly.
+[EigenLayer](https://docs.eigencloud.xyz/){target=_blank} is a protocol built on Ethereum that introduces restaking which is a mechanism allowing staked ETH and Liquid Staking Tokens (LSTs) to secure additional networks and services beyond Ethereum itself. This extends Ethereum’s economic security to new applications, known as Autonomous Verifiable Services, or AVSs ([formerly known as Actively Validated Services](https://blog.eigencloud.xyz/redefining-avs-from-actively-validated-to-autonomous-verifiable-services/){target=_blank}), without requiring each to bootstrap its own validator set. Each AVS defines the rules that operators must follow and the proofs they must submit to show they’re executing the service correctly.
 
 ## What are EigenLayer Operators?
 
