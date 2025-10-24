@@ -1,22 +1,20 @@
 ---
-title: EigenLayer AVS & Shared Security Model
+title: EigenLayer AVS and Shared Security Model
 description: Overview of DataHaven’s integration with EigenLayer as an AVS.
 slug: /how-it-works/security-model-and-restaking/eigenlayer-avs-shared-security-model
 ---
 
 ## Introduction
 
-New networks often struggle to achieve the same level of economic security that secures already established networks such as Ethereum. EigenLayer solves this issue through its restaking mechanism which allows established networks to extend their economic security to other networks. For DataHaven, this means it can use that mechanism to build trust into its foundation from day one.
+New networks face a cold-start security problem. EigenLayer addresses this with restaking, allowing Ethereum’s existing economic security to be extended to other networks. For DataHaven, this means inheriting stronger security from day one.
 
 ## What is EigenLayer?
 
-EigenLayer is a protocol built on Ethereum that introduces restaking which is a mechanism allowing staked ETH and Liquid Staking Tokens (LSTs) to secure additional networks and services beyond Ethereum itself. This extends Ethereum’s economic security to new applications, known as Actively Validated Services (AVSs), without requiring each to bootstrap its own validator set. Each AVS defines the rules that operators must follow and the proofs they must submit to show they’re executing the service correctly.
-
+[EigenLayer](https://docs.eigencloud.xyz/){target=_blank} is a protocol built on Ethereum that introduces restaking which is a mechanism allowing staked ETH and Liquid Staking Tokens (LSTs) to secure additional networks and services beyond Ethereum itself. This extends Ethereum’s economic security to new applications, known as Autonomous Verifiable Services, orAVSs ([formerly known as Actively Validated Services](https://blog.eigencloud.xyz/redefining-avs-from-actively-validated-to-autonomous-verifiable-services/){target=_blank}), without requiring each to bootstrap its own validator set. Each AVS defines the rules that operators must follow and the proofs they must submit to show they’re executing the service correctly.
 
 ## What are EigenLayer Operators?
 
 Operators are independent entities that run specialized software to perform validation tasks for one or more AVSs. They use their restaked ETH as collateral, meaning that if they act maliciously or fail to perform their duties, they can be slashed. By opting in to support specific AVSs, operators essentially lend their security and trustworthiness to those networks in exchange for rewards. Currently, in Testnet the operators will be preselected, but this will change as mainnet is released.
-
 
 ## DataHaven's Role as an AVS
 

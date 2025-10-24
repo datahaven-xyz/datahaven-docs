@@ -1,6 +1,6 @@
 ---
 title: Snowbridge & Cross-Chain Messaging
-description: Explaining how Snowbridge enables trustless communication between DataHaven and Ethereum.
+description: Overview of how Snowbridge enables trustless communication between DataHaven and Ethereum.
 slug: /how-it-works/interoperability/snowbridge-and-cross-chain-messaging
 ---
 
@@ -21,3 +21,15 @@ DataHaven is designed to operate as part of a broader, interoperable Web3 ecosys
 - **Inherit security from Ethereum:** Messages from EigenLayer’s contracts (e.g. validator sets, slashing events) are relayed to DataHaven in a verifiable way.
 - **Send state updates back to Ethereum:** DataHaven reports block finality, validator rewards, and other on-chain data back to EigenLayer contracts.
 - **Enable multi-chain dApps:** Developers can build applications that combine Ethereum smart contracts and DataHaven’s decentralized storage in one workflow (e.g. mint an NFT on Ethereum while storing its underlying data on DataHaven).
+
+## How it works (at a glance)
+
+- **Trustless verification:** Messages are verified by on-chain light clients using cryptographic proofs with no trusted intermediaries.
+- **Bi-directional by design:** DataHaven can receive messages from Ethereum (e.g., AVS updates) and can send messages back when required.
+- **Relayer-incentivized delivery:** Senders attach fees to cover execution and relaying; relayers are compensated upon successful delivery.
+- **Operator address mapping:** Validators publish their DataHaven address so AVS-related messages (like validator lists) reference the correct accounts on-chain.
+
+## How DataHaven Uses Snowbridge
+
+- **AVS coordination:** Propagating validator-set updates between Ethereum (EigenLayer) and DataHaven, so both networks share a consistent view.
+- **Interoperable UX:** Enabling future flows like reporting state back to Ethereum or bridging app-specific messages without custom trust assumptions.
