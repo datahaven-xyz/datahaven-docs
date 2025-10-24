@@ -10,43 +10,32 @@ slug: /store-and-retrieve-data/use-storagehub-sdk/get-started
 
 The StorageHub SDK is a developer toolkit that makes it easy to build on DataHaven by providing direct access to StorageHub pallet functionalities for managing storage, buckets, and proofs.
 
-The SDK is split into two packages for convenient separation of concerns: `@storagehub-sdk/core` and `@storagehub-sdk/msp-client`. Both work in browser and Node.js environments. You may not always need both at once, so it’s useful to understand the purpose and typical use cases of each:
+The SDK is split into two packages for convenient separation of concerns: `@storagehub-sdk/core` and `@storagehub-sdk/msp-client`. Both work in browser and Node.js environments. You may not always need both at once, so it’s useful to understand the purpose and typical use cases of each. 
 
-@storagehub-sdk/core
+As a quick rule of thumb, use `@storagehub-sdk/core` for all chain-facing interactions (keys, precompiles, proofs), and `@storagehub-sdk/msp-client` for all provider-facing operations (MSP connection, MSP authentication, bucket management, file uploads and downloads).
+
+[@storagehub-sdk/core](https://www.npmjs.com/package/@storagehub-sdk/core){target=_blank}
 
 - Backend‑agnostic building blocks (wallets, EIP‑1193, precompile helpers bridging Substrate↔EVM, Merkle/WASM utilities, HttpClient, shared types).
 - Signing, Merkle/proofs, precompile calls, low‑level HTTP, shared types.
 - This package includes EVM account‑typed helpers, WASM‑backed file utilities, and stable primitives **usable without any backend**.
-- [Read more](https://www.npmjs.com/package/@storagehub-sdk/core){target=_blank}
 
-@storagehub-sdk/msp-client
+[@storagehub-sdk/msp-client](https://www.npmjs.com/package/@storagehub-sdk/msp-client){target=_blank}
 
-- Retrieving MSP‑specific client information (health, auth nonce/verify, upload/download endpoints). All MSP‑tied logic lives here.
-- Talking to an MSP backend (auth + file transfer).
+- Retrieve MSP‑specific client information (health, auth nonce/verify, upload/download endpoints). All MSP‑tied logic lives here.
+- Talk to an MSP backend (auth + file transfer).
 - Includes REST contracts for MSP, token handling, streaming/multipart upload and download helpers.
-- [Read more](https://www.npmjs.com/package/@storagehub-sdk/msp-client){target=_blank}
-
-## MSP Service Endpoints
-
-To interact with a Main Storage Provider (MSP) through `@storagehub-sdk/msp-client`, a service endpoint is required. You can use any of the following MSP base urls as an endpoint for storing and retrieving your files:
-
-
-
- |      Network      |                                   Value                                   |
- |:-----------------:|:-------------------------------------------------------------------------:|
- | DataHaven Testnet | <pre>```https://deo-dh-backend.stagenet.datahaven-infra.network/```</pre> |
-                    
 
 ## Prerequisites
 
 Before you begin, ensure you have the following:
 
-- Node.js ≥ 18 (recommended LTS version) installed
-- pnpm, npm, or yarn installed for package management
-- [RPC endpoint URL](TODO link to that section in Quickstart)
-- [Web Socket URL](TODO link to that section in Quickstart)
-- [Test tokens](TODO: link them to the faucet){target=_blank}
-- [MSP base url](TODO)
+- [Node.js ≥ 22](https://nodejs.org/en/download) (recommended LTS version) installed  
+- [pnpm](https://pnpm.io/){taget=_blank}, [npm](https://www.npmjs.com/){target=_blank}, or [yarn](https://yarnpkg.com/){target=_blank} installed for package management
+- [RPC endpoint URL](#configure-network)
+- [Web Socket URL](#configure-network)
+- [Test tokens](TODO: link to the faucet){target=_blank}
+- [MSP base url](#get-msp-url)
 
 ## Create a New Project Folder
 
@@ -75,7 +64,7 @@ To initialize a package.json file, execute the following command in the terminal
 === "npm"
 
     ```shell
-    npm init
+    npm init --y
     ```
 
 The output of that command should be something like this:
@@ -101,10 +90,6 @@ Wrote to .../datahaven-project/package.json
 ## Add TypeScript and Node type definitions
 
 To add the TypeScript and Node type definitions to your projects, execute the following command in the terminal:
-
-```shell
-pnpm add -D typescript ts-node @types/node
-```
 
 === "pnpm"
     ```bash
