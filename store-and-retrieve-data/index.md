@@ -7,7 +7,7 @@ DataHaven is a verifiable storage network that separates storage from verificati
 
 ## How File Storage works at a glance
 
-1. **Pick a provider and bucket**: Connect your wallet or app identity. Select a Main Storage Provider (MSP) and create or reuse a bucket. You can make it public or private (encrypted).
+1. **Pick a provider and bucket**: Connect your wallet or app identity. Select a Main Storage Provider (MSP) and create or reuse a bucket. You can make it public or private (viewable only by a user who was authorized by the MSP).
 
 2. **Upload**: The app uploads the file to an MSP and anchors a compact on-chain receipt. The network then replicates the file to Backup Storage Providers (BSPs) to meet the configured replication target.
 
