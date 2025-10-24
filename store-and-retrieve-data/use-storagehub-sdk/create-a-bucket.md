@@ -49,7 +49,7 @@ Install the following dependencies:
 
 - **[`@storagehub/api-augment`](https://www.npmjs.com/package/@storagehub/api-augment){target=_blank}:** Extends `@polkadot/api` with DataHaven’s custom pallets and RPC methods.
 
-- **[`viem`](https://www.npmjs.com/package/viem){taget=_blank}:** Lightweight library for building Ethereum-compatible applications.
+- **[`viem`](https://www.npmjs.com/package/viem){target=_blank}:** Lightweight library for building Ethereum-compatible applications.
 
 
 ## Connect to the MSP Client
