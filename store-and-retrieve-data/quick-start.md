@@ -14,7 +14,7 @@ By integrating with EigenLayer, DataHaven operates as an Autonomous Verifiable S
 To start building on DataHaven, check out the list of currently available DataHaven networks:
 
 |      Network      | Network Type | Native Asset Symbol | Native Asset Decimals |
-| :---------------: | :----------: | :-----------------: | :-------------------: |
+|:-----------------:|:------------:|:-------------------:|:---------------------:|
 | DataHaven TestNet |   TestNet    |        HAVE         |          18           |
 
 ### Network Configurations
@@ -24,7 +24,7 @@ To interact with the network, use the following information to configure DataHav
 === "DataHaven TestNet"
 
 |    Variable     |                    Value                     |
-| :-------------: | :------------------------------------------: |
+|:---------------:|:--------------------------------------------:|
 |    Chain ID     | <pre>`{{ networks.testnet.chain_id }}`</pre> |
 | Public RPC URLs | <pre>`{{ networks.testnet.rpc_url }}`</pre>  |
 | Public WSS URLs | <pre>`{{ networks.testnet.wss_url }}`</pre>  |
@@ -33,8 +33,8 @@ To interact with the network, use the following information to configure DataHav
 
 DataHaven provides dedicated explorers for both its EVM and Substrate layers:
 
-|         Explorer         |   Layer   |
-| :----------------------: | :-------: |
+|           Explorer           |   Layer   |
+|:----------------------------:|:---------:|
 | [TODO](TODO){target=\_blank} | Ethereum  |
 | [TODO](TODO){target=\_blank} | Substrate |
 
@@ -43,7 +43,7 @@ DataHaven provides dedicated explorers for both its EVM and Substrate layers:
 To begin building on a DataHaven test network, you'll need to obtain HAVE tokens to cover transaction fees and interact with the network. These tokens are distributed freely for testing and development purposes only.
 
 |      TestNet      |            Where To Get Tokens From             | Amount Dispensed                                                                 |
-| :---------------: | :---------------------------------------------: | -------------------------------------------------------------------------------- |
+|:-----------------:|:-----------------------------------------------:|----------------------------------------------------------------------------------|
 | DataHaven TestNet | [Official TestNet Faucet](TODO){target=\_blank} | The faucet dispenses {{ networks.testnet.website_faucet_amount }} every 24 hours |
 
 !!! note
@@ -54,7 +54,7 @@ To begin building on a DataHaven test network, you'll need to obtain HAVE tokens
 To interact with a Main Storage Provider (MSP) through `@storagehub-sdk/msp-client`, a service endpoint is required. You can use any of the following MSP base URLs as an endpoint for storing and retrieving your files:
 
 |      Network      |                                 Value                                 |
-| :---------------: | :-------------------------------------------------------------------: |
+|:-----------------:|:---------------------------------------------------------------------:|
 | DataHaven TestNet | <pre>`https://deo-dh-backend.stagenet.datahaven-infra.network/`</pre> |
 
 ## Next Steps
