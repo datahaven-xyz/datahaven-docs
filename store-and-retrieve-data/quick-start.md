@@ -1,6 +1,6 @@
 ---
-title: Quick Start
-description: Connect to the DataHaven TestNet, fund your account, and access MSP endpoints to start building with the StorageHub SDK.
+title: DataHaven Quick Start Guide
+description: Everything you need to start building on DataHaven, including network configs, block explorers, faucets, and MSP endpoints for working with the StorageHub SDK.
 ---
 
 # DataHaven Quick Start Guide
