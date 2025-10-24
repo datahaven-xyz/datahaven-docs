@@ -6,13 +6,14 @@ description: Guide on how to create a new storage bucket with the StorageHub SDK
 # Create a Bucket
 
 ## Prerequisites
-- [Node.js](https://nodejs.org/en/download){target=_blank} v18+ installed
+- [Node.js](https://nodejs.org/en/download){target=_blank} v22+ installed
 - Project folder created
 - `package.json` file initialized
 - Typescript and Node type definitions added
 - Created a Typescript config
-- `@storagehub-sdk/core` and `@storagehub-sdk/msp-client` installed 
-See the [Get Started guide](/store-and-retrieve-data/use-storagehub-sdk/get-started.md) for detailed setup instructions.
+- [@storagehub-sdk/core](https://www.npmjs.com/package/@storagehub-sdk/core) and [@storagehub-sdk/msp-client](https://www.npmjs.com/package/@storagehub-sdk/msp-client) installed 
+
+See the [Get Started guide](/store-and-retrieve-data/use-storagehub-sdk/get-started) for detailed setup instructions.
 
 ## Install Extra Dependencies
 
@@ -37,10 +38,14 @@ Install the following dependencies:
 
     ```
 
-- **`@storagehub/types-bundle`:** Describes DataHaven’s custom on-chain types.
-- **`@polkadot/api`:** The core JavaScript library used to talk to any Substrate-based blockchain which in our case is DataHaven.
-- **`@storagehub/api-augment`:** Extends @polkadot/api with DataHaven’s custom pallets and RPC methods.
-- **`viem`:** Lightweight library for building Ethereum-compatible applications.
+- **[`@storagehub/types-bundle`](https://www.npmjs.com/package/@storagehub/types-bundle){taget=_blank}:** Describes DataHaven’s custom on-chain types.
+
+- **[`@polkadot/api`](https://www.npmjs.com/package/@polkadot/api){target=_blank}:** The core JavaScript library used to talk to any Substrate-based blockchain which in our case is DataHaven.
+
+- **[`@storagehub/api-augment`](https://www.npmjs.com/package/@storagehub/api-augment){taget=_blank}:** Extends `@polkadot/api` with DataHaven’s custom pallets and RPC methods.
+
+- **[`viem`](https://www.npmjs.com/package/viem){taget=_blank}:** Lightweight library for building Ethereum-compatible applications.
+
 
 ## Connect to the MSP Client
 
@@ -105,7 +110,7 @@ To check if the derived bucket ID is already on-chain the Polkadot API must be i
 
 Check if a bucket with that derived id already exists on-chain as follows:
 
-!!! note "The mspClient can also be used to check if the derived bucket ID already exists using the .getBucket function, however this only checks if that specific MSP contains a bucket with that ID."
+!!! note "The `mspClient` can also be used to check if the derived bucket ID already exists using the .getBucket function, however this only checks if that specific MSP contains a bucket with that ID."
 
 ```ts title="index.ts"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/does-derived-bucket-id-exist.ts'
@@ -119,13 +124,13 @@ Bucket before creation is empty: true
 
 ## Create a Bucket
 
-In order to prepare all the parameters needed for the .createBucket function, more data from the MSP is needed such as mspId and valuePropId. Add the following code to retrieve it:
+In order to prepare all the parameters needed for the `createBucket` function, more data from the MSP is needed such as `mspId` and `valuePropId`. Add the following code to retrieve it:
 
 ```ts title="index.ts"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket-prep.ts'
 ```
 
-Execute the `.createBucket()` function using the storageHubClient and previously gathered parameters as follows:
+Execute the `createBucket()` function using the storageHubClient and previously gathered parameters as follows:
 
 ```ts title="index.ts"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts'
@@ -133,7 +138,7 @@ Execute the `.createBucket()` function using the storageHubClient and previously
 
 ## Check if Bucket is On-Chain
 
-Add the following code to check if the bucket can be found on-chain, as well as to read the bucket’s data:
+Add the following code to check if the bucket can be found on-chain, and to read the bucket’s data:
 
 ```ts title="index.ts"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/is-bucket-on-chain.ts'
