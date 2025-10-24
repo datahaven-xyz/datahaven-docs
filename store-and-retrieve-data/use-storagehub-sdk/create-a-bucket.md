@@ -5,7 +5,12 @@ description: Guide on how to create a new storage bucket with the StorageHub SDK
 
 # Create a Bucket
 
+## Introduction
+
+In this guide you will learn how to create your first bucket programmatically using the Storage Hub SDK. Buckets are logical containers (folders) that group your files under a Main Storage Provider (MSP). Each bucket is tied to a specific MSP and value proposition, which together define where your data will be stored and at what price. Before you can issue storage requests or upload files on DataHaven, you user must first create a bucket.
+
 ## Prerequisites
+
 - [Node.js](https://nodejs.org/en/download){target=_blank} v22+ installed
 - Project folder created
 - `package.json` file initialized
@@ -66,8 +71,8 @@ The response should look something like this:
 ```text
 MSP Health Status: {
     status: 'healthy',
-    version: '0.2.0',
-    service: 'storagehub-backend',
+    version: '0.1.0',
+    service: 'backend-title',
     components: {
         storage: { status: 'healthy' },
         postgres: { status: 'healthy' },
