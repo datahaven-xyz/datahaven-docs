@@ -47,7 +47,7 @@ Install the following dependencies:
 
 - **[`@polkadot/api`](https://www.npmjs.com/package/@polkadot/api){target=_blank}:** The core JavaScript library used to talk to any Substrate-based blockchain which in our case is DataHaven.
 
-- **[`@storagehub/api-augment`](https://www.npmjs.com/package/@storagehub/api-augment){taget=_blank}:** Extends `@polkadot/api` with DataHaven’s custom pallets and RPC methods.
+- **[`@storagehub/api-augment`](https://www.npmjs.com/package/@storagehub/api-augment){target=_blank}:** Extends `@polkadot/api` with DataHaven’s custom pallets and RPC methods.
 
 - **[`viem`](https://www.npmjs.com/package/viem){taget=_blank}:** Lightweight library for building Ethereum-compatible applications.
 
