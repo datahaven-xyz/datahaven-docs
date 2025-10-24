@@ -10,17 +10,17 @@ slug: /store-and-retrieve-data/use-storagehub-sdk/get-started
 
 The StorageHub SDK is a developer toolkit that makes it easy to build on DataHaven by providing direct access to StorageHub pallet functionalities for managing storage, buckets, and proofs.
 
-The SDK is split into two packages for convenient separation of concerns: `@storagehub-sdk/core` and `@storagehub-sdk/msp-client`. Both work in browser and Node.js environments. You may not always need both at once, so it’s useful to understand the purpose and typical use cases of each. 
+The SDK is split into two packages for convenient separation of concerns: `@storagehub-sdk/core` and `@storagehub-sdk/msp-client`. Both work in browsers and Node.js environments. You may not always need both at once, so it’s useful to understand the purpose and typical use cases of each. 
 
 As a quick rule of thumb, use `@storagehub-sdk/core` for all chain-facing interactions (keys, precompiles, proofs), and `@storagehub-sdk/msp-client` for all provider-facing operations (MSP connection, MSP authentication, bucket management, file uploads and downloads).
 
-[@storagehub-sdk/core](https://www.npmjs.com/package/@storagehub-sdk/core){target=_blank}
+The primary functions of [`@storagehub-sdk/core`](https://www.npmjs.com/package/@storagehub-sdk/core){target=_blank} are:
 
 - Backend‑agnostic building blocks (wallets, EIP‑1193, precompile helpers bridging Substrate↔EVM, Merkle/WASM utilities, HttpClient, shared types).
 - Signing, Merkle/proofs, precompile calls, low‑level HTTP, shared types.
 - This package includes EVM account‑typed helpers, WASM‑backed file utilities, and stable primitives **usable without any backend**.
 
-[@storagehub-sdk/msp-client](https://www.npmjs.com/package/@storagehub-sdk/msp-client){target=_blank}
+The primary functions of [`@storagehub-sdk/msp-client`](https://www.npmjs.com/package/@storagehub-sdk/msp-client){target=_blank} are:
 
 - Retrieve MSP‑specific client information (health, auth nonce/verify, upload/download endpoints). All MSP‑tied logic lives here.
 - Talk to an MSP backend (auth + file transfer).
@@ -30,12 +30,12 @@ As a quick rule of thumb, use `@storagehub-sdk/core` for all chain-facing intera
 
 Before you begin, ensure you have the following:
 
-- [Node.js ≥ 22](https://nodejs.org/en/download) (recommended LTS version) installed  
-- [pnpm](https://pnpm.io/){taget=_blank}, [npm](https://www.npmjs.com/){target=_blank}, or [yarn](https://yarnpkg.com/){target=_blank} installed for package management
+- [Node.js ≥ 22](https://nodejs.org/en/download){target=_blank} (recommended LTS version) installed  
+- [pnpm](https://pnpm.io/){target=_blank}, [npm](https://www.npmjs.com/){target=_blank}, or [yarn](https://yarnpkg.com/){target=_blank} installed for package management
 - [RPC endpoint URL](#configure-network)
 - [Web Socket URL](#configure-network)
 - [Test tokens](TODO: link to the faucet){target=_blank}
-- [MSP base url](#get-msp-url)
+- [MSP base URL](#get-msp-url)
 
 ## Create a New Project Folder
 

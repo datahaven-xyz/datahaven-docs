@@ -52,15 +52,15 @@ To begin building on a DataHaven test network, you’ll need to obtain HAVE toke
 | DataHaven Testnet | The [DataHaven Testnet Faucet](TODO){target=\_blank} website. <br> The faucet dispenses {{ networks.testnet.website_faucet_amount }} every 24 hours |
 |                                        |
 
-## MSP Service Endpoints {: #get-msp-url }
+## MSP Service Endpoints
 
-To interact with a Main Storage Provider (MSP) through `@storagehub-sdk/msp-client`, a service endpoint is required. You can use any of the following MSP base url as an endpoint for storing and retrieving your files:
+To interact with a Main Storage Provider (MSP) through `@storagehub-sdk/msp-client`, a service endpoint is required. You can use any of the following MSP base URL as an endpoint for storing and retrieving your files:
 
  |      Network      |                                   Value                                   |
  |:-----------------:|:-------------------------------------------------------------------------:|
  | DataHaven Testnet | <pre>```https://deo-dh-backend.stagenet.datahaven-infra.network/```</pre> |
 
----
+## Next Steps
 
 <div class="grid cards" markdown>
 
@@ -70,7 +70,7 @@ To interact with a Main Storage Provider (MSP) through `@storagehub-sdk/msp-clie
 
     Install StorageHub SDK dependencies to start storing, retrieving, and verifying data.
 
-    [:octicons-arrow-right-24: Get started](/store-and-retrieve-data/use-storagehub-sdk/get-started.md)
+    [:octicons-arrow-right-24: Get started](/store-and-retrieve-data/use-storagehub-sdk/get-started/)
 
 -   __Build a Data Workflow End-to-End__
 
