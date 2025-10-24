@@ -31,7 +31,6 @@ As you plan your workflow, consider the following concepts:
 - **Provider choice and capacity.** You pick a Main Storage Provider (MSP). Capacity, performance, and pricing are provider-specific. You can switch later by creating a new bucket with another MSP and moving your data.
 - **Extra large files.** Large uploads are supported. The app automatically handles chunking and integrity checks under the hood.
 
-
 ## Next steps
 
 <div class="grid cards" markdown>
