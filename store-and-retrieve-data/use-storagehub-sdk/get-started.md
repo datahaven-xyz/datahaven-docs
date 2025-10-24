@@ -1,6 +1,6 @@
 ---
 title: Get Started
-description: TODO
+description: Set up your development environment, install the StorageHub SDK, and prepare your project to start interacting with the DataHaven network.
 slug: /store-and-retrieve-data/use-storagehub-sdk/get-started
 ---
 

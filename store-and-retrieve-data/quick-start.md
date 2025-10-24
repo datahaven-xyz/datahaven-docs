@@ -1,6 +1,6 @@
 ---
 title: Quick Start
-description: Set up your environment and connect to the DataHaven network.
+description: Connect to the DataHaven Testnet, fund your account, and access MSP endpoints to start building with the StorageHub SDK.
 slug: /store-and-retrieve-data/quick-start
 ---
 
