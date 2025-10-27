@@ -5,226 +5,255 @@ description: Guide on how to create a new storage bucket with the StorageHub SDK
 
 # Create a Bucket
 
-## Introduction
+Buckets are logical containers (folders) that group your files under a Main Storage Provider (MSP). Each bucket is tied to a specific MSP and value proposition, which together define where your data will be stored and at what price. Before you can issue storage requests or upload files to DataHaven, you must first create a bucket.
 
-In this guide you will learn how to create your first bucket programmatically using the Storage Hub SDK. Buckets are logical containers (folders) that group your files under a Main Storage Provider (MSP). Each bucket is tied to a specific MSP and value proposition, which together define where your data will be stored and at what price. Before you can issue storage requests or upload files on DataHaven, you user must first create a bucket.
+This guide walks you through creating your first bucket programmatically using the StorageHub SDK — from connecting to an MSP and initializing the SDK to deriving a bucket ID, creating the bucket on-chain, and verifying its data.
 
 ## Prerequisites
 
 - [Node.js](https://nodejs.org/en/download){target=_blank} v22+ installed
-- Project folder created
-- `package.json` file initialized
-- Typescript and Node type definitions added
-- Created a Typescript config
-- [@storagehub-sdk/core](https://www.npmjs.com/package/@storagehub-sdk/core){target=_blank} and [@storagehub-sdk/msp-client](https://www.npmjs.com/package/@storagehub-sdk/msp-client){target=_blank} installed 
+- [A TypeScript project](/store-and-retrieve-data/use-storagehub-sdk/get-started/#set-up-a-typescript-project){target=\_blank}
+- The [StorageHub SDK](/store-and-retrieve-data/use-storagehub-sdk/get-started/#install-the-storagehub-sdk){target=\_blank} installed
 
-See the [Get Started guide](/store-and-retrieve-data/use-storagehub-sdk/get-started) for detailed setup instructions.
+## Install Additional Dependencies
 
-## Install Extra Dependencies
+You'll need these packages to enable chain interaction:
 
-Install the following dependencies:
+- **[`@storagehub/types-bundle`](https://www.npmjs.com/package/@storagehub/types-bundle){target=_blank}:** Describes DataHaven's custom on-chain types.
+
+- **[`@polkadot/api`](https://www.npmjs.com/package/@polkadot/api){target=_blank}:** The core JavaScript library used to talk to any Substrate-based blockchain, which in our case is DataHaven.
+
+- **[`@storagehub/api-augment`](https://www.npmjs.com/package/@storagehub/api-augment){target=_blank}:** Extends `@polkadot/api` with DataHaven's custom pallets and RPC methods.
+
+- **[`viem`](https://www.npmjs.com/package/viem){target=_blank}:** Lightweight library for building Ethereum-compatible applications.
+
+To install them, select your package manager below:
 
 === "pnpm"
 
     ```bash
     pnpm add @storagehub/types-bundle @polkadot/api @storagehub/api-augment viem
-
     ```
+
 === "yarn"
 
     ```bash
     yarn add @storagehub/types-bundle @polkadot/api @storagehub/api-augment viem
-
     ```
+
 === "npm"
 
     ```bash
     npm install @storagehub/types-bundle @polkadot/api @storagehub/api-augment viem
-
     ```
 
-- **[`@storagehub/types-bundle`](https://www.npmjs.com/package/@storagehub/types-bundle){target=_blank}:** Describes DataHaven’s custom on-chain types.
+## Initialize Clients
 
-- **[`@polkadot/api`](https://www.npmjs.com/package/@polkadot/api){target=_blank}:** The core JavaScript library used to talk to any Substrate-based blockchain which in our case is DataHaven.
+First, you'll need to set up the necessary clients to connect to the DataHaven network, which runs on a dual-protocol architecture (Substrate for core logic and EVM for compatibility).
 
-- **[`@storagehub/api-augment`](https://www.npmjs.com/package/@storagehub/api-augment){target=_blank}:** Extends `@polkadot/api` with DataHaven’s custom pallets and RPC methods.
+Create an `index.ts` file and add the following code:
 
-- **[`viem`](https://www.npmjs.com/package/viem){target=_blank}:** Lightweight library for building Ethereum-compatible applications.
+```ts title="index.ts"
+import '@storagehub/api-augment'; 
+import { ApiPromise, WsProvider } from '@polkadot/api';
+import { types } from '@storagehub/types-bundle';
+import {
+  HttpClientConfig,
+  StorageHubClient,
+  initWasm,
+} from '@storagehub-sdk/core';
+import {
+  HealthStatus,
+  InfoResponse,
+  MspClient,
+  ValueProp,
+} from '@storagehub-sdk/msp-client';
+import {
+  Chain,
+  PublicClient,
+  WalletClient,
+  createPublicClient,
+  createWalletClient,
+  defineChain,
+  http,
+} from 'viem';
+import { privateKeyToAccount } from 'viem/accounts';
 
+async function run() {
+  // For anything from @storagehub-sdk/core to work, initWasm() is required
+  // on top of the file
+  await initWasm();
+
+  // --- viem setup ---
+  // Define DataHaven chain, as expected by viem
+  const chain: Chain = defineChain({
+    id: 1283,
+    name: 'DataHaven Stagenet',
+    nativeCurrency: { name: 'Have', symbol: 'HAVE', decimals: 18 },
+    rpcUrls: {
+      default: { http: ['TODO'] },
+    },
+  });
+
+  // Define account from a private key
+  const account = privateKeyToAccount('INSERT_PRIVATE_KEY' as `0x${string}`);
+
+  // Create a wallet client using defined chain, account, and RPC url
+  const walletClient: WalletClient = createWalletClient({
+    chain,
+    account,
+    transport: http('TODO'),
+  });
+
+  // Create a public client using defined chain and RPC url
+  const publicClient: PublicClient = createPublicClient({
+    chain,
+    transport: http('TODO'),
+  });
+
+  // --- Polkadot.js API setup ---
+  const provider = new WsProvider('TODO');
+  const polkadotApi: ApiPromise = await ApiPromise.create({
+    provider,
+    typesBundle: types,
+    noInitWarn: true,
+  });
+
+  // --- Bucket creating logic ---
+  // **PLACEHOLDER FOR STEP 1: CONNECT TO MSP CLIENT & CHECK HEALTH**
+  // **PLACEHOLDER FOR STEP 2: CREATE STORAGEHUB CLIENT**
+  // **PLACEHOLDER FOR STEP 3: DERIVE BUCKET ID**
+  // **PLACEHOLDER FOR STEP 4: CHECK IF BUCKET EXISTS**
+  // **PLACEHOLDER FOR STEP 5: GET MSP PARAMS**
+  // **PLACEHOLDER FOR STEP 6: CREATE BUCKET**
+  // **PLACEHOLDER FOR STEP 7: VERIFY BUCKET**
+
+  // Disconnect the Polkadot API at the very end
+  await polkadotApi.disconnect();
+}
+
+await run();
+```
+
+!!! warning
+    It is assumed that private keys are securely stored and managed in accordance with standard security practices.
+
+With the above code in place, you now have the following:
+
+- **`walletClient`**: Used for signing and broadcasting transactions (like creating a bucket) using the derived private key.
+- **`publicClient`**: Used for reading general public data from the chain, such as checking transaction receipts or block status.
+- **`polkadotApi`**: Used for reading code chain logic and state data from the underlying DataHaven Substrate node.
 
 ## Connect to the MSP Client
 
-Add the following code to your `index.ts` file:
+Next, you'll need to connect to the MSP client and check its health status before creating a bucket.
+
+Replace the placeholder `// **PLACEHOLDER FOR STEP 1: CONNECT TO MSP CLIENT & CHECK HEALTH**` with the following code:
 
 ```ts title="index.ts"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/connect-to-the-msp-client.ts'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:connect-msp-client'
 ```
 
-Check MSP health before proceeding to make sure everything is running as expected:
+Then, check the health status by running the script:
 
-```ts title="index.ts"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/msp-health.ts'
+```bash
+ts-node index.ts
 ```
 
-The response should look something like this:
+The response should return a **`healthy`** status, like this:
 
-```text
-MSP Health Status: {
-    status: 'healthy',
-    version: '0.1.0',
-    service: 'backend-title',
-    components: {
-        storage: { status: 'healthy' },
-        postgres: { status: 'healthy' },
-        rpc: { status: 'healthy' }
-    }
-}
-```
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/output-01.html'
 
 ## Initialize the StorageHub Client 
 
-Add the following code to initialize the StorageHub Client:
-
-!!! warning "It is assumed that private keys are securely stored and managed according to standard security practices."
+Replace `// **PLACEHOLDER FOR STEP 2: CREATE STORAGEHUB CLIENT**` with the following code to initialize the StorageHub Client:
 
 ```ts title="index.ts"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/initialize-storagehub-client.ts'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:storagehub-client'
 ```
-    
+
+Now that you have the `StorageHubClient` initialized, you'll use it to derive the bucket ID and create the bucket.
+
 ## Derive Bucket ID
 
-Define bucket name and calculate the bucket id using the deriveBucketId() function within the StorageHubClient, as follows:
+Before creating a new bucket, you'll need to derive the bucket ID by passing the bucket's name and the address you intend to use to create it.
+
+Replace `// **PLACEHOLDER FOR STEP 3: DERIVE BUCKET ID**` with the following code:
 
 ```ts title="index.ts"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/derive-bucket-id.ts'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:derive-bucket'
 ```
 
-The response should look something like this:
+Run the script:
 
-```text
-Derived bucket ID: 0x5536b20fca3333b6c9ac23579b2757b774512623f926426e3b37150191140392
+```bash
+ts-node index.ts
 ```
+
+The response should include something like this:
+
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/output-02.html'
 
 ## Check If Derived Bucket ID Isn’t Already On-Chain
 
-To check if the derived bucket ID is already on-chain the Polkadot API must be initialized as follows:
+Now that you have the bucket ID, you can ensure the bucket doesn't exist on-chain yet. 
+
+Replace `// **PLACEHOLDER FOR STEP 4: CHECK IF BUCKET EXISTS**` with the following code:
 
 ```ts title="index.ts"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/initialize-polkadot-api.ts'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:check-bucket'
 ```
 
-Check if a bucket with that derived id already exists on-chain as follows:
+!!! note
+    The `mspClient` can also be used to check if the derived bucket ID already exists using the `mspClient.getBucket()` function; however, this only checks if that specific MSP contains a bucket with that ID.
 
-!!! note "The `mspClient` can also be used to check if the derived bucket ID already exists using the .getBucket function, however this only checks if that specific MSP contains a bucket with that ID."
+If you rerun the script, the response should include:
+
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/output-03.html'
+
+## Get Parameters from the MSP
+
+To prepare all the parameters needed for the `createBucket` function, additional data from the MSP is required, such as `mspId` and `valuePropId`.
+
+Replace `// **PLACEHOLDER FOR STEP 5: GET MSP PARAMS**` with the following code:
 
 ```ts title="index.ts"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/does-derived-bucket-id-exist.ts'
-```
-
-The response should look like this:
-
-```text
-Bucket before creation is empty: true
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:get-msp-params'
 ```
 
 ## Create a Bucket
 
-In order to prepare all the parameters needed for the `createBucket` function, more data from the MSP is needed such as `mspId` and `valuePropId`. Add the following code to retrieve it:
+Finally, you can call the `createBucket()` function using the `storageHubClient`, including the previously gathered parameters and the `isPrivate` flag that determines the bucket’s privacy.
+
+Replace `// **PLACEHOLDER FOR STEP 6: CREATE BUCKET**` with the following code:
 
 ```ts title="index.ts"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket-prep.ts'
-```
-
-Execute the `createBucket()` function using the storageHubClient and previously gathered parameters as follows:
-
-```ts title="index.ts"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:create-bucket'
 ```
 
 ## Check if Bucket is On-Chain
 
-Add the following code to check if the bucket can be found on-chain, and to read the bucket’s data:
+The last step is to verify that the bucket was created successfully on-chain and to confirm its stored data.
+
+Replace `// **PLACEHOLDER FOR STEP 7: VERIFY BUCKET**` with the following code:
 
 ```ts title="index.ts"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/is-bucket-on-chain.ts'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:verify-bucket'
 ```
 
 The response should look something like this:
 
-```text
-Bucket data: Type(7) [Map] {
-  'root' => Type(32) [Uint8Array] [
-    3,
-    23,
-    ...
-    19,
-    20,
-    registry: TypeRegistry { createdAtHash: undefined },
-    createdAtHash: undefined,
-    initialU8aLength: 32,
-    isStorageFallback: undefined
-  ],
-  'userId' => Type(20) [Uint8Array] [
-    0,
-    250,
-    ...
-    34,
-    62,
-    registry: TypeRegistry { createdAtHash: undefined },
-    createdAtHash: undefined,
-    initialU8aLength: 20,
-    isStorageFallback: undefined
-  ],
-  'mspId' => Type {
-    registry: TypeRegistry { createdAtHash: undefined },
-    createdAtHash: undefined,
-    initialU8aLength: 33,
-    isStorageFallback: undefined
-  },
-  'private' => [Boolean (bool): false] {
-    registry: TypeRegistry { createdAtHash: undefined },
-    createdAtHash: undefined,
-    initialU8aLength: 1,
-    isStorageFallback: undefined
-  },
-  'readAccessGroupId' => Type {
-    registry: TypeRegistry { createdAtHash: undefined },
-    createdAtHash: undefined,
-    initialU8aLength: undefined,
-    isStorageFallback: undefined
-  },
-  'size_' => <BN: 0>,
-  'valuePropId' => Type(32) [Uint8Array] [
-    98,
-    138,
-    ...
-    218,
-    30,
-    registry: TypeRegistry { createdAtHash: undefined },
-    createdAtHash: undefined,
-    initialU8aLength: 32,
-    isStorageFallback: undefined
-  ],
-  registry: TypeRegistry { createdAtHash: undefined },
-  createdAtHash: Type(32) [Uint8Array] [
-    231,
-    163,
-    ...
-    40,
-    243,
-    registry: TypeRegistry { createdAtHash: undefined },
-    createdAtHash: undefined,
-    initialU8aLength: 32,
-    isStorageFallback: undefined
-  ],
-  initialU8aLength: 127,
-  isStorageFallback: undefined
-}
-Bucket userId matches initial bucket owner address: true
-Bucket mspId matches initial mspId: true
-```
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/output-04.html'
 
----
+??? code "View complete script"
+
+    ```ts title="index.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts'
+    ```
+
+And that’s it. You’ve successfully created a bucket on-chain and verified its data.
+
+## Next Steps
 
 <div class="grid cards" markdown>
 
@@ -240,7 +269,7 @@ Bucket mspId matches initial mspId: true
 
     ---
 
-    Learn step-by-step how to store a file on DataHaven and retrieve it back from the network.
+    Learn step-by-step how to store a file on DataHaven and retrieve it from the network.
 
     [:octicons-arrow-right-24: End-to-End Storage Workflow](/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow.md)
 
