@@ -1,16 +1,12 @@
 ---
 title: Security Model and Restaking
-description: Understanding how EigenLayer restaking secures the DataHaven network.
+description: Understand how EigenLayer's restaking mechanism allows DataHaven to leverage Ethereum's validators for Ethereum-level economic security.
 ---
 
 # Security Model and Restaking
 
-This section covers how EigenLayer enables DataHaven to have Ethereum-level economic security.
-
-## Overview 
-
-DataHaven utilizes Ethereum's validators through EigenLayer's restaking mechanism.
+This section details how EigenLayer's restaking mechanism allows DataHaven to leverage Ethereum's validators for Ethereum-level economic security.
 
 ## Topics
 
-- [EigenLayer AVS and Shared Security Model](eigenlayer-avs-shared-security-model.md) - High-level overview of restaking, how it works, and its benefits 
+- [EigenLayer AVS and Shared Security Model](/how-it-works/security-model-and-restaking/eigenlayer-avs-shared-security-model/): High-level overview of restaking, how it works, and its benefits.
