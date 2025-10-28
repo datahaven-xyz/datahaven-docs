@@ -19,7 +19,7 @@ Actions on the DataHaven network, such as uploading files and creating buckets, 
 
 DataHaven is designed to be cost-effective with minimal burden to users, while ensuring sufficient incentives for storage providers to store and maintain your files. The fee structure balances affordability for users with the need to fairly compensate Main Storage Providers and Backup Storage Providers for their services.
 
-By interacting with the DataHaven network, such as uploading a file, you understand and agree that your wallet will be charged for storage actions. You can view your detailed billing history by connecting your wallet to[apps.datahaven.xyz](https://apps.datahaven.xyz) and visiting the **Payments** section.
+By interacting with the DataHaven network, such as uploading a file, you understand and agree that your wallet will be charged for storage actions. You can view your detailed billing history by connecting your wallet to [apps.datahaven.xyz](https://apps.datahaven.xyz) and visiting the **Payments** section.
 
 ## Bucket Sharing & Management
 
