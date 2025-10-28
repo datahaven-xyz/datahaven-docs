@@ -150,7 +150,7 @@ Next, you'll need to connect to the MSP client and check its health status befor
 
 Replace the placeholder `// **PLACEHOLDER FOR STEP 1: CONNECT TO MSP CLIENT & CHECK HEALTH**` with the following code:
 
-```ts title="index.ts"
+```ts title="// **PLACEHOLDER FOR STEP 1: CONNECT TO MSP CLIENT & CHECK HEALTH**"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:connect-msp-client'
 ```
 
@@ -166,9 +166,9 @@ The response should return a **`healthy`** status, like this:
 
 ## Initialize the StorageHub Client 
 
-Replace `// **PLACEHOLDER FOR STEP 2: CREATE STORAGEHUB CLIENT**` with the following code to initialize the StorageHub Client:
+Add the following code to initialize the StorageHub Client:
 
-```ts title="index.ts"
+```ts title="// **PLACEHOLDER FOR STEP 2: CREATE STORAGEHUB CLIENT**"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:storagehub-client'
 ```
 
@@ -178,9 +178,7 @@ Now that you have the `StorageHubClient` initialized, you'll use it to derive th
 
 Before creating a new bucket, you'll need to derive the bucket ID by passing the bucket's name and the address you intend to use to create it.
 
-Replace `// **PLACEHOLDER FOR STEP 3: DERIVE BUCKET ID**` with the following code:
-
-```ts title="index.ts"
+```ts title="// **PLACEHOLDER FOR STEP 3: DERIVE BUCKET ID**"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:derive-bucket'
 ```
 
@@ -198,9 +196,7 @@ The response should include something like this:
 
 Now that you have the bucket ID, you can ensure the bucket doesn't exist on-chain yet. 
 
-Replace `// **PLACEHOLDER FOR STEP 4: CHECK IF BUCKET EXISTS**` with the following code:
-
-```ts title="index.ts"
+```ts title="// **PLACEHOLDER FOR STEP 4: CHECK IF BUCKET EXISTS**"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:check-bucket'
 ```
 
@@ -215,9 +211,7 @@ If you rerun the script, the response should include:
 
 To prepare all the parameters needed for the `createBucket` function, additional data from the MSP is required, such as `mspId` and `valuePropId`.
 
-Replace `// **PLACEHOLDER FOR STEP 5: GET MSP PARAMS**` with the following code:
-
-```ts title="index.ts"
+```ts title="// **PLACEHOLDER FOR STEP 5: GET MSP PARAMS**"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:get-msp-params'
 ```
 
@@ -225,9 +219,7 @@ Replace `// **PLACEHOLDER FOR STEP 5: GET MSP PARAMS**` with the following code:
 
 Finally, you can call the `createBucket()` function using the `storageHubClient`, including the previously gathered parameters and the `isPrivate` flag that determines the bucket’s privacy.
 
-Replace `// **PLACEHOLDER FOR STEP 6: CREATE BUCKET**` with the following code:
-
-```ts title="index.ts"
+```ts title="// **PLACEHOLDER FOR STEP 6: CREATE BUCKET**"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:create-bucket'
 ```
 
@@ -235,9 +227,7 @@ Replace `// **PLACEHOLDER FOR STEP 6: CREATE BUCKET**` with the following code:
 
 The last step is to verify that the bucket was created successfully on-chain and to confirm its stored data.
 
-Replace `// **PLACEHOLDER FOR STEP 7: VERIFY BUCKET**` with the following code:
-
-```ts title="index.ts"
+```ts title="// **PLACEHOLDER FOR STEP 7: VERIFY BUCKET**"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:verify-bucket'
 ```
 
