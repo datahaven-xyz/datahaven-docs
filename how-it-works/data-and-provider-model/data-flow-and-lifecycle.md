@@ -1,18 +1,22 @@
 ---
 title: Data Flow and Lifecycle
-description: A non-technical, step-by-step overview of how data moves through DataHaven’s provider model—from upload to retrieval and beyond.
+description: A non-technical, step-by-step overview of how data moves through DataHaven's provider model—from upload to retrieval and beyond.
 ---
 
-DataHaven separates storage from verification: Storage Providers hold the bytes and the chain records a compact, verifiable receipt. This page follows a file’s journey from choosing an MSP and bucket to uploading, policy-driven redundancy with BSPs, retrieval with an integrity check, and ongoing health checks. It also shows from a high level how updates create new versions and how you can move or remove data. 
+# Data Flow and Lifecycle
 
-## Roles at a glance
+DataHaven separates storage from verification: storage providers hold the bytes, and the chain records a compact, verifiable receipt.
 
-- **You / your app:** Choose an MSP, create a bucket, upload, and later retrieve files.
-- **Main Storage Provider (MSP):** User-selected primary Storage Provider for a bucket. Serves reads and anchors per-bucket updates on-chain.
-- **Backup Storage Providers (BSPs):** Protocol-assigned replicas for durability. Do not serve user reads. Post one global commitment and respond to periodic proofs.
-- **DataHaven chain:** Stores compact commitments (bucket roots from MSPs; global roots from BSPs) and coordinates BSP challenges.
+This page follows a file’s journey from choosing an MSP and bucket to uploading, policy-driven redundancy with BSPs, retrieval with an integrity check, and ongoing health checks. It also shows, at a high level, how updates create new versions and how you can move or remove data. 
 
-## Step-by-step journey
+## Roles at a Glance
+
+- **User / Application**: Initiates actions such as choosing an MSP, creating buckets, uploading files, and retrieving stored data.
+**Main Storage Provider (MSP)**: User-selected primary storage provider. Maintains buckets, serves reads, and anchors per-bucket updates on-chain.
+**Backup Storage Providers (BSPs)**: Protocol-assigned replicas that enhance durability. They post a global commitment for stored files and respond to periodic challenges. They do not serve user reads.
+**DataHaven chain**: Maintains compact on-chain commitments (bucket roots from MSPs, global roots from BSPs) and coordinates BSP challenges.
+
+## Step-by-Step Journey
 
 1. **Connect and choose where to store**: Connect a wallet or app identity, pick an MSP, and create or reuse a bucket as the container for related files (you can choose different MSPs per bucket). Set your replication policy (how many BSP replicas).
 
@@ -20,12 +24,12 @@ DataHaven separates storage from verification: Storage Providers hold the bytes 
 
 3. **Store and add redundancy**: The MSP keeps the primary copy and serves reads. BSPs hold replicas for durability and decentralization; they are not in the normal read path.
 
-4. **Retrieve the file**: When you request the file, the MSP returns the bytes plus a small cryptographic proof (Merkle proof). Your app automatically checks it against the file’s on-chain commitment (anchored in the bucket) so you know the content matches what was committed. For now, files are owner-only; sharing/public access is planned.
+4. **Retrieve the file**: When you request the file, the MSP returns the bytes plus a small cryptographic proof (Merkle proof). Your app automatically checks it against the file’s on-chain commitment (anchored in the bucket), so you know the content matches the committed content. For now, files are owner-only; sharing/public access is planned.
 
-5. **Ongoing health checks**: On a schedule, the chain challenges BSPs (not MSPs) to prove they still hold your data. BSPs answer with small cryptographic proofs; repeated failures can trigger slashing per protocol rules.
+5. **Ongoing health checks**: On a schedule, the chain challenges BSPs (not MSPs) to prove they still hold your data. BSPs provide small cryptographic proofs; repeated failures can trigger slashing per the protocol rules.
 
-6. **Update or replace a file**: Uploading changed content produces a new fingerprint (a new version). The bucket updates its on-chain summary to reference the new version. Whether older versions are kept is up to your app or Storage Provider policy.
+6. **Update or replace a file**: Uploading changed content produces a new fingerprint (a new version). The bucket updates its on-chain summary to reference the new version. Whether older versions are kept is up to your app or storage provider policy.
 
-7. **Move or remove data**: You can remove a file’s reference from a bucket (deleting its entry). To change Storage Providers, reassign the bucket to a new MSP; the new MSP reseeds from BSP replicas and anchors a fresh bucket update without manual transfers required.
+7. **Move or remove data**: You can remove a file’s reference from a bucket (deleting its entry). To change storage providers, reassign the bucket to a new MSP; the new MSP reseeds from BSP replicas and anchors a fresh bucket update without manual transfers required.
 
-8. **Billing and transparency**: Storage Providers track storage and retrieval usage and surface charges in-app. On-chain actions (like anchoring and challenges) consume gas in the system token. Pricing targets predictable per-GB per-time costs; payments are streamed per block from a prepaid deposit and automatically pause when the balance falls below a minimum threshold. Top up to resume; BSPs receive an automated revenue share.
+8. **Billing and transparency**: Storage providers track storage and retrieval usage and surface charges in-app. On-chain actions (like anchoring and challenges) consume gas in the system token. Pricing targets predictable per-GB per-time costs; payments are streamed per block from a prepaid deposit and automatically pause when the balance falls below a minimum threshold. Top up to resume; BSPs receive an automated revenue share.
