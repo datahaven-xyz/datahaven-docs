@@ -68,7 +68,7 @@ DataHaven employs a dual-provider model:
 - **Main Storage Providers (MSPs)**: User-selected providers that store your files
 - **Backup Storage Providers (BSPs)**: Randomly assigned by the network for redundancy
 
-BSPs ensure data reliability and redundancy in a decentralized network, backing up data to keep it available even if an MSP fails. Each file stored by a BSP is split into chunks, "merkelized," and linked to a file key, with the Merkle root stored on-chain as proof of storage. BSPs must hold collateral that can be slashed if data is lost. 
+BSPs ensure data reliability and redundancy in a decentralized network, backing up data to keep it available even if an MSP fails. Each file stored by a BSP is split into chunks, "Merkleized," and linked to a file key, with the Merkle root stored on-chain as proof of storage. BSPs must hold collateral that can be slashed if data is lost. 
 
 BSPs are periodically challenged to submit proof of storage, with challenge frequency based on storage size. A Fair Distribution mechanism prevents front-running, allowing all BSPs the chance to volunteer for new storage requests. Main storage providers are not currently polled or slashed, as backup providers ensure file integrity in the event of main provider data loss. Market dynamics naturally incentivize MSPs to provide the best possible service to network users.
 
