@@ -5,7 +5,7 @@ import { Readable } from 'node:stream';
 // Specify the file name of the file to be uploaded
 const fileName = 'filename.jpeg';
 
-// Specify the file path of to file to be uploaded relative to the location of // your index.ts file
+// Specify the file path of the file to be uploaded relative to the location of your index.ts file
 const filePath = new URL(`./files/${fileName}`, import.meta.url).pathname;
 const fileSize = statSync(filePath).size;
 
