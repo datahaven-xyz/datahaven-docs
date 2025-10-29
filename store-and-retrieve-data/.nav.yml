@@ -1,4 +1,4 @@
 nav:
  - 'Overview': index.md
- - 'Quickstart': quickstart.md
+ - 'Quick Start': quick-start.md
  - 'Use StorageHub SDK': use-storagehub-sdk

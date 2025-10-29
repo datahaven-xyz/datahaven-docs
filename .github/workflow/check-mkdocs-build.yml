@@ -1,0 +1,15 @@
+name: PR Docs Build
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build-docs:
+    uses: papermoonio/workflows/.github/workflows/core-pr-mkdocs-build.yml@main
+    with:
+      mkdocs_repo: papermoonio/datahaven-mkdocs
+      docs_repo: datahaven-xyz/datahaven-docs
+      docs_checkout: datahaven-docs
