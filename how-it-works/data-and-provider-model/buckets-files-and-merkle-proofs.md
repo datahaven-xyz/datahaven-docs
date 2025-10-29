@@ -41,7 +41,7 @@ This update is accompanied by inclusion and/or non-inclusion proofs verifying th
 
 **Replication and write semantics (high level)**: 
 
-The MSP coordinates replication to BSPs. Your upload completes when the MSP accepts the file and issues a receipt. Network confirmation occurs only after the required BSP replicas accept and the MSP updates the bucket’s root on-chain (emitting a fulfillment event). If replication or anchoring doesn’t complete within the request time out window, the request is cancelled.
+The MSP coordinates replication to BSPs. Your upload completes when the MSP accepts the file and issues a receipt. Network confirmation occurs only after the required BSP replicas accept and the MSP updates the bucket’s root on-chain (emitting a fulfillment event). If replication or anchoring doesn’t complete within the request timeout window, the request is cancelled.
 
 !!! note
     Updating file bytes yields a new Merkle root (a new commitment). Renames/metadata updates that don’t touch content don’t change the root.
