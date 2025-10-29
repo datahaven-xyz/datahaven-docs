@@ -69,7 +69,7 @@ async function run() {
   const httpConfig: HttpClientConfig = { baseUrl: baseUrl };
 
   // Connect to MSP Client
-  const mspClient = await MspClient.connect(httpConfig);
+  const mspClient = await MspClient.connect(httpConfig, polkadotApi);
 
   // Check MSP Health Status
   const mspHealth: HealthStatus = await mspClient.info.getHealth();
