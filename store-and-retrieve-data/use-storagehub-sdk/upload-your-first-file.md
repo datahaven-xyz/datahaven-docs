@@ -17,7 +17,7 @@ description: Guide to uploading files using the StorageHub SDK.
 Add the following code to trigger the file upload to the connected MSP:
 
 ```ts title="index.ts"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-your-first-file/upload-fie-to-msp.ts'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-your-first-file/upload-file-to-msp.ts'
 ```
 
 ## Verify File Upload was Successful
