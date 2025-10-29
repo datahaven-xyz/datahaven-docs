@@ -11,5 +11,5 @@ This section covers the fundamental data structures and provider architecture th
 
 ## Topics
 
-- [Buckets, Files, and Merkle Proofs](/how-it-works/data-and-provider-model/buckets-files-and-merkle-proofs): Understanding the core data structures and verification mechanisms.
-- [Data Flow Lifecycle](/how-it-works/data-and-provider-model/data-flow-and-lifecycle): Complete lifecycle of data from upload to retrieval.
+- [Buckets, Files, and Merkle Proofs](/how-it-works/data-and-provider-model/buckets-files-and-merkle-proofs/): Understanding the core data structures and verification mechanisms.
+- [Data Flow Lifecycle](/how-it-works/data-and-provider-model/data-flow-and-lifecycle/): Complete lifecycle of data from upload to retrieval.
