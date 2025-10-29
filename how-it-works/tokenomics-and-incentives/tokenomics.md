@@ -28,7 +28,7 @@ As DataHaven expands from the Moonbeam ecosystem, GLMR holders remain integral. 
 ### Key token information
 - Network: DataHaven
 - Token name: HAVE
-- Genesis supply: 10,000,000,000
+- Genesis supply: 10B
 
 ### Allocation and Vesting Schedule
 
