@@ -1,5 +1,5 @@
 nav:
- - 'How It Works': index.md
+ - 'Overview': index.md
  - 'Data and Provider Model': data-and-provider-model
  - 'Security Model and Restaking': security-model-and-restaking
  - 'Interoperability': interoperability
