@@ -30,5 +30,5 @@ DataHaven is designed to operate within a broader, interoperable Web3 ecosystem.
 
 ## How DataHaven Uses Snowbridge
 
-- **AVS coordination**: Propagating validator-set updates between Ethereum (EigenLayer) and DataHaven, so both networks share a consistent view.
+- **AVS coordination**: Propagating operator-set updates between Ethereum (EigenLayer) and DataHaven, so both networks share a consistent view.
 - **Interoperable UX**: Enabling future flows like reporting state back to Ethereum or bridging app-specific messages without custom trust assumptions.
