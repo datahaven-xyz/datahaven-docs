@@ -1,5 +1,5 @@
 ---
-title: Tokenomics Overview
+title: Tokenomics 
 description: An overview of DataHaven's tokenomics model and incentive structures.
 ---
 
