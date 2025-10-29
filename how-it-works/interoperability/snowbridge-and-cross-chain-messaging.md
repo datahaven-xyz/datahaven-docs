@@ -17,7 +17,7 @@ In practice, Snowbridge provides DataHaven with a native bridge to Ethereum, ena
 
 DataHaven is designed to operate within a broader, interoperable Web3 ecosystem. Through Snowbridge, it can:
 
-- **Inherit security from Ethereum**: Messages from EigenLayer’s contracts (e.g., validator sets, slashing events) are relayed to DataHaven in a verifiable way.
+- **Inherit security from Ethereum**: Messages from EigenLayer’s contracts (e.g., operator sets, slashing events) are relayed to DataHaven in a verifiable way.
 - **Send state updates back to Ethereum**: DataHaven reports block finality, validator rewards, and other on-chain data back to EigenLayer contracts.
 - **Enable multi-chain dApps**: Developers can build applications that combine Ethereum smart contracts and DataHaven’s decentralized storage in one workflow (e.g., mint an NFT on Ethereum while storing its underlying data on DataHaven).
 
