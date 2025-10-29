@@ -11,7 +11,7 @@ In practice, DataHaven groups objects into buckets, which are user-created conta
 
 ## Roles at a Glance
 
-- **Main Storage Provider (MSP)**: User-selected, primary storage and retrieval for a bucket. Maintains the bucket trie and anchors the bucket root on-chain. Not slashable in the current design (market/SLA incentives).
+- **Main Storage Provider (MSP)**: The user-selected primary provider for a bucket’s storage and retrieval. It maintains the bucket trie and anchors the bucket root on-chain. MSPs aren’t currently subject to slashing; service quality is instead incentivized by open competition and reputation.
 - **Backup Storage Provider (BSP)**: Randomly assigned replicas across many users/files. It posts one global commitment covering all files it stores and is periodically challenged; failures are slashable.
 
 ## Buckets: Purpose and Structure
@@ -21,13 +21,10 @@ Buckets define how data is grouped, owned, and anchored on-chain. Each bucket se
 **Key properties**:
 
 - **Ownership and policy**: Defines who can read or write data, retention expectations, and redundancy targets.
-- **Compact on-chain summary**: Each bucket is represented by a single 32-byte root — a Merkle/Patricia-style map whose leaves correspond to file roots.
+- **Compact on-chain summary**: Each bucket is represented by a single 32-byte root — a Merkle-Patricia trie summarizing the bucket’s file entries (e.g., file roots/metadata).
 - **Stable anchor**: Provides a single point of reference for pricing, accounting, and proofs across all files in the bucket.
 
-While MSPs maintain and store buckets, BSPs handle replicas by publishing a single aggregate commitment for all files they store.
-
-!!! note
-    File access in DataHaven is currently restricted to the file owner. Access is enforced by provider-side authentication and policy. Data is not end-to-end encrypted by default; optional client-side encryption is planned.
+MSPs maintain and update each bucket’s root on-chain. BSPs store replicas and periodically submit proofs (against their committed Merkle forest) that they continue to store the data; they don’t update bucket roots on-chain.
 
 ## Files: From Bytes to Commitments
 
@@ -44,7 +41,7 @@ This update is accompanied by inclusion and/or non-inclusion proofs verifying th
 
 **Replication and write semantics (high level)**: 
 
-The MSP coordinates replication to BSPs. Uploads succeed only after required replicas acknowledge and the bucket-root update is submitted on-chain; otherwise, the request aborts.
+The MSP coordinates replication to BSPs. Your upload completes when the MSP accepts the file and issues a receipt. Network confirmation occurs only after the required BSP replicas accept and the MSP updates the bucket’s root on-chain (emitting a fulfillment event). If replication or anchoring doesn’t complete within the request time out window, the request is cancelled.
 
 !!! note
     Updating file bytes yields a new Merkle root (a new commitment). Renames/metadata updates that don’t touch content don’t change the root.
@@ -81,18 +78,18 @@ In DataHaven, Merkle proofs support two essential checks:
 
 **On-chain components**:
 
-- **Bucket state (per bucket via MSP)**: A compact cryptographic map (Merkle/Patricia-style) whose root is stored on-chain. The MSP updates this root during storage request acceptance and file-deletion flows, providing proofs of correctness in the same session as the data changes.
-- **File commitments**: Each file is identified by its Merkle root and included in the bucket's map.
-- **BSP commitment (per BSP)**: A single global root that summarizes all files a BSP stores (used for randomized challenges and slashing logic).
+- **Bucket state (per bucket via MSP)**: A compact Merkle-Patricia map whose root is stored on-chain. The MSP updates this bucket root when confirming storage requests and processing deletions, supplying proofs that the updated root is consistent.
+- **File commitments**: Each file is identified by its Merkle root ("file key") and is included as an entry in the bucket's map.
+- **BSP commitment (per BSP)**: A Merkle forest commitment summarizing the set of file keys a BSP stores; it's used to derive randomized challenges and to enforce slashing.
 
 **Off-chain components**:
 
-- **Data**: The actual file bytes are stored and served by the MSP and replicated by BSPs. Verifiers and smart contracts only need proofs—not the raw data.
+- **Data**: The file bytes are stored/served by the MSP and replicated by BSPs. The runtime/verifiers operate on proofs; they don't require raw file data.
 
 ## Storage Flows
 
 DataHaven’s storage lifecycle revolves around three core flows: writing, reading, and migrating data. Each flow ensures verifiable integrity and redundancy through MSPs and BSPs.
 
-- **Write**: Client uploads data to its MSP; MSP forwards to BSPs; MSP updates bucket root on-chain with proofs. If a replica declines or anchoring fails, the write aborts.
+- **Write**: Client uploads data to its MSP; the MSP coordinates replication to BSPs; the MSP updates the bucket root on-chain once replication is confirmed. If replication or anchoring doesn't complete within the request timeout, the request is canceled.
 - **Read**: Client fetches data from the MSP and verifies Merkle proofs locally. BSPs are not in the normal read path.
-- **Migrate**: If an MSP fails, the user can reassign the bucket to a new MSP. The new MSP can reconstruct from BSP replicas.
+- **Migrate**: If an MSP fails, the user can reassign the bucket to a new MSP via an on-chain move-bucket flow. The new MSP reconstructs from BSP replicas and re-anchors the bucket root.
