@@ -1,0 +1,15 @@
+name: 'PR Docs Link Check'
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  check-docs-links:
+    uses: papermoonio/workflows/.github/workflows/core-pr-link-checker.yml@main
+    with:
+      mkdocs_repo: papermoonio/datahaven-mkdocs
+      docs_repo: datahaven-xyz/datahaven-docs
+      docs_checkout: datahaven-docs
+      url: https://docs.datahaven.xyz
+    secrets:
+      GH_TOKEN: ${{ secrets.GH_PR_404_CHECKER }}
