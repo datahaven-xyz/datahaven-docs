@@ -54,7 +54,7 @@ The MSP coordinates replication to BSPs. Uploads succeed only after required rep
 A Merkle proof is a short witness that a specific chunk (or an entire file) is part of a dataset committed by a known root. Given the leaf hash (chunk), its sibling path (with positions), and the on-chain root, anyone can recompute the root and check it matches—no trusted third party needed. Proof size scales as O(log N) with respect to the number of chunks.
 
 - **Challenge leaf size (protocol):** For storage validation, the network uses a protocol-defined challenge chunk size (currently 1 KB).
-- **Client I/O chunk size (implementation):** Upload/download defaults are 8 KB and may be tuned without affecting challenge logic.
+- **Client I/O chunk size (implementation):** Upload/download defaults are 8 KB (subject to change).
 
 **Minimal proof shape (conceptual):**
 
@@ -69,7 +69,7 @@ A Merkle proof is a short witness that a specific chunk (or an entire file) is p
 }
 ```
 
-A verifier recomputes the root from `leafHash`, `leafIndex`, `path`, and `positions`; if it equals `fileRoot` (anchored on-chain), the proof is valid.
+A verifier recomputes the root from `path`, and `positions`; if it equals `fileRoot` (anchored on-chain), the proof is valid.
 
 In DataHaven, Merkle proofs support two essential checks:
 
@@ -96,21 +96,3 @@ DataHaven’s storage lifecycle revolves around three core flows: writing, readi
 - **Write**: Client uploads data to its MSP; MSP forwards to BSPs; MSP updates bucket root on-chain with proofs. If a replica declines or anchoring fails, the write aborts.
 - **Read**: Client fetches data from the MSP and verifies Merkle proofs locally. BSPs are not in the normal read path.
 - **Migrate**: If an MSP fails, the user can reassign the bucket to a new MSP. The new MSP can reconstruct from BSP replicas.
-
-## System Interactions by Role
-
-### DApp Developers
-
-- Treat a bucket like a scoped object store handled by a storage provider.
-- On upload, you receive a file root plus a receipt tied to the bucket's on-chain summary.
-- On read, request bytes and proof; verify against the file root you already know (or resolve via the bucket summary).
-
-### Auditors and Smart Contracts
-
-- Use the bucket summary on-chain to confirm a file root existed by/at a specific block.
-- Verify Merkle proofs tied to that root to confirm a storage provider's claims about stored content.
-
-### End Users
-
-- Your app (or wallet) verifies proofs automatically, so you don't have to trust the storage provider.
-- Redundant storage via BSPs and regular challenges improves availability and durability.
