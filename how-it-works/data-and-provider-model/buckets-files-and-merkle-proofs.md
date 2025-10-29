@@ -66,7 +66,7 @@ A Merkle proof is a short witness that a specific chunk (or an entire file) is p
 }
 ```
 
-A verifier recomputes the root from `path`, and `positions`; if it equals `fileRoot` (anchored on-chain), the proof is valid.
+A verifier recomputes the root from `path` and `positions`; if it equals `fileRoot` (anchored on-chain), the proof is valid.
 
 In DataHaven, Merkle proofs support two essential checks:
 
