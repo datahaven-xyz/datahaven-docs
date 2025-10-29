@@ -11,8 +11,9 @@ In practice, DataHaven groups objects into buckets, which are user-created conta
 
 ## Roles at a Glance
 
-- **Main Storage Provider (MSP)**: The user-selected primary provider for a bucket’s storage and retrieval. It maintains the bucket trie and anchors the bucket root on-chain. MSPs aren’t currently subject to slashing; service quality is instead incentivized by open competition and reputation.
-- **Backup Storage Provider (BSP)**: Randomly assigned replicas across many users/files. It posts one global commitment covering all files it stores and is periodically challenged; failures are slashable.
+- **Main Storage Provider (MSP)**: The user selects the primary provider for a bucket's storage and retrieval. It maintains the bucket trie, anchors the bucket root on-chain, and relies on market competition and reputation rather than slashing to ensure service quality.
+
+- **Backup Storage Provider (BSP)**: The network assigns replicas randomly across users and files. The BSP posts a global commitment for all stored files and faces periodic challenges; failures can be slashed.
 
 ## Buckets: Purpose and Structure
 
