@@ -26,7 +26,7 @@ This page follows a file’s journey from choosing an MSP and bucket to uploadin
 
 4. **Share and set access (optional)**: You may choose to share access to your bucket by generating a link that provides view-only access or view-and-upload access to the contents of your bucket, including all files and folders. You can set an optional expiration date for the link and protect it with a password if needed. 
 
-5. **Retrieve the file**: When you request the file, the MSP returns the bytes plus a small cryptographic proof (Merkle proof). Your app automatically checks it against the file's on-chain commitment (anchored in the bucket), so you know the content matches the committed content. For now, files are owner-only; sharing/public access is planned.
+5. **Retrieve the file**: When you request the file, the MSP returns the bytes plus a small cryptographic proof (Merkle proof). Your app automatically checks it against the file's on-chain commitment (anchored in the bucket), so you know the content matches the committed content. Files can also be shared via generated links with optional expiration and password protection, as described above.
 
 6. **Ongoing health checks**: On a schedule, the chain challenges BSPs (not MSPs) to prove they still hold your data. BSPs provide small cryptographic proofs; slashing is possible in the event of data loss by BSPs per the protocol rules.
 
