@@ -17,18 +17,18 @@ The network is built as an [autonomous verifiable service (AVS)](https://docs.ei
 
 ## How Does It Work?
 
-DataHaven is designed to maximize service quality, data integrity, and interopability to meet your data storage and retrieval needs. 
+DataHaven is designed to maximize service quality, data integrity, and interoperability to meet your data storage and retrieval needs. 
 
 ### Roles Create Resiliency
 
 DataHaven combines two storage provider types to ensure data preservation and integrity: Main Storage Providers (MSP) and Backup Storage Providers (BSP).
 
-| MSP                                                                  | BSP                                                              |
-|----------------------------------------------------------------------|------------------------------------------------------------------|
-| Chosen by the user.                                                  | Randomly assigned by the network.                                |
-| Maintains the bucket trie (original).                                | Replicate data across the network (replication).                 |
-| Periodically anchors bucket root on-chain.                           | Periodically posts global Merkle commitment of all files stored. |
-| Performance incentivized by competition to attract and retain users. | Performace ensured via slashing mechanism for failed challenges. |
+| MSP                                                                     | BSP                                                                  |
+|-------------------------------------------------------------------------|----------------------------------------------------------------------|
+| Chosen by the user.                                                     | Randomly assigned by the network.                                    |
+| Maintains the bucket trie (original).                                   | Replicates data across the network (replication).                     |
+| Periodically anchors the bucket root on-chain.                          | Periodically posts the global Merkle commitment of all files stored. |
+| Performance is incentivized by competition to attract and retain users. | Performance ensured via a slashing mechanism for failed challenges.  |
 
 ### Verify Proofs for Data Integrity
 
@@ -38,13 +38,13 @@ Visit [Buckets, Files, and Merkle Proofs](/how-it-works/data-and-provider-model/
 
 ### Connect Across Ecosystems
 
-[Snowbridge](https://app.snowbridge.network/){target=_blank} acts as a trustless bridge between Ethereum and Substrate-based chains like DataHaven, allowing for on-chain, verifiable, bi-directional movement of tokens and messages using familiar EVM tooling.
+[Snowbridge](https://app.snowbridge.network/){target=_blank} acts as a trustless bridge between Ethereum and Substrate-based chains like DataHaven, enabling on-chain, verifiable, bidirectional movement of tokens and messages using familiar EVM tooling.
 
 Visit [Snowbridge and Cross-Chain Messaging](/how-it-works/interoperability/snowbridge-and-cross-chain-messaging/) to learn more about how DataHaven sends messages and tokens across chains.
 
 ## Future Development
 
-You can currently onboard with the StorageHub SDK to create buckets and upload, download, share, and verify files. EVM smart-contract compatibility and broader programmability are in development for future releases.
+You can currently onboard with the StorageHub SDK to create buckets and upload, download, share, and verify files. EVM smart contract compatibility and broader programmability are under development for future releases.
 
 ## Next Steps
 
@@ -54,7 +54,7 @@ You can currently onboard with the StorageHub SDK to create buckets and upload, 
 
     ---
 
-    Follow this step-by-step summary to understand how data moves through DataHaven including selecting an MSP, uploading your first files, and retrieving and verifying your data.
+    Follow this step-by-step summary to understand how data moves through DataHaven, including selecting an MSP, uploading your first files, and retrieving and verifying your data.
 
     [:octicons-arrow-right-24: Get started](/datahaven-docs/how-it-works/data-and-provider-model/data-flow-and-lifecycle.md)
 
@@ -62,7 +62,7 @@ You can currently onboard with the StorageHub SDK to create buckets and upload, 
 
     ---
 
-    If you are ready to start building, this Get Started guide will help you set up your environment, install required dependencies, and initiate your project.
+    If you are ready to start building, this Get Started guide will help you set up your environment, install the required dependencies, and get your project started.
 
     [:octicons-arrow-right-24: Get started](/store-and-retrieve-data/use-storagehub-sdk/get-started/)
 
