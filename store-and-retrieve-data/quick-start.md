@@ -23,11 +23,11 @@ To interact with the network, use the following information to configure DataHav
 
 === "DataHaven TestNet"
 
-|    Variable     |                    Value                     |
-|:---------------:|:--------------------------------------------:|
-|    Chain ID     | <pre>`{{ networks.testnet.chain_id }}`</pre> |
-| Public RPC URLs | <pre>`{{ networks.testnet.rpc_url }}`</pre>  |
-| Public WSS URLs | <pre>`{{ networks.testnet.wss_url }}`</pre>  |
+    |    Variable     |                    Value                     |
+    |:---------------:|:--------------------------------------------:|
+    |    Chain ID     | <pre>`{{ networks.testnet.chain_id }}`</pre> |
+    | Public RPC URLs | <pre>`{{ networks.testnet.rpc_url }}`</pre>  |
+    | Public WSS URLs | <pre>`{{ networks.testnet.wss_url }}`</pre>  |
 
 ### Block Explorers
 
