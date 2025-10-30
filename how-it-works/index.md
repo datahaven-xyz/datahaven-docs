@@ -13,7 +13,7 @@ DataHaven is a decentralized storage and retrieval network designed for apps tha
 
 ## How does it work?
 
-- **Roles**: You choose a Main Storage Provider (MSP) to serve your bucket. The MSP maintains the bucket trie and periodically anchors the bucket root on-chain. Backup Storage Providers (BSPs) replicate data across the network; each BSP periodically posts a single global Merkle commitment covering the files it stores and can be challenged—failures are slashable.
+- **Roles**: You choose a Main Storage Provider (MSP) to serve your bucket. The MSP maintains the bucket trie (a tree-like data structure that efficiently organizes and indexes the files and directories within a bucket) and periodically anchors the bucket root on-chain. Backup Storage Providers (BSPs) replicate data across the network; each BSP periodically posts a single global Merkle commitment covering the files it stores and can be challenged—failures are slashable.
 
 - **Integrity**: File and directory state is summarized as Merkle roots. Those roots are anchored on-chain, giving you a tamper-evident history and a way to verify storage proofs independent of any single provider.
 
