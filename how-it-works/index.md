@@ -19,7 +19,7 @@ DataHaven is a decentralized storage and retrieval network designed for apps tha
 
 - **Access**: Apps integrate via the StorageHub SDK or a REST interface. Authentication is web3-native (SIWE + short-lived JWTs) so users sign once and interact with providers securely.
 
-- **Economics & Quality of Service (QoS)**: Usage fees are transparent. BSPs face objective challenges and slashing to enforce durability, while MSPs compete on performance, uptime, and reputation—driving service quality without centralized control. MSPs are not slashable today; QoS is enforced by competition and observed reliability.
+- **Economics & Quality of Service (QoS)**: Usage fees are transparent. BSPs face objective challenges and slashing to enforce durability, while MSPs compete on performance, uptime, and reputation—driving service quality without centralized control. In the current release, MSPs are not subject to slashing; QoS is enforced by competition and observed reliability.
 
 - **Interop**: The network exposes both EVM and Substrate-style endpoints (where relevant) so you can build from familiar tooling while benefiting from on-chain verification.
 
