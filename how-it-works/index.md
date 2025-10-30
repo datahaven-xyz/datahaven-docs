@@ -5,37 +5,65 @@ description: Learn how buckets, providers, and on-chain receipts work together o
 
 # Overview
 
-DataHaven is a verifiable, developer-friendly storage network. Apps write and read files through a simple SDK, while integrity and economics are enforced on-chain.
+DataHaven connects users and storage providers through an on-chain system that guarantees data availability and integrity. Users upload files to storage providers, who anchor cryptographic proofs on-chain, creating tamper-evident, verifiable storage.
+
+The pages in this section explain how users, providers, and on-chain proofs work together to provide a secure, interoperable, trust-minimized storage layer.
 
 ## What is DataHaven?
 
-DataHaven is a decentralized storage and retrieval network designed for apps that need production-scale storage with cryptographic integrity guarantees. It combines easy developer interfaces via SDK and REST with an on-chain control plane that anchors proofs of your data, so you can verify what is stored, by whom, and when it changed.
+DataHaven is a decentralized storage and retrieval network designed for apps that need production-scale storage with cryptographic integrity guarantees. It combines easy developer interfaces via SDK and REST with on-chain commitments that anchor proofs of your data, so you can verify what is stored, by whom, and when it changed.
 
-The network is built as an [autonomous verifiable service (AVS)](https://docs.eigencloud.xyz/products/eigenlayer/developers/concepts/avs-developer-guide){target=\_blank} that leverages Ethereum restaking via EigenLayer to secure the protocol's core checks and incentives.
+The network is built as an [autonomous verifiable service (AVS)](https://docs.eigencloud.xyz/products/eigenlayer/developers/concepts/avs-developer-guide){target=\_blank} that leverages Ethereum restaking via EigenLayer to secure the protocol's core checks and incentives. Authentication is web3-native, using [SIWE](https://docs.login.xyz/){target=\_blank} and short-lived [JWTs](https://www.jwt.io/){target=\_blank}, so users sign once and interact with providers securely.
 
-## How does it work?
+## How Does It Work?
 
-- **Roles**: You choose a Main Storage Provider (MSP) to serve your bucket. The MSP maintains the bucket trie (a tree-like data structure that efficiently organizes and indexes the files and directories within a bucket) and periodically anchors the bucket root on-chain. Backup Storage Providers (BSPs) replicate data across the network; each BSP periodically posts a single global Merkle commitment covering the files it stores and can be challenged—failures are slashable.
+DataHaven is designed to maximize service quality, data integrity, and interopability to meet your data storage and retrieval needs. 
 
-- **Integrity**: File and directory state is summarized as Merkle roots. Those roots are anchored on-chain, giving you a tamper-evident history and a way to verify storage proofs independent of any single provider.
+### Roles Create Resiliency
 
-- **Access**: Apps integrate via the StorageHub SDK or a REST interface. Authentication is web3-native (SIWE + short-lived JWTs) so users sign once and interact with providers securely.
+DataHaven combines two storage provider types to ensure data preservation and integrity: Main Storage Providers (MSP) and Backup Storage Providers (BSP).
 
-- **Economics & Quality of Service (QoS)**: Usage fees are transparent. BSPs face objective challenges and slashing to enforce durability, while MSPs compete on performance, uptime, and reputation—driving service quality without centralized control. In the current release, MSPs are not subject to slashing; QoS is enforced by competition and observed reliability.
+| MSP                                                                  | BSP                                                              |
+|----------------------------------------------------------------------|------------------------------------------------------------------|
+| Chosen by the user.                                                  | Randomly assigned by the network.                                |
+| Maintains the bucket trie (original).                                | Replicate data across the network (replication).                 |
+| Periodically anchors bucket root on-chain.                           | Periodically posts global Merkle commitment of all files stored. |
+| Performance incentivized by competition to attract and retain users. | Performace ensured via slashing mechanism for failed challenges. |
 
-- **Interop**: The network exposes both EVM and Substrate-style endpoints (where relevant) so you can build from familiar tooling while benefiting from on-chain verification.
+### Verify Proofs for Data Integrity
 
-## Who is it for?
+File and directory state is summarized as [Merkle roots](https://en.wikipedia.org/wiki/Merkle_tree){target=_blank}. Those roots are anchored on-chain, giving you a tamper-evident history and a way to verify storage proofs independent of any single provider.
 
-- dApp teams storing user-generated content, media, or stateful assets with verifiable integrity.
+Visit [Buckets, Files, and Merkle Proofs](/how-it-works/data-and-provider-model/buckets-files-and-merkle-proofs/) for more information on how these items work together so you can store, manage, retrieve, and verify your data. 
 
-- Data and AI products that require auditable storage footprints and reproducible datasets.
+### Connect Across Ecosystems
 
-- Web2 builders who want a simple API now and a trust-minimized audit trail as they scale.
+[Snowbridge](https://app.snowbridge.network/){target=_blank} acts as a trustless bridge between Ethereum and Substrate-based chains like DataHaven, allowing for on-chain, verifiable, bi-directional movement of tokens and messages using familiar EVM tooling.
 
-- Operators who want to run MSP or BSP nodes and earn fees for performance and reliability.
+Visit [Snowbridge and Cross-Chain Messaging](/how-it-works/interoperability/snowbridge-and-cross-chain-messaging/) to learn more about how DataHaven sends messages and tokens across chains.
 
-## Future development
+## Future Development
 
-Today you can onboard with the StorageHub SDK to create buckets, upload/download files, share, and verify. EVM smart-contract compatibility and broader programmability are in development and not yet available in the current release.
+You can currently onboard with the StorageHub SDK to create buckets and upload, download, share, and verify files. EVM smart-contract compatibility and broader programmability are in development for future releases.
 
+## Next Steps
+
+<div class="grid cards" markdown>
+
+-   **Data Flow and Lifecycle**
+
+    ---
+
+    Follow this step-by-step summary to understand how data moves through DataHaven including selecting an MSP, uploading your first files, and retrieving and verifying your data.
+
+    [:octicons-arrow-right-24: Get started](/datahaven-docs/how-it-works/data-and-provider-model/data-flow-and-lifecycle.md)
+
+-   **Get Started with the StorageHub TypeScript SDK**
+
+    ---
+
+    If you are ready to start building, this Get Started guide will help you set up your environment, install required dependencies, and initiate your project.
+
+    [:octicons-arrow-right-24: Get started](/store-and-retrieve-data/use-storagehub-sdk/get-started/)
+
+</div>
