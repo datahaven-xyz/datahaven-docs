@@ -33,6 +33,6 @@ DataHaven is a decentralized storage and retrieval network designed for apps tha
 
 - Operators who want to run MSP or BSP nodes and earn fees for performance and reliability.
 
-## Notes (current snapshot)
+## Future development
 
 Today you can onboard with the StorageHub SDK to create buckets, upload/download files, share, and verify. EVM smart-contract compatibility and broader programmability are in development and not yet available in the current release.
