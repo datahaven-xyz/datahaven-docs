@@ -13,7 +13,7 @@ description: Guide to issuing a storage request using StorageHub SDK.
 
 ## Prepare file
 
-Make sure to have a file ready that you plan on uploading to DataHaven. Any file type is accepted, although the current limit on the file size for the Testnet is 10 GB. For the purpose of this guide, put the file in a `files` folder that will be within the `src` folder of your project.
+Make sure to have a file ready that you plan on uploading to DataHaven. Any file type is accepted, although the current limit on the file size for the Testnet is 2 GB. For the purpose of this guide, put the file in a `files` folder that will be within the `src` folder of your project.
 
 ## Initialize File Manager
 

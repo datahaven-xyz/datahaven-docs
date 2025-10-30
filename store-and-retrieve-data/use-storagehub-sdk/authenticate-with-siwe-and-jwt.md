@@ -7,6 +7,8 @@ description: Guide on how to use Sign-In with Ethereum and JWT tokens for secure
 
 ## Introduction
 
+This guide shows how to sign in to a StorageHub Main Storage Provider (MSP) using Sign-In with Ethereum (SIWE, EIP-4361) and maintain a session with short-lived JSON Web Tokens (JWTs). The MSP verifies a wallet-signed challenge, issues a JWT for subsequent requests, and resolves an ENS profile where available. The StorageHub SDK wraps this flow so you can check auth status, complete login, and fetch the authenticated profile with a few calls.
+
 ## Prerequisites
 
 - [Create a Bucket Guide](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket)
