@@ -1,6 +1,6 @@
 ---
 title: How DataHaven Works
-description: Learn how buckets, providers, and on-chain receipts work together on DataHaven so data can be stored, verified, and retrieved.
+description: Get a high-level look at how DataHaven users, providers, and on-chain proofs work together to provide a secure, interoperable, trust-minimized storage layer.
 ---
 
 # Overview
