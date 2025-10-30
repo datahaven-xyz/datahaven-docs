@@ -1,4 +1,3 @@
 nav:
- - 'Overview': index.md
  - 'Buckets, Files, and Merkle Proofs': buckets-files-and-merkle-proofs.md
  - 'Data Flow and Lifecycle': data-flow-and-lifecycle.md
