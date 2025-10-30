@@ -4,3 +4,5 @@ networks:
     wss_url: TODO
     chain_id: 1283
     website_faucet_amount: 1.1 HAVE tokens
+  mainnet:
+    chain_id: 1289
