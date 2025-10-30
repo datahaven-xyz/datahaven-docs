@@ -1,8 +1,7 @@
 ---
-title: Overview
-description: What DataHaven is, how it works, and who it's for.
+title: How It Works Overview
+description: High-level overview of how DataHaven’s architecture and components fit together.
 ---
-
 # Overview
 
 DataHaven is a verifiable, developer-friendly storage network. Apps write and read files through a simple SDK, while integrity and economics are enforced on-chain.
