@@ -1,7 +1,8 @@
 ---
-title: How It Works Overview
-description: High-level overview of how DataHaven’s architecture and components fit together.
+title: How DataHaven Works
+description: Learn how buckets, providers, and on-chain receipts work together on DataHaven so data can be stored, verified, and retrieved.
 ---
+
 # Overview
 
 DataHaven is a verifiable, developer-friendly storage network. Apps write and read files through a simple SDK, while integrity and economics are enforced on-chain.
@@ -35,3 +36,4 @@ DataHaven is a decentralized storage and retrieval network designed for apps tha
 ## Future development
 
 Today you can onboard with the StorageHub SDK to create buckets, upload/download files, share, and verify. EVM smart-contract compatibility and broader programmability are in development and not yet available in the current release.
+
