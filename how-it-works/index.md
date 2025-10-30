@@ -9,7 +9,9 @@ DataHaven is a verifiable, developer-friendly storage network. Apps write and re
 
 ## What is DataHaven?
 
-DataHaven is a decentralized storage and retrieval network designed for apps that need production-scale storage with cryptographic integrity guarantees. It combines easy developer surfaces (SDK + REST) with an on-chain control plane that anchors proofs of your data, so you can verify what is stored, by whom, and when it changed. The network is built as an [autonomous verifiable service (AVS)](https://docs.eigencloud.xyz/products/eigenlayer/developers/concepts/avs-developer-guide){target="_blank"} that leverages Ethereum restaking via EigenLayer for security of the protocol's core checks and incentives.
+DataHaven is a decentralized storage and retrieval network designed for apps that need production-scale storage with cryptographic integrity guarantees. It combines easy developer interfaces via SDK and REST with an on-chain control plane that anchors proofs of your data, so you can verify what is stored, by whom, and when it changed.
+
+The network is built as an [autonomous verifiable service (AVS)](https://docs.eigencloud.xyz/products/eigenlayer/developers/concepts/avs-developer-guide){target=\_blank} that leverages Ethereum restaking via EigenLayer to secure the protocol's core checks and incentives.
 
 ## How does it work?
 
