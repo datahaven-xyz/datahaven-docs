@@ -3,7 +3,7 @@ import { ReplicationLevel } from '@storagehub-sdk/core';
 // Get file details
 const fingerprint = await fileManager.getFingerprint();
 const fileSizeBigInt = BigInt(fileManager.getFileSize());
-console.log(`File size: ${fileSize} bytes`);
+console.log(`File size: ${fileSizeBigInt} bytes`);
 console.log(`Fingerprint: ${fingerprint.toHex()}`);
 
 // Get MSP info
