@@ -47,21 +47,20 @@ Before you jump into guides, here are a few considerations:
 
 <div class="grid cards" markdown>
 
--   **Get Everything You Need**
-
-    ---
+-  <a href="/store-and-retrieve-data/quick-start/" markdown>:material-arrow-right: 
+    
+    **Get Everything You Need**
 
     Find what you need to connect and build on DataHaven, from network configurations to obtaining testnet tokens.
 
-    [:octicons-arrow-right-24: Get started](/store-and-retrieve-data/quick-start/)
+    </a>
 
+-   <a href="/store-and-retrieve-data/use-storagehub-sdk/get-started/" markdown>:material-arrow-right:
 
--   **Get Started with the StorageHub TypeScript SDK**
-
-    ---
+    **Get Started with the StorageHub TypeScript SDK**
 
     Set up a project and install the StorageHub SDK to start storing and retrieving data.
 
-    [:octicons-arrow-right-24: Get started](/store-and-retrieve-data/use-storagehub-sdk/get-started/)
+    </a>
 
 </div>
