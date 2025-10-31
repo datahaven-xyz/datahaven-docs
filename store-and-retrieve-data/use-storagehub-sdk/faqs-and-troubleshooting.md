@@ -3,6 +3,8 @@ title: FAQs & Troubleshooting
 description: Conversational style StorageHub SDK-related FAQs and their answers. Includes bucket management, security best practices, and the role of EigneLayer.
 ---
 
+# StorageHub SDK FAQs
+
 ## What is the difference between the `core` and `msp-client` StorageHub SDK packages?
 
 The two packages differ in the following ways:
@@ -30,25 +32,31 @@ Actions on the DataHaven network, such as uploading files and creating buckets, 
 
 You can view your detailed billing history by connecting your wallet to [apps.datahaven.xyz](https://apps.datahaven.xyz) and visiting the **Payments** section.
 
+## How do I estimates costs when comparing Main Storage Providers?
+
+Each Main Storage Provider (MSP) exposes a public API endpoint that lists its current pricing tiers. You can query this endpoint to see the price per gigabyte per block that the MSP charges for storage.
+
+For example, call the endpoint:
+
+```bash
+GET /value-props
+```
+
+This returns a list of available service tiers, including fields like: 
+    - **`pricePerGbPerBlock`**: The cost to store 1 GB for one block. 
+    - **`dataLimitPerBucketBytes`**: The maximum bucket size allowed for that tier.
+
+Once you have the price, you can estimate your storage cost using a simple formula:
+
+cost = `pricePerGbPerBlock` × (GB stored) × (number of replicas) × (number of blocks)
+
+For a monthly estimate, assume about 432,000 blocks per month (assuming a 6-second block time).
+
+You can view your detailed billing history by connecting your wallet to [apps.datahaven.xyz](https://apps.datahaven.xyz) and visiting the **Payments** section.
+
 ## Can I create a private bucket?
 
-Yes. When you create a bucket, you can decide whether the bucket is public or private (encrypted). Private buckets provide encrypted storage for sensitive data.
-
-## How do I share a bucket?
-
-When sharing a bucket, you can generate a shareable link that provides access to the entire contents of the bucket, including all files and folders within it.
-
-**Configure Share Options:**
-
-- **Access Level**: Choose between view-only access or view and upload access.
-- **Password Protection**: Set a password to protect your shared bucket. This password will be required to access the bucket.
-- **Expiry Date**: Set an optional expiration date for the share link.
-
-**Important Notes:**
-
-- Only the bucket owner can delete files, regardless of access level granted.
-- When you share a bucket, recipients have access to all contents within it.
-- For security purposes, consider creating a new dedicated bucket before sharing and clearly identifying it as a shared bucket.
+Currently buckets are public. To ensure privacy, encrypt your files before uploading them to DataHaven.
 
 ## Can I rename a bucket?
 
@@ -68,7 +76,7 @@ When you select a Main Storage Provider(MSP) and upload a file, there is a two-s
 
 Once your file has completed both steps, it is considered securely stored in the DataHaven network.
 
-## How Does DataHaven Ensure File Integrity?
+## How does DataHaven ensure file integrity?
 
 DataHaven employs a dual-provider model with the following defined roles:
 
@@ -110,6 +118,6 @@ EigenLayer secures DataHaven by keeping operator economics on Ethereum while exe
     - The RewardsRegistry updates the root
     - The AVS, on behalf of operators, uses Substrate-style positional Merkle proofs to claim payouts proportional to earned points.
 
-## Don't See Your Question?
+## Don't see your question?
 
 If your question isn't answered here, join the [DataHaven Discord](https://discord.gg/datahaven) and use the Support Ticket chat. This will create a private channel to ensure your ticket is answered in a timely manner by our support team.
