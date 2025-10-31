@@ -1,13 +1,11 @@
 ---
-title: Data Storage Quickstart
+title: Data Storage Starter Kit
 description: Everything you need to start building on DataHaven, including network configs, block explorers, faucets, and MSP endpoints for working with the StorageHub SDK.
 ---
 
-# Data Storage Quickstart
+# Data Storage Starter Kit
 
-DataHaven is a fully EVM-compatible decentralized storage and computation platform built as a sovereign Substrate-based Layer 1 chain. It combines Ethereum-style accounts and tooling with Substrate’s modular runtime to provide seamless interaction between on-chain smart contracts and off-chain data storage. Developers can interact with DataHaven using familiar Ethereum RPCs, wallets, and libraries such as MetaMask or viem, while also accessing Substrate APIs for advanced features like governance or custom runtime calls.
-
-By integrating with EigenLayer, DataHaven operates as an Autonomous Verifiable Service (AVS) secured by Ethereum restakers, inheriting Ethereum's security without relying on its own validator bootstrap. This unified design enables decentralized applications to coordinate computation and storage through a single network that links smart contract logic with verifiable, persistent data maintained by storage providers.
+DataHaven is fully EVM-compatible. You can interact with DataHaven using familiar Ethereum RPCs, wallets, and libraries such as MetaMask or viem, while also accessing Substrate APIs for advanced features like governance or custom runtime calls.
 
 ## DataHaven Networks
 

@@ -7,43 +7,61 @@ description: Learn about the complete data storage and retrieval process in Data
 
 DataHaven is a verifiable storage network that separates storage from verification. Storage providers hold your file bytes off-chain, while the chain records compact on-chain commitments. These commitments serve as "receipts" so data can be checked at read time.
 
-## Key Considerations
+This section provides a high-level overview of how to create a bucket, upload files, and retrieve them.
 
-As you plan your development, consider the following:
+## How File Storage Works at a Glance
 
-- **Bucket access**: Currently, bucket access is limited to the bucket owner.
-- **Data security**: For confidentiality, you can encrypt files on the client side before uploading.
-- **Costs and deposits**: Storage is billed via a prepaid deposit that streams per block and auto-pauses when the balance falls below a minimum threshold.
-- **MSP choice**: If you opt to reassign a bucket to a new MSP later, the new MSP rehydrates data from BSP replicas without requiring manual copying.
-- **File status and replicas**: Treat files as “verified” only after a fulfillment event is emitted. 
-- **Large files**: Files up to 2 GB are currently supported, subject to change. The app automatically handles chunking and integrity checks under the hood.
+1. **Pick an MSP and bucket**: Connect your wallet, select a Main Storage Provider (MSP), and create a bucket. Set your desired replication factor for backup copies.
+
+2. **Upload data**: Send a storage request to the MSP, which stores your file and coordinates replication to Backup Storage Providers (BSPs). Once enough BSPs confirm storage, the MSP records a cryptographic commitment on-chain, securing your file on the network.
+
+3. **Retrieve data**: The MSP returns your file with a proof that you can verify against the on-chain commitment, confirming your data matches what was stored.
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant MSP
+    participant BSPs
+    participant Blockchain
+
+    User->>MSP: Connect wallet and select bucket
+    User->>MSP: Upload data
+    MSP->>BSPs: Coordinate replication
+    BSPs-->>MSP: Confirm replication
+    MSP->>Blockchain: Anchor cryptographic commitment
+    User->>MSP: Request data
+    MSP-->>User: Return data + proof
+    User->>Blockchain: Verify proof
+```
+
+DataHaven provides the benefits of provable data without the high cost of storing entire data files on-chain.
 
 ## Store Data with StorageHub SDK
 
 Use the following how-to guides to move through the DataHaven storage and retrieval lifecycle:
 
-[timeline.left(datahaven-docs/.snippets/store-and-retrieve-data/overview/timeline-01.json)]
+[timeline.left(datahaven-docs/.snippets/text/store-and-retrieve-data/overview/timeline-01.json)]
 
-You can also visit the [End-to-End StorageHub SDK Workflow](/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow.md) tutorial for a streamlined walk-through using DataHaven's StorageHub SDK to store and retrieve data.
+You can also visit the [End-to-End Storage Workflow](/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow.md) tutorial for a streamlined walk-through using DataHaven's StorageHub SDK to store and retrieve data.
 
 ## Next Steps
 
 <div class="grid cards" markdown>
 
--   **Quickstart**
+-  <a href="/store-and-retrieve-data/starter-kit/" markdown>:material-arrow-right: 
+    
+    **Data Storage Starter Kit**
 
-    ---
+    Find what you need to connect and build on DataHaven, from network configurations to obtaining testnet tokens.
 
-    Visit the Quickstart guide to set up your RPC endpoints, discover block explorers, and obtain TestNet HAVE tokens. 
+    </a>
 
-    [:octicons-arrow-right-24: Get started](/store-and-retrieve-data/quickstart/)
+-   <a href="/store-and-retrieve-data/use-storagehub-sdk/get-started/" markdown>:material-arrow-right:
 
--   **Get Started with the StorageHub SDK**
+    **Get Started with the StorageHub SDK**
 
-    ---
+    Set up a project and install the StorageHub SDK to start storing and retrieving data.
 
-    Follow this guide to set up your development environment and install key dependencies to get your DataHaven project up and running smoothly.
-
-    [:octicons-arrow-right-24: Get started](/store-and-retrieve-data/use-storagehub-sdk/get-started/)
+    </a>
 
 </div>
