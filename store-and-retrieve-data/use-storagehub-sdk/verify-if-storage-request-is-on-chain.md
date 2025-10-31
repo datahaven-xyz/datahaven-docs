@@ -5,6 +5,8 @@ description: Guide to checking and confirming that your storage request is regis
 
 ## Introduction
 
+Use this guide to confirm that a file’s Storage Request was recorded on-chain. You’ll derive the deterministic file key (owner AccountId20 + bucketId + fileName), query `fileSystem.storageRequests`(fileKey) via the Polkadot.js API, and inspect the returned record. A successful check proves the request exists and that core fields including `bucketId` and the content fingerprint match your local values. If no record is found, the transaction may not be finalized yet, or one of the inputs used to compute the key (address, bucket ID type, or case-sensitive file name) doesn’t exactly match what was used when the request was issued. This flow is read-only.
+
 ## Prerequisites
 
 - [Issue a Storage Request Guide](/store-and-retrieve-data/use-storagehub-sdk/issue-a-storage-request)
@@ -31,6 +33,13 @@ To read Storage Request data, it first must be unwrapped as follows:
 
 ```ts title="index.ts"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/verify-if-storage-request-is-on-chain/read-storage-request-data.ts'
+```
+
+Upon successful verification, you'll see a message like:
+
+```bash
+Storage request bucketId: 0x8bb80c024079126ba72150cce1d60665e4d4da038c56f75121471912b036c70a
+Storage request fingerprint should be the same as initial fingerprint true
 ```
 
 ## Next Steps

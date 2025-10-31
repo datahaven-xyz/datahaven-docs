@@ -7,13 +7,17 @@ description: Guide to issuing a storage request using StorageHub SDK.
 
 ## Introduction
 
+A Storage Request is the instruction that tells DataHaven—through your chosen Main Storage Provider (MSP)—to persist a specific file in a bucket with the redundancy policy you select. In this guide, you’ll go from a local file to a confirmed on-chain transaction: initialize a FileManager, derive the file’s fingerprint, fetch MSP details (including peer IDs), choose a replication level, and call issueStorageRequest. When the transaction is finalized, you’ll have a transaction hash and an on-chain record of the request you can verify in the follow-up guide.
+
+Before you begin, make sure you’ve created a bucket and authenticated with the MSP (SIWE). On Testnet, files up to 2 GB are supported.
+
 ## Prerequisites
 
 - [Create a Bucket Guide](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket)
 
 ## Prepare file
 
-Make sure to have a file ready that you plan on uploading to DataHaven. Any file type is accepted, although the current limit on the file size for the Testnet is 2 GB. For the purpose of this guide, put the file in a `files` folder that will be within the `src` folder of your project.
+Make sure to have a file ready that you plan on uploading to DataHaven. Any file type is accepted, although the current limit on the file size for the Testnet is 2 GB. 
 
 ## Initialize File Manager
 
@@ -37,6 +41,12 @@ Prepare the remaining parameters and issue the storage request by adding the fol
 
 ```ts title="index.ts"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/issue-a-storage-request/issue-storage-request.ts'
+```
+
+Upon a successful storage request, the transaction hash will be output:
+
+```bash
+issueStorageRequest() txHash: 0x1cb9446510d9f204c93f1c348e0a13422adef91f1740ea0fdb1534e3ccb232ef
 ```
 
 ## Next Steps

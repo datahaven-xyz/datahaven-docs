@@ -7,6 +7,8 @@ description: Guide to uploading files using the StorageHub SDK.
 
 ## Introduction
 
+This step uploads your file’s bytes to your chosen Main Storage Provider (MSP) and links them to the Storage Request you already issued. You’ll convert the local file into a Web-compatible Blob via the FileManager, then call `mspClient.files.uploadFile` with your `bucketId`, file key (hex), address, and file name. On success the MSP returns an upload receipt—verify its status is `upload_successful` to confirm the file was accepted for ingestion and replication.
+
 ## Prerequisites
 
 - [Verify if Storage Request is On-Chain Guide](/store-and-retrieve-data/use-storagehub-sdk/verify-if-storage-request-is-on-chain)

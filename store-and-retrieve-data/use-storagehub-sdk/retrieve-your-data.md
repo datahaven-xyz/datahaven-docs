@@ -7,6 +7,8 @@ description: Guide to fetching and downloading your files from DataHaven using t
 
 ## Introduction
 
+This section shows how to fetch a previously uploaded file from your chosen Main Storage Provider (MSP) using its deterministic file key. You’ll pass the file key in hex to `mspClient.files.downloadFile`, validate a 200 response, and stream the bytes directly to disk—avoiding loading the whole object into memory. 
+
 ## Prerequisites
 
 - [Upload Your First File Guide](/store-and-retrieve-data/use-storagehub-sdk/upload-your-first-file)
