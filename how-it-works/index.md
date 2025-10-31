@@ -56,7 +56,7 @@ You can currently onboard with the StorageHub SDK to create buckets and upload, 
 
     Follow this step-by-step summary to understand how data moves through DataHaven, including selecting an MSP, uploading your first files, and retrieving and verifying your data.
 
-    [:octicons-arrow-right-24: Get started](/datahaven-docs/how-it-works/data-and-provider-model/data-flow-and-lifecycle.md)
+    [:octicons-arrow-right-24: Get started](/how-it-works/data-and-provider-model/data-flow-and-lifecycle/)
 
 -   **Get Started with the StorageHub TypeScript SDK**
 
