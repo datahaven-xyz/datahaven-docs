@@ -7,52 +7,60 @@ description: Learn about the complete data storage and retrieval process in Data
 
 DataHaven is a verifiable storage network that separates storage from verification. Storage providers hold your file bytes off-chain, while the chain records compact on-chain commitments (“receipts”) so integrity can be checked at read time.
 
-This section provides a high-level overview of how to create a bucket, upload, and retrieve files.
+This section provides a high-level overview of how to create a bucket, upload files, and retrieve them.
 
 ## How File Storage Works at a Glance
 
-1. **Pick an MSP and bucket**: Connect your wallet or app identity. Select a Main Storage Provider (MSP) and create or reuse a bucket. Today, access is owner-only; sharing/public access is planned. Set your desired replication factor (BSP replicas).
+1. **Pick an MSP and bucket**: Connect your wallet, select a Main Storage Provider (MSP), and create a bucket. Set your desired replication factor for backup copies.
 
-2. **Upload data**: Your app opens a storage request to the MSP. The MSP accepts it, stores the bytes off-chain, and coordinates replication to protocol-assigned Backup Storage Providers (BSPs). If enough BSPs acknowledge within the window, the MSP anchors a per-bucket update on-chain (a compact commitment that indirectly commits to the file). If not, the request expires: the MSP may still have the bytes, but the file is not yet fully secured by the network.
+2. **Upload data**: Send a storage request to the MSP, which stores your file and coordinates replication to Backup Storage Providers (BSPs). Once enough BSPs confirm storage, the MSP records a cryptographic commitment on-chain, securing your file on the network.
 
-3. **Retrieve data**: If the storage request is fulfilled (replication reached the target and the bucket’s root was anchored), the MSP returns the bytes plus a Merkle proof and your app verifies it against the bucket’s on-chain commitment. If the request is pending or expired, the MSP may still serve the bytes, but there’s no on-chain anchor to verify against. Treat it as not yet secured until replication completes.
+3. **Retrieve data**: The MSP returns your file with a proof that you can verify against the on-chain commitment, confirming your data matches what was stored.
 
-Ready to try it in the dapp? It’s a straightforward create, upload, and retrieve process.
+```mermaid
+sequenceDiagram
+    participant User
+    participant MSP
+    participant BSPs
+    participant Blockchain
 
-## Start Here: Core Workflows
-
-- Create a bucket and choose an MSP. Access is currently owner-only; sharing/public access is on the roadmap. For confidentiality, you can encrypt files on the client side before uploading.
-- Upload files: the app creates a storage request; once required BSP replication acks arrive, the MSP anchors a per-bucket update on-chain that commits to your file(s).
-- Retrieve files later with a lightweight integrity check against the bucket’s on-chain commitment (only when fulfilled).
-
-Before you jump into guides, here are a few practical notes.
+    User->>MSP: Connect wallet and select bucket
+    User->>MSP: Upload data
+    MSP->>BSPs: Coordinate replication
+    BSPs-->>MSP: Confirm replication
+    MSP->>Blockchain: Anchor cryptographic commitment
+    User->>MSP: Request data
+    MSP-->>User: Return data + proof
+    User->>Blockchain: Verify proof
+```
 
 ## Key Considerations
 
-As you plan your workflow, consider the following concepts:
+Before you jump into guides, here are a few considerations:
 
 - **Costs and deposits**: Network fees apply. Storage is billed via a prepaid deposit that streams per block and auto-pauses when the balance falls below a minimum threshold.
-- **MSP choice and capacity**: You pick a MSP. Market dynamics encourage MSPs to offer capacity and performance at competitive prices. You can reassign a bucket to a new MSP later; the new MSP rehydrates from BSP replicas (no manual copying required).
-- **File status & replicas**: Treat files as “verified” only after a fulfillment signal (e.g., `StorageRequestFulfilled`) and, ideally, show current replicas vs target so users see progress.
+- **MSP choice and capacity**: You pick an MSP. Market dynamics encourage MSPs to offer capacity and performance at competitive prices. You can reassign a bucket to a new MSP later; the new MSP rehydrates from BSP replicas (no manual copying required).
+- **File status and replicas**: Treat files as “verified” only after a fulfillment signal (e.g., an `StorageRequestFulfilled` event is emitted) and, ideally, show the current replicas vs. the target so users can see progress.
 - **Large files**: Files up to 2 GB are currently supported (subject to change). The app automatically handles chunking and integrity checks under the hood.
 
 ## Next Steps
 
 <div class="grid cards" markdown>
 
--   **Quick Start**
+-   **Get Everything You Need**
 
     ---
 
-    Create a bucket and upload your first file.
+    Find what you need to connect and build on DataHaven, from network configurations to obtaining testnet tokens.
 
-    [:octicons-arrow-right-24: Get started](/store-and-retrieve-data/quickstart/)
+    [:octicons-arrow-right-24: Get started](/store-and-retrieve-data/quick-start/)
+
 
 -   **Get Started with the StorageHub TypeScript SDK**
 
     ---
 
-    Build programmatically with the TypeScript SDK.
+    Set up a project and install the StorageHub SDK to start storing and retrieving data.
 
     [:octicons-arrow-right-24: Get started](/store-and-retrieve-data/use-storagehub-sdk/get-started/)
 
