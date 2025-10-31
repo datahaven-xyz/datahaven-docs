@@ -26,7 +26,7 @@ DataHaven combines two storage provider types to ensure data preservation and in
 | MSP                                                                     | BSP                                                                  |
 |-------------------------------------------------------------------------|----------------------------------------------------------------------|
 | Chosen by the user.                                                     | Randomly assigned by the network.                                    |
-| Maintains the bucket trie (original).                                   | Replicates data across the network (replication).                     |
+| Maintains the bucket trie.                                              | Replicates data across the network.                                  |
 | Periodically anchors the bucket root on-chain.                          | Periodically posts the global Merkle commitment of all files stored. |
 | Performance is incentivized by competition to attract and retain users. | Performance ensured via a slashing mechanism for failed challenges.  |
 
