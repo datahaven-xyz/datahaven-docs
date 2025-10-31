@@ -1,9 +1,9 @@
 ---
-title: DataHaven Quick Start Guide
+title: Data Storage Quickstart
 description: Everything you need to start building on DataHaven, including network configs, block explorers, faucets, and MSP endpoints for working with the StorageHub SDK.
 ---
 
-# DataHaven Quick Start Guide
+# Data Storage Quickstart
 
 DataHaven is a fully EVM-compatible decentralized storage and computation platform built as a sovereign Substrate-based Layer 1 chain. It combines Ethereum-style accounts and tooling with Substrate’s modular runtime to provide seamless interaction between on-chain smart contracts and off-chain data storage. Developers can interact with DataHaven using familiar Ethereum RPCs, wallets, and libraries such as MetaMask or viem, while also accessing Substrate APIs for advanced features like governance or custom runtime calls.
 
