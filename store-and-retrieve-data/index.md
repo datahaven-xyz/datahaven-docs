@@ -42,7 +42,7 @@ Use the following how-to guides to move through the DataHaven storage and retrie
 
 [timeline.left(datahaven-docs/.snippets/text/store-and-retrieve-data/overview/timeline-01.json)]
 
-You can also visit the [End-to-End Storage Workflow](/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow.md) tutorial for a streamlined walk-through using DataHaven's StorageHub SDK to store and retrieve data.
+You can also visit the [End-to-End Storage Workflow](/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/) tutorial for a streamlined walk-through using DataHaven's StorageHub SDK to store and retrieve data.
 
 ## Next Steps
 
