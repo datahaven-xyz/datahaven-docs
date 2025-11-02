@@ -5,7 +5,7 @@ description: Learn about the complete data storage and retrieval process in Data
 
 # Store and Retrieve Data Overview
 
-DataHaven is a verifiable storage network that separates storage from verification. Storage providers hold your file bytes off-chain, while the chain records compact on-chain commitments. These commitments serve as "receipts" so data can be checked at read time.
+DataHaven is a verifiable storage network that separates storage from verification. Storage providers hold your file bytes off-chain, while the chain records compact on-chain commitments. These commitments serve as receipts so data can be checked at read time.
 
 This section provides a high-level overview of how to create a bucket, upload files, and retrieve them.
 
