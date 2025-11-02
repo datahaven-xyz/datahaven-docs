@@ -12,9 +12,19 @@ This page follows a file’s journey from choosing an MSP and bucket to uploadin
 ## Roles at a Glance
 
 - **User / Application**: Initiates actions such as choosing an MSP, creating buckets, uploading files, and retrieving stored data.
+- **DataHaven chain**: Maintains compact on-chain commitments (bucket roots from MSPs, global roots from BSPs) and coordinates BSP challenges.
+- **Storage Providers**: DataHaven divides data storage, verification, and retrieval responsibilites across Main Storage Providers (MSP) and Backup Storage Providers (BSP). The two roles compare as follows:
+
+| MSP                                                                  | BSP                                                                       |
+|----------------------------------------------------------------------|---------------------------------------------------------------------------|
+| Chosen by the user.                                                  | Randomly assigned by the network.                                         |
+| Maintain the bucket trie (original).                                 | Replicate data across the network (replication).                          |
+| Periodically anchors the bucket root on-chain.                       | Periodically post the global Merkle commitment of all files stored.       |
+| Serve files for read requests.                                       | No role in serving files for read requests.                               |
+| Performance incentivized by competition to attract and retain users. | Performance ensured via a slashing mechanism for failed proof challenges. |
+
 - **Main Storage Provider (MSP)**: User-selected primary storage provider. Maintains buckets, serves reads, and anchors per-bucket updates on-chain.
 - **Backup Storage Providers (BSPs)**: Protocol-assigned replicas that enhance durability. They post a global commitment for stored files and respond to periodic challenges. They do not serve user reads.
-- **DataHaven chain**: Maintains compact on-chain commitments (bucket roots from MSPs, global roots from BSPs) and coordinates BSP challenges.
 
 ## Step-by-Step Journey
 
