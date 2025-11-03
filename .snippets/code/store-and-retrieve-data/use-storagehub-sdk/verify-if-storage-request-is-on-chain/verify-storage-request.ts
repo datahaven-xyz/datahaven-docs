@@ -1,12 +1,12 @@
 // --8<-- [start:imports]
 import '@storagehub/api-augment';
 import { ApiPromise, WsProvider } from '@polkadot/api';
+import { TypeRegistry } from '@polkadot/types';
+import { AccountId20, H256 } from '@polkadot/types/interfaces';
 import { types } from '@storagehub/types-bundle';
 import { FileManager, initWasm } from '@storagehub-sdk/core';
 import { createReadStream, statSync } from 'node:fs';
 import { Readable } from 'node:stream';
-import { TypeRegistry } from '@polkadot/types';
-import { AccountId20, H256 } from '@polkadot/types/interfaces';
 // --8<-- [end:imports]
 
 async function run() {

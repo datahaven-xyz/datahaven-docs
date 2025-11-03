@@ -9,7 +9,27 @@ This guide shows how to sign in to a StorageHub Main Storage Provider (MSP) usin
 
 ## Prerequisites
 
-- [Create a Bucket Guide](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket)
+--8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/prerequisites.md'
+
+## Dependencies
+
+=== "pnpm"
+
+    ```bash { .break-spaces }
+    pnpm add @storagehub-sdk/core @storagehub-sdk/msp-client @storagehub/types-bundle @polkadot/api @storagehub/api-augment viem
+    ```
+
+=== "yarn"
+
+    ```bash { .break-spaces }
+    yarn add @storagehub-sdk/core @storagehub-sdk/msp-client @storagehub/types-bundle @polkadot/api @storagehub/api-augment viem
+    ```
+
+=== "npm"
+
+    ```bash { .break-spaces }
+    npm install @storagehub-sdk/core @storagehub-sdk/msp-client @storagehub/types-bundle @polkadot/api @storagehub/api-augment viem
+    ```
 
 ## Initialize Clients
 

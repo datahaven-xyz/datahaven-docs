@@ -11,10 +11,30 @@ In this guide, you’ll go from a local file to a confirmed on-chain transaction
 
 ## Prerequisites
 
-Before you begin, make sure you’ve:
+--8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/prerequisites.md'
 
-- [Created a bucket](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/){target=\_blank} and have the bucket ID.
-- Prepared a file to upload to DataHaven (any file type is accepted; the current TestNet file size limit is 2 GB).
+- [A bucket created](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/){target=\_blank} with the ID handy
+- A file to upload to DataHaven (any file type is accepted; the current TestNet file size limit is 2 GB).
+
+## Install Dependencies
+
+=== "pnpm"
+
+    ```bash { .break-spaces }
+    pnpm add @storagehub-sdk/core @storagehub-sdk/msp-client @storagehub/types-bundle @polkadot/api @storagehub/api-augment viem
+    ```
+
+=== "yarn"
+
+    ```bash { .break-spaces }
+    yarn add @storagehub-sdk/core @storagehub-sdk/msp-client @storagehub/types-bundle @polkadot/api @storagehub/api-augment viem
+    ```
+
+=== "npm"
+
+    ```bash { .break-spaces }
+    npm install @storagehub-sdk/core @storagehub-sdk/msp-client @storagehub/types-bundle @polkadot/api @storagehub/api-augment viem
+    ```
 
 ## Initialize Clients
 

@@ -11,41 +11,37 @@ This guide walks you through creating your first bucket programmatically using t
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/en/download){target=_blank} v22+ installed
-- [A TypeScript project](/store-and-retrieve-data/use-storagehub-sdk/get-started/#set-up-a-typescript-project){target=\_blank}
-- The [StorageHub SDK](/store-and-retrieve-data/use-storagehub-sdk/get-started/#install-the-storagehub-sdk){target=\_blank} installed
+--8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/prerequisites.md'
 
-## Install Additional Dependencies
-
-You'll need these packages to enable chain interaction:
-
-- **[`@storagehub/types-bundle`](https://www.npmjs.com/package/@storagehub/types-bundle){target=_blank}:** Describes DataHaven's custom on-chain types.
-
-- **[`@polkadot/api`](https://www.npmjs.com/package/@polkadot/api){target=_blank}:** The core JavaScript library used to talk to any Substrate-based blockchain, which in our case is DataHaven.
-
-- **[`@storagehub/api-augment`](https://www.npmjs.com/package/@storagehub/api-augment){target=_blank}:** Extends `@polkadot/api` with DataHaven's custom pallets and RPC methods.
-
-- **[`viem`](https://www.npmjs.com/package/viem){target=_blank}:** Lightweight library for building Ethereum-compatible applications.
-
-To install them, select your package manager below:
+## Install Dependencies
 
 === "pnpm"
 
-    ```bash
-    pnpm add @storagehub/types-bundle @polkadot/api @storagehub/api-augment viem
+    ```bash { .break-spaces }
+    pnpm add @storagehub-sdk/core @storagehub-sdk/msp-client @storagehub/types-bundle @polkadot/api @storagehub/api-augment viem
     ```
 
 === "yarn"
 
-    ```bash
-    yarn add @storagehub/types-bundle @polkadot/api @storagehub/api-augment viem
+    ```bash { .break-spaces }
+    yarn add @storagehub-sdk/core @storagehub-sdk/msp-client @storagehub/types-bundle @polkadot/api @storagehub/api-augment viem
     ```
 
 === "npm"
 
-    ```bash
-    npm install @storagehub/types-bundle @polkadot/api @storagehub/api-augment viem
+    ```bash { .break-spaces }
+    npm install @storagehub-sdk/core @storagehub-sdk/msp-client @storagehub/types-bundle @polkadot/api @storagehub/api-augment viem
     ```
+
+??? interface "Why do I need these dependencies?"
+
+    - **[`@storagehub/types-bundle`](https://www.npmjs.com/package/@storagehub/types-bundle){target=_blank}:** Describes DataHaven's custom on-chain types.
+
+    - **[`@polkadot/api`](https://www.npmjs.com/package/@polkadot/api){target=_blank}:** The core JavaScript library used to talk to any Substrate-based blockchain, which in our case is DataHaven.
+
+    - **[`@storagehub/api-augment`](https://www.npmjs.com/package/@storagehub/api-augment){target=_blank}:** Extends `@polkadot/api` with DataHaven's custom pallets and RPC methods.
+
+    - **[`viem`](https://www.npmjs.com/package/viem){target=_blank}:** Lightweight library for building Ethereum-compatible applications.
 
 ## Initialize Clients
 

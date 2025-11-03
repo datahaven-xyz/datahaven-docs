@@ -9,10 +9,30 @@ Use this guide to confirm that a file's storage request has been successfully re
 
 ## Prerequisites
 
-Before you begin, make sure you've:
+--8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/prerequisites.md'
 
-- [Created a bucket](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/){target=\_blank} and have the bucket ID.
-- [Issued a storage request](/store-and-retrieve-data/use-storagehub-sdk/issue-a-storage-request/){target=\_blank} and have the address of the account that issued the request, the file name, and the fingerprint of the request. 
+- [A bucket created](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/){target=\_blank} with the ID handy
+- [A storage request issued](/store-and-retrieve-data/use-storagehub-sdk/issue-a-storage-request/){target=\_blank} along with the address of the account that issued the request, the file name, and the fingerprint of the request. 
+
+## Install Dependencies
+
+=== "pnpm"
+
+    ```bash { .break-spaces }
+    pnpm add @storagehub-sdk/core @storagehub/types-bundle @polkadot/api @polkadot/types @storagehub/api-augment
+    ```
+
+=== "yarn"
+
+    ```bash { .break-spaces }
+    yarn add @storagehub-sdk/core @storagehub/types-bundle @polkadot/api @polkadot/types @storagehub/api-augment
+    ```
+
+=== "npm"
+
+    ```bash { .break-spaces }
+    npm install @storagehub-sdk/core @storagehub/types-bundle @polkadot/api @polkadot/types @storagehub/api-augment
+    ```
 
 ## Initialize Polkadot.js and File Manager
 
