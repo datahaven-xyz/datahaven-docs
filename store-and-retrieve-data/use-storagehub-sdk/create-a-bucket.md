@@ -181,20 +181,20 @@ And that’s it. You’ve successfully created a bucket on-chain and verified it
 
 <div class="grid cards" markdown>
 
--   __Issue a Storage Request__
-
-    ---
+-  <a href="/store-and-retrieve-data/use-storagehub-sdk/issue-a-storage-request/" markdown>:material-arrow-right: 
+    
+    **Issue a Storage Request**
 
     Once your bucket is created, the next step is to issue a storage request to upload and register your file on DataHaven.
 
-    [:octicons-arrow-right-24: Issue a Storage Request](/store-and-retrieve-data/use-storagehub-sdk/issue-a-storage-request.md)
+    </a>
 
--   __Build a Data Workflow End-to-End__
+-   <a href="/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/" markdown>:material-arrow-right:
 
-    ---
+    **Build a Data Workflow End-to-End**
 
     Learn step-by-step how to store a file on DataHaven and retrieve it from the network.
 
-    [:octicons-arrow-right-24: End-to-End Storage Workflow](/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow.md)
+    </a>
 
 </div>
