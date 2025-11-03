@@ -1,65 +1,102 @@
 ---
-title: Verify if Storage Request is On-Chain
-description: Guide to checking and confirming that your storage request is registered on-chain.
+title: Verify a Storage Request
+description: This guide shows how to verify a file's storage request on-chain by deriving its file key and querying storage requests with the Polkadot.js API.
 ---
 
-## Introduction
+# Verify If Storage Request Is On-Chain
 
-Use this guide to confirm that a file’s Storage Request was recorded on-chain. You’ll derive the deterministic file key (owner AccountId20 + bucketId + fileName), query `fileSystem.storageRequests`(fileKey) via the Polkadot.js API, and inspect the returned record. A successful check proves the request exists and that core fields including `bucketId` and the content fingerprint match your local values. If no record is found, the transaction may not be finalized yet, or one of the inputs used to compute the key (address, bucket ID type, or case-sensitive file name) doesn’t exactly match what was used when the request was issued. This flow is read-only.
+Use this guide to confirm that a file's storage request has been successfully recorded on-chain. You'll learn how to derive the deterministic file key and query the on-chain storage requests via the Polkadot.js API. A successful check confirms that the request exists and that core fields, such as the bucket ID and content fingerprint, match your local values. If no record is found, the transaction may not have been finalized yet, or one of the inputs used to compute the file key may not exactly match what was used when the request was issued.
 
 ## Prerequisites
 
-- [Issue a Storage Request Guide](/store-and-retrieve-data/use-storagehub-sdk/issue-a-storage-request)
+Before you begin, make sure you've:
 
-## Compute the file key
+- [Created a bucket](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/){target=\_blank} and have the bucket ID.
+- [Issued a storage request](/store-and-retrieve-data/use-storagehub-sdk/issue-a-storage-request/){target=\_blank} and have the address of the account that issued the request, the file name, and the fingerprint of the request. 
 
-To compute the file key with its required parameters in the appropriate types add the following code:
+## Initialize Polkadot.js and File Manager
+
+First, you'll need to set up the Polkadot.js API to connect to the DataHaven network, which allows you to read data from the underlying Substrate node. You'll also need to initialize a File Manager instance to compute the file key required to retrieve storage request data.
+
+If you've already followed the [Issue a Storage Request](/store-and-retrieve-data/use-storagehub-sdk/issue-a-storage-request/){target=\_blank} guide, the Polkadot.js API and File Manager may already be initialized. In that case, review the placeholders at the bottom of the following snippet to see where you'll add logic in this guide, then skip ahead to [Compute the File Key](#compute-the-file-key).
+
+Create an `index.ts` and add the following code:
 
 ```ts title="index.ts"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/verify-if-storage-request-is-on-chain/compute-file-key.ts'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/verify-if-storage-request-is-on-chain/verify-storage-request.ts:imports'
+
+async function run() {
+  --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/verify-if-storage-request-is-on-chain/verify-storage-request.ts:initialize-and-setup'
+
+  // --- Verify storage request logic ---
+  // **PLACEHOLDER FOR STEP 1: COMPUTE THE FILE KEY**
+  // **PLACEHOLDER FOR STEP 2: RETRIEVE STORAGE REQUEST DATA**
+  // **PLACEHOLDER FOR STEP 3: READ STORAGE REQUEST DATA**
+
+  // Disconnect the Polkadot API at the very end
+  await polkadotApi.disconnect();
+}
+
+await run();
 ```
 
-## Retrieve Storage Request data via Polkadot API
+## Compute the File Key
 
-To retrieve Storage Request data, add the following code:
+To compute the deterministic file key, derive it from the owner (`AccountId20`), bucket ID, and file name:
 
-```ts title="index.ts"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/verify-if-storage-request-is-on-chain/retrieve-storage-request-data.ts'
+```ts title="// **PLACEHOLDER FOR STEP 1: COMPUTE THE FILE KEY**"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/verify-if-storage-request-is-on-chain/verify-storage-request.ts:compute-file-key'
 ```
 
-## Read Storage Request data
+## Retrieve Storage Request Data
 
-To read Storage Request data, it first must be unwrapped as follows:
+To retrieve storage request data, query `fileSystem.storageRequests` and pass in the computed file key:
 
-```ts title="index.ts"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/verify-if-storage-request-is-on-chain/read-storage-request-data.ts'
+```ts title="// **PLACEHOLDER FOR STEP 2: RETRIEVE STORAGE REQUEST DATA**"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/verify-if-storage-request-is-on-chain/verify-storage-request.ts:verify-storage-request'
+```
+
+## Read Storage Request Data
+
+To read storage request data, it first must be unwrapped as follows:
+
+```ts title="// **PLACEHOLDER FOR STEP 3: READ STORAGE REQUEST DATA**"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/verify-if-storage-request-is-on-chain/verify-storage-request.ts:read-storage-request'
+```
+
+Run the script:
+
+```bash
+ts-node index.ts
 ```
 
 Upon successful verification, you'll see a message like:
 
-```bash
-Storage request bucketId: 0x8bb80c024079126ba72150cce1d60665e4d4da038c56f75121471912b036c70a
-Storage request fingerprint should be the same as initial fingerprint true
-```
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/verify-if-storage-request-is-on-chain/output-01.html'
+
+??? code "View complete script"
+    ```ts title="index.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/verify-if-storage-request-is-on-chain/verify-storage-request.ts'
+    ```
 
 ## Next Steps
 
 <div class="grid cards" markdown>
 
--   __Upload Your First File__
-
-    ---
+-  <a href="/store-and-retrieve-data/use-storagehub-sdk/upload-your-first-file/" markdown>:material-arrow-right: 
+    
+    **Upload Your First File**
 
     Once your storage request is confirmed, use the StorageHub SDK to upload your first file to the network. 
 
-    [:octicons-arrow-right-24: Retrieve Your Data](/store-and-retrieve-data/use-storagehub-sdk/upload-your-first-file)
+    </a>
 
--   __Build a Data Workflow End-to-End__
+-   <a href="/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/" markdown>:material-arrow-right:
 
-    ---
+    **Build a Data Workflow End-to-End**
 
-    Learn step-by-step how to store a file on DataHaven and retrieve it back from the network.
+    Learn step-by-step how to store a file on DataHaven and retrieve it from the network.
 
-    [:octicons-arrow-right-24: End-to-End Storage Workflow](/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow)
+    </a>
 
 </div>
