@@ -150,7 +150,7 @@ Now that you understand DataHaven's data storage lifecycle, consider these resou
 
     </a>
 
--  <a href="datahaven-docs/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/" markdown>:material-arrow-right: 
+-  <a href="/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/" markdown>:material-arrow-right: 
     
     **End-to-End Storage Workflow**
 
