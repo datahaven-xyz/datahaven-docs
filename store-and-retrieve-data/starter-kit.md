@@ -42,7 +42,7 @@ To begin building on a DataHaven test network, you'll need to obtain HAVE tokens
 
 |      TestNet      |            Where To Get Tokens From             | Amount Dispensed                                                                 |
 |:-----------------:|:-----------------------------------------------:|----------------------------------------------------------------------------------|
-| DataHaven TestNet | [Official TestNet Faucet](TODO){target=\_blank} | The faucet dispenses {{ networks.testnet.website_faucet_amount }} every 24 hours |
+| DataHaven TestNet | [Official TestNet Faucet](TODO){target=\_blank} | {{ networks.testnet.website_faucet_amount }} every 24 hours |
 
 TestNet HAVE tokens do not have any market value. Please do not spam the faucet with unnecessary requests.
 
