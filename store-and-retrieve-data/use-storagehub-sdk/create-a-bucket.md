@@ -54,71 +54,11 @@ First, you'll need to set up the necessary clients to connect to the DataHaven n
 Create an `index.ts` file and add the following code:
 
 ```ts title="index.ts"
-import '@storagehub/api-augment'; 
-import { ApiPromise, WsProvider } from '@polkadot/api';
-import { types } from '@storagehub/types-bundle';
-import {
-  HttpClientConfig,
-  StorageHubClient,
-  initWasm,
-} from '@storagehub-sdk/core';
-import {
-  HealthStatus,
-  InfoResponse,
-  MspClient,
-  ValueProp,
-} from '@storagehub-sdk/msp-client';
-import {
-  Chain,
-  PublicClient,
-  WalletClient,
-  createPublicClient,
-  createWalletClient,
-  defineChain,
-  http,
-} from 'viem';
-import { privateKeyToAccount } from 'viem/accounts';
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:imports'
 
 async function run() {
-  // For anything from @storagehub-sdk/core to work, initWasm() is required
-  // on top of the file
-  await initWasm();
-
-  // --- viem setup ---
-  // Define DataHaven chain, as expected by viem
-  const chain: Chain = defineChain({
-    id: 1283,
-    name: 'DataHaven Stagenet',
-    nativeCurrency: { name: 'Have', symbol: 'HAVE', decimals: 18 },
-    rpcUrls: {
-      default: { http: ['TODO'] },
-    },
-  });
-
-  // Define account from a private key
-  const account = privateKeyToAccount('INSERT_PRIVATE_KEY' as `0x${string}`);
-
-  // Create a wallet client using defined chain, account, and RPC url
-  const walletClient: WalletClient = createWalletClient({
-    chain,
-    account,
-    transport: http('TODO'),
-  });
-
-  // Create a public client using defined chain and RPC url
-  const publicClient: PublicClient = createPublicClient({
-    chain,
-    transport: http('TODO'),
-  });
-
-  // --- Polkadot.js API setup ---
-  const provider = new WsProvider('TODO');
-  const polkadotApi: ApiPromise = await ApiPromise.create({
-    provider,
-    typesBundle: types,
-    noInitWarn: true,
-  });
-
+  --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:initialize-clients'
+  
   // --- Bucket creating logic ---
   // **PLACEHOLDER FOR STEP 1: CONNECT TO MSP CLIENT & CHECK HEALTH**
   // **PLACEHOLDER FOR STEP 2: CREATE STORAGEHUB CLIENT**
@@ -135,14 +75,8 @@ async function run() {
 await run();
 ```
 
-!!! warning
-    It is assumed that private keys are securely stored and managed in accordance with standard security practices.
+--8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/initialize-clients-summary.md'
 
-With the above code in place, you now have the following:
-
-- **`walletClient`**: Used for signing and broadcasting transactions (like creating a bucket) using the derived private key.
-- **`publicClient`**: Used for reading general public data from the chain, such as checking transaction receipts or block status.
-- **`polkadotApi`**: Used for reading code chain logic and state data from the underlying DataHaven Substrate node.
 
 ## Connect to the MSP Client
 

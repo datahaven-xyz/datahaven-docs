@@ -31,13 +31,22 @@ Create an `index.ts` and add the following code:
 async function run() {
   --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/issue-a-storage-request/issue-storage-request.ts:initialize-clients'
 
+  // --- Issue storage request logic ---
   // **PLACEHOLDER FOR STEP 1: INITIALIZE FILE MANAGER**
   // **PLACEHOLDER FOR STEP 2: CREATE FINGERPRINT**
   // **PLACEHOLDER FOR STEP 3: ISSUE STORAGE REQUEST**
+
+  // Disconnect the Polkadot API at the very end
+  await polkadotApi.disconnect();
 }
 
 await run();
 ```
+
+--8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/initialize-clients-summary.md'
+
+- **`mspClient`**: Used to connect to the MSP client.
+- **`storageHubClient`**: Used to connect to the StorageHub client.
 
 ## Initialize File Manager
 
