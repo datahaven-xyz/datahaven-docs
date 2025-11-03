@@ -103,11 +103,11 @@ Upon successful verification, you'll see a message like:
 
 <div class="grid cards" markdown>
 
--  <a href="/store-and-retrieve-data/use-storagehub-sdk/upload-your-first-file/" markdown>:material-arrow-right: 
+-  <a href="/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/" markdown>:material-arrow-right: 
     
     **Upload Your First File**
 
-    Once your storage request is confirmed, use the StorageHub SDK to upload your first file to the network. 
+    Once your storage request is confirmed, use the StorageHub SDK to upload your file to the network. 
 
     </a>
 
