@@ -14,14 +14,13 @@ In this guide, you’ll go from a local file to a confirmed on-chain transaction
 Before you begin, make sure you’ve:
 
 - [Created a bucket](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/){target=\_blank} and have the bucket ID.
-- [Authenticated with the MSP (SIWE)](/store-and-retrieve-data/use-storagehub-sdk/authenticate-with-siwe-and-jwt/){target=\_blank}.
 - Prepared a file to upload to DataHaven (any file type is accepted; the current TestNet file size limit is 2 GB).
 
 ## Initialize Clients
 
 First, you'll need to set up the necessary clients to connect to the DataHaven network, which runs on a dual-protocol architecture (Substrate for core logic and EVM for compatibility).
 
-If you’ve already followed the [Create a Bucket](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/) guide, your clients may already be initialized. Review the placeholders at the bottom of the following snippet to see where you'll add logic in this guide, then skip ahead to [Initialize File Manager](#initialize-file-manager).
+If you’ve already followed the [Create a Bucket](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/){target=\_blank} guide, your clients may already be initialized. Review the placeholders at the bottom of the following snippet to see where you'll add logic in this guide, then skip ahead to [Initialize File Manager](#initialize-file-manager).
 
 Create an `index.ts` and add the following code:
 
