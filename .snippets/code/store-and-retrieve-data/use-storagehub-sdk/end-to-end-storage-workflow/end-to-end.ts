@@ -78,7 +78,7 @@ async function run() {
 
   // --- Inputs from previous steps ---
   const bucketId = '0xTODO' as `0x${string}`; // Replace with your bucket ID
-  const fileName = 'filename.jpeg';
+  const fileName = 'filename.png';
 
   // === Issue a Storage Request ===
   const filePath = new URL(`./files/${fileName}`, import.meta.url).pathname;
