@@ -13,9 +13,7 @@ This page follows a file’s journey from choosing a Main Storage Provider (MSP)
 
 - **User / Application**: Initiates actions such as choosing an MSP, creating buckets, uploading files, and retrieving stored data.
 - **DataHaven chain**: Maintains compact on-chain commitments (bucket roots from MSPs, global roots from BSPs) and coordinates BSP challenges.
-- **Storage providers**: DataHaven divides data storage, verification, and retrieval responsibilities across Main Storage Providers (MSP) and Backup Storage Providers (BSP). 
-
-Storage provider roles compare as follows:
+- **Storage Providers**: DataHaven divides data storage, verification, and retrieval responsibilites across Main Storage Providers (MSP) and Backup Storage Providers (BSP). The two roles compare as follows:
 
 | MSP                                                                     | BSP                                                                       |
 |-------------------------------------------------------------------------|---------------------------------------------------------------------------|

@@ -9,9 +9,9 @@ DataHaven is a decentralized storage and retrieval network designed for apps tha
 
 The pages in this section explain how users, providers, and on-chain proofs work together to provide a secure, interoperable, trust-minimized storage layer.
 
-## Store Off-chain, Verify On-chain
+## Store Off-Chain, Verify On-Chain
 
-DataHaven separates file storage from on-chain verification, giving you the benefits of performant, cost-effective storage and retrieval without sacrificing reliable data provenance. Storage providers store user data off-chain and create cryptographic, on-chain commitments for verification use.
+DataHaven separates file storage from on-chain verification, giving you the benefits of performant, cost-effective storage and retrieval without sacrificing reliable data provenance. Storage providers store user data off-chain and create cryptographic on-chain commitments for verification.
 
 See [Data Flow and Lifecycle](/how-it-works/data-and-provider-model/data-flow-and-lifecycle/) for a step-by-step look at how data moves through the storage, replication, verification, and retrieval process. 
 
