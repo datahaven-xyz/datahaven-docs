@@ -12,7 +12,7 @@ HAVE is DataHaven's native token and is used to pay fees related to storage oper
 
 ## Stake to Secure DataHaven
 
-DataHaven security is anchored by Ethereum re-staking via [EigenLayer](https://www.eigenlayer.xyz){target="\_blank"}; however, other assets may also be staked or restaked to help secure the AVS. HAVE holders can delegate their stake to operators to help secure the network and earn rewards. 
+DataHaven security is anchored by Ethereum re-staking via [EigenLayer](https://www.eigenlayer.xyz){target=\_blank}; however, other assets may also be staked or restaked to help secure the AVS. HAVE holders can delegate their stake to operators to help secure the network and earn rewards. 
 
 [Moonbeam's](https://moonbeam.network){target="\_blank"} native token GLMR and GLMR LSTs will also be supported for restaking. See [GLMR re-staking](#glmr-re-staking) below.
 
@@ -30,7 +30,7 @@ HAVE is central to governance. Token holders may propose and vote on protocol ch
 
 ## Restake GLMR
 
-As DataHaven expands from the Moonbeam ecosystem, GLMR holders remain integral. In partnership with [StellaSwap](https://stellaswap.com/){target="\_blank"}, GLMR holders will be able to re-stake and earn both Moonbeam-native staking rewards and additional emissions for helping secure DataHaven.
+As DataHaven expands from the Moonbeam ecosystem, GLMR holders remain integral. In partnership with [StellaSwap](https://stellaswap.com/){target=\_blank}, GLMR holders will be able to re-stake and earn both Moonbeam-native staking rewards and additional emissions for helping secure DataHaven.
 
 ## Bridge HAVE Tokens
 
@@ -38,4 +38,4 @@ The native token will be bridgeable using standardized cross-chain infrastructur
 
 ## Token Supply and Distribution
 
-The HAVE token genesis supply is 10 billion tokens issued on the DataHaven network. For for a detailed look at allocation, vesting, and inflation information, visit the [Tokenomics](https://datahaven.xyz/tokenomics/){target="\_blank"} section of the DataHaven website.
+The HAVE token genesis supply is 10 billion tokens issued on the DataHaven network. For for a detailed look at allocation, vesting, and inflation information, visit the [Tokenomics](https://datahaven.xyz/tokenomics/){target=\_blank} section of the DataHaven website.
