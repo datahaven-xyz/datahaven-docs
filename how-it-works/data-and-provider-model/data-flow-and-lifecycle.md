@@ -21,7 +21,7 @@ Storage provider roles compare as follows:
 |-------------------------------------------------------------------------|---------------------------------------------------------------------------|
 | Chosen by the user.                                                     | Randomly assigned by the network.                                         |
 | Maintains the bucket trie (primary copy).                               | Replicates data across the network (backup copies).                       |
-| Periodically anchors the bucket root on-chain.                          | Periodically posts the global Merkle commitment of all files stored.      |
+| Periodically anchors the bucket root on-chain.                          | Periodically posts the global Merkle commitment of all stored files.      |
 | Serves files for read requests.                                         | Not part of the normal read path.                                         |
 | Performance is incentivized by competition to attract and retain users. | Performance ensured via a slashing mechanism for failed proof challenges. |
 
@@ -44,7 +44,7 @@ graph LR
 
 ## Upload the File
 
-Once you connect to the network, select your MSP, and have a bucket, the upload steps are as follows:
+Once you connect to the network, select your MSP, and create a bucket, the upload steps are as follows:
 
 ```mermaid
 sequenceDiagram
@@ -62,10 +62,6 @@ sequenceDiagram
 ```
 
 If replication or anchoring fails, the upload aborts.
-
-## Share Your Bucket
-
-You can share access to your bucket by generating a link that provides view-only or view-and-upload access to its contents, including all files and folders.
 
 ## Retrieve the File
 
@@ -112,29 +108,6 @@ graph LR
 ```
 
 It is important to note that whether older versions of files are retained is determined by your app's or storage provider's policy.
-
-## Remove Your Data
-
-You can remove a file's reference from a bucket by deleting its entry.
-
-## Change Your MSP
-
-The process to change your MSP for a bucket is as follows:
-
-```mermaid
-sequenceDiagram
-    participant User/App
-    participant MSP
-    participant BSP
-    participant Blockchain
-
-    User/App->>MSP: Reassign the bucket to a new MSP
-    MSP->>BSP: New MSP requests a replica from BSP
-    BSP->>MSP: Bucket is reseeded using data from BSP replicas
-    MSP->>Blockchain: Anchors a fresh bucket update
-```
-
-BSP to MSP reseeding allows you to easily change MSPs without manually transferring files.
 
 ## Next Steps
 
