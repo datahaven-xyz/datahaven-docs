@@ -7,6 +7,7 @@ nav:
  - 'Retrieve Your Data': retrieve-your-data.md
  - 'End-to-End Storage Workflow': end-to-end-storage-workflow.md
  - 'Authenticate with SIWE and JWT': authenticate-with-siwe-and-jwt.md
+ - 'Manage Files and Buckets': manage-files-and-buckets.md
  - 'FAQs & Troubleshooting': faqs-and-troubleshooting.md
 
 
