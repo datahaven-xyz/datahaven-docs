@@ -3,42 +3,39 @@ title: Tokenomics
 description: An overview of DataHaven's tokenomics model and incentive structures.
 ---
 
-!!! note 
+# Tokenomics
+
+!!! warning 
     The HAVE token has not yet launched. No official token contracts currently exist. Avoid interacting with any token claiming to be HAVE. For updates, always refer to DataHaven’s official channels.
 
-## HAVE utility
+HAVE is DataHaven's native token and is used to pay fees related to storage operations. The following sections explore key tokenomic concepts, including token utility, supply, fees, and bridging.
 
-### Staking to secure DataHaven
-DataHaven security is anchored by Ethereum re-staking via [EigenLayer](https://www.eigenlayer.xyz){target="_blank"}. In addition, other assets may be staked/re-staked to help secure the AVS. HAVE holders will be able to delegate stake to operators to participate in securing the network and earn rewards. [Moonbeam's](https://moonbeam.network){target="_blank"} native token GLMR and/or GLMR LSTs will also be supported for re-staking. See [GLMR re-staking](#glmr-re-staking) below.
+## Stake to Secure DataHaven
 
-### Payment for execution (gas)
-HAVE is the network’s gas token used to pay for computation and transaction fees. As in typical EVM environments, gas costs are denominated in the system token (HAVE). A dynamic fee mechanism will mitigate spam and promote efficient resource use. Priority fees accrue to operators, while base fee handling (burn vs treasury split) is governed on-chain.
+DataHaven security is anchored by Ethereum re-staking via [EigenLayer](https://www.eigenlayer.xyz){target="\_blank"}; however, other assets may also be staked or restaked to help secure the AVS. HAVE holders can delegate their stake to operators to help secure the network and earn rewards. 
 
-### Storage fees and incentives
-DataHaven provides a decentralized, resilient, and verifiable storage network designed for scale and cost-efficiency. Storage fees may be paid in HAVE, and storage providers may be compensated in HAVE. The goal is predictable, fiat-referenced pricing per GB per unit time. Storage providers must post collateral in HAVE; backup storage providers can be slashed for data loss, reinforcing durability commitments.
+[Moonbeam's](https://moonbeam.network){target="\_blank"} native token GLMR and GLMR LSTs will also be supported for restaking. See [GLMR re-staking](#glmr-re-staking) below.
 
-### Governance
-HAVE is central to governance. Token holders may propose and vote on protocol changes, fee parameters, council composition, and treasury allocations via transparent, on-chain processes. Delegation is supported for holders who prefer representative participation.
+## Pay Gas Fees 
 
-### GLMR re-staking
-As DataHaven expands from the Moonbeam ecosystem, GLMR holders remain integral. In partnership with [StellaSwap](https://stellaswap.com/){target="_blank"}, GLMR holders will be able to re-stake and earn both Moonbeam-native staking rewards and additional emissions for helping secure DataHaven.
+HAVE is the network’s native gas token used to pay for computation and transaction fees. A dynamic fee mechanism will mitigate spam and promote efficient resource use. Priority fees accrue to operators, while base fee handling (burn vs treasury split) is governed on-chain.
 
-## Token supply & distribution
+## Pay Storage Fees and Incentives
 
-### Key token information
-- Network: DataHaven
-- Token name: HAVE
-- Genesis supply: 10B
+DataHaven storage fees may be paid in HAVE, and storage providers may be compensated in HAVE. The goal is predictable, fiat-referenced pricing per GB per unit time. Storage providers must post collateral in HAVE; backup storage providers can be slashed for data loss, reinforcing durability commitments.
 
-### Allocation and Vesting Schedule
+## Participate in Governance
 
-For information on token allocation and vesting schedule of tokens please see the [DataHaven website](https://datahaven.xyz/tokenomics/){target="_blank"}.
+HAVE is central to governance. Token holders may propose and vote on protocol changes, fee parameters, council composition, and treasury allocations via transparent, on-chain processes. Delegation is supported for holders who prefer to participate through a representative.
 
-## Inflation
-Initial inflation is a fixed, non-compounding 500,000,000 tokens per year, primarily directed to staking rewards to incentivize decentralization and security. The annual amount is adjustable via governance to align incentives with long-term network health.
+## Restake GLMR
 
-## Fees, burns, and treasury
-Base gas fees are split between burn and treasury; the default treasury share is 20% (remainder burned). Tips/priority fees accrue to block authors/operators. Storage pricing is denominated in HAVE and dynamically adjusted by utilization within bounds, with an explicit minimum treasury cut on streams. Parameters are configurable via governance.
+As DataHaven expands from the Moonbeam ecosystem, GLMR holders remain integral. In partnership with [StellaSwap](https://stellaswap.com/){target="\_blank"}, GLMR holders will be able to re-stake and earn both Moonbeam-native staking rewards and additional emissions for helping secure DataHaven.
 
-## Bridging
+## Token Supply and Distribution
+
+The HAVE token genesis supply is 10 billion tokens issued on the DataHaven network. For information on token allocation and the vesting schedule, please see [Tokenomics](https://datahaven.xyz/tokenomics/){target="\_blank"} on the DataHaven website for a detailed look at allocation, vesting, and inflation.
+
+## Bridge HAVE Tokens
+
 The native token will be bridgeable using standardized cross-chain infrastructure, with options such as Snowbridge for message passing where applicable. Additional details will be provided closer to launch.
