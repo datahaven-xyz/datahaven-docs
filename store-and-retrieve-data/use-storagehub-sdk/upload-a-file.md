@@ -12,8 +12,8 @@ This guide walks you through preparing your local file for upload and confirming
 ## Prerequisites
 
 --8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/prerequisites.md'
-- A bucket created with the ID handy
-- A confirmed on-chain storage request, along with the file key and file name
+- [A bucket created](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/){target=\_blank} with the ID handy
+- A [confirmed on-chain storage request](/store-and-retrieve-data/use-storagehub-sdk/verify-if-storage-request-is-on-chain/){target=\_blank}, along with the file key and file name
 
 ## Install Dependencies
 
@@ -35,11 +35,11 @@ This guide walks you through preparing your local file for upload and confirming
     npm install @storagehub-sdk/core @storagehub-sdk/msp-client @storagehub/types-bundle @polkadot/api @storagehub/api-augment viem
     ```
 
-## Initialize Clients and File Manager
+## Initialize Clients and File Manager and Authenticate MSP Client
 
 First, you'll need to set up the necessary clients to connect to the DataHaven network, which runs on a dual-protocol architecture (Substrate for core logic and EVM for compatibility).
 
-If you've already followed the [Issue a Storage Request](/store-and-retrieve-data/use-storagehub-sdk/issue-a-storage-request/){target=\_blank} guide, your clients and the File Manager may already be initialized. In that case, review the placeholders at the bottom of the following snippet to see where you'll add logic in this guide, then skip ahead to [Upload File to MSP](#upload-file-to-msp).
+If you've already followed the [Issue a Storage Request](/store-and-retrieve-data/use-storagehub-sdk/issue-a-storage-request/){target=\_blank} guide, your clients and the File Manager may already be initialized, and your MSP client authenticated. In that case, review the placeholders at the bottom of the following snippet to see where you'll add logic in this guide, then skip ahead to [Upload File to MSP](#upload-file-to-msp).
 
 Create an `index.ts` and add the following code:
 

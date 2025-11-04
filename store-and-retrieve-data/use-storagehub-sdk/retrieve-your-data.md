@@ -1,54 +1,102 @@
 ---
 title: Retrieve Your Data
-description: Guide to fetching and downloading your files from DataHaven using the StorageHub SDK.
+description: Learn how to use the StorageHub SDK to fetch a previously uploaded file from your chosen Main Storage Provider (MSP) using its deterministic file key.
 ---
 
 # Retrieve Your Data
 
-## Introduction
-
-This section shows how to fetch a previously uploaded file from your chosen Main Storage Provider (MSP) using its deterministic file key. You’ll pass the file key in hex to `mspClient.files.downloadFile`, validate a 200 response, and stream the bytes directly to disk—avoiding loading the whole object into memory. 
+This guide shows how to fetch a previously uploaded file from your chosen Main Storage Provider (MSP) using its deterministic file key. You’ll use the file key to download the file and stream the bytes directly to disk—avoiding loading the whole object into memory.
 
 ## Prerequisites
 
-- [Upload Your First File Guide](/store-and-retrieve-data/use-storagehub-sdk/upload-your-first-file)
-- [Authenticate with SIWE and JWT Guide](/store-and-retrieve-data/use-storagehub-sdk/authenticate-with-siwe-and-jwt)
+--8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/prerequisites.md'
+- [A file uploaded](/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/){target=\_blank} to DataHaven, along with the [file key](/store-and-retrieve-data/use-storagehub-sdk/verify-if-storage-request-is-on-chain/#compute-the-file-key){target=\_blank}
+
+## Install Dependencies
+
+=== "pnpm"
+
+    ```bash { .break-spaces }
+    pnpm add @storagehub-sdk/core @storagehub-sdk/msp-client @storagehub/types-bundle @polkadot/api @storagehub/api-augment viem
+    ```
+
+=== "yarn"
+
+    ```bash { .break-spaces }
+    yarn add @storagehub-sdk/core @storagehub-sdk/msp-client @storagehub/types-bundle @polkadot/api @storagehub/api-augment viem
+    ```
+
+=== "npm"
+
+    ```bash { .break-spaces }
+    npm install @storagehub-sdk/core @storagehub-sdk/msp-client @storagehub/types-bundle @polkadot/api @storagehub/api-augment viem
+    ```
+
+## Initialize Clients and Authenticate MSP Client
+
+First, you'll need to set up the necessary clients to connect to the DataHaven network, which runs on a dual-protocol architecture (Substrate for core logic and EVM for compatibility).
+
+If you've already followed the [Upload a File](/store-and-retrieve-data/use-storagehub-sdk/issue-a-storage-request/){target=\_blank} guide, your clients may already be initialized and your MSP client authenticated. In that case, review the placeholders at the bottom of the following snippet to see where you'll add logic in this guide, then skip ahead to [Download Your File from MSP Client](#download-your-file-from-msp-client).
+
+Create an `index.ts` and add the following code:
+
+```ts title="index.ts"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/retrieve-data.ts:imports'
+
+async function run() {
+  --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/retrieve-data.ts:initialize-and-setup'
+
+  // --- Upload file logic ---
+  // **PLACEHOLDER FOR STEP 1: DOWNLOAD FILE FROM MSP CLIENT**
+  // **PLACEHOLDER FOR STEP 2: SAVE DOWNLOADED FILE**
+
+  // Disconnect the Polkadot API at the very end
+  await polkadotApi.disconnect();
+}
+
+await run();
+```
 
 ## Download Your File from MSP Client
 
-Convert the file key to hex and pass it to the .downloadByKey function of the mspClient as follows:
+Call the `files.downloadFile` function of the `mspClient` and pass the file key in hex format as follows:
 
-```ts title="index.ts"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/download-file-from-msp.ts'
+```ts title="// **PLACEHOLDER FOR STEP 1: DOWNLOAD FILE FROM MSP CLIENT**"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/retrieve-data.ts:download-file'
 ```
 
 ## Save Downloaded File
 
-In order to save the retrieved file from the MSP on your local machine, add the following code:
+To save the retrieved file from the MSP on your local machine, add the following code:
 
-```ts title="index.ts"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/save-downloaded-file.ts'
+```ts title="// **PLACEHOLDER FOR STEP 2: SAVE DOWNLOADED FILE**"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/retrieve-data.ts:save-download'
 ```
+
+??? code "View complete script"
+
+    ```ts title="index.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/retrieve-data.ts'
+    ```
 
 ## Next Steps
 
 <div class="grid cards" markdown>
 
--   __Build a Data Workflow End-to-End__
+-   <a href="/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/" markdown>:material-arrow-right:
 
-    ---
+    **Build a Data Workflow End-to-End**
 
-    Learn step-by-step how to store a file on DataHaven and retrieve it back from the network.
+    Learn step-by-step how to store a file on DataHaven and retrieve it from the network.
 
-    [:octicons-arrow-right-24: End-to-End Storage Workflow](/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow)
+    </a>
 
--   __Data Flow and Lifecycle__
+-  <a href="/how-it-works/data-and-provider-model/data-flow-and-lifecycle/" markdown>:material-arrow-right: 
+    
+    **Data Flow and Lifecycle**
 
-    ---
+    Read this end-to-end overview to learn how data moves through the DataHaven network.
 
-    End-to-end overview of how data moves through the DataHaven network.
-
-    [:octicons-arrow-right-24: Retrieve Your Data](/how-it-works/data-and-provider-model/data-flow-and-lifecycle)
-
+    </a>
 
 </div>
