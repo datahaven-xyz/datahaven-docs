@@ -20,8 +20,8 @@
         "icon": ":fontawesome-solid-4:"
     },
     {
-        "title": "[Upload Your First File](/store-and-retrieve-data/use-storagehub-sdk/upload-your-first-file/)",
-        "content": "Upload your file to the connected MSP. Includes steps to verify upload success.",
+        "title": "[Upload a File](/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/)",
+        "content": "Upload a file to the connected MSP. Includes steps to verify upload success.",
         "icon": ":fontawesome-solid-5:"
     },
     {

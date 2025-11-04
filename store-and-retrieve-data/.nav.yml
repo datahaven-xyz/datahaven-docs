@@ -1,4 +1,4 @@
 nav:
  - 'Overview': index.md
- - 'Starter Kit': starter-kit.md
+ - 'Storage Starter Kit': starter-kit.md
  - 'Use StorageHub SDK': use-storagehub-sdk

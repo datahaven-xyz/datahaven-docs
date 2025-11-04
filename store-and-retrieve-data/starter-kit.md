@@ -1,11 +1,13 @@
 ---
-title: Data Storage Starter Kit
+title: Storage Starter Kit
 description: Everything you need to start building on DataHaven, including network configs, block explorers, faucets, and MSP endpoints for working with the StorageHub SDK.
 ---
 
-# Data Storage Starter Kit
+# Storage Starter Kit
 
-DataHaven is fully EVM-compatible. You can use familiar Ethereum RPCs, wallets, and libraries such as MetaMask or viem, to interact with the platform while also accessing Substrate APIs for additional features.
+DataHaven is a fully EVM-compatible decentralized storage and computation platform built as a Substrate-based Layer 1 blockchain. Developers can interact with DataHaven using familiar Ethereum RPCs, wallets, and libraries such as MetaMask or viem, while also accessing Substrate APIs for additional features.
+
+The following sections provide essential information for configuring your favorite Ethereum-based developer tools for use with DataHaven. You'll also find links to additional resources such as token faucets and block explorers. 
 
 ## DataHaven Networks
 
@@ -44,7 +46,7 @@ To begin building on a DataHaven test network, you'll need to obtain HAVE tokens
 |:-----------------:|:-----------------------------------------------:|----------------------------------------------------------------------------------|
 | DataHaven TestNet | [Official TestNet Faucet](TODO){target=\_blank} | {{ networks.testnet.website_faucet_amount }} every 24 hours |
 
-TestNet HAVE tokens do not have any market value. Please do not spam the faucet with unnecessary requests.
+TestNet HAVE tokens have no market value. Please do not spam the faucet with unnecessary requests.
 
 ## MSP Service Endpoints
 
@@ -66,11 +68,11 @@ To interact with a Main Storage Provider (MSP) through `@storagehub-sdk/msp-clie
 
     </a>
 
--   <a href="/store-and-retrieve-data/use-storagehub-sdk/get-started/" markdown>:material-arrow-right:
+-   <a href="/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/" markdown>:material-arrow-right:
 
     **End-to-End Storage Workflow**
 
-    Learn step-by-step how to store a file on DataHaven and retrieve it back from the network.
+    Learn step-by-step how to store a file on DataHaven and retrieve it from the network.
 
     </a>
 
