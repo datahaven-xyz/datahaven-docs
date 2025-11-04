@@ -1,31 +1,33 @@
 ---
 title: End-to-End Storage Workflow
-description: Step-by-step tutorial on uploading a file to DataHaven and retrieving it from the network.
+description: Learn how to store and retrieve files on DataHaven with this step-by-step guide, from issuing a storage request to uploading and downloading data securely.
 ---
 
-## Introduction
+# End-to-End Storage Workflow
 
-This guide walks you through the exact order of operations for storing a file on DataHaven and retrieving it back. Follow each step in sequence; each guide linked below provides the detailed code you will run.
+This guide walks you through the exact steps for storing a file on DataHaven and retrieving it. Follow each step in sequence; each guide linked below provides the detailed code you will run.
 
 ## Workflow at a Glance
 
-For more details on each step, check out the respective guides for each one. 
+For more details on each step, check out the respective guides. 
 
-Prerequisite: [Create a Bucket](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket)
+Prerequisite: [Create a Bucket](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/)
 
-1. [Issue a Storage Request](/store-and-retrieve-data/use-storagehub-sdk/issue-a-storage-request)
-2. [Verify if Storage Request is On-Chain](/store-and-retrieve-data/use-storagehub-sdk/verify-if-storage-request-is-on-chain)
-3. [Authenticate with SIWE and JWT](/store-and-retrieve-data/use-storagehub-sdk/authenticate-with-siwe-and-jwt)
-4. [Upload Your First File](/store-and-retrieve-data/use-storagehub-sdk/upload-your-first-file)
-5. [Retrieve Your Data](/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data)
+1. [Issue a Storage Request](/store-and-retrieve-data/use-storagehub-sdk/issue-a-storage-request/)
+2. [Verify if Storage Request is On-Chain](/store-and-retrieve-data/use-storagehub-sdk/verify-if-storage-request-is-on-chain/)
+3. [Authenticate with SIWE and JWT](/store-and-retrieve-data/use-storagehub-sdk/authenticate-with-siwe-and-jwt/)
+4. [Upload Your First File](/store-and-retrieve-data/use-storagehub-sdk/upload-your-first-file/)
+5. [Retrieve Your Data](/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/)
 
-## Step-by-Step
+## Prerequisites
 
-### Prerequisite: Create a Bucket
+- [Node.js](https://nodejs.org/en/download){target=_blank} v22+ installed
+- [A TypeScript project](/store-and-retrieve-data/use-storagehub-sdk/get-started/#set-up-a-typescript-project){target=\_blank}
+    <!-- TODO: Add TypeScript project instructions here as admo -->
+- The [StorageHub SDK](/store-and-retrieve-data/use-storagehub-sdk/get-started/#install-the-storagehub-sdk){target=\_blank} installed
+- [A bucket created](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/){target=\_blank} with the ID handy
 
-This tutorial assumes you've already created a bucket and know its bucket name to be able to access it. If you haven't yet created a bucket, you can do by following the [Create a Bucket Guide](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket).
-
-### 1) Issue a Storage Request
+## Issue a Storage Request
 
 Register your intent to store a file in your bucket and set its replication policy. Initialize `FileManager`, compute the file’s fingerprint, fetch MSP info (and extract peer IDs), choose a replication level and replica count, then call issueStorageRequest
 
@@ -33,15 +35,15 @@ Register your intent to store a file in your bucket and set its replication poli
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/issue-a-storage-request/combined.ts'
 ```
 
-### 2) Verify if Storage Request is On-Chain
+## Verify If Storage Request Is On-Chain
 
 Derive the deterministic file key, query on-chain state, and confirm the request exists and matches your local fingerprint and bucket.
 
-```ts title="Verify if Storage Request is On-Chain"
+```ts title="Verify If Storage Request Is On-Chain"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/verify-if-storage-request-is-on-chain/combined.ts'
 ```
 
-### 3) Authenticate with SIWE and JWT
+## Authenticate with SIWE and JWT
 
 Sign-in with Ethereum (SIWE) to the MSP and obtain a short-lived JWT to authorize upload and retrieval operations.
 
@@ -49,15 +51,15 @@ Sign-in with Ethereum (SIWE) to the MSP and obtain a short-lived JWT to authoriz
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/authenticate-with-siwe-and-jwt/combined.ts'
 ```
 
-### 4) Upload Your First File
+## Upload Your First File
 
-Send the file bytes to the MSP, linked to your Storage Request. Confirm the upload receipt indicates a successful upload.
+Send the file bytes to the MSP, linked to your Storage Request. Confirm that the upload receipt indicates a successful upload.
 
 ```ts title="Upload Your First File"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-your-first-file/combined.ts'
 ```
 
-### 5) Retrieve Your Data
+## Retrieve Your Data
 
 Download the file by its deterministic key from the MSP and save it locally.
 
@@ -67,7 +69,7 @@ Download the file by its deterministic key from the MSP and save it locally.
 
 ## Putting it All Together
 
-The code containing the complete series of steps from issuing a storage request to retrieving the data can be accessed below.
+The code containing the complete series of steps from issuing a storage request to retrieving the data is available below.
 
 ??? code "View complete script"
 
@@ -83,21 +85,20 @@ Uploading a file does not guarantee network-wide replication. Files are consider
 
 <div class="grid cards" markdown>
 
--   __Data Flow and Lifecycle__
-
-    ---
+-  <a href="/how-it-works/data-and-provider-model/data-flow-and-lifecycle/" markdown>:material-arrow-right: 
+    
+    **Data Flow and Lifecycle**
 
     End-to-end overview of how data moves through the DataHaven network.
 
-    [:octicons-arrow-right-24: Data Flow and Lifecycle](/how-it-works/data-and-provider-model/data-flow-and-lifecycle)
+    </a>
 
--   __How It Works: FAQs__
+-   <a href="/how-it-works/faqs/" markdown>:material-arrow-right:
 
-    ---
+    **How It Works: FAQs**
 
     Answers to common questions about providers, replication, and network guarantees.
 
-    [:octicons-arrow-right-24: FAQs](/how-it-works/faqs)
+    </a>
 
 </div>
-
