@@ -1,6 +1,6 @@
 ---
 title: Tokenomics 
-description: An overview of DataHaven's tokenomics model and incentive structures.
+description: Explore DataHaven’s tokenomics to learn how the HAVE token powers storage, fees, staking, governance, and cross-chain functionality across the network.
 ---
 
 # Tokenomics
