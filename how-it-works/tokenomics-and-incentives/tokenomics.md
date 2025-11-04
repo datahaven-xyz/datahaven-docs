@@ -32,10 +32,10 @@ HAVE is central to governance. Token holders may propose and vote on protocol ch
 
 As DataHaven expands from the Moonbeam ecosystem, GLMR holders remain integral. In partnership with [StellaSwap](https://stellaswap.com/){target="\_blank"}, GLMR holders will be able to re-stake and earn both Moonbeam-native staking rewards and additional emissions for helping secure DataHaven.
 
-## Token Supply and Distribution
-
-The HAVE token genesis supply is 10 billion tokens issued on the DataHaven network. For information on token allocation and the vesting schedule, please see [Tokenomics](https://datahaven.xyz/tokenomics/){target="\_blank"} on the DataHaven website for a detailed look at allocation, vesting, and inflation.
-
 ## Bridge HAVE Tokens
 
 The native token will be bridgeable using standardized cross-chain infrastructure, with options such as Snowbridge for message passing where applicable. Additional details will be provided closer to launch.
+
+## Token Supply and Distribution
+
+The HAVE token genesis supply is 10 billion tokens issued on the DataHaven network. For for a detailed look at allocation, vesting, and inflation information, visit the [Tokenomics](https://datahaven.xyz/tokenomics/){target="\_blank"} section of the DataHaven website.
