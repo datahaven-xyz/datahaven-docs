@@ -66,7 +66,7 @@ async function run() {
 
   // A temporary authentication token obtained after Sign-In with Ethereum (SIWE).
   // If not yet authenticated, this will remain undefined and the client will operate in read-only mode.
-  // Authentication is not required for issuing storage requests, but is needed for other operations like file uploads and bucket management.
+  // Authentication is not always required, but is needed for other operations like file uploads and bucket management.
   let sessionToken: string | undefined = undefined;
 
   // Provides the SDK with session data when available.
