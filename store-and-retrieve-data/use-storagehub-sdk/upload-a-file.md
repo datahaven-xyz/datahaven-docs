@@ -76,6 +76,17 @@ Check the receipt status to verify the file upload was successful:
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/upload-file.ts:verify-upload'
 ```
 
+Run the script:
+
+```bash
+ts-node index.ts
+```
+
+Upon a successful file upload, the transaction hash will be output:
+
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/output-01.html'
+
+
 ??? code "View complete script"
 
     ```ts title="index.ts"
