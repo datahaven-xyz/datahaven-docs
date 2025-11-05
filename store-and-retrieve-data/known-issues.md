@@ -11,7 +11,7 @@ This page lists major known issues with the DataHaven SDK.
 
 ## SIWE Authentication Timeouts
 
-After initial authentication via [SIWE (Sign In With Ethereum)](https://docs.login.xyz/){target=\_blank} subsequent re-authentication attempts may fail with the error `Invalid or expired nonce`. This issue may reoccur intermittently.
+After initial authentication via [SIWE (Sign In With Ethereum)](https://docs.login.xyz/){target=_blank} subsequent re-authentication attempts may fail with the error `Invalid or expired nonce`. This issue may reoccur intermittently.
 
 ---
 
@@ -36,4 +36,4 @@ Tips:
 
 ## Other Issues
 
-If you experience an issue unrelated to the above items and you would like to flag it with the team, please join the [DataHaven Discord](https://discord.com/invite/datahaven){target=\_blank} and use the Support Ticket chat. This will create a private channel to ensure your ticket is answered promptly by our support team.
+If you experience an issue unrelated to the above items and you would like to flag it with the team, please join the [DataHaven Discord](https://discord.com/invite/datahaven){target=_blank} and use the Support Ticket chat. This will create a private channel to ensure your ticket is answered promptly by our support team.
