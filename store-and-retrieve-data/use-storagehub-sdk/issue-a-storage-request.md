@@ -101,6 +101,10 @@ Upon a successful storage request, the transaction hash will be output:
 
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/issue-a-storage-request/output-01.html'
 
+And upon a successful storage request, the transaction receipt will be output:
+
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/issue-a-storage-request/output-02.html'
+
 ??? code "View complete script"
     ```ts title="index.ts"
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/issue-a-storage-request/issue-storage-request.ts'
