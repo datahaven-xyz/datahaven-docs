@@ -64,8 +64,19 @@ To check your address's authentication status and to authenticate your address u
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/authenticate-with-siwe-and-jwt/authenticate.ts:authenticate-via-msp'
 ```
 
+Run the script:
+
+```bash
+ts-node index.ts
+```
+
+The SIWE session response should return a response like this:
+
 !!! note
-    `auth.status` can equal "Authenticated", "NotAuthenticated", or "TokenExpired"
+    The ENS name is hardcoded currently.
+
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/authenticate-with-siwe-and-jwt/output-01.html'
+
 
 ## Get Profile Info from MSP
 
@@ -83,7 +94,10 @@ ts-node index.ts
 
 The response should return a response like this:
 
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/authenticate-with-siwe-and-jwt/output-01.html'
+!!! note
+    The ENS name is hardcoded currently.
+
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/authenticate-with-siwe-and-jwt/output-02.html'
 
 ??? code "View complete script"
     ```ts title="index.ts"

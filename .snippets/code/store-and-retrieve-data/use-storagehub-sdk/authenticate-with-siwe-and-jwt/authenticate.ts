@@ -2,10 +2,7 @@
 import '@storagehub/api-augment';
 import { ApiPromise, WsProvider } from '@polkadot/api';
 import { types } from '@storagehub/types-bundle';
-import {
-  HttpClientConfig,
-  initWasm,
-} from '@storagehub-sdk/core';
+import { HttpClientConfig, initWasm } from '@storagehub-sdk/core';
 import {
   AuthStatus,
   HealthStatus,
@@ -31,26 +28,29 @@ async function run() {
   // --- viem setup ---
   // Define DataHaven chain, as expected by viem
   const chain: Chain = defineChain({
-    id: 1283,
-    name: 'DataHaven Stagenet',
+    id: 1288,
+    name: 'DataHaven Testnet',
     nativeCurrency: { name: 'Have', symbol: 'HAVE', decimals: 18 },
     rpcUrls: {
-      default: { http: ['TODO'] },
+      default: { http: ['https://services.datahaven-testnet.network/testnet'] },
     },
   });
 
   // Define account from a private key
   const account = privateKeyToAccount('INSERT_PRIVATE_KEY' as `0x${string}`);
+  const address = account.address;
 
   // Create a wallet client using the defined chain, account, and RPC URL
   const walletClient: WalletClient = createWalletClient({
     chain,
     account,
-    transport: http('TODO'),
+    transport: http('https://services.datahaven-testnet.network/testnet'),
   });
 
   // --- Polkadot.js API setup ---
-  const provider = new WsProvider('TODO');
+  const provider = new WsProvider(
+    'wss://services.datahaven-testnet.network/testnet'
+  );
   const polkadotApi: ApiPromise = await ApiPromise.create({
     provider,
     typesBundle: types,
@@ -58,9 +58,26 @@ async function run() {
   });
 
   // --- Connect to MSP Client ---
-  const baseUrl = 'TODO';
+  // Base URL of the MSP backend you want to interact with.
+  const baseUrl = 'https://deo-dh-backend.testnet.datahaven-infra.network/';
+
+  // Configuration for the HTTP client used by the SDK internally.
   const httpConfig: HttpClientConfig = { baseUrl: baseUrl };
-  const mspClient = await MspClient.connect(httpConfig, polkadotApi);
+
+  // A temporary authentication token obtained after Sign-In with Ethereum (SIWE).
+  // If not yet authenticated, this will remain undefined and the client will operate in read-only mode.
+  // Authentication is not required for issuing storage requests, but is needed for other operations like file uploads and bucket management.
+  let sessionToken: string | undefined = undefined;
+
+  // Provides the SDK with session data when available.
+  // This callback is automatically invoked by the MSP Client whenever it needs to authenticate a request.
+  const sessionProvider = async () =>
+    sessionToken
+      ? ({ token: sessionToken, user: { address: address } } as const)
+      : undefined;
+
+  // Create an instance of the MSP Client and establish connection with the backend.
+  const mspClient = await MspClient.connect(httpConfig, sessionProvider);
 
   // Check MSP Health Status
   const mspHealth: HealthStatus = await mspClient.info.getHealth();
@@ -69,17 +86,15 @@ async function run() {
 
   // --- Authenticate via SIWE and JWT logic ---
   // --8<-- [start:authenticate-via-msp]
-  // Check if the user is already authenticated with the MSP
-  const auth: AuthStatus = await mspClient.auth.getAuthStatus();
-  console.log('MSP Auth Status:', auth.status);
 
-  // If not authenticated, trigger the SIWE (Sign-In with Ethereum) flow.
-  // This prompts the connected wallet to sign an EIP-4361 message,
+  // Trigger the SIWE (Sign-In with Ethereum) flow to get authenticated.
+  // The SIWE method prompts the connected wallet to sign an EIP-4361 message,
   // which the MSP backend verifies to issue a JWT session token
-  if (auth.status !== 'Authenticated') {
-    await mspClient.auth.SIWE(walletClient);
-    console.log('User authenticated with MSP via SIWE');
-  }
+  const siweSession = await mspClient.auth.SIWE(walletClient);
+  console.log('SIWE Session:', siweSession);
+  // Store the obtained session token for future authenticated requests
+  sessionToken = (siweSession as { token: string }).token;
+
   // --8<-- [end:authenticate-via-msp]
 
   // --8<-- [start:retrieve-user-profile]
