@@ -22,11 +22,11 @@ The StorageHub SDK contains the following packages:
 
     The primary functions of [`@storagehub-sdk/core`](https://www.npmjs.com/package/@storagehub-sdk/core){target=\_blank} are to act as backend-agnostic building blocks including: 
     
-    - Wallets and signing.
-    - [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193){target=\_blank}.
-    - Precompile helpers for bridging between Substrate and EVM.
-    - Merkle and WASM utilities.
-    - Low-level HTTP.
+    - Wallets and signing
+    - [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193){target=\_blank}
+    - Precompile helpers for bridging between Substrate and EVM
+    - Merkle and WASM utilities
+    - Low-level HTTP
     - Types and constants shared across the SDK.
 
     This package includes EVM account-typed helpers, WASM-backed file utilities, and stable primitives usable without any backend.
