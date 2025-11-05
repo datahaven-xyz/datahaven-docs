@@ -7,7 +7,7 @@ description: Set up your development environment, install the StorageHub SDK, an
 
 The StorageHub SDK is a modular toolkit that makes it easy to build on DataHaven, giving developers direct access to functionalities for managing storage, buckets, and proofs. It simplifies both on-chain and off-chain interactions so you can focus on your application logic rather than low-level integrations.
 
-This guide introduces and compares the functionalities of the StorageHub SDK packages. You'll also find prerequisites for using DataHaven and [StorageHub SDK installation instructions](/store-and-retrieve-data/use-storagehub-sdk/get-started/#install-the-storagehub-sdk).
+This guide introduces and compares the functionalities of the StorageHub SDK packages. You'll also find prerequisites for using DataHaven and [StorageHub SDK installation instructions](#install-the-storagehub-sdk).
 
 ## StorageHub SDK Packages
 
@@ -20,29 +20,29 @@ The StorageHub SDK contains the following packages:
 
 ??? interface "`@storagehub-sdk/core`"
 
-    The primary functions of [`@storagehub-sdk/core`](https://www.npmjs.com/package/@storagehub-sdk/core){target=\_blank} are to act as backend‑agnostic building blocks including: 
+    The primary functions of [`@storagehub-sdk/core`](https://www.npmjs.com/package/@storagehub-sdk/core){target=\_blank} are to act as backend-agnostic building blocks including: 
     
     - Wallets and signing.
-    - [EIP‑1193](https://eips.ethereum.org/EIPS/eip-1193){target=\_blank}.
+    - [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193){target=\_blank}.
     - Precompile helpers for bridging between Substrate and EVM.
     - Merkle and WASM utilities.
-    - Low‑level HTTP.
+    - Low-level HTTP.
     - Types and constants shared across the SDK.
 
-    This package includes EVM account‑typed helpers, WASM‑backed file utilities, and stable primitives usable without any backend.
+    This package includes EVM account-typed helpers, WASM-backed file utilities, and stable primitives usable without any backend.
 
 ??? interface "`@storagehub-sdk/msp-client`"
 
     The primary functions of [`@storagehub-sdk/msp-client`](https://www.npmjs.com/package/@storagehub-sdk/msp-client){target=\_blank} are as follows:
 
-    - Retrieve MSP‑specific client information, such as:
-        - Health.
-        - Authorization nonce/verify.
-        - Upload and download endpoints.
+    - Retrieve MSP-specific client information, such as:
+        - Health
+        - Authorization nonce/verify
+        - Upload and download endpoints
     - Talk to an MSP backend for authorization and file transfer.
     - Includes REST contracts for MSP, token handling, and streaming or multipart upload and download helpers.
 
-    This package includes all MSP‑tied logic.
+    This package includes all MSP-tied logic.
 
 ## Prerequisites
 
