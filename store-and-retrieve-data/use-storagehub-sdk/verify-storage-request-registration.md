@@ -3,7 +3,7 @@ title: Verify a Storage Request
 description: This guide shows how to verify a file's storage request on-chain by deriving its file key and querying storage requests with the Polkadot.js API.
 ---
 
-# Verify If Storage Request Is On-Chain
+# Verify Storage Request Registration
 
 Use this guide to confirm that a file's storage request has been successfully recorded on-chain. You'll learn how to derive the deterministic file key and query the on-chain storage requests via the Polkadot.js API. A successful check confirms that the request exists and that core fields, such as the bucket ID and content fingerprint, match your local values. If no record is found, the transaction may not have been finalized yet, or one of the inputs used to compute the file key may not exactly match what was used when the request was issued.
 
@@ -12,7 +12,7 @@ Use this guide to confirm that a file's storage request has been successfully re
 --8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/prerequisites.md'
 
 - [A bucket created](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/){target=\_blank} with the ID handy
-- [A storage request issued](/store-and-retrieve-data/use-storagehub-sdk/issue-a-storage-request/){target=\_blank} along with the address of the account that issued the request, the file name, and the fingerprint of the request. 
+- [A storage request issued](/store-and-retrieve-data/use-storagehub-sdk/issue-a-storage-request/){target=\_blank} along with the address of the account that issued the request, the file name, and the fingerprint of the file. 
 
 ## Install Dependencies
 
@@ -43,10 +43,10 @@ If you've already followed the [Issue a Storage Request](/store-and-retrieve-dat
 Create an `index.ts` and add the following code:
 
 ```ts title="index.ts"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/verify-if-storage-request-is-on-chain/verify-storage-request.ts:imports'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/verify-storage-request-registration/verify-storage-request.ts:imports'
 
 async function run() {
-  --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/verify-if-storage-request-is-on-chain/verify-storage-request.ts:initialize-and-setup'
+  --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/verify-storage-request-registration/verify-storage-request.ts:initialize-and-setup'
 
   // --- Verify storage request logic ---
   // **PLACEHOLDER FOR STEP 1: COMPUTE THE FILE KEY**
@@ -65,7 +65,7 @@ await run();
 To compute the deterministic file key, derive it from the owner (`AccountId20`), bucket ID, and file name:
 
 ```ts title="// **PLACEHOLDER FOR STEP 1: COMPUTE THE FILE KEY**"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/verify-if-storage-request-is-on-chain/verify-storage-request.ts:compute-file-key'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/verify-storage-request-registration/verify-storage-request.ts:compute-file-key'
 ```
 
 ## Retrieve Storage Request Data
@@ -73,7 +73,7 @@ To compute the deterministic file key, derive it from the owner (`AccountId20`),
 To retrieve storage request data, query `fileSystem.storageRequests` and pass in the computed file key:
 
 ```ts title="// **PLACEHOLDER FOR STEP 2: RETRIEVE STORAGE REQUEST DATA**"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/verify-if-storage-request-is-on-chain/verify-storage-request.ts:verify-storage-request'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/verify-storage-request-registration/verify-storage-request.ts:verify-storage-request'
 ```
 
 ## Read Storage Request Data
@@ -81,7 +81,7 @@ To retrieve storage request data, query `fileSystem.storageRequests` and pass in
 To read storage request data, it first must be unwrapped as follows:
 
 ```ts title="// **PLACEHOLDER FOR STEP 3: READ STORAGE REQUEST DATA**"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/verify-if-storage-request-is-on-chain/verify-storage-request.ts:read-storage-request'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/verify-storage-request-registration/verify-storage-request.ts:read-storage-request'
 ```
 
 Run the script:
@@ -92,11 +92,11 @@ ts-node index.ts
 
 Upon successful verification, you'll see a message like:
 
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/verify-if-storage-request-is-on-chain/output-01.html'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/verify-storage-request-registration/output-01.html'
 
 ??? code "View complete script"
     ```ts title="index.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/verify-if-storage-request-is-on-chain/verify-storage-request.ts'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/verify-storage-request-registration/verify-storage-request.ts'
     ```
 
 ## Next Steps

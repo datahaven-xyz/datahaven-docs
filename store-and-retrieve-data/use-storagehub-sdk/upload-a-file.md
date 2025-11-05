@@ -13,7 +13,7 @@ This guide walks you through preparing your local file for upload and confirming
 
 --8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/prerequisites.md'
 - [A bucket created](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/){target=\_blank} with the ID handy
-- A [confirmed on-chain storage request](/store-and-retrieve-data/use-storagehub-sdk/verify-if-storage-request-is-on-chain/){target=\_blank}, along with the file key and file name
+- A [confirmed on-chain storage request](/store-and-retrieve-data/use-storagehub-sdk/verify-storage-request-registration/){target=\_blank}, along with the file key and file name
 
 ## Install Dependencies
 

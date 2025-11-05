@@ -114,7 +114,7 @@ And upon a successful storage request, the transaction receipt will be output:
 
 <div class="grid cards" markdown>
 
--  <a href="/store-and-retrieve-data/use-storagehub-sdk/verify-if-storage-request-is-on-chain/" markdown>:material-arrow-right: 
+-  <a href="/store-and-retrieve-data/use-storagehub-sdk/verify-storage-request-registration/" markdown>:material-arrow-right: 
     
     **Verify if Storage Request is On-Chain**
 

@@ -2,7 +2,7 @@ nav:
  - 'Get Started': get-started.md
  - 'Create a Bucket': create-a-bucket.md
  - 'Issue a Storage Request': issue-a-storage-request.md
- - 'Verify If Storage Request Is On-Chain': verify-if-storage-request-is-on-chain.md
+ - 'Verify Storage Request Registration': verify-storage-request-registration.md
  - 'Authenticate with SIWE and JWT': authenticate-with-siwe-and-jwt.md
  - 'Upload a File': upload-a-file.md
  - 'Retrieve Your Data': retrieve-your-data.md

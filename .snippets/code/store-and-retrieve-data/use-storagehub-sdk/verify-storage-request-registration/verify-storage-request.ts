@@ -16,7 +16,9 @@ async function run() {
   await initWasm();
 
   // --- Polkadot.js API setup ---
-  const provider = new WsProvider('TODO');
+  const provider = new WsProvider(
+    'wss://services.datahaven-testnet.network/testnet'
+  );
   const polkadotApi: ApiPromise = await ApiPromise.create({
     provider,
     typesBundle: types,
