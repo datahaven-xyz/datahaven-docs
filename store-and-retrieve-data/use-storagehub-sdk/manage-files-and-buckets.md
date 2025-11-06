@@ -5,7 +5,7 @@ description: Guide on how to use the StorageHub SDK to remove your file from the
 
 # Manage Files and Buckets
 
-This guide explains how to manage your storage resources on DataHaven using the StorageHub SDK. You will learn how to request the removal of a file from the network and how to delete buckets. It's important to periodically review and clean up unused data to avoid unnecessary costs, since buckets and files come with continuous storage fees.
+This guide explains how to manage your storage resources on DataHaven using the StorageHub SDK. You will learn how to request the removal of a file from the network and how to delete buckets. It's important to periodically review and clean up unused data to avoid unnecessary costs, as buckets and files incur ongoing storage fees.
 
 ## Prerequisites
 
@@ -57,7 +57,7 @@ async function run() {
 await run();
 ```
 
-## Request file deletion
+## Request File Deletion
 
 Add the code below to remove a specific file from the DataHaven network. You’ll first fetch the file’s metadata from the MSP, format it for on-chain compatibility, and then submit a deletion request using the StorageHub SDK.
 
@@ -69,19 +69,16 @@ If you run the script with the code above, the `fileInfo` and `formattedFileInfo
 
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/output-01.html'
 
-
 And the final response should include:
 
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/output-02.html'
-
 
 ## Delete a Bucket
 
 To delete your bucket, add the following code:
 
-
 !!! note
-    A bucket can only be deleted if the files in that bucket have already been deleted. Use the `mspClient.buckets.getFiles()` method by passing a `bucketId` as a param to check all the files currently stored in that bucket.
+    A bucket can only be deleted if all its files have already been deleted. Use the `mspClient.buckets.getFiles()` method by passing a `bucketId` as a parameter to check all the files currently stored in that bucket.
 
 ```ts 
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:delete-bucket'
@@ -95,20 +92,20 @@ If you run the script with the bucket deletion code, the response should include
 
 <div class="grid cards" markdown>
 
--   __Handle Payments and Track Costs__
-
-    ---
+-  <a href="/store-and-retrieve-data/manage-and-optimize-your-data/handle-payments-and-track-costs/" markdown>:material-arrow-right: 
+    
+    **Handle Payments and Track Costs**
 
     Check the current costs you are paying out to each MSP for all your uploaded files and created buckets.
 
-    [:octicons-arrow-right-24: Issue a Storage Request](/store-and-retrieve-data/manage-and-optimize-your-data/handle-payments-and-track-costs)
+    </a>
 
--   __Build a Data Workflow End-to-End__
+-   <a href="/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/" markdown>:material-arrow-right:
 
-    ---
+    **Build a Data Workflow End-to-End**
 
     Learn step-by-step how to store a file on DataHaven and retrieve it from the network.
 
-    [:octicons-arrow-right-24: End-to-End Storage Workflow](/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow)
+    </a>
 
 </div>
