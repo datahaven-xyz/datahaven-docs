@@ -30,8 +30,8 @@ async function run() {
   // --- viem setup ---
   // Define DataHaven chain, as expected by viem
   const chain: Chain = defineChain({
-    id: 1283,
-    name: 'DataHaven Stagenet',
+    id: 1288,
+    name: 'DataHaven Testnet',
     nativeCurrency: { name: 'Have', symbol: 'HAVE', decimals: 18 },
     rpcUrls: {
       default: { http: ['https://services.datahaven-testnet.network/testnet'] },
