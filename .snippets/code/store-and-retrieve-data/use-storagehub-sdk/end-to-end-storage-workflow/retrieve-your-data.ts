@@ -14,10 +14,11 @@ if (downloadResponse.status !== 200) {
 }
 
 // Save to disk
-const downloadPath = new URL('../../files/filename_downloaded.png', import.meta.url).pathname;
+const downloadPath = new URL(
+  '../../files/filename_downloaded.png',
+  import.meta.url
+).pathname;
 const writeStream = createWriteStream(downloadPath);
 const readableStream = Readable.fromWeb(downloadResponse.stream as any);
 readableStream.pipe(writeStream);
 console.log('Downloaded file saved to:', downloadPath);
-
-

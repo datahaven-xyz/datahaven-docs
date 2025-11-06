@@ -11,7 +11,8 @@ const filePath = new URL(`./files/${fileName}`, import.meta.url).pathname;
 const fileSize = statSync(filePath).size;
 const fileManager = new FileManager({
   size: fileSize,
-  stream: () => Readable.toWeb(createReadStream(filePath)) as ReadableStream<Uint8Array>,
+  stream: () =>
+    Readable.toWeb(createReadStream(filePath)) as ReadableStream<Uint8Array>,
 });
 
 // Compute fingerprint once
@@ -41,16 +42,17 @@ const replicationLevel = ReplicationLevel.Custom;
 const replicas = 1;
 
 // Issue Storage Request
-const txHash: `0x${string}` | undefined = await storageHubClient.issueStorageRequest(
-  bucketId as `0x${string}`,
-  fileName,
-  fingerprint.toHex() as `0x${string}`,
-  BigInt(fileSize),
-  mspId as `0x${string}`,
-  peerIds,
-  replicationLevel,
-  replicas
-);
+const txHash: `0x${string}` | undefined =
+  await storageHubClient.issueStorageRequest(
+    bucketId as `0x${string}`,
+    fileName,
+    fingerprint.toHex() as `0x${string}`,
+    BigInt(fileSize),
+    mspId as `0x${string}`,
+    peerIds,
+    replicationLevel,
+    replicas
+  );
 console.log('issueStorageRequest() txHash:', txHash);
 if (!txHash) {
   throw new Error('issueStorageRequest() did not return a transaction hash');
@@ -61,5 +63,3 @@ const receipt = await publicClient.waitForTransactionReceipt({ hash: txHash });
 if (receipt.status !== 'success') {
   throw new Error(`Storage request failed: ${txHash}`);
 }
-
-
