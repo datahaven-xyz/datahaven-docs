@@ -1,20 +1,17 @@
-// Assumes the following are available in scope:
-// - mspClient, fileManager, bucketId, fileKey, account.address, fileName
+// Prior section code
 
-// Prepare file blob for upload
+// --- Upload file to MSP ---
 const fileBlob = await fileManager.getFileBlob();
-
-// Upload to MSP
 const uploadReceipt = await mspClient.files.uploadFile(
-  bucketId,
-  fileKey.toHex(),
-  fileBlob,
-  account.address,
-  fileName
+    bucketId,
+    fileKey.toHex(),
+    fileBlob,
+    address,
+    fileName
 );
 console.log('File upload receipt:', uploadReceipt);
-
-// Verify upload succeeded
 if (uploadReceipt.status !== 'upload_successful') {
-  throw new Error('File upload to MSP failed');
+    throw new Error('File upload to MSP failed');
 }
+
+// Next section code here
