@@ -59,7 +59,7 @@ await run();
 
 ## Request file deletion
 
-Add the code bellow to remove a specific file from the DataHaven network. You’ll first fetch the file’s metadata from the MSP, format it for on-chain compatibility, and then submit a deletion request using the StorageHub SDK.
+Add the code below to remove a specific file from the DataHaven network. You’ll first fetch the file’s metadata from the MSP, format it for on-chain compatibility, and then submit a deletion request using the StorageHub SDK.
 
 ```ts 
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:request-file-deletion'
