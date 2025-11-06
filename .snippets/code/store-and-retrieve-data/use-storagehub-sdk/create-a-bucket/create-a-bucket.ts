@@ -34,32 +34,35 @@ async function run() {
   // --- viem setup ---
   // Define DataHaven chain, as expected by viem
   const chain: Chain = defineChain({
-    id: 1283,
-    name: 'DataHaven Stagenet',
+    id: 1288,
+    name: 'DataHaven Testnet',
     nativeCurrency: { name: 'Have', symbol: 'HAVE', decimals: 18 },
     rpcUrls: {
-      default: { http: ['TODO'] },
+      default: { http: ['https://services.datahaven-testnet.network/testnet'] },
     },
   });
 
   // Define account from a private key
   const account = privateKeyToAccount('INSERT_PRIVATE_KEY' as `0x${string}`);
+  const address = account.address;
 
   // Create a wallet client using the defined chain, account, and RPC URL
   const walletClient: WalletClient = createWalletClient({
     chain,
     account,
-    transport: http('TODO'),
+    transport: http('https://services.datahaven-testnet.network/testnet'),
   });
 
   // Create a public client using the defined chain and RPC URL
   const publicClient: PublicClient = createPublicClient({
     chain,
-    transport: http('TODO'),
+    transport: http('https://services.datahaven-testnet.network/testnet'),
   });
 
   // --- Polkadot.js API setup ---
-  const provider = new WsProvider('TODO');
+  const provider = new WsProvider(
+    'wss://services.datahaven-testnet.network/testnet'
+  );
   const polkadotApi: ApiPromise = await ApiPromise.create({
     provider,
     typesBundle: types,
@@ -69,21 +72,36 @@ async function run() {
 
   // --- Bucket creating logic ---
   // --8<-- [start:connect-msp-client]
-  const baseUrl = 'TODO';
+  const baseUrl = 'https://deo-dh-backend.testnet.datahaven-infra.network/';
   const httpConfig: HttpClientConfig = { baseUrl: baseUrl };
-
-  // Connect to MSP Client
-  const mspClient = await MspClient.connect(httpConfig, polkadotApi);
+  // A temporary authentication token obtained after Sign-In with Ethereum (SIWE).
+  // If not yet authenticated, this will remain undefined and the client will operate in read-only mode.
+  // Authentication is not required for creating a bucket, but is required for file uploads and bucket management.
+  let sessionToken: string | undefined = undefined;
+  const sessionProvider = async () =>
+    sessionToken
+      ? ({ token: sessionToken, user: { address: address } } as const)
+      : undefined;
+  const mspClient = await MspClient.connect(httpConfig, sessionProvider);
 
   // Check MSP Health Status
   const mspHealth: HealthStatus = await mspClient.info.getHealth();
   console.log('MSP service health:', mspHealth);
+
+  // Trigger the SIWE (Sign-In with Ethereum) flow.
+  // This prompts the connected wallet to sign an EIP-4361 message,
+  // which the MSP backend verifies to issue a JWT session token
+  const siweSession = await mspClient.auth.SIWE(walletClient);
+  console.log('SIWE Session:', siweSession);
+  // Store the obtained session token for future authenticated requests
+  sessionToken = (siweSession as { token: string }).token;
+
   // --8<-- [end:connect-msp-client]
 
   // --8<-- [start:storagehub-client]
   // Initialize StorageHub Client
   const storageHubClient = new StorageHubClient({
-    rpcUrl: 'TODO',
+    rpcUrl: 'https://services.datahaven-testnet.network/testnet',
     chain: chain,
     walletClient: walletClient,
     filesystemContractAddress:
@@ -94,7 +112,6 @@ async function run() {
   // --8<-- [start:derive-bucket]
   // Derive bucket ID
   const bucketName = 'init-bucket';
-  const address = account.address;
   const bucketId = (await storageHubClient.deriveBucketId(
     address,
     bucketName
