@@ -45,7 +45,7 @@ Derive the deterministic file key, query on-chain state, and confirm the request
 
 ## Authenticate with SIWE and JWT
 
-We first do a quick check with `getProfile()` to see if an MSP session already exists. If not, we kick off SIWE—have the wallet sign an EIP-4361 message, let the MSP verify and return a JWT we save as sessionToken
+Trigger the SIWE flow: the connected wallet signs an EIP-4361 message, the MSP verifies it, and returns a JWT session token. Save that token as `sessionToken` and reuse it for subsequent authenticated requests.
 
 ```ts title="Authenticate with SIWE and JWT"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/authenticate.ts'
