@@ -27,7 +27,7 @@ The following sections will build off of this snippet, so it's important to star
 
 ## Issue a Storage Request
 
-Ensure your file ready is to upload. In this demonstration we're using a `.jpg` file named `hello.jpg` stored in the current working directory, i.e. the same as the typescript project files, `/src/`. 
+Ensure your file is ready to upload. In this demonstration we're using a `.jpg` file named `hello.jpg` stored in the current working directory, i.e. the same as the typescript project files, `/src/`. 
 
 Register your intent to store a file in your bucket and set its replication policy. Initialize `FileManager`, compute the file’s fingerprint, fetch MSP info (and extract peer IDs), choose a replication level and replica count, then call `issueStorageRequest`.
 
