@@ -49,5 +49,5 @@ console.log('Downloaded file saved to:', downloadPath);
 
   await substrateApi.disconnect();
 }
-  // Run the function as we done assembling the code
+  // Run the function as we are done assembling the code
 await run();
