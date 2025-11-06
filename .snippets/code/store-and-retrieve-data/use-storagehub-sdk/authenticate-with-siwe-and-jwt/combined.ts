@@ -1,19 +1,20 @@
-import type { AuthStatus, UserInfo } from '@storagehub-sdk/msp-client';
+import type { UserInfo } from '@storagehub-sdk/msp-client';
 
-// Assumes the following are available in scope:
-// - mspClient, walletClient
+// Assumes the following are available in scope from prior setup:
+// - walletClient (viem WalletClient with an account)
+// - mspClient configured with a sessionProvider that returns { token, user: { address } }
+// - a module-level `sessionToken: string | undefined` that sessionProvider reads
 
-// Check auth status and authenticate if needed (SIWE)
-const auth: AuthStatus = await mspClient.auth.getAuthStatus();
-console.log('MSP Auth Status:', auth.status);
+// Authenticate user (SIWE) and cache the JWT for the sessionProvider
+const authenticateUser = async (): Promise<UserInfo> => {
+  const siweSession = await mspClient.auth.SIWE(walletClient);
+  console.log('SIWE Session:', siweSession);
 
-if (auth.status !== 'Authenticated') {
-  await mspClient.auth.SIWE(walletClient);
-  console.log('User authenticated with MSP via SIWE');
-}
+  sessionToken = (siweSession as { token?: string }).token;
+  if (!sessionToken) throw new Error('SIWE did not return a session token');
 
-// Fetch authenticated profile info
-const profile: UserInfo = await mspClient.auth.getProfile();
-console.log('Authenticated user profile:', profile);
+  const profile: UserInfo = await mspClient.auth.getProfile();
+  console.log('Authenticated user profile:', profile);
 
-
+  return profile;
+};

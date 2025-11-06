@@ -1,3 +1,5 @@
+// index.ts
+
 import '@storagehub/api-augment';
 import { ApiPromise, WsProvider } from '@polkadot/api';
 import { types } from '@storagehub/types-bundle';
@@ -11,9 +13,8 @@ import {
 import {
   MspClient,
   HealthStatus,
-  InfoResponse,
-  ValueProp,
   DownloadResult,
+  type UserInfo,
 } from '@storagehub-sdk/msp-client';
 import {
   Chain,
@@ -62,13 +63,28 @@ async function run() {
     noInitWarn: true,
   });
 
-  // --- MSP + StorageHub clients ---
+  // --- MSP client (new auth flow: sessionProvider) ---
   const baseUrl = 'TODO';
-  const httpConfig: HttpClientConfig = { baseUrl };
-  const mspClient = await MspClient.connect(httpConfig, substrateApi);
+  const httpCfg: HttpClientConfig = { baseUrl };
+
+  // Cache for the short-lived JWT; sessionProvider will read this.
+  let sessionToken: string | undefined;
+
+  // Supplies auth to MSP calls. If this flow doesn’t need auth, this can return undefined.
+  const sessionProvider = async () => {
+    const addr = walletClient?.account?.address;
+    return sessionToken && addr
+      ? ({ token: sessionToken, user: { address: addr } } as const)
+      : undefined;
+  };
+
+  const mspClient = await MspClient.connect(httpCfg, sessionProvider);
+
+  // Optional: confirm MSP health
   const mspHealth: HealthStatus = await mspClient.info.getHealth();
   console.log('MSP service health:', mspHealth);
 
+  // StorageHub EVM client
   const storageHubClient = new StorageHubClient({
     rpcUrl: 'TODO',
     chain,
@@ -143,15 +159,20 @@ async function run() {
     storageRequestData.fingerprint.toString() === fingerprint.toString()
   );
 
-  // === Authenticate with SIWE and JWT ===
-  const auth = await mspClient.auth.getAuthStatus();
-  console.log('MSP Auth Status:', auth.status);
-  if (auth.status !== 'Authenticated') {
-    await mspClient.auth.SIWE(walletClient);
-    console.log('User authenticated with MSP via SIWE');
-  }
-  const profile = await mspClient.auth.getProfile();
-  console.log('Authenticated user profile:', profile);
+  // === Authenticate with SIWE and JWT (new flow) ===
+  const authenticateUser = async (): Promise<UserInfo> => {
+    const siweSession = await mspClient.auth.SIWE(walletClient);
+    console.log('SIWE Session:', siweSession);
+
+    sessionToken = (siweSession as { token?: string }).token;
+    if (!sessionToken) throw new Error('SIWE did not return a session token');
+
+    const profile: UserInfo = await mspClient.auth.getProfile();
+    console.log('Authenticated user profile:', profile);
+    return profile;
+  };
+
+  await authenticateUser();
 
   // === Upload Your First File ===
   const fileBlob = await fileManager.getFileBlob();
@@ -184,5 +205,3 @@ async function run() {
 }
 
 await run();
-
-
