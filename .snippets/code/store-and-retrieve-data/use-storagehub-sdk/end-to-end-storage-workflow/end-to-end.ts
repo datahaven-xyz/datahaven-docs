@@ -56,17 +56,31 @@ async function run() {
     transport: http('https://services.datahaven-testnet.network/testnet'),
   });
 
+<<<<<<< HEAD
   // --- Polkadot.js API setup ---
   const provider = new WsProvider('wss://services.datahaven-testnet.network/testnet');
   const polkadotApi: ApiPromise = await ApiPromise.create({
+=======
+  // --- Substrate API ---
+  const provider = new WsProvider(
+    'wss://services.datahaven-testnet.network/testnet'
+  );
+  const substrateApi: ApiPromise = await ApiPromise.create({
+>>>>>>> b601f6c673746b1518bc5a878d3f6da7e966079c
     provider,
     typesBundle: types,
     noInitWarn: true,
   });
 
+<<<<<<< HEAD
   // --- Bucket creating logic ---
   const baseUrl = 'https://deo-dh-backend.testnet.datahaven-infra.network/';
   const httpConfig = { baseUrl: baseUrl };
+=======
+  // --- MSP client (new auth flow: sessionProvider) ---
+  const baseUrl = 'https://deo-dh-backend.testnet.datahaven-infra.network/';
+  const httpCfg: HttpClientConfig = { baseUrl };
+>>>>>>> b601f6c673746b1518bc5a878d3f6da7e966079c
 
   // Setup session provider for MSP authentication
   let sessionToken: string | undefined;
@@ -83,8 +97,13 @@ async function run() {
   // Initialize StorageHub Client
   const storageHubClient = new StorageHubClient({
     rpcUrl: 'https://services.datahaven-testnet.network/testnet',
+<<<<<<< HEAD
     chain: chain,
     walletClient: walletClient,
+=======
+    chain,
+    walletClient,
+>>>>>>> b601f6c673746b1518bc5a878d3f6da7e966079c
     filesystemContractAddress:
       '0x0000000000000000000000000000000000000404' as `0x${string}`,
   });
