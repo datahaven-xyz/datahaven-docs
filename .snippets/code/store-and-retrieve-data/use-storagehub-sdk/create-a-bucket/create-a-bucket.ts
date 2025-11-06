@@ -112,7 +112,6 @@ async function run() {
   // --8<-- [start:derive-bucket]
   // Derive bucket ID
   const bucketName = 'init-bucket';
-
   const bucketId = (await storageHubClient.deriveBucketId(
     address,
     bucketName
