@@ -7,18 +7,6 @@ description: Learn how to store and retrieve files on DataHaven with this step-b
 
 This guide walks you through the exact steps for storing a file on DataHaven and retrieving it. Follow each step in sequence; each guide linked below provides the detailed code you will run.
 
-## Workflow at a Glance
-
-For more details on each step, check out the respective guides. 
-
-Prerequisite: [Create a Bucket](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/)
-
-1. [Issue a Storage Request](/store-and-retrieve-data/use-storagehub-sdk/issue-a-storage-request/)
-2. [Verify if Storage Request is On-Chain](/store-and-retrieve-data/use-storagehub-sdk/verify-if-storage-request-is-on-chain/)
-3. [Authenticate with SIWE and JWT](/store-and-retrieve-data/use-storagehub-sdk/authenticate-with-siwe-and-jwt/)
-4. [Upload Your First File](/store-and-retrieve-data/use-storagehub-sdk/upload-your-first-file/)
-5. [Retrieve Your Data](/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/)
-
 ## Prerequisites
 
 - [Node.js](https://nodejs.org/en/download){target=_blank} v22+ installed
