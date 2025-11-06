@@ -2,3 +2,4 @@ nav:
  - 'Overview': index.md
  - 'Quick Start': quick-start.md
  - 'Use StorageHub SDK': use-storagehub-sdk
+ - 'Known Issues': known-issues.md
