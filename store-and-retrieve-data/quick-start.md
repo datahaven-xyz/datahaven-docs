@@ -61,20 +61,20 @@ To interact with a Main Storage Provider (MSP) through `@storagehub-sdk/msp-clie
 
 <div class="grid cards" markdown>
 
-- **Build with StorageHub SDK**
+-   <a href="/store-and-retrieve-data/use-storagehub-sdk/get-started/" markdown>:material-arrow-right:
 
-    ***
+    **Install the StorageHub SDK**
 
-    Install StorageHub SDK dependencies to start storing, retrieving, and verifying data.
+    Install StorageHub SDK packages to start storing, retrieving, and verifying data.
 
-    [:octicons-arrow-right-24: Get started](/store-and-retrieve-data/use-storagehub-sdk/get-started/)
+    </a>
 
-- **Build a Data Workflow End-to-End**
+-   <a href="/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/" markdown>:material-arrow-right:
 
-    ***
+    **Build a Data Workflow End-to-End**
 
     Learn step-by-step how to store a file on DataHaven and retrieve it back from the network.
 
-    [:octicons-arrow-right-24: End-to-End Storage Workflow](/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/)
+    </a>
 
 </div>
