@@ -9,7 +9,7 @@ This page lists major known issues with the DataHaven SDK.
 
 ## SIWE Authentication Timeouts
 
-After initial authentication via [SIWE (Sign In With Ethereum)](https://docs.login.xyz/){target=_blank} subsequent re-authentication attempts may fail with the error `Invalid or expired nonce`. This issue may reoccur intermittently.
+After initial authentication via [SIWE (Sign In With Ethereum)](https://docs.login.xyz/){target=_blank}, subsequent re-authentication attempts may fail with the error `Invalid or expired nonce`. This issue may reoccur intermittently.
 
 ## BSPs are currently unable to accept files for replication
 
