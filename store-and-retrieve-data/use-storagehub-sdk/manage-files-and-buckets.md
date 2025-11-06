@@ -44,7 +44,7 @@ Create an `index.ts` and add the following code:
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:imports'
 
 async function run() {
-  --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:initialize-and-setup'
+  --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:initialize-clients'
 
   // --- Data deletion logic ---
   // **PLACEHOLDER FOR STEP 1: REQUEST FILE DELETION**
