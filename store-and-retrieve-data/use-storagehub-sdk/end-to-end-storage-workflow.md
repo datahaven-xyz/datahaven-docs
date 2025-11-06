@@ -9,26 +9,24 @@ Learn the complete process for storing and retrieving a file on DataHaven—pres
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/en/download){target=_blank} v22+ installed
-- [A TypeScript project](/store-and-retrieve-data/use-storagehub-sdk/get-started/#set-up-a-typescript-project){target=\_blank}
-    <!-- TODO: Add TypeScript project instructions here as admo -->
+--8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/prerequisites.md'
+
 - The [StorageHub SDK](/store-and-retrieve-data/use-storagehub-sdk/get-started/#install-the-storagehub-sdk){target=\_blank} installed
-- [A bucket created](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/){target=\_blank} with the ID handy
 
 ## Create a Bucket
 
-Buckets group your files under a specific MSP and value proposition. Derive a deterministic bucket ID, fetch MSP parameters, then create the bucket. If you run the script multiple times, use a new `bucketName` to avoid a revert, or modify the logic to use your existing bucket in later steps.
+Buckets group your files under a specific Main Storage Provider (MSP) and value proposition. Derive a deterministic bucket ID, fetch MSP parameters, then create the bucket. If you run the script multiple times, use a new `bucketName` to avoid a revert, or modify the logic to use your existing bucket in later steps.
 
 ```ts title="Create a Bucket"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/combined.ts'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/create-a-bucket.ts'
 ```
 
 ## Issue a Storage Request
 
-Register your intent to store a file in your bucket and set its replication policy. Initialize `FileManager`, compute the file’s fingerprint, fetch MSP info (and extract peer IDs), choose a replication level and replica count, then call issueStorageRequest
+Register your intent to store a file in your bucket and set its replication policy. Initialize `FileManager`, compute the file’s fingerprint, fetch MSP info (and extract peer IDs), choose a replication level and replica count, then call `issueStorageRequest`.
 
 ```ts title="Issue a Storage Request"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/issue-a-storage-request/combined.ts'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/issue-storage-request.ts'
 ```
 
 ## Verify If Storage Request Is On-Chain
@@ -36,7 +34,7 @@ Register your intent to store a file in your bucket and set its replication poli
 Derive the deterministic file key, query on-chain state, and confirm the request exists and matches your local fingerprint and bucket.
 
 ```ts title="Verify If Storage Request Is On-Chain"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/verify-if-storage-request-is-on-chain/combined.ts'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/verify-storage-request.ts'
 ```
 
 ## Authenticate with SIWE and JWT
@@ -44,15 +42,15 @@ Derive the deterministic file key, query on-chain state, and confirm the request
 Sign-in with Ethereum (SIWE) to the MSP and obtain a short-lived JWT to authorize upload and retrieval operations.
 
 ```ts title="Authenticate with SIWE and JWT"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/authenticate-with-siwe-and-jwt/combined.ts'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/authenticate.ts'
 ```
 
-## Upload Your First File
+## Upload a File
 
 Send the file bytes to the MSP, linked to your Storage Request. Confirm that the upload receipt indicates a successful upload.
 
-```ts title="Upload Your First File"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-your-first-file/combined.ts'
+```ts title="Upload a File"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/upload-a-file.ts'
 ```
 
 ## Retrieve Your Data
@@ -60,10 +58,10 @@ Send the file bytes to the MSP, linked to your Storage Request. Confirm that the
 Download the file by its deterministic key from the MSP and save it locally.
 
 ```ts title="Retrieve Your Data"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/combined.ts'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/retrieve-your-data.ts'
 ```
 
-## Putting it All Together
+## Putting It All Together
 
 The code containing the complete series of steps from issuing a storage request to retrieving the data is available below.
 

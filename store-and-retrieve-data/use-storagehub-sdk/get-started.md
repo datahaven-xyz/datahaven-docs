@@ -54,8 +54,7 @@ Before you begin, ensure you have the following:
 - [MSP base URL](/store-and-retrieve-data/quick-start/#msp-service-endpoints){target=\_blank}
 - [TestNet tokens](TODO: link to the faucet){target=\_blank}
 
-??? interface "Need a starter project?"
-    --8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/get-started/starter-sdk-project-01.md'
+--8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/create-typescript-project.md'
 
 ## Install the StorageHub SDK
 
