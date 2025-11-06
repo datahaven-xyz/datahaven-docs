@@ -154,7 +154,7 @@ Finally, you can call the `createBucket()` function using the `storageHubClient`
 ```
 
 !!! note
-    You can also get a list of all your created buckets within a certain MSP  using the `mspClient.buckets.listBuckets()` function. Make sure you are authenticated before triggering this function.
+    You can also get a list of all your created buckets within a certain MSP using the `mspClient.buckets.listBuckets()` function. Make sure you are authenticated before triggering this function.
 
 ## Check if Bucket is On-Chain
 
