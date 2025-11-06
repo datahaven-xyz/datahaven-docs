@@ -5,7 +5,7 @@ description: Learn how to store and retrieve files on DataHaven with this step-b
 
 # End-to-End Storage Workflow
 
-This guide walks you through the exact steps for storing a file on DataHaven and retrieving it. Follow each step in sequence; each guide linked below provides the detailed code you will run.
+Learn the complete process for storing and retrieving a file on DataHaven—presented in order with runnable code samples in each section.
 
 ## Prerequisites
 
