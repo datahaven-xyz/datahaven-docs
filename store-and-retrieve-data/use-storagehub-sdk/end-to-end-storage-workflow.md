@@ -5,7 +5,7 @@ description: Learn how to store and retrieve files on DataHaven with this step-b
 
 # End-to-End Storage Workflow
 
-This tutorial will cover the end-to-end flow of creating a bucket, uploading a file, and retrieving said file, all in a step-by-step format.  
+This tutorial will cover the end-to-end process of creating a bucket, uploading a file, and retrieving it, in a step-by-step format.
 
 ## Prerequisites
 
@@ -17,9 +17,9 @@ This tutorial will cover the end-to-end flow of creating a bucket, uploading a f
 
 Buckets group your files under a specific Main Storage Provider (MSP) and value proposition. Derive a deterministic bucket ID, fetch MSP parameters, then create the bucket. If you run the script multiple times, use a new `bucketName` to avoid a revert, or modify the logic to use your existing bucket in later steps.
 
-In the following code, we will initialize the StorageHub, viem, and Polkadot.js clients on the DataHaven Testnet, sign in via SIWE, and pull the MSP’s details/value proposition to prepare for bucket creation. Then we derive the bucket ID, confirm it doesn’t exist, submit a createBucket transaction and wait for confirmation, and finally query the chain to verify the new bucket’s MSP and owner match our account. 
+In the following code, you will initialize the StorageHub, viem, and Polkadot.js clients on the DataHaven Testnet, sign in via SIWE (Sign in With Ethereum), and pull the MSP’s details/value proposition to prepare for bucket creation. Then you will derive the bucket ID, confirm it doesn’t exist, submit a createBucket transaction, wait for confirmation, and finally query the chain to verify that the new bucket’s MSP and owner match our account. 
 
-The following sections will build off of this snippet, so it's important to start here to configure the client properly and ensure proper bucket creation. If you'd prefer to step through the create a bucket steps individually, please see the [Create a Bucket Page](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/){target=\_blank}.
+The following sections will build on this snippet, so it's important to start here to properly configure the client and ensure the bucket is created correctly. If you'd prefer to step through the Create a Bucket steps individually, please see the [Create a Bucket Page](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/){target=\_blank}.
 
 ```ts title="Create a Bucket"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/create-a-bucket.ts'
@@ -27,7 +27,7 @@ The following sections will build off of this snippet, so it's important to star
 
 ## Issue a Storage Request
 
-Ensure your file is ready to upload. In this demonstration we're using a `.jpg` file named `hello.jpg` stored in the current working directory, i.e. the same as the typescript project files, `/src/`. 
+Ensure your file is ready to upload. In this demonstration, we're using a `.jpg` file named `hello.jpg` stored in the current working directory, i.e., the same as the typescript project files, `/src/`. 
 
 Register your intent to store a file in your bucket and set its replication policy. Initialize `FileManager`, compute the file’s fingerprint, fetch MSP info (and extract peer IDs), choose a replication level and replica count, then call `issueStorageRequest`.
 
@@ -45,7 +45,7 @@ Derive the deterministic file key, query on-chain state, and confirm the request
 
 ## Authenticate with SIWE and JWT
 
-Trigger the SIWE flow: the connected wallet signs an EIP-4361 message, the MSP verifies it, and returns a JWT session token. Save that token as `sessionToken` and reuse it for subsequent authenticated requests.
+In this section, you'll trigger the SIWE flow: the connected wallet signs an EIP-4361 message, the MSP verifies it, and returns a JWT session token. Save that token as `sessionToken` and reuse it for subsequent authenticated requests.
 
 ```ts title="Authenticate with SIWE and JWT"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/authenticate.ts'
@@ -69,7 +69,7 @@ Download the file by its deterministic key from the MSP and save it locally.
 
 ## Putting It All Together
 
-The code containing the complete series of steps from issuing a storage request to retrieving the data is available below. As a reminder, before running the complete script ensure you have the following:
+The code containing the complete series of steps from issuing a storage request to retrieving the data is available below. As a reminder, before running the full script, ensure you have the following:
 
 - Tokens to pay for the storage request on your account
 - A file to upload such as `hello.jpg`
