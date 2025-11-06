@@ -9,7 +9,7 @@ This page lists major known issues with the DataHaven SDK.
 
 ## Bucket Sharing Not Yet Supported
 
-Bucket sharing is not yet permitted. For now, only the bucket owner can access a bucket, regardless of whether it’s set to Public or Private. A future release will enable true public access for public buckets and allow private buckets to be shared with permitted users beyond the owner.
+Bucket sharing is not yet permitted. For now, only the bucket owner can access a bucket, regardless of whether it’s set to `Public` or `Private`. A future release will enable true public access for public buckets and allow private buckets to be shared with permitted users beyond the owner.
 
 ## BSPs are currently unable to accept files for replication
 
@@ -17,7 +17,7 @@ While uploads to Main Storage Providers (MSPs) happen successfully, Backup Stora
 
 ## `GetProfile` method returns hardcoded placeholder information
 
-The `auth.getProfile()` client method returns a hardcoded placeholder of `user.eth`. In a future release it will be updated to return the authenticated user’s profile in the form `({ address: string; ens: string })`
+The `auth.getProfile()` client method returns a hardcoded placeholder of `user.eth`. In a future release it will be updated to return the authenticated user’s profile in the form `({ address: string; ens: string })`.
 
 ## Other Issues
 
