@@ -1,5 +1,3 @@
-// index.ts
-
 import '@storagehub/api-augment';
 import { ApiPromise, WsProvider } from '@polkadot/api';
 import { types } from '@storagehub/types-bundle';
@@ -67,10 +65,7 @@ async function run() {
   const baseUrl = 'TODO';
   const httpCfg: HttpClientConfig = { baseUrl };
 
-  // Cache for the short-lived JWT; sessionProvider will read this.
-  let sessionToken: string | undefined;
-
-  // Supplies auth to MSP calls. If this flow doesn’t need auth, this can return undefined.
+  let sessionToken: string | undefined; // cached MSP JWT
   const sessionProvider = async () => {
     const addr = walletClient?.account?.address;
     return sessionToken && addr
@@ -84,7 +79,7 @@ async function run() {
   const mspHealth: HealthStatus = await mspClient.info.getHealth();
   console.log('MSP service health:', mspHealth);
 
-  // StorageHub EVM client
+  // --- StorageHub EVM client ---
   const storageHubClient = new StorageHubClient({
     rpcUrl: 'TODO',
     chain,
@@ -92,11 +87,45 @@ async function run() {
     filesystemContractAddress: '0x0000000000000000000000000000000000000404' as `0x${string}`,
   });
 
-  // --- Inputs from previous steps ---
-  const bucketId = '0xTODO' as `0x${string}`; // Replace with your bucket ID
-  const fileName = 'filename.png';
+  // === Create a Bucket ===
+  const createBucket = async (
+    bucketName: string,
+    isPrivate = false
+  ): Promise<`0x${string}`> => {
+    const owner = walletClient.account.address;
+    const bucketId = (await storageHubClient.deriveBucketId(
+      owner,
+      bucketName
+    )) as `0x${string}`;
+    console.log('Derived bucket ID:', bucketId);
+
+    const { mspId } = await mspClient.info.getInfo();
+    const valueProps = await mspClient.info.getValuePropositions();
+    if (!valueProps?.length) throw new Error('No value props available from this MSP.');
+    const valuePropId = valueProps[0].id as `0x${string}`;
+
+    const txHash = await storageHubClient.createBucket(
+      mspId as `0x${string}`,
+      bucketName,
+      isPrivate,
+      valuePropId
+    );
+    console.log('createBucket() txHash:', txHash);
+    if (!txHash) throw new Error('createBucket() did not return a transaction hash');
+
+    const receipt = await publicClient.waitForTransactionReceipt({ hash: txHash });
+    if (receipt.status !== 'success') throw new Error(`Bucket creation failed: ${txHash}`);
+
+    console.log('Bucket created:', bucketId);
+    return bucketId;
+  };
+
+  // Use a fresh name when re-running locally to avoid a revert
+  const bucketName = `my-first-bucket-${Date.now()}`;
+  const bucketId = await createBucket(bucketName, /* isPrivate */ false);
 
   // === Issue a Storage Request ===
+  const fileName = 'filename.png';
   const filePath = new URL(`./files/${fileName}`, import.meta.url).pathname;
   const fileSize = statSync(filePath).size;
   const fileManager = new FileManager({
@@ -109,15 +138,11 @@ async function run() {
   console.log(`Fingerprint: ${fingerprint.toHex()}`);
 
   const { mspId, multiaddresses } = await mspClient.info.getInfo();
-  if (!multiaddresses?.length) {
-    throw new Error('MSP multiaddresses are missing');
-  }
+  if (!multiaddresses?.length) throw new Error('MSP multiaddresses are missing');
   const peerIds = (multiaddresses ?? [])
     .map((addr) => addr.split('/p2p/').pop())
     .filter((id): id is string => !!id);
-  if (peerIds.length === 0) {
-    throw new Error('MSP multiaddresses had no /p2p/<peerId> segment');
-  }
+  if (peerIds.length === 0) throw new Error('MSP multiaddresses had no /p2p/<peerId> segment');
 
   const replicationLevel = ReplicationLevel.Custom;
   const replicas = 1;
@@ -132,13 +157,10 @@ async function run() {
     replicas
   );
   console.log('issueStorageRequest() txHash:', txHash);
-  if (!txHash) {
-    throw new Error('issueStorageRequest() did not return a transaction hash');
-  }
+  if (!txHash) throw new Error('issueStorageRequest() did not return a transaction hash');
+
   const issueReceipt = await publicClient.waitForTransactionReceipt({ hash: txHash });
-  if (issueReceipt.status !== 'success') {
-    throw new Error(`Storage request failed: ${txHash}`);
-  }
+  if (issueReceipt.status !== 'success') throw new Error(`Storage request failed: ${txHash}`);
 
   // === Verify if Storage Request is On-Chain ===
   const registry = new TypeRegistry();
@@ -148,14 +170,11 @@ async function run() {
   console.log('Computed file key:', fileKey.toHex());
 
   const storageRequest = await substrateApi.query.fileSystem.storageRequests(fileKey);
-  if (!storageRequest.isSome) {
-    throw new Error('Storage request not found on chain');
-  }
+  if (!storageRequest.isSome) throw new Error('Storage request not found on chain');
   const storageRequestData = storageRequest.unwrap();
-  console.log('Storage request data:', storageRequestData);
   console.log('Storage request bucketId:', storageRequestData.bucketId.toString());
   console.log(
-    'Storage request fingerprint should be the same as initial fingerprint',
+    'Storage request fingerprint matches:',
     storageRequestData.fingerprint.toString() === fingerprint.toString()
   );
 
@@ -171,7 +190,6 @@ async function run() {
     console.log('Authenticated user profile:', profile);
     return profile;
   };
-
   await authenticateUser();
 
   // === Upload Your First File ===
@@ -184,17 +202,12 @@ async function run() {
     fileName
   );
   console.log('File upload receipt:', uploadReceipt);
-  if (uploadReceipt.status !== 'upload_successful') {
-    throw new Error('File upload to MSP failed');
-  }
+  if (uploadReceipt.status !== 'upload_successful') throw new Error('File upload to MSP failed');
 
   // === Retrieve Your Data ===
-  const downloadResponse: DownloadResult = await mspClient.files.downloadFile(
-    fileKey.toHex()
-  );
-  if (downloadResponse.status !== 200) {
-    throw new Error(`Download failed with status: ${downloadResponse.status}`);
-  }
+  const downloadResponse: DownloadResult = await mspClient.files.downloadFile(fileKey.toHex());
+  if (downloadResponse.status !== 200) throw new Error(`Download failed: ${downloadResponse.status}`);
+
   const downloadPath = new URL('../../files/filename_downloaded.png', import.meta.url).pathname;
   const writeStream = createWriteStream(downloadPath);
   const readableStream = Readable.fromWeb(downloadResponse.stream as any);

@@ -15,6 +15,14 @@ Learn the complete process for storing and retrieving a file on DataHaven—pres
 - The [StorageHub SDK](/store-and-retrieve-data/use-storagehub-sdk/get-started/#install-the-storagehub-sdk){target=\_blank} installed
 - [A bucket created](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/){target=\_blank} with the ID handy
 
+## Create a Bucket
+
+Buckets group your files under a specific MSP and value proposition. Derive a deterministic bucket ID, fetch MSP parameters, then create the bucket. If you run the script multiple times, use a new `bucketName` to avoid a revert, or modify the logic to use your existing bucket in later steps.
+
+```ts title="Create a Bucket"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/combined.ts'
+```
+
 ## Issue a Storage Request
 
 Register your intent to store a file in your bucket and set its replication policy. Initialize `FileManager`, compute the file’s fingerprint, fetch MSP info (and extract peer IDs), choose a replication level and replica count, then call issueStorageRequest
