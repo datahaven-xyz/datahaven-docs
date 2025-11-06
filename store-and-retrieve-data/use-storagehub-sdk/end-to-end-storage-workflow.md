@@ -82,7 +82,7 @@ The code containing the complete series of steps from issuing a storage request 
 
 ### Notes on Data Safety
 
-Uploading a file does not guarantee network-wide replication. Files are considered secured by DataHaven only after replication to a Backup Storage Provider (BSP) completes. Tooling to surface replication status is in active development.
+Uploading a file does not guarantee network-wide replication. Files are considered secured by DataHaven only after replication to a Backup Storage Provider (BSP) is complete. Tooling to surface replication status is in active development.
 
 ## Next Steps
 
