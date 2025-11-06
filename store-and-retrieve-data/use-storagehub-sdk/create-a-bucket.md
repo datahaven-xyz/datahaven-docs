@@ -106,7 +106,7 @@ Now that you have the `StorageHubClient` initialized, you'll use it to derive th
 
 ## Derive Bucket ID
 
-Before creating a new bucket, you'll need to derive the bucket ID by passing the bucket's name and the address you intend to use to create it.
+Before creating a new bucket, you'll need to derive the bucket ID by passing the bucket's name and the address you intend to use to create it. Two buckets with the same name and address cannot co-exist within the same MSP.
 
 ```ts title="// **PLACEHOLDER FOR STEP 3: DERIVE BUCKET ID**"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:derive-bucket'
@@ -131,7 +131,7 @@ Now that you have the bucket ID, you can ensure the bucket doesn't exist on-chai
 ```
 
 !!! note
-    The `mspClient` can also be used to check if the derived bucket ID already exists using the `mspClient.getBucket()` function; however, this only checks if that specific MSP contains a bucket with that ID.
+    The `mspClient` can also be used to check if the derived bucket ID already exists using the `mspClient.buckets.getBucket()` function; however, this only checks if that specific MSP contains a bucket with that ID.
 
 If you rerun the script, the response should include:
 
@@ -152,6 +152,9 @@ Finally, you can call the `createBucket()` function using the `storageHubClient`
 ```ts title="// **PLACEHOLDER FOR STEP 6: CREATE BUCKET**"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:create-bucket'
 ```
+
+!!! note
+    You can also get a list of all your created buckets within a certain MSP  using the `mspClient.buckets.listBuckets()` function. Make sure you are authenticated before triggering this function.
 
 ## Check if Bucket is On-Chain
 
