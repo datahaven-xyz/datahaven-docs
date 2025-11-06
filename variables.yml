@@ -1,8 +1,8 @@
 networks:
   testnet:
-    rpc_url: TODO
-    wss_url: TODO
-    chain_id: 1283
-    website_faucet_amount: 1.1 HAVE tokens
+    rpc_url: 'https://services.datahaven-testnet.network/testnet'
+    wss_url: 'wss://services.datahaven-testnet.network/testnet'
+    chain_id: 55931
+    website_faucet_amount: 1.1 MOCK tokens
   mainnet:
     chain_id: 1289
