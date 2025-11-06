@@ -1,13 +1,13 @@
 ---
 title: Data Flow and Lifecycle
-description: A non-technical, step-by-step overview of how data moves through DataHaven's provider model—from upload to retrieval and beyond.
+description: A step-by-step overview of how data moves through DataHaven's provider model—from upload to retrieval and beyond.
 ---
 
 # Data Flow and Lifecycle
 
 DataHaven separates storage from verification: storage providers hold the bytes, and the chain records a compact, verifiable receipt.
 
-This page follows a file’s journey from choosing an MSP and bucket to uploading, policy-driven redundancy with BSPs, retrieval with an integrity check, and ongoing health checks. It also shows, at a high level, how updates create new versions and how you can move or remove data. 
+This page follows a file’s journey from choosing a Main Storage Provider (MSP) and bucket to uploading, policy-driven redundancy with Backup Storage Providers (BSPs), retrieval with an integrity check, and ongoing health checks. It also shows, at a high level, how updates create new versions and how you can move or remove data. 
 
 ## Roles at a Glance
 
@@ -15,33 +15,120 @@ This page follows a file’s journey from choosing an MSP and bucket to uploadin
 - **DataHaven chain**: Maintains compact on-chain commitments (bucket roots from MSPs, global roots from BSPs) and coordinates BSP challenges.
 - **Storage Providers**: DataHaven divides data storage, verification, and retrieval responsibilites across Main Storage Providers (MSP) and Backup Storage Providers (BSP). The two roles compare as follows:
 
-| MSP                                                                  | BSP                                                                       |
-|----------------------------------------------------------------------|---------------------------------------------------------------------------|
-| Chosen by the user.                                                  | Randomly assigned by the network.                                         |
-| Maintain the bucket trie (original).                                 | Replicate data across the network (replication).                          |
-| Periodically anchors the bucket root on-chain.                       | Periodically post the global Merkle commitment of all files stored.       |
-| Serve files for read requests.                                       | No role in serving files for read requests.                               |
-| Performance incentivized by competition to attract and retain users. | Performance ensured via a slashing mechanism for failed proof challenges. |
+| MSP                                                                     | BSP                                                                       |
+|-------------------------------------------------------------------------|---------------------------------------------------------------------------|
+| Chosen by the user.                                                     | Randomly assigned by the network.                                         |
+| Maintains the bucket trie (primary copy).                               | Replicates data across the network (backup copies).                       |
+| Periodically anchors the bucket root on-chain.                          | Periodically posts the global Merkle commitment of all stored files.      |
+| Serves files for read requests.                                         | Not part of the normal read path.                                         |
+| Performance is incentivized by competition to attract and retain users. | Performance ensured via a slashing mechanism for failed proof challenges. |
 
-- **Main Storage Provider (MSP)**: User-selected primary storage provider. Maintains buckets, serves reads, and anchors per-bucket updates on-chain.
-- **Backup Storage Providers (BSPs)**: Protocol-assigned replicas that enhance durability. They post a global commitment for stored files and respond to periodic challenges. They do not serve user reads.
+Now that you understand roles, you are ready to follow the step-by-step journey of data through the DataHaven lifecycle.
 
-## Step-by-Step Journey
+## Connect and Choose Storage Providers
 
-1. **Connect and choose where to store**: Connect a wallet or app identity, pick an MSP, and create or reuse a bucket as the container for related files (you can choose different MSPs per bucket). Set your replication policy (how many BSP replicas).
+The first steps of the dataflow are as follows:
 
-2. **Upload the file**: Your app opens a storage request for the bucket. The MSP accepts it, stores the bytes off-chain, and coordinates replication to the selected BSPs. Once required replicas acknowledge, the MSP anchors a bucket update on-chain (a compact receipt tied to the file’s fingerprint). If replication or anchoring fails, the upload aborts.
+```mermaid
+graph LR
+    A[Connect wallet<br>or app identity]
+    B[Select<br>an MSP]
+    C[Create or reuse bucket<br>to hold files]
+    D[Set policy for desired<br>BSP replicas]
+    A-->B
+    B-->C
+    C-->D
+```
 
-3. **Store and add redundancy**: The MSP keeps the primary copy and serves reads. BSPs hold replicas for durability and decentralization; they are not in the normal read path.
+## Upload the File
 
-4. **Share and set access (optional)**: You may choose to share access to your bucket by generating a link that provides view-only access or view-and-upload access to the contents of your bucket, including all files and folders. You can set an optional expiration date for the link and protect it with a password if needed. 
+Once you connect to the network, select your MSP, and create a bucket, the upload steps are as follows:
 
-5. **Retrieve the file**: When you request the file, the MSP returns the bytes plus a small cryptographic proof (Merkle proof). Your app automatically checks it against the file's on-chain commitment (anchored in the bucket), so you know the content matches the committed content. Files can also be shared via generated links with optional expiration and password protection, as described above.
+```mermaid
+sequenceDiagram
+    participant User/App
+    participant MSP
+    participant Offchain Storage
+    participant BSP
+    participant Blockchain
 
-6. **Ongoing health checks**: On a schedule, the chain challenges BSPs (not MSPs) to prove they still hold your data. BSPs provide small cryptographic proofs; slashing is possible in the event of data loss by BSPs per the protocol rules.
+    User/App->>MSP: Open a storage request<br>for your bucket
+    MSP->>Offchain Storage: Accept storage request,<br>Store the bytes off-chain
+    MSP->>BSP: Coordinate replications<br>for backup copies
+    BSP->>MSP: Confirm creation<br>of replica copies
+    MSP->>Blockchain: Anchor Merkle-root<br>of bucket update
+```
 
-7. **Update or replace a file**: Uploading changed content produces a new fingerprint (a new version). The bucket updates its on-chain summary to reference the new version. Whether older versions are kept is up to your app or storage provider policy.
+If replication or anchoring fails, the upload aborts.
 
-8. **Move or remove data**: You can remove a file's reference from a bucket (deleting its entry). To change storage providers, reassign the bucket to a new MSP; the new MSP reseeds from BSP replicas and anchors a fresh bucket update without manual transfers required.
+## Retrieve the File
 
-9. **Billing and transparency**: Storage providers track storage and retrieval usage and surface charges in-app. On-chain actions (like anchoring and challenges) consume gas in the system token. Pricing targets predictable per-GB per-time costs; payments are streamed per block from a prepaid deposit and automatically pause when the balance falls below a minimum threshold. Top up to resume; BSPs receive an automated revenue share.
+The process to retrieve a file you successfully uploaded to DataHaven is as follows:
+
+```mermaid
+sequenceDiagram
+    participant User/App
+    participant MSP
+    participant Blockchain
+
+    User/App->>MSP: Requests the file
+    MSP->>User/App: Returns the bytes plus<br>bucket root Merkle proof
+    User/App->>Blockchain: Checks proof against<br>file's on-chain commitment
+    Blockchain->>User/App: Confirms proof check passed,<br>returned data matches original upload
+```
+
+## Verify Storage Over Time
+
+Scheduled health checks, in the form of proof challenges, ensure BSPs retain your backup copies over time as follows:
+
+```mermaid
+sequenceDiagram
+    participant Blockchain
+    participant BSP
+
+    Blockchain->>BSP: Sends proof of storage challenge as scheduled
+    BSP->>Blockchain: Provides small cryptographic proofs in response 
+```
+
+If the BSP returns the expected information, the health check passes. BSPs face slashing penalties in the event of data loss resulting in a failed proof challenge.
+
+## Change or Replace a File
+
+The flow for changing or replacing a file is as follows:
+
+```mermaid
+graph LR
+    A[Upload new content<br>to your bucket]
+    B[Change to content creates<br>updated file fingerprint]
+    C[Bucket updates on-chain<br>summary to reference<br>new version.]
+    A-->B
+    B-->C
+```
+
+It is important to note that whether older versions of files are retained is determined by your app's or storage provider's policy.
+
+## Next Steps
+
+Now that you understand DataHaven's data storage lifecycle, consider these resources to get hands-on and start building.
+
+<div class="grid cards" markdown>
+
+-   <a href="/store-and-retrieve-data/use-storagehub-sdk/get-started/" markdown>:material-arrow-right:
+
+    **Get Started with the StorageHub SDK**
+
+    Environment set up and dependency installation to get your project started.
+
+    </a>
+
+-  <a href="/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/" markdown>:material-arrow-right: 
+    
+    **End-to-End Storage Workflow**
+
+    Step-by-step tutorial covering the entire data storage workflow.
+
+    </a>
+
+</div>
+
+
