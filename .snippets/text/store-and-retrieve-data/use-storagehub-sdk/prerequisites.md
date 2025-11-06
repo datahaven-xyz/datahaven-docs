@@ -1,0 +1,2 @@
+- [Node.js](https://nodejs.org/en/download){target=_blank} v22+ installed
+- [A TypeScript project](/store-and-retrieve-data/use-storagehub-sdk/get-started/#set-up-a-typescript-project){target=\_blank}

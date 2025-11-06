@@ -1,3 +1,4 @@
+// --8<-- [start:imports]
 import '@storagehub/api-augment';
 import { ApiPromise, WsProvider } from '@polkadot/api';
 import { types } from '@storagehub/types-bundle';
@@ -22,8 +23,10 @@ import {
   http,
 } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
+// --8<-- [end:imports]
 
 async function run() {
+  // --8<-- [start:initialize-clients]
   // For anything from @storagehub-sdk/core to work, initWasm() is required
   // on top of the file
   await initWasm();
@@ -62,6 +65,7 @@ async function run() {
     typesBundle: types,
     noInitWarn: true,
   });
+  // --8<-- [end:initialize-clients]
 
   // --- Bucket creating logic ---
   // --8<-- [start:connect-msp-client]
