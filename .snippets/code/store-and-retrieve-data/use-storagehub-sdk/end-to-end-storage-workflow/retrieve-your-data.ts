@@ -45,9 +45,9 @@ await new Promise<void>((resolve, reject) => {
 
 console.log('Downloaded file saved to:', downloadPath);
 
-  // Disconnect the Polkadot API at the very end
+// Disconnect the Polkadot API at the very end
 
-  await substrateApi.disconnect();
+await substrateApi.disconnect();
 }
   // Run the function as we are done assembling the code
 await run();
