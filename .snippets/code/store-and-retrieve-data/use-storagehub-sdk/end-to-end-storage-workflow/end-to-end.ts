@@ -34,10 +34,12 @@ async function run() {
 
   // --- viem setup ---
   const chain: Chain = defineChain({
-    id: 1283,
-    name: 'DataHaven Stagenet',
+    id: 1288,
+    name: 'DataHaven Testnet',
     nativeCurrency: { name: 'Have', symbol: 'HAVE', decimals: 18 },
-    rpcUrls: { default: { http: ['TODO'] } },
+    rpcUrls: {
+      default: { http: ['https://services.datahaven-testnet.network/testnet'] },
+    },
   });
 
   const account = privateKeyToAccount('INSERT_PRIVATE_KEY' as `0x${string}`);
@@ -45,16 +47,18 @@ async function run() {
   const walletClient: WalletClient = createWalletClient({
     chain,
     account,
-    transport: http('TODO'),
+    transport: http('https://services.datahaven-testnet.network/testnet'),
   });
 
   const publicClient: PublicClient = createPublicClient({
     chain,
-    transport: http('TODO'),
+    transport: http('https://services.datahaven-testnet.network/testnet'),
   });
 
   // --- Substrate API ---
-  const provider = new WsProvider('TODO');
+  const provider = new WsProvider(
+    'wss://services.datahaven-testnet.network/testnet'
+  );
   const substrateApi: ApiPromise = await ApiPromise.create({
     provider,
     typesBundle: types,
@@ -62,7 +66,7 @@ async function run() {
   });
 
   // --- MSP client (new auth flow: sessionProvider) ---
-  const baseUrl = 'TODO';
+  const baseUrl = 'https://deo-dh-backend.testnet.datahaven-infra.network/';
   const httpCfg: HttpClientConfig = { baseUrl };
 
   let sessionToken: string | undefined; // cached MSP JWT
@@ -81,7 +85,7 @@ async function run() {
 
   // --- StorageHub EVM client ---
   const storageHubClient = new StorageHubClient({
-    rpcUrl: 'TODO',
+    rpcUrl: 'https://services.datahaven-testnet.network/testnet',
     chain,
     walletClient,
     filesystemContractAddress:
