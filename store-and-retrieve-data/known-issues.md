@@ -13,7 +13,7 @@ Bucket sharing is not yet permitted. For now, only the bucket owner can access a
 
 ## BSPs are currently unable to accept files for replication
 
-While uploads to Main Storage Providers (MSPs) happen successfully, Backup Storage Providers (BSPs) are not accepting new requests right now, so network‑level replication doesn’t complete. This can cause file storage requests to transition from `upload successful` to `expired`. Although the requests show as `expired`, the files are still successfully uploaded to the MSP, but are not considered to be in their final state of being secured by the network, given that BSP replication is unavailable.
+While uploads to Main Storage Providers (MSPs) happen successfully, Backup Storage Providers (BSPs) are not accepting new requests right now, so network-level replication doesn’t complete. This can cause file storage requests to transition from `upload successful` to `expired`. Although the requests show as `expired`, the files are still successfully uploaded to the MSP, but are not considered to be in their final state of being secured by the network, given that BSP replication is unavailable.
 
 ## `GetProfile` method returns hardcoded placeholder information
 
