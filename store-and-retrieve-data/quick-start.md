@@ -18,7 +18,6 @@ To start building on DataHaven, check out the list of currently available DataHa
 |   DataHaven Testnet    |   Testnet    |        MOCK         |          18           |
 | DataHaven Local Devnet | Local Devnet |         SH          |          18           |
 
-
 ### Network Configurations
 
 To interact with the network, use the following information to configure DataHaven within the developer tools you are using:
@@ -39,15 +38,23 @@ To interact with the network, use the following information to configure DataHav
     | Public RPC URLs | <pre>`{{ networks.devnet.rpc_url }}`</pre>  |
     | Public WSS URLs | <pre>`{{ networks.devnet.wss_url }}`</pre>  |
 
-
 ### Block Explorers
 
 DataHaven provides dedicated explorers for both its EVM and Substrate layers:
 
-|                                 Explorer                                  |   Layer   |
-|:-------------------------------------------------------------------------:|:---------:|
-| [Basic Explorer](https://datahaven-explorer.netlify.app/){target=\_blank} | Ethereum  |
-|                                Coming soon                                | Substrate |
+=== "DataHaven Testnet"
+
+    |                                 Explorer                                  |   Layer   |
+    |:-------------------------------------------------------------------------:|:---------:|
+    | [Basic Explorer](https://datahaven-explorer.netlify.app/){target=\_blank} | Ethereum  |
+    |                                Coming soon                                | Substrate |
+
+=== "DataHaven Local Devnet"
+
+    |                                              Explorer                                               |   Layer   |
+    |:---------------------------------------------------------------------------------------------------:|:---------:|
+    | [Basic Explorer](https://datahaven-explorer.netlify.app/?network=Dev%20Environment){target=\_blank} | Ethereum  |
+    |                                             Coming soon                                             | Substrate |
 
 ## Funding Testnet Accounts
 
