@@ -2,6 +2,7 @@ networks:
   testnet:
     rpc_url: 'https://services.datahaven-testnet.network/testnet'
     wss_url: 'wss://services.datahaven-testnet.network/testnet'
+    msp_url: 'https://deo-dh-backend.testnet.datahaven-infra.network/'
     chain_id: 55931
     website_faucet_amount: 1000 MOCK tokens
   mainnet:
