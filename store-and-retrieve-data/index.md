@@ -40,20 +40,18 @@ As you plan your workflow, consider the following concepts:
 
 <div class="grid cards" markdown>
 
--   **Quick Start**
+-   <a href="/store-and-retrieve-data/quick-start/" markdown>:material-arrow-right:
 
-    ---
+    **Quick Start**
 
-    Create a bucket and upload your first file.
+    Find all the resources you need to start building on DataHaven.
 
-    [:octicons-arrow-right-24: Get started](/store-and-retrieve-data/quick-start/)
+-   <a href="/store-and-retrieve-data/use-storagehub-sdk/get-started/" markdown>:material-arrow-right:
 
--   **Get Started with the StorageHub TypeScript SDK**
+    **Get Started with the StorageHub SDK**
 
-    ---
+    Install the TypeScript SDK to start building programmatically.
 
-    Build programmatically with the TypeScript SDK.
-
-    [:octicons-arrow-right-24: Get started](/store-and-retrieve-data/use-storagehub-sdk/get-started/)
+    </a>
 
 </div>
