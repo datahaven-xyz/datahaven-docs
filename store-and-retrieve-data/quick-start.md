@@ -33,11 +33,11 @@ To interact with the network, use the following information to configure DataHav
 
 DataHaven provides dedicated explorers for both its EVM and Substrate layers:
 
-|                                       Explorer                                        |   Layer   |
-|:-------------------------------------------------------------------------------------:|:---------:|
-| [DataHaven Testnet Explorer](https://datahaven-explorer.netlify.app/){target=\_blank} | Ethereum  |
-|       [Basic Explorer](https://datahaven-explorer.netlify.app/){target=\_blank}       | Ethereum  |
-|        [Statescan](https://datahaven-testnet.statescan.io/#/){target=\_blank}         | Substrate |
+|                                 Explorer                                  |   Layer   |
+|:-------------------------------------------------------------------------:|:---------:|
+| [DataHaven Testnet Explorer](https://testnet.dhscan.io/){target=\_blank}  | Ethereum  |
+| [Basic Explorer](https://datahaven-explorer.netlify.app/){target=\_blank} | Ethereum  |
+|  [Statescan](https://datahaven-testnet.statescan.io/#/){target=\_blank}   | Substrate |
 
 ## Funding Testnet Accounts
 
