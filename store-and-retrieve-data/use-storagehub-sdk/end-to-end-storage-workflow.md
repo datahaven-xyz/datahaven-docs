@@ -72,7 +72,7 @@ Download the file by its deterministic key from the MSP and save it locally.
 The code containing the complete series of steps from issuing a storage request to retrieving the data is available below. As a reminder, before running the full script, ensure you have the following:
 
 - Tokens to pay for the storage request on your account
-- A file to upload such as `hello.jpg`
+- A file to upload, such as `hello.jpg`
 
 ??? code "View complete script"
 
