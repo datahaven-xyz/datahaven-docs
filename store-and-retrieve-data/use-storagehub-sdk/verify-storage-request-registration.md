@@ -105,9 +105,9 @@ Upon successful verification, you'll see a message like:
 
 -  <a href="/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/" markdown>:material-arrow-right: 
     
-    **Upload Your First File**
+    **Upload a File**
 
-    Once your storage request is confirmed, use the StorageHub SDK to upload your file to the network. 
+    Once your storage request is confirmed, use the StorageHub SDK to upload a file to the network. 
 
     </a>
 

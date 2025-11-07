@@ -46,8 +46,6 @@ As you plan your workflow, consider the following concepts:
 
     Find all the resources you need to start building on DataHaven.
 
-    </a>
-
 -   <a href="/store-and-retrieve-data/use-storagehub-sdk/get-started/" markdown>:material-arrow-right:
 
     **Get Started with the StorageHub SDK**
