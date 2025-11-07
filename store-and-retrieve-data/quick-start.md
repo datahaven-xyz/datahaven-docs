@@ -46,14 +46,9 @@ DataHaven provides dedicated explorers for both its EVM and Substrate layers:
 
     |                                 Explorer                                  |   Layer   |
     |:-------------------------------------------------------------------------:|:---------:|
+    | [DataHaven Testnet Explorer](https://testnet.dhscan.io/){target=\_blank}  | Ethereum  |
     | [Basic Explorer](https://datahaven-explorer.netlify.app/){target=\_blank} | Ethereum  |
     |  [Statescan](https://datahaven-testnet.statescan.io/#/){target=\_blank}   | Substrate |
-
-=== "DataHaven Local Devnet"
-
-    |                                              Explorer                                               |  Layer   |
-    |:---------------------------------------------------------------------------------------------------:|:--------:|
-    | [Basic Explorer](https://datahaven-explorer.netlify.app/?network=Dev%20Environment){target=\_blank} | Ethereum |
 
 ## Funding Testnet Accounts
 
