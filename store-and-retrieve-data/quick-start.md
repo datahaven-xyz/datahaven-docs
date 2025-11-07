@@ -40,7 +40,7 @@ DataHaven provides dedicated explorers for both its EVM and Substrate layers:
 
 ## Funding Testnet Accounts
 
-To begin building on a DataHaven test network, you'll need to obtain HAVE tokens to cover transaction fees and interact with the network. These tokens are distributed freely for testing and development purposes only.
+To begin building on a DataHaven test network, you'll need to obtain MOCK tokens to cover transaction fees and interact with the network. These tokens are distributed freely for testing and development purposes only.
 
 |      Testnet      |            Where To Get Tokens From             | Amount Dispensed                                                                 |
 |:-----------------:|:-----------------------------------------------:|----------------------------------------------------------------------------------|
