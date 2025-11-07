@@ -38,9 +38,9 @@ When querying the `getInfo()` method, you'll see the following hardcoded placeho
 
 ```json
 {
-  ....
-  activeSince: 123,
-  uptime: '2 days, 1 hour'
+    ...
+    activeSince: 123,
+    uptime: '2 days, 1 hour'
 }
 ```
 
