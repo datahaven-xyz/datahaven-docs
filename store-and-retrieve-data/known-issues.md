@@ -34,7 +34,7 @@ File deletion is not yet supported when running a local DataHaven development ne
 
 ## GetInfo Method Returns Hardcoded Placeholder Values
 
-When querying the `getInfo()` method, you'll see the following hardcoded values returned. These values are hardcoded and do not reflect the uptime statistics. 
+When querying the `getInfo()` method, you'll see the following hardcoded placeholder values that do not reflect the uptime statistics.
 
 ```bash
 {
