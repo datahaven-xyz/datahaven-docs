@@ -2,7 +2,7 @@ networks:
   devnet:
     rpc_url: http://127.0.0.1:9666
     wss_url: wss://127.0.0.1:9666
-    msp_url: TODO
+    msp_url: http://127.0.0.1:8080/
     chain_id: 181222
   testnet:
     rpc_url: https://services.datahaven-testnet.network/testnet
