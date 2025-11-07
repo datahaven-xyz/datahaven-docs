@@ -71,6 +71,9 @@ Add the following code to trigger the file upload to the connected MSP:
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/upload-file.ts:upload-file'
 ```
 
+!!! note
+    To check your currently active payment streams (amount of fees you are being billed) within a certain MSP use the `mspClient.info.getPaymentStreams` method. Make sure you are authenticated prior to triggering this function.
+
 ## Verify File Upload
 
 Check the receipt status to verify the file upload was successful:

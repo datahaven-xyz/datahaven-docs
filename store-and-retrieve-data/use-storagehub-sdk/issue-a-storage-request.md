@@ -119,7 +119,7 @@ And upon a successful storage request, the transaction receipt will be output:
 
 -  <a href="/store-and-retrieve-data/use-storagehub-sdk/verify-storage-request-registration/" markdown>:material-arrow-right: 
     
-    **Verify if Storage Request is On-Chain**
+    **Verify Storage Request Registration**
 
     Verify whether the storage request has been successfully recorded on-chain. This step ensures that you can proceed with file upload and file retrieval.
 

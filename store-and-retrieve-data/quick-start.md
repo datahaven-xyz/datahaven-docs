@@ -53,7 +53,7 @@ DataHaven provides dedicated explorers for both its EVM and Substrate layers:
 
 To begin building on a DataHaven test network, you'll need to obtain MOCK tokens to cover transaction fees and interact with the network. These tokens are distributed freely for testing and development purposes only.
 
-|      TestNet      |            Where To Get Tokens From             | Amount Dispensed                                                                 |
+|      Testnet      |            Where To Get Tokens From             | Amount Dispensed                                                                 |
 |:-----------------:|:-----------------------------------------------:|----------------------------------------------------------------------------------|
 | DataHaven Testnet | [Official Testnet Faucet](https://apps.datahaven.xyz/faucet){target=\_blank} | The faucet dispenses {{ networks.testnet.website_faucet_amount }} every 12 hours |
 
