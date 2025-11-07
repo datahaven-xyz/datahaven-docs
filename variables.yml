@@ -1,7 +1,7 @@
 networks:
   devnet:
-    rpc_url: TODO
-    wss_url: TODO
+    rpc_url: http://127.0.0.1:9666
+    wss_url: wss://127.0.0.1:9666
     msp_url: TODO
     chain_id: 181222
   testnet:
