@@ -15,13 +15,13 @@ To start building on DataHaven, check out the list of currently available DataHa
 
 |      Network      | Network Type | Native Asset Symbol | Native Asset Decimals |
 |:-----------------:|:------------:|:-------------------:|:---------------------:|
-| DataHaven TestNet |   TestNet    |        HAVE         |          18           |
+| DataHaven Testnet |   Testnet    |        MOCK         |          18           |
 
 ### Network Configurations
 
 To interact with the network, use the following information to configure DataHaven within the developer tools you are using:
 
-=== "DataHaven TestNet"
+=== "DataHaven Testnet"
 
     |    Variable     |                    Value                     |
     |:---------------:|:--------------------------------------------:|
@@ -38,16 +38,16 @@ DataHaven provides dedicated explorers for both its EVM and Substrate layers:
 | [TODO](TODO){target=\_blank} | Ethereum  |
 | [TODO](TODO){target=\_blank} | Substrate |
 
-## Funding TestNet Accounts
+## Funding Testnet Accounts
 
-To begin building on a DataHaven test network, you'll need to obtain HAVE tokens to cover transaction fees and interact with the network. These tokens are distributed freely for testing and development purposes only.
+To begin building on a DataHaven test network, you'll need to obtain MOCK tokens to cover transaction fees and interact with the network. These tokens are distributed freely for testing and development purposes only.
 
-|      TestNet      |            Where To Get Tokens From             | Amount Dispensed                                                                 |
+|      Testnet      |            Where To Get Tokens From             | Amount Dispensed                                                                 |
 |:-----------------:|:-----------------------------------------------:|----------------------------------------------------------------------------------|
-| DataHaven TestNet | [Official TestNet Faucet](TODO){target=\_blank} | The faucet dispenses {{ networks.testnet.website_faucet_amount }} every 24 hours |
+| DataHaven Testnet | [Official TestNet Faucet](https://apps.datahaven.xyz/faucet){target=\_blank} | The faucet dispenses {{ networks.testnet.website_faucet_amount }} every 12 hours |
 
 !!! note
-    TestNet HAVE tokens do not have any market value. Please do not spam the faucet with unnecessary requests.
+    Testnet MOCK tokens do not have any market value. Please do not spam the faucet with unnecessary requests.
 
 ## MSP Service Endpoints
 
@@ -56,6 +56,7 @@ To interact with a Main Storage Provider (MSP) through `@storagehub-sdk/msp-clie
 |      Network      |                                 Value                                 |
 |:-----------------:|:---------------------------------------------------------------------:|
 | DataHaven Testnet | <pre>`{{ networks.testnet.msp_url }}`</pre> |
+
 
 ## Next Steps
 
