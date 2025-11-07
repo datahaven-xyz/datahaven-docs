@@ -2,13 +2,13 @@ networks:
   devnet:
     rpc_url: TODO
     wss_url: TODO
-    chain_id: 181222
     msp_url: TODO
+    chain_id: 181222
   testnet:
     rpc_url: https://services.datahaven-testnet.network/testnet
     wss_url: wss://services.datahaven-testnet.network/testnet
-    chain_id: 55931
     msp_url: https://deo-dh-backend.testnet.datahaven-infra.network/
+    chain_id: 55931
     website_faucet_amount: 1000 MOCK tokens
   mainnet:
     chain_id: 55930

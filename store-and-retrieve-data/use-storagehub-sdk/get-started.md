@@ -54,8 +54,8 @@ Before you begin, ensure you have the following:
 - [MSP base URL](/store-and-retrieve-data/quick-start/#msp-service-endpoints){target=\_blank}
 - [Testnet tokens](https://apps.datahaven.xyz/faucet){target=\_blank}
 
-??? interface "Want to use Local Devnet instead of Testnet?"
-    Follow the [Spin Up Local Devnet Guide](/store-and-retrieve-data/spin-up-local-devnet).
+??? interface "Want to use a local devnet instead of the testnet?"
+    Follow the [Spin Up Local Devnet](/store-and-retrieve-data/spin-up-local-devnet) guide.
 
 --8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/create-typescript-project.md'
 
