@@ -17,7 +17,7 @@ This tutorial will cover the end-to-end process of creating a bucket, uploading 
 
 Buckets group your files under a specific Main Storage Provider (MSP) and value proposition. Derive a deterministic bucket ID, fetch MSP parameters, then create the bucket. If you run the script multiple times, use a new `bucketName` to avoid a revert, or modify the logic to use your existing bucket in later steps.
 
-In the following code, you will initialize the StorageHub, viem, and Polkadot.js clients on the DataHaven Testnet, sign in via SIWE (Sign in With Ethereum), and pull the MSP’s details/value proposition to prepare for bucket creation. Then you will derive the bucket ID, confirm it doesn’t exist, submit a createBucket transaction, wait for confirmation, and finally query the chain to verify that the new bucket’s MSP and owner match our account. 
+In the following code, you will initialize the StorageHub, viem, and Polkadot.js clients on the DataHaven TestNet, sign in via SIWE (Sign in With Ethereum), and pull the MSP’s details/value proposition to prepare for bucket creation. Then you will derive the bucket ID, confirm it doesn’t exist, submit a `createBucket` transaction, wait for confirmation, and finally query the chain to verify that the new bucket’s MSP and owner match our account. 
 
 The following sections will build on this snippet, so it's important to start here to properly configure the client and ensure the bucket is created correctly. If you'd prefer to step through the Create a Bucket steps individually, please see the [Create a Bucket Page](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/){target=\_blank}.
 
