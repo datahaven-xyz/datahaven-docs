@@ -23,8 +23,8 @@ The `auth.getProfile()` client method returns the correct address but a hardcode
 
 ```json
 {
-  ...
-  ens: 'user.eth'
+    ...
+    ens: 'user.eth'
 }
 ```
 
