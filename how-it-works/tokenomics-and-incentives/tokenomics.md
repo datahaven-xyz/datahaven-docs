@@ -14,7 +14,7 @@ HAVE is DataHaven's native token and is used to pay fees related to storage oper
 
 DataHaven security is anchored by Ethereum re-staking via [EigenLayer](https://www.eigenlayer.xyz){target=\_blank}; however, other assets may also be staked or restaked to help secure the AVS. HAVE holders can delegate their stake to operators to help secure the network and earn rewards. 
 
-[Moonbeam's](https://moonbeam.network){target="\_blank"} native token GLMR and GLMR LSTs will also be supported for restaking. See [GLMR re-staking](#glmr-re-staking) below.
+[Moonbeam's](https://moonbeam.network){target="\_blank"} native token GLMR and GLMR LSTs will also be supported for restaking. See [GLMR re-staking](#restake-glmr) below.
 
 ## Pay Gas Fees 
 
