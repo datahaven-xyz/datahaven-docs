@@ -42,6 +42,9 @@ If you've already followed the [Issue a Storage Request](/store-and-retrieve-dat
 
 Create an `index.ts` and add the following code:
 
+!!! note
+    The code below uses **DataHaven Testnet** configuration values, which include the **Chain ID**, **RPC URL**, **WSS URL**, **MSP URL**, and **token metadata**. If you’re running a **local devnet**, make sure to replace these with your local configuration parameters. You can find all the relevant **local devnet values** in the [Quick Start Guide](/store-and-retrieve-data/quick-start).
+
 ```ts title="index.ts"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/verify-storage-request-registration/verify-storage-request.ts:imports'
 
