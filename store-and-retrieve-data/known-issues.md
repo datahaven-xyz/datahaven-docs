@@ -50,9 +50,9 @@ When querying for information about a bucket with the method `getBucket(bucketId
 
 ```json 
 {
-  ....
-  sizeBytes: 0,
-  valuePropId: 'unknown',
-  fileCount: 0  
+    ...
+    sizeBytes: 0,
+    valuePropId: 'unknown',
+    fileCount: 0  
 }
 ```
