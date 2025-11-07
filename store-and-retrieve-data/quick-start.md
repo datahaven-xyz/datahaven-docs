@@ -33,17 +33,17 @@ To interact with the network, use the following information to configure DataHav
 
 DataHaven provides dedicated explorers for both its EVM and Substrate layers:
 
-|           Explorer           |   Layer   |
-|:----------------------------:|:---------:|
-| [TODO](TODO){target=\_blank} | Ethereum  |
-| [TODO](TODO){target=\_blank} | Substrate |
+|                                 Explorer                                  |   Layer   |
+|:-------------------------------------------------------------------------:|:---------:|
+| [Basic Explorer](https://datahaven-explorer.netlify.app/){target=\_blank} | Ethereum  |
+|                                Coming soon                                | Substrate |
 
 ## Funding Testnet Accounts
 
 To begin building on a DataHaven test network, you'll need to obtain MOCK tokens to cover transaction fees and interact with the network. These tokens are distributed freely for testing and development purposes only.
 
-|      Testnet      |            Where To Get Tokens From             | Amount Dispensed                                                                 |
-|:-----------------:|:-----------------------------------------------:|----------------------------------------------------------------------------------|
+|      Testnet      |                           Where To Get Tokens From                           | Amount Dispensed                                                                 |
+|:-----------------:|:----------------------------------------------------------------------------:|----------------------------------------------------------------------------------|
 | DataHaven Testnet | [Official TestNet Faucet](https://apps.datahaven.xyz/faucet){target=\_blank} | The faucet dispenses {{ networks.testnet.website_faucet_amount }} every 12 hours |
 
 !!! note
@@ -53,10 +53,9 @@ To begin building on a DataHaven test network, you'll need to obtain MOCK tokens
 
 To interact with a Main Storage Provider (MSP) through `@storagehub-sdk/msp-client`, a service endpoint is required. You can use any of the following MSP base URLs as an endpoint for storing and retrieving your files:
 
-|      Network      |                                 Value                                 |
-|:-----------------:|:---------------------------------------------------------------------:|
+|      Network      |                    Value                    |
+|:-----------------:|:-------------------------------------------:|
 | DataHaven Testnet | <pre>`{{ networks.testnet.msp_url }}`</pre> |
-
 
 ## Next Steps
 
