@@ -92,11 +92,11 @@ If you run the script with the bucket deletion code, the response should include
 
 <div class="grid cards" markdown>
 
--  <a href="/store-and-retrieve-data/manage-and-optimize-your-data/handle-payments-and-track-costs/" markdown>:material-arrow-right: 
+-  <a href="/how-it-works/data-and-provider-model/data-flow-and-lifecycle/" markdown>:material-arrow-right: 
     
-    **Handle Payments and Track Costs**
+    **Data Flow and Lifecycle**
 
-    Check the current costs you are paying out to each MSP for all your uploaded files and created buckets.
+    Follow data on a step-by-step journey through DataHaven.
 
     </a>
 
