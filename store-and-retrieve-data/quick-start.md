@@ -55,7 +55,8 @@ To interact with a Main Storage Provider (MSP) through `@storagehub-sdk/msp-clie
 
 |      Network      |                                 Value                                 |
 |:-----------------:|:---------------------------------------------------------------------:|
-| DataHaven Testnet | <pre>`https://deo-dh-backend.stagenet.datahaven-infra.network/`</pre> |
+| DataHaven Testnet | <pre>`{{ networks.testnet.msp_url }}`</pre> |
+
 
 ## Next Steps
 
