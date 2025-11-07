@@ -53,7 +53,7 @@ In this section, you'll trigger the SIWE flow: the connected wallet signs an EIP
 
 ## Upload a File
 
-Send the file bytes to the MSP, linked to your Storage Request. Confirm that the upload receipt indicates a successful upload.
+Send the file bytes to the MSP, linked to your storage request. Confirm that the upload receipt indicates a successful upload.
 
 ```ts title="Upload a File"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/upload-a-file.ts'
