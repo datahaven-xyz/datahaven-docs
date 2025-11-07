@@ -1,5 +1,5 @@
 ---
-title: FAQs & Troubleshooting
+title: FAQs and Troubleshooting
 description: Conversational style StorageHub SDK-related FAQs and their answers. Includes bucket management, security best practices, and the role of EigneLayer.
 ---
 
