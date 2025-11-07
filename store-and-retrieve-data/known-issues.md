@@ -44,7 +44,7 @@ When querying the `getInfo()` method, you'll see the following hardcoded placeho
 }
 ```
 
-## GetBucket Method Returns Hardcoded Placeholder Values
+## Get Bucket Method Returns Hardcoded Placeholder Values
 
 When querying for information about a bucket with the method `getBucket(bucketId)`, you'll see the following hardcoded placeholder values that do not reflect the actual file count or file size in bytes.
 
