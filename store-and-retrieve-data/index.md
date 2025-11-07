@@ -46,7 +46,7 @@ As you plan your workflow, consider the following concepts:
 
     Create a bucket and upload your first file.
 
-    [:octicons-arrow-right-24: Get started](/store-and-retrieve-data/quickstart/)
+    [:octicons-arrow-right-24: Get started](/store-and-retrieve-data/quick-start/)
 
 -   **Get Started with the StorageHub TypeScript SDK**
 
