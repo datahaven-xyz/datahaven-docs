@@ -96,9 +96,9 @@ Uploading a file does not guarantee network-wide replication. Files are consider
 
     </a>
 
--   <a href="/how-it-works/faqs/" markdown>:material-arrow-right:
+-   <a href="/store-and-retrieve-data/use-storagehub-sdk/faqs-and-troubleshooting/" markdown>:material-arrow-right:
 
-    **How It Works: FAQs**
+    **FAQs and Troubleshooting**
 
     Answers to common questions about providers, replication, and network guarantees.
 
