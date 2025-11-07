@@ -19,7 +19,14 @@ While uploads to Main Storage Providers (MSPs) happen successfully, Backup Stora
 
 ## Get Profile Method Returns Hardcoded Placeholder
 
-The `auth.getProfile()` client method returns a hardcoded placeholder of `user.eth`. In a future release, it will be updated to return the authenticated user’s profile in the form `({ address: string; ens: string })`.
+The `auth.getProfile()` client method returns the correct address but a hardcoded placeholder of `user.eth` in the `ens` field.
+
+```bash
+{
+  ...
+  ens: 'user.eth'
+}
+```
 
 ## File Deletion not Supported on Devnet
 
