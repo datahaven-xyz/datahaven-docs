@@ -19,7 +19,7 @@ Buckets group your files under a specific Main Storage Provider (MSP) and value 
 
 In the following code, you will initialize the StorageHub, viem, and Polkadot.js clients on the DataHaven TestNet, sign in via SIWE (Sign in With Ethereum), and pull the MSP’s details/value proposition to prepare for bucket creation. Then you will derive the bucket ID, confirm it doesn’t exist, submit a `createBucket` transaction, wait for confirmation, and finally query the chain to verify that the new bucket’s MSP and owner match our account. 
 
-The following sections will build on this snippet, so it's important to start here to properly configure the client and ensure the bucket is created correctly. If you'd prefer to step through the Create a Bucket steps individually, please see the [Create a Bucket Page](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/){target=\_blank}.
+The following sections will build on this snippet, so it's important to start here to properly configure the client and ensure the bucket is created correctly. If you'd prefer to step through the steps to create a bucket individually, please see the [Create a Bucket](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/){target=\_blank} guide.
 
 ```ts title="Create a Bucket"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/create-a-bucket.ts'
