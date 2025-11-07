@@ -19,4 +19,40 @@ While uploads to Main Storage Providers (MSPs) happen successfully, Backup Stora
 
 ## Get Profile Method Returns Hardcoded Placeholder
 
-The `auth.getProfile()` client method returns a hardcoded placeholder of `user.eth`. In a future release, it will be updated to return the authenticated user’s profile in the form `({ address: string; ens: string })`.
+The `auth.getProfile()` client method returns the correct address but a hardcoded placeholder of `user.eth` in the `ens` field.
+
+```json
+{
+    ...
+    ens: 'user.eth'
+}
+```
+
+## File Deletion Not Supported on Devnet
+
+File deletion is not yet supported when running a local DataHaven development network. As a workaround, you can shut down the network and spin it back up again, which will result in the network state being reset, including deletion of all buckets and files. 
+
+## Get Info Method Returns Hardcoded Placeholder Values
+
+When querying the `getInfo()` method, you'll see the following hardcoded placeholder values that do not reflect the uptime statistics.
+
+```json
+{
+    ...
+    activeSince: 123,
+    uptime: '2 days, 1 hour'
+}
+```
+
+## Get Bucket Method Returns Hardcoded Placeholder Values
+
+When querying for information about a bucket with the method `getBucket(bucketId)`, you'll see the following hardcoded placeholder values that do not reflect the actual file count or file size in bytes.
+
+```json 
+{
+    ...
+    sizeBytes: 0,
+    valuePropId: 'unknown',
+    fileCount: 0  
+}
+```
