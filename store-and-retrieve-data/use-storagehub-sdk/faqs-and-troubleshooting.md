@@ -60,7 +60,7 @@ Currently buckets are public. To ensure privacy, encrypt your files before uploa
 
 ## Can I rename a bucket?
 
-Yes. The bucket owner can rename a bucket at any time.
+Not yet. The bucket owner will be able to rename a bucket at any time, but currently it is not supported.
 
 ## Can I delete a bucket?
 
@@ -95,7 +95,7 @@ Not yet. Full EVM compatibility including support for smart contract deployment 
 
 ## What is the EVM Chain ID for DataHaven?
 
-- **Mainnet**: `{{ networks.mainnet.chain_id }}`
+- **Local Devnet**: `{{ networks.devnet.chain_id }}`
 - **Testnet**: `{{ networks.testnet.chain_id }}`
 
 ## How does EigenLayer integrate with DataHaven?
