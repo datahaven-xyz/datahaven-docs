@@ -40,7 +40,7 @@ If you've already followed the [Create a Bucket](/store-and-retrieve-data/use-st
 Create an `index.ts` and add the following code:
 
 !!! note
-    The code below uses **DataHaven Testnet** configuration values, which include the **Chain ID**, **RPC URL**, **WSS URL**, **MSP URL**, and **token metadata**. If you’re running a **local devnet**, make sure to replace these with your local configuration parameters. You can find all the relevant **local devnet values** in the [Starter Kit](/store-and-retrieve-data/starter-kit).
+    The code below uses **DataHaven Testnet** configuration values, which include the **Chain ID**, **RPC URL**, **WSS URL**, **MSP URL**, and **token metadata**. If you’re running a **local devnet**, make sure to replace these with your local configuration parameters. You can find all the relevant **local devnet values** in the [Starter Kit](/store-and-retrieve-data/starter-kit/).
 
 ```ts title="index.ts"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/authenticate-with-siwe-and-jwt/authenticate.ts:imports'
