@@ -15,7 +15,7 @@
         "icon": ":fontawesome-solid-3:"
     },
     {
-        "title": "[Verify Storage Request](/store-and-retrieve-data/use-storagehub-sdk/verify-storage-request/)",
+        "title": "[Verify Storage Request](/store-and-retrieve-data/use-storagehub-sdk/verify-storage-request-registration/)",
         "content": "Compute a file key to retrieve and read storage request data for verification of on-chain registration.",
         "icon": ":fontawesome-solid-4:"
     },
