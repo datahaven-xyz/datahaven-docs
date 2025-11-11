@@ -7,9 +7,7 @@ description: Set up your development environment, install the StorageHub SDK, an
 
 The StorageHub SDK is a modular toolkit that makes it easy to build on DataHaven, giving developers direct access to functionalities for managing storage, buckets, and proofs. It simplifies both on-chain and off-chain interactions so you can focus on your application logic rather than low-level integrations.
 
-This guide introduces and compares the functionalities of the StorageHub SDK packages. You'll also find prerequisites for using DataHaven and [StorageHub SDK installation instructions](#install-the-storagehub-sdk).
-
-## Workflow TODO
+This guide introduces and compares the functionalities of the StorageHub SDK packages. You'll also find prerequisites for using DataHaven and instructions for how to [instal the StorageHub SDK](#install-the-storagehub-sdk), along with instructions on [how to set up all of the necessary StorageHub SDK clients](#initialize-the-storagehub-sdk) you will need to have set up in order to use the StorageHub SDK.
 
 ## StorageHub SDK Packages
 
@@ -85,6 +83,7 @@ Add the core and MSP client packages to your project. These libraries provide th
 
 ## Initialize the StorageHub SDK
 
+In this step, you will learn how to initialize all the clients you will need while building with the StorageHub SDK. You will go through installing extra dependencies, setting up `walletClient`, `publicClient`, `storageHubClient`, `polkadotApi`, `mspClient`, and a few helper functions related to the `mspClient` to help get you started with things like checking MSP health and user authentication.
 
 ### Install Additional Dependencies
 
@@ -212,7 +211,7 @@ Add the core and MSP client packages to your project. These libraries provide th
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/get-started/msp-service.ts'
     ```
 
-## Next Steps TODO
+## Next Steps
 
 Now that you have the StorageHub SDK packages installed, you are ready to start building with DataHaven. 
 
@@ -222,7 +221,7 @@ Now that you have the StorageHub SDK packages installed, you are ready to start 
 
     **Create A Bucket**
 
-    Follow this guide to create your first bucket, DataHaven's storage container for your files.
+    Follow this guide to create your first bucket, DataHaven's storage container for your files. This is the perfect first step on your journey of building on DataHaven.
 
     </a>
 
@@ -230,7 +229,7 @@ Now that you have the StorageHub SDK packages installed, you are ready to start 
 
     **End-to-End Storage Workflow**
 
-    This tutorial takes you step-by-step through storing a file on DataHaven and retrieving it from the network.
+    This tutorial takes you step-by-step through storing a file on DataHaven and retrieving it from the network. Take this step to see how all the pieces fit together in one go.
 
     </a>
 
