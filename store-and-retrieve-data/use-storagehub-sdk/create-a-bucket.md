@@ -13,59 +13,25 @@ This guide walks you through creating your first bucket programmatically using t
 
 --8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/prerequisites.md'
 
-## Install Dependencies
+## Initialize the Script Entry Point
 
-=== "pnpm"
-
-    ```bash { .break-spaces }
-    pnpm add @storagehub-sdk/core @storagehub-sdk/msp-client @storagehub/types-bundle @polkadot/api @storagehub/api-augment viem
-    ```
-
-=== "yarn"
-
-    ```bash { .break-spaces }
-    yarn add @storagehub-sdk/core @storagehub-sdk/msp-client @storagehub/types-bundle @polkadot/api @storagehub/api-augment viem
-    ```
-
-=== "npm"
-
-    ```bash { .break-spaces }
-    npm install @storagehub-sdk/core @storagehub-sdk/msp-client @storagehub/types-bundle @polkadot/api @storagehub/api-augment viem
-    ```
-
-??? interface "Why do I need these dependencies?"
-
-    - **[`@storagehub/types-bundle`](https://www.npmjs.com/package/@storagehub/types-bundle){target=_blank}:** Describes DataHaven's custom on-chain types.
-
-    - **[`@polkadot/api`](https://www.npmjs.com/package/@polkadot/api){target=_blank}:** The core JavaScript library used to talk to any Substrate-based blockchain, which in our case is DataHaven.
-
-    - **[`@storagehub/api-augment`](https://www.npmjs.com/package/@storagehub/api-augment){target=_blank}:** Extends `@polkadot/api` with DataHaven's custom pallets and RPC methods.
-
-    - **[`viem`](https://www.npmjs.com/package/viem){target=_blank}:** Lightweight library for building Ethereum-compatible applications.
-
-## Initialize Clients
-
-First, you'll need to set up the necessary clients to connect to the DataHaven network, which runs on a dual-protocol architecture (Substrate for core logic and EVM for compatibility).
-
-Create an `index.ts` file and add the following code:
-
-!!! note
-    The code below uses **DataHaven Testnet** configuration values, which include the **Chain ID**, **RPC URL**, **WSS URL**, **MSP URL**, and **token metadata**. If you’re running a **local devnet**, make sure to replace these with your local configuration parameters. You can find all the relevant **local devnet values** in the [Quick Start Guide](/store-and-retrieve-data/quick-start).
+First, create an `index.ts` file and add the following code:
 
 ```ts title="index.ts"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:imports'
 
 async function run() {
-  --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:initialize-clients'
+  // For anything from @storagehub-sdk/core to work, initWasm() is required
+  // on top of the file
+  await initWasm();
   
   // --- Bucket creating logic ---
-  // **PLACEHOLDER FOR STEP 1: CONNECT TO MSP CLIENT & CHECK HEALTH**
-  // **PLACEHOLDER FOR STEP 2: CREATE STORAGEHUB CLIENT**
-  // **PLACEHOLDER FOR STEP 3: DERIVE BUCKET ID**
-  // **PLACEHOLDER FOR STEP 4: CHECK IF BUCKET EXISTS**
-  // **PLACEHOLDER FOR STEP 5: GET MSP PARAMS**
-  // **PLACEHOLDER FOR STEP 6: CREATE BUCKET**
-  // **PLACEHOLDER FOR STEP 7: VERIFY BUCKET**
+  // **PLACEHOLDER FOR STEP 1: CHECK MSP HEALTH**
+  // **PLACEHOLDER FOR STEP 2: DERIVE BUCKET ID**
+  // **PLACEHOLDER FOR STEP 3: CHECK IF BUCKET EXISTS**
+  // **PLACEHOLDER FOR STEP 4: GET MSP PARAMS**
+  // **PLACEHOLDER FOR STEP 5: CREATE BUCKET**
+  // **PLACEHOLDER FOR STEP 6: VERIFY BUCKET**
 
   // Disconnect the Polkadot API at the very end
   await polkadotApi.disconnect();
@@ -76,15 +42,14 @@ await run();
 
 --8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/initialize-clients-summary.md'
 
+## Check MSP Health
 
-## Connect to the MSP Client
+Next, since you are connected to the MSP client, check its health status before creating a bucket.
 
-Next, you'll need to connect to the MSP client and check its health status before creating a bucket.
+Replace the placeholder `// **PLACEHOLDER FOR STEP 1:  CHECK MSP HEALTH**` with the following code:
 
-Replace the placeholder `// **PLACEHOLDER FOR STEP 1: CONNECT TO MSP CLIENT & CHECK HEALTH**` with the following code:
-
-```ts title="// **PLACEHOLDER FOR STEP 1: CONNECT TO MSP CLIENT & CHECK HEALTH**"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:connect-msp-client'
+```ts title="index.ts // **PLACEHOLDER FOR STEP 1: CHECK MSP HEALTH**"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:check-msp-health'
 ```
 
 Then, check the health status by running the script:
@@ -97,21 +62,11 @@ The response should return a **`healthy`** status, like this:
 
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/output-01.html'
 
-## Initialize the StorageHub Client 
-
-Add the following code to initialize the StorageHub Client:
-
-```ts title="// **PLACEHOLDER FOR STEP 2: CREATE STORAGEHUB CLIENT**"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:storagehub-client'
-```
-
-Now that you have the `StorageHubClient` initialized, you'll use it to derive the bucket ID and create the bucket.
-
 ## Derive Bucket ID
 
 Before creating a new bucket, you'll need to derive the bucket ID by passing the bucket's name and the address you intend to use to create it. Two buckets with the same name and address cannot co-exist within the same MSP.
 
-```ts title="// **PLACEHOLDER FOR STEP 3: DERIVE BUCKET ID**"
+```ts title="index.ts // **PLACEHOLDER FOR STEP 2: DERIVE BUCKET ID**"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:derive-bucket'
 ```
 
@@ -129,7 +84,7 @@ The response should include something like this:
 
 Now that you have the bucket ID, you can ensure the bucket doesn't exist on-chain yet. 
 
-```ts title="// **PLACEHOLDER FOR STEP 4: CHECK IF BUCKET EXISTS**"
+```ts title="index.ts // **PLACEHOLDER FOR STEP 3: CHECK IF BUCKET EXISTS**"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:check-bucket'
 ```
 
@@ -142,9 +97,21 @@ If you rerun the script, the response should include:
 
 ## Get Parameters from the MSP
 
-To prepare all the parameters needed for the `createBucket` function, additional data from the MSP is required, such as `mspId` and `valuePropId`.
+To prepare all the parameters needed for the `createBucket` function, additional data from the MSP is required, such as `mspId` and `valuePropId`. In order to fetch `valueProps` from the MSP Client, add the following helper function to your `mspService.ts` file:
 
-```ts title="// **PLACEHOLDER FOR STEP 5: GET MSP PARAMS**"
+```ts title="mspService.ts"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/msp-service-with-value-props.ts:msp-value-props'
+```
+
+??? code "View complete file"
+
+    ```ts title="mspService.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/msp-service-with-value-props.ts'
+    ```
+
+To use the `getValueProps` method, add the following code to your `index.ts` file:
+
+```ts title="index.ts // **PLACEHOLDER FOR STEP 4: GET MSP PARAMS**"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:get-msp-params'
 ```
 
@@ -152,7 +119,7 @@ To prepare all the parameters needed for the `createBucket` function, additional
 
 Finally, you can call the `createBucket()` function using the `storageHubClient`, including the previously gathered parameters and the `isPrivate` flag that determines the bucket’s privacy.
 
-```ts title="// **PLACEHOLDER FOR STEP 6: CREATE BUCKET**"
+```ts title="index.ts // **PLACEHOLDER FOR STEP 5: CREATE BUCKET**"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:create-bucket'
 ```
 
@@ -163,7 +130,7 @@ Finally, you can call the `createBucket()` function using the `storageHubClient`
 
 The last step is to verify that the bucket was created successfully on-chain and to confirm its stored data.
 
-```ts title="// **PLACEHOLDER FOR STEP 7: VERIFY BUCKET**"
+```ts title="index.ts // **PLACEHOLDER FOR STEP 6: VERIFY BUCKET**"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:verify-bucket'
 ```
 

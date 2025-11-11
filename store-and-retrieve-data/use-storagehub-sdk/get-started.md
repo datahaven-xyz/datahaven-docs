@@ -7,7 +7,7 @@ description: Set up your development environment, install the StorageHub SDK, an
 
 The StorageHub SDK is a modular toolkit that makes it easy to build on DataHaven, giving developers direct access to functionalities for managing storage, buckets, and proofs. It simplifies both on-chain and off-chain interactions so you can focus on your application logic rather than low-level integrations.
 
-This guide introduces and compares the functionalities of the StorageHub SDK packages. You'll also find prerequisites for using DataHaven and instructions for how to [instal the StorageHub SDK](#install-the-storagehub-sdk), along with instructions on [how to set up all of the necessary StorageHub SDK clients](#initialize-the-storagehub-sdk) you will need to have set up in order to use the StorageHub SDK.
+This guide introduces and compares the functionalities of the StorageHub SDK packages. You'll also find prerequisites for using DataHaven and instructions for how to [instal the StorageHub SDK](#install-the-storagehub-sdk), along with instructions on [how to set up all of the necessary StorageHub SDK clients](#initialize-the-storagehub-sdk) you will need to have set up in order to use the StorageHub SDK's features and the following guides.
 
 ## StorageHub SDK Packages
 
@@ -161,13 +161,16 @@ In this step, you will learn how to initialize all the clients you will need whi
 
 --8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/initialize-client-service-summary.md'
 
-??? code "View complete script"
+??? code "View complete file"
 
     ```ts title="clientService.ts"
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/get-started/client-service.ts'
     ```
 
 ### Set Up MSP Service
+
+To interact with DataHaven's Main Storage Provider (MSP) services, you need to establish a connection using the `MspClient` from the StorageHub SDK. This involves configuring the HTTP client, setting up session management for authenticated requests, and initializing the MSP client itself.
+
 
 1. Create a `mspService.ts` file within your `services` folder and add the following code:
 
@@ -205,7 +208,7 @@ In this step, you will learn how to initialize all the clients you will need whi
 
 --8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/initialize-msp-service-summary.md'
 
-??? code "View complete script"
+??? code "View complete file"
 
     ```ts title="mspService.ts"
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/get-started/msp-service.ts'
