@@ -9,6 +9,8 @@ The StorageHub SDK is a modular toolkit that makes it easy to build on DataHaven
 
 This guide introduces and compares the functionalities of the StorageHub SDK packages. You'll also find prerequisites for using DataHaven and [StorageHub SDK installation instructions](#install-the-storagehub-sdk).
 
+## Workflow TODO
+
 ## StorageHub SDK Packages
 
 The StorageHub SDK contains the following packages:
@@ -81,7 +83,136 @@ Add the core and MSP client packages to your project. These libraries provide th
     npm install @storagehub-sdk/core @storagehub-sdk/msp-client
     ```
 
-## Next Steps
+## Initialize the StorageHub SDK
+
+
+### Install Additional Dependencies
+
+=== "pnpm"
+
+    ```bash { .break-spaces }
+    pnpm add @storagehub/types-bundle @polkadot/api @storagehub/api-augment viem
+    ```
+
+=== "yarn"
+
+    ```bash { .break-spaces }
+    yarn add @storagehub/types-bundle @polkadot/api @storagehub/api-augment viem
+    ```
+
+=== "npm"
+
+    ```bash { .break-spaces }
+    npm install @storagehub/types-bundle @polkadot/api @storagehub/api-augment viem
+    ```
+
+??? interface "Why do I need these dependencies?"
+
+    - **[`@storagehub/types-bundle`](https://www.npmjs.com/package/@storagehub/types-bundle){target=_blank}:** Describes DataHaven's custom on-chain types.
+
+    - **[`@polkadot/api`](https://www.npmjs.com/package/@polkadot/api){target=_blank}:** The core JavaScript library used to talk to any Substrate-based blockchain, which in our case is DataHaven.
+
+    - **[`@storagehub/api-augment`](https://www.npmjs.com/package/@storagehub/api-augment){target=_blank}:** Extends `@polkadot/api` with DataHaven's custom pallets and RPC methods. You will import it in your `index.ts` file where your main script logic will be executed.
+
+    - **[`viem`](https://www.npmjs.com/package/viem){target=_blank}:** Lightweight library for building Ethereum-compatible applications.
+
+### Set Up Client Service
+
+1. Within your `src` folder where `index.ts` should be located, create a new folder called `services` as follows:
+
+    ```shell
+    mkdir services && cd services
+    ```
+
+    You'll need to set up the necessary clients to connect to the DataHaven network, which runs on a dual-protocol architecture (Substrate for core logic and EVM for compatibility).
+
+2. Create a `clientService.ts` file and add the following code:
+
+    !!! note
+        The code below uses **DataHaven Testnet** configuration values, which include the **Chain ID**, **RPC URL**, **WSS URL**, **MSP URL**, and **token metadata**. If you’re running a **local devnet**, make sure to replace these with your local configuration parameters. You can find all the relevant **local devnet values** in the [Quick Start Guide](/store-and-retrieve-data/quick-start).
+
+    ```ts title="clientService.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/get-started/client-service.ts:imports'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/get-started/client-service.ts:initial-clients-setup'
+  
+    // --- Client Service logic ---
+    // **PLACEHOLDER FOR STEP 1: CREATE STORAGEHUB CLIENT**
+    // **PLACEHOLDER FOR STEP 2: CREATE POLKADOT API CLIENT**
+
+    // Export initialized clients and accounts for reuse across the project.
+    // This allows other modules to easily import shared configuration and avoid duplicate setup.
+    export { account, address, publicClient, walletClient, storageHubClient, polkadotApi };
+    ```
+
+3. Initialize the StorageHub Client 
+
+    Add the following code to initialize the StorageHub Client:
+
+    ```ts title="// **PLACEHOLDER FOR STEP 1: CREATE STORAGEHUB CLIENT**"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/get-started/client-service.ts:storagehub-client'
+    ```
+
+4. Initialize the Polkadot API Client 
+
+    Add the following code to initialize the Polkadot API Client:
+
+    ```ts title="// **PLACEHOLDER FOR STEP 2: CREATE POLKADOT API CLIENT**"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/get-started/client-service.ts:polkadot-api-client'
+    ```
+
+--8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/initialize-client-service-summary.md'
+
+??? code "View complete script"
+
+    ```ts title="clientService.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/get-started/client-service.ts'
+    ```
+
+### Set Up MSP Service
+
+1. Create a `mspService.ts` file within your `services` folder and add the following code:
+
+    !!! note
+        The code below uses **DataHaven Testnet** configuration values, which include the **Chain ID**, **RPC URL**, **WSS URL**, **MSP URL**, and **token metadata**. If you’re running a **local devnet**, make sure to replace these with your local configuration parameters. You can find all the relevant **local devnet values** in the [Quick Start Guide](/store-and-retrieve-data/quick-start).
+
+    ```ts title="mspService.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/get-started/msp-service.ts:imports'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/get-started/msp-service.ts:initial-setup'
+  
+    // --- MSP Service logic ---
+    // **PLACEHOLDER FOR STEP 1: CONNECT MSP CLIENT **
+    // **PLACEHOLDER FOR STEP 2: CREATE MSP HELPER FUNCTIONS **
+
+    // Export initialized clients and accounts for reuse across the project.
+    // This allows other modules to easily import shared configuration and avoid duplicate setup.
+    export { mspClient, getMspInfo, getMspHealth, authenticateUser };
+    ```
+
+3. Connect to the MSP Client
+
+    Add the following code to connect to the MSP Client:
+
+    ```ts title="// **PLACEHOLDER FOR STEP 1: CONNECT MSP CLIENT**"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/get-started/msp-service.ts:connect-msp-client'
+    ```
+
+4. Create MSP Helper Functions
+
+    Add the following code to create MSP helper functions regarding MSP info, MSP health, and user authentication via the MSP:
+
+    ```ts title="// **PLACEHOLDER FOR STEP 2: CREATE MSP HELPER FUNCTIONS**"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/get-started/msp-service.ts:msp-helper-functions'
+    ```
+
+--8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/initialize-msp-service-summary.md'
+
+??? code "View complete script"
+
+    ```ts title="mspService.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/get-started/msp-service.ts'
+    ```
+
+## Next Steps TODO
 
 Now that you have the StorageHub SDK packages installed, you are ready to start building with DataHaven. 
 
