@@ -56,3 +56,9 @@ When querying for information about a bucket with the method `getBucket(bucketId
     fileCount: 0  
 }
 ```
+
+## Replication Window and Deletion Timing
+
+After a file is uploaded to a Main Storage Provider (MSP), the network allows a 10-minute window for Backup Storage Providers (BSPs) to replicate the file to the required count. If the replication target is not met within this window, the request transitions to `expired` even though the upload to the MSP succeeded.
+
+File deletion is only permitted once the request is in the `expired` state. Because BSP replication is currently unavailable (see [BSPs Unable to Accept Files for Replication](#bsps-unable-to-accept-files-for-replication)), new uploads will consistently expire after ~10 minutes, after which you will be able to delete the file. 
