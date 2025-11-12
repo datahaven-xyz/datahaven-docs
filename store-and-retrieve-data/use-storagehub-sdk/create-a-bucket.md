@@ -46,7 +46,7 @@ await run();
 
 Next, since you are connected to the MSP client, check its health status before creating a bucket.
 
-Replace the placeholder `// **PLACEHOLDER FOR STEP 1:  CHECK MSP HEALTH**` with the following code:
+Replace the placeholder `// **PLACEHOLDER FOR STEP 1: CHECK MSP HEALTH**` with the following code:
 
 ```ts title="index.ts // **PLACEHOLDER FOR STEP 1: CHECK MSP HEALTH**"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:check-msp-health'
