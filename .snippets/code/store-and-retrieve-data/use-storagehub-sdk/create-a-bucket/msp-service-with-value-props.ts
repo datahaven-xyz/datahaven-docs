@@ -75,7 +75,7 @@ const authenticateUser = async (): Promise<UserInfo> => {
   const profile: UserInfo = await mspClient.auth.getProfile();
   return profile;
 };
-// --8<-- [start:msp-helper-functions]
+// --8<-- [end:msp-helper-functions]
 
 // --8<-- [start:msp-value-props]
 // Retrieve MSP value propositions and select one for bucket creation
