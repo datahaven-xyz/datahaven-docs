@@ -53,7 +53,7 @@ async function run() {
 
   // Choose one of the value props retrieved from the MSP through the helper function
   const valuePropId: `0x${string}` = await getValueProps();
-  console.log('Chosen value prop: ', valuePropId);
+  console.log('Chosen value prop ID: ', valuePropId);
 
   // --8<-- [end:get-msp-params]
 
