@@ -1,6 +1,6 @@
 ---
 title: End-to-End Storage Workflow
-description: Learn how to store and retrieve files on DataHaven with this step-by-step guide, from issuing a storage request to uploading and downloading data securely.
+description: This step-by-step tutorial follows the full DataHaven storage workflow to store and retrieve data from the network using StorageHub SDK.
 ---
 
 # End-to-End Storage Workflow
@@ -100,7 +100,7 @@ Uploading a file does not guarantee network-wide replication. Files are consider
 
     **FAQs and Troubleshooting**
 
-    Answers to common questions about providers, replication, and network guarantees.
+    Answers to commonly asked questions about DataHaven and using StorageHub SDK.
 
     </a>
 

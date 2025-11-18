@@ -50,12 +50,9 @@ Before you begin, ensure you have the following:
 
 - [Node.js ≥ 22](https://nodejs.org/en/download){target=\_blank} installed. LTS version recommended.
 - [pnpm](https://pnpm.io/){target=\_blank}, [npm](https://www.npmjs.com/){target=\_blank}, or [yarn](https://yarnpkg.com/){target=\_blank} installed for package management
-- [Network configuration details](/store-and-retrieve-data/quick-start/#network-configurations){target=\_blank}, including the RPC and WSS endpoints
-- [MSP base URL](/store-and-retrieve-data/quick-start/#msp-service-endpoints){target=\_blank}
+- [Network configuration details](/store-and-retrieve-data/starter-kit/#network-configurations){target=\_blank}, including the RPC and WSS endpoints
+- [MSP base URL](/store-and-retrieve-data/starter-kit/#msp-service-endpoints){target=\_blank}
 - [Testnet tokens](https://apps.datahaven.xyz/faucet){target=\_blank}
-
-??? interface "Want to use a local devnet instead of the testnet?"
-    Follow the [Spin Up Local Devnet](/store-and-retrieve-data/spin-up-local-devnet) guide.
 
 --8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/create-typescript-project.md'
 

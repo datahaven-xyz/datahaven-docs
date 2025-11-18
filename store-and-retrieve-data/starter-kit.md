@@ -1,13 +1,13 @@
 ---
-title: DataHaven Quick Start Guide
+title: Storage Starter Kit
 description: Everything you need to start building on DataHaven, including network configs, block explorers, faucets, and MSP endpoints for working with the StorageHub SDK.
 ---
 
-# DataHaven Quick Start Guide
+# Storage Starter Kit
 
-DataHaven is a fully EVM-compatible decentralized storage and computation platform built as a sovereign Substrate-based Layer 1 chain. It combines Ethereum-style accounts and tooling with Substrate’s modular runtime to provide seamless interaction between on-chain smart contracts and off-chain data storage. Developers can interact with DataHaven using familiar Ethereum RPCs, wallets, and libraries such as MetaMask or viem, while also accessing Substrate APIs for advanced features like governance or custom runtime calls.
+DataHaven is a fully EVM-compatible decentralized storage and computation platform built as a Substrate-based Layer 1 blockchain. Developers can interact with DataHaven using familiar Ethereum RPCs, wallets, and libraries such as MetaMask or viem, while also accessing Substrate APIs for additional features.
 
-By integrating with EigenLayer, DataHaven operates as an Autonomous Verifiable Service (AVS) secured by Ethereum restakers, inheriting Ethereum's security without relying on its own validator bootstrap. This unified design enables decentralized applications to coordinate computation and storage through a single network that links smart contract logic with verifiable, persistent data maintained by storage providers.
+The following sections provide essential information for configuring your favorite Ethereum-based developer tools for use with DataHaven. You'll also find links to additional resources such as token faucets and block explorers. 
 
 ## DataHaven Networks
 
@@ -58,8 +58,7 @@ To begin building on a DataHaven test network, you'll need to obtain MOCK tokens
 |:-----------------:|:----------------------------------------------------------------------------:|----------------------------------------------------------------------------------|
 | DataHaven Testnet | [Official Testnet Faucet](https://apps.datahaven.xyz/faucet){target=\_blank} | The faucet dispenses {{ networks.testnet.website_faucet_amount }} every 12 hours |
 
-!!! note
-    Testnet MOCK tokens do not have any market value. Please do not spam the faucet with unnecessary requests.
+TestNet HAVE tokens have no market value. Please do not spam the faucet with unnecessary requests.
 
 ## Pre-Funded Local Devnet Accounts
 
@@ -91,19 +90,19 @@ To interact with a Main Storage Provider (MSP) through `@storagehub-sdk/msp-clie
 
 <div class="grid cards" markdown>
 
--   <a href="/store-and-retrieve-data/use-storagehub-sdk/get-started/" markdown>:material-arrow-right:
+-  <a href="/store-and-retrieve-data/use-storagehub-sdk/get-started/" markdown>:material-arrow-right: 
+    
+    **Get Started with the StorageHub SDK**
 
-    **Install the StorageHub SDK**
-
-    Install StorageHub SDK packages to start storing, retrieving, and verifying data.
+    Set up a project and install the StorageHub SDK to start storing and retrieving data.
 
     </a>
 
 -   <a href="/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/" markdown>:material-arrow-right:
 
-    **Build a Data Workflow End-to-End**
+    **End-to-End Storage Workflow**
 
-    Learn step-by-step how to store a file on DataHaven and retrieve it back from the network.
+    Learn step-by-step how to store a file on DataHaven and retrieve it from the network.
 
     </a>
 
