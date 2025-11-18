@@ -27,11 +27,8 @@ async function run() {
   
   // --- Bucket creating logic ---
   // **PLACEHOLDER FOR STEP 1: CHECK MSP HEALTH**
-  // **PLACEHOLDER FOR STEP 2: DERIVE BUCKET ID**
-  // **PLACEHOLDER FOR STEP 3: CHECK IF BUCKET EXISTS**
-  // **PLACEHOLDER FOR STEP 4: GET MSP PARAMS**
-  // **PLACEHOLDER FOR STEP 5: CREATE BUCKET**
-  // **PLACEHOLDER FOR STEP 6: VERIFY BUCKET**
+  // **PLACEHOLDER FOR STEP 2: CREATE BUCKET**
+  // **PLACEHOLDER FOR STEP 3: VERIFY BUCKET**
 
   // Disconnect the Polkadot API at the very end
   await polkadotApi.disconnect();
@@ -39,8 +36,6 @@ async function run() {
 
 await run();
 ```
-
---8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/initialize-clients-summary.md'
 
 ## Check MSP Health
 
@@ -62,40 +57,42 @@ The response should return a **`healthy`** status, like this:
 
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/output-01.html'
 
-## Derive Bucket ID
+## Create a Bucket
 
-Before creating a new bucket, you'll need to derive the bucket ID by passing the bucket's name and the address you intend to use to create it. Two buckets with the same name and address cannot co-exist within the same MSP.
+Next, you can extract all the bucket creation logic into its own method, and have it return both the `bucketId` and the `txReceipt` in `index.ts`.
 
-```ts title="index.ts // **PLACEHOLDER FOR STEP 2: DERIVE BUCKET ID**"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:derive-bucket'
-```
+Replace the placeholder `// **PLACEHOLDER FOR STEP 2: CREATE BUCKET**` with the following code:
 
-Run the script:
-
-```bash
-ts-node index.ts
-```
-
-The response should include something like this:
-
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/output-02.html'
-
-## Check If Derived Bucket ID Isn’t Already On-Chain
-
-Now that you have the bucket ID, you can ensure the bucket doesn't exist on-chain yet. 
-
-```ts title="index.ts // **PLACEHOLDER FOR STEP 3: CHECK IF BUCKET EXISTS**"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:check-bucket'
+```ts title="index.ts // **PLACEHOLDER FOR STEP 2: CREATE BUCKET**"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:create-bucket'
 ```
 
 !!! note
-    The `mspClient` can also be used to check if the derived bucket ID already exists using the `mspClient.buckets.getBucket()` function; however, this only checks if that specific MSP contains a bucket with that ID.
+    You can also get a list of all your created buckets within a certain MSP using the `mspClient.buckets.listBuckets()` function. Make sure you are authenticated before triggering this function.
 
-If you rerun the script, the response should include:
+In order to create the `createBucket` method, first make sure to create a new folder called `operations` within the `src` folder (at the same level as the `services` folder) like so:
 
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/output-03.html'
+```bash
+mkdir operations
+```
 
-## Get Parameters from the MSP
+Then, create a new file within the `operations` folder called `bucketOperations.ts` and add the following code:
+
+```ts title="bucketOperations.ts"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:imports'
+
+  // --- Helper method for creating a bucket ---
+  // **PLACEHOLDER FOR STEP 4: CREATE BUCKET HELPER METHOD**
+
+  // --- Helper method for verifying a bucket is on-chain ---
+  // **PLACEHOLDER FOR STEP 5: VERIFY BUCKET IS ON-CHAIN HELPER METHOD**
+```
+
+Add the following code, instead of the placeholder `// **PLACEHOLDER FOR STEP 4: CREATE BUCKET HELPER METHOD**`:
+
+```ts title="bucketOperations.ts // **PLACEHOLDER FOR STEP 4: CREATE BUCKET HELPER METHOD**"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:create-bucket'
+```
 
 To prepare all the parameters needed for the `createBucket` function, additional data from the MSP is required, such as `mspId` and `valuePropId`. In order to fetch `valueProps` from the MSP Client, add the following helper function to your `mspService.ts` file:
 
@@ -103,42 +100,59 @@ To prepare all the parameters needed for the `createBucket` function, additional
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/msp-service-with-value-props.ts:msp-value-props'
 ```
 
-??? code "View complete file"
+??? code "View complete `mspService.ts` file"
 
     ```ts title="mspService.ts"
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/msp-service-with-value-props.ts'
     ```
 
-To use the `getValueProps` method, add the following code to your `index.ts` file:
+??? code "View complete `bucketOperations.ts` up to this point"
 
-```ts title="index.ts // **PLACEHOLDER FOR STEP 4: GET MSP PARAMS**"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:get-msp-params'
+    ```ts title="bucketOperations.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:imports'
+
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:create-bucket'
+
+    // --- Helper method for verifying a bucket is on-chain ---
+    // **PLACEHOLDER FOR STEP 5: VERIFY BUCKET IS ON-CHAIN HELPER METHOD**
+    ```
+
+Finally, execute the `createBucket` method by running the script:
+
+```bash
+ts-node index.ts
 ```
 
-## Create a Bucket
+The response should look something like this:
 
-Finally, you can call the `createBucket()` function using the `storageHubClient`, including the previously gathered parameters and the `isPrivate` flag that determines the bucket’s privacy.
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/output-02.html'
 
-```ts title="index.ts // **PLACEHOLDER FOR STEP 5: CREATE BUCKET**"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:create-bucket'
-```
-
-!!! note
-    You can also get a list of all your created buckets within a certain MSP using the `mspClient.buckets.listBuckets()` function. Make sure you are authenticated before triggering this function.
 
 ## Check if Bucket is On-Chain
 
 The last step is to verify that the bucket was created successfully on-chain and to confirm its stored data.
 
-```ts title="index.ts // **PLACEHOLDER FOR STEP 6: VERIFY BUCKET**"
+```ts title="index.ts // **PLACEHOLDER FOR STEP 3: VERIFY BUCKET**"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:verify-bucket'
+```
+
+Just like with the `createBucket` method you can extract all the bucket verification logic into its own `verifyBucketCreation` method in the `bucketOperations.ts` file, as follows:
+ 
+```ts title="index.ts // **PLACEHOLDER FOR STEP 5: VERIFY BUCKET IS ON-CHAIN HELPER METHOD**"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:verify-bucket'
 ```
 
 The response should look something like this:
 
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/output-04.html'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/output-03.html'
 
-??? code "View complete script"
+??? code "View complete `bucketOperations.ts` file"
+
+    ```ts title="bucketOperations.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts'
+    ```
+
+??? code "View complete `index.ts` file"
 
     ```ts title="index.ts"
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts'
