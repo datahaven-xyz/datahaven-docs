@@ -240,7 +240,7 @@ This guide walks you through preparing your local file for upload and confirming
 
 Add the following code to trigger the file upload to the connected MSP and to verify if it was successful:
 
-```ts title="// **PLACEHOLDER FOR STEP 1: UPLOAD FILE TO MSP**"
+```ts title="// **PLACEHOLDER FOR STEP 9: UPLOAD FILE TO MSP**"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:upload-file'
 ```
 
