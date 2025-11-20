@@ -80,7 +80,7 @@ Add the core and MSP client packages to your project. These libraries provide th
 
 ## Initialize the StorageHub SDK
 
-In this step, you will learn how to initialize all the clients you will need while building with the StorageHub SDK. You will go through installing extra dependencies, setting up `walletClient`, `publicClient`, `storageHubClient`, `polkadotApi`, `mspClient`, and a few helper functions related to the `mspClient` to help get you started with things like checking MSP health and user authentication.
+Follow the steps in this section to set up the clients needed to work with the StorageHub SDK, allowing you to interact with DataHaven and manage your data.
 
 ### Install Additional Dependencies
 
