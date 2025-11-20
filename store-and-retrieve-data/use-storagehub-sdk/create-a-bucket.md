@@ -59,42 +59,15 @@ The response should return a **`healthy`** status, like this:
 
 ## Create a Bucket
 
-Next, you can extract all the bucket creation logic into its own method, and have it return both the `bucketId` and the `txReceipt` in `index.ts`.
+To create a bucket, we are going to: 
 
-Replace the placeholder `// **PLACEHOLDER FOR STEP 2: CREATE BUCKET**` with the following code:
+- create a `getValueProps` helper method within `mspService.ts`
+- create a `createBucket` helper method within `bucketOperations.ts`
+- update our `index.ts` file to trigger the logic we've implemented
 
-```ts title="index.ts // **PLACEHOLDER FOR STEP 2: CREATE BUCKET**"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:create-bucket'
-```
+We need to fetch the `valueProps`, from the MSP we are connected to, because an MSP's value prop is its storage fee. The files we will store within a certain bucket will cost us based on the value prop we chose.
 
-!!! note
-    You can also get a list of all your created buckets within a certain MSP using the `mspClient.buckets.listBuckets()` function. Make sure you are authenticated before triggering this function.
-
-In order to create the `createBucket` method, first make sure to create a new folder called `operations` within the `src` folder (at the same level as the `services` folder) like so:
-
-```bash
-mkdir operations
-```
-
-Then, create a new file within the `operations` folder called `bucketOperations.ts` and add the following code:
-
-```ts title="bucketOperations.ts"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:imports'
-
-  // --- Helper method for creating a bucket ---
-  // **PLACEHOLDER FOR STEP 4: CREATE BUCKET HELPER METHOD**
-
-  // --- Helper method for verifying a bucket is on-chain ---
-  // **PLACEHOLDER FOR STEP 5: VERIFY BUCKET IS ON-CHAIN HELPER METHOD**
-```
-
-Add the following code, instead of the placeholder `// **PLACEHOLDER FOR STEP 4: CREATE BUCKET HELPER METHOD**`:
-
-```ts title="bucketOperations.ts // **PLACEHOLDER FOR STEP 4: CREATE BUCKET HELPER METHOD**"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:create-bucket'
-```
-
-To prepare all the parameters needed for the `createBucket` function, additional data from the MSP is required, such as `mspId` and `valuePropId`. In order to fetch `valueProps` from the MSP Client, add the following helper function to your `mspService.ts` file:
+In order to fetch `valueProps` from the MSP Client, add the following helper function to your `mspService.ts` file:
 
 ```ts title="mspService.ts"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/msp-service-with-value-props.ts:msp-value-props'
@@ -106,16 +79,46 @@ To prepare all the parameters needed for the `createBucket` function, additional
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/msp-service-with-value-props.ts'
     ```
 
+Next, make sure to create a new folder called `operations` within the `src` folder (at the same level as the `services` folder) like so:
+
+```bash
+mkdir operations
+```
+
+Then, create a new file within the `operations` folder called `bucketOperations.ts` and add the following code:
+
+```ts title="bucketOperations.ts"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:imports'
+
+  // Add helper methods here
+```
+
+Add the following code, instead of the placeholder `// Add helper methods here`:
+
+```ts title="bucketOperations.ts"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:create-bucket'
+```
+
 ??? code "View complete `bucketOperations.ts` up to this point"
 
     ```ts title="bucketOperations.ts"
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:imports'
 
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:create-bucket'
-
-    // --- Helper method for verifying a bucket is on-chain ---
-    // **PLACEHOLDER FOR STEP 5: VERIFY BUCKET IS ON-CHAIN HELPER METHOD**
     ```
+
+****
+Now that we've extracted all the bucket creation logic into its own method, let's update the `index.ts` file.
+
+Replace the placeholder `// **PLACEHOLDER FOR STEP 2: CREATE BUCKET**` with the following code:
+
+```ts title="index.ts // **PLACEHOLDER FOR STEP 2: CREATE BUCKET**"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:create-bucket'
+```
+
+!!! note
+    You can also get a list of all your created buckets within a certain MSP using the `mspClient.buckets.listBuckets()` function. Make sure you are authenticated before triggering this function.
+
 
 Finally, execute the `createBucket` method by running the script:
 
@@ -130,16 +133,16 @@ The response should look something like this:
 
 ## Check if Bucket is On-Chain
 
-The last step is to verify that the bucket was created successfully on-chain and to confirm its stored data.
+The last step is to verify that the bucket was created successfully on-chain and to confirm its stored data. Just like with the `createBucket` method you can extract all the bucket verification logic into its own `verifyBucketCreation` method. Add the following code in your `bucketOperations.ts` file:
+ 
+```ts title="bucketOperations.ts"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:verify-bucket'
+```
+
+Lastly, update the `index.ts` file to trigger the helper method we just implemented:
 
 ```ts title="index.ts // **PLACEHOLDER FOR STEP 3: VERIFY BUCKET**"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:verify-bucket'
-```
-
-Just like with the `createBucket` method you can extract all the bucket verification logic into its own `verifyBucketCreation` method in the `bucketOperations.ts` file, as follows:
- 
-```ts title="index.ts // **PLACEHOLDER FOR STEP 5: VERIFY BUCKET IS ON-CHAIN HELPER METHOD**"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:verify-bucket'
 ```
 
 The response should look something like this:
