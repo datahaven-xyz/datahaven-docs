@@ -31,7 +31,7 @@ async function run() {
   --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/upload-a-file.ts:init-setup'
 
   // --- File upload logic ---
-  // **PLACEHOLDER FOR STEP 1: ADD UPLOAD FILE METHOD**
+  // **PLACEHOLDER : ADD UPLOAD FILE HELPER METHOD**
 
   // Disconnect the Polkadot API at the very end
   await polkadotApi.disconnect();
@@ -39,21 +39,6 @@ async function run() {
 
 await run();
 ```
-
-## Add Upload File Method
-
-Replace the placeholder `// **PLACEHOLDER FOR STEP 1: ADD UPLOAD FILE METHOD**` with the following code:
-
-```ts title="index.ts"
-  --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/upload-a-file.ts:upload-file'
-```
-
-??? code "View complete `index.ts`"
-
-    ```ts title="index.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/upload-a-file.ts'
-    ```
-
 
 ## Create Upload File Helper Method
 
@@ -265,6 +250,20 @@ Now that you have completed `fileOperations.ts` and `index.ts`, the final output
 
     ```ts title="fileOperations.ts"
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts'
+    ```
+    
+## Use Upload File Helper Method
+
+Replace the placeholder `// **PLACEHOLDER FOR STEP 1: ADD UPLOAD FILE HELPER METHOD**` with the following code:
+
+```ts title="index.ts"
+  --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/upload-a-file.ts:upload-file'
+```
+
+??? code "View complete `index.ts`"
+
+    ```ts title="index.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/upload-a-file.ts'
     ```
 
 ## Next Steps
