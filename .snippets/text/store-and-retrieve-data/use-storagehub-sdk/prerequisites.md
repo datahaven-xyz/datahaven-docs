@@ -7,10 +7,16 @@
 
     --8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/install-dependencies.md'
 
-- The SDK initialized
+- Clients initialized
 
-    --8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/create-client-service.md'
+    ??? code "src/clientService.ts" 
 
-- The MSP client initialized
+        ```ts title="clientService.ts"
+        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/get-started/client-service.ts'
+        ```
 
-    --8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/create-msp-service.md'
+    ??? code "src/mspService.ts"
+
+        ```ts title="mspService.ts"
+        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/get-started/msp-service.ts'
+        ```
