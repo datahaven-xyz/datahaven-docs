@@ -42,7 +42,7 @@ await run();
 
 ## Create Upload File Helper Method
 
-In order to create the `uploadFile` helper method, first make sure, if you haven't already in the previous guide, to create a new folder called `operations` within the `src` folder (at the same level as the `services` folder) like so:
+To create the `uploadFile` helper method, first make sure, if you haven't already in the previous guide, to create a new folder called `operations` within the `src` folder (at the same level as the `services` folder) like so:
 
 ```bash
 mkdir operations
@@ -216,6 +216,7 @@ This guide walks you through preparing your local file for upload and confirming
 
 ### Authenticate
 
+Before any file operations, authenticate with the MSP. The `authenticateUser` helper signs a SIWE message and returns a session token that authorizes your uploads, updates, and deletions. Add the following code to use the `authenticateUser` helper method we've already implemented in `mspService.ts`:
 
 ```ts title="// **PLACEHOLDER FOR STEP 8: AUTHENTICATE**"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:authenticate'
@@ -251,7 +252,7 @@ Now that you have completed `fileOperations.ts` and `index.ts`, the final output
     ```ts title="fileOperations.ts"
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts'
     ```
-    
+
 ## Use Upload File Helper Method
 
 Replace the placeholder `// **PLACEHOLDER FOR STEP 1: ADD UPLOAD FILE HELPER METHOD**` with the following code:

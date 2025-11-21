@@ -11,7 +11,8 @@ async function run() {
   await initWasm();
 
   // --8<-- [start:init-setup]
-  const fileKey = 'INSERT_FILE_KEY_AS_HEX';
+  const fileKeyHex = 'INSERT_FILE_KEY_AS_HEX';
+  const fileKey = polkadotApi.createType('H256', fileKeyHex); // Convert to H256 type if not already
   const filePath = new URL(`./files/INSERT_FILENAME.png`, import.meta.url)
     .pathname;
   const downloadedFilePath = new URL(
