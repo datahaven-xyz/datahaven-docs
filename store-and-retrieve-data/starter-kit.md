@@ -56,7 +56,7 @@ To begin building on a DataHaven test network, you'll need to obtain MOCK tokens
 
 |      Testnet      |                           Where To Get Tokens From                           | Amount Dispensed                                                                 |
 |:-----------------:|:----------------------------------------------------------------------------:|----------------------------------------------------------------------------------|
-| DataHaven Testnet | [Official Testnet Faucet](https://apps.datahaven.xyz/faucet){target=\_blank} | The faucet dispenses {{ networks.testnet.website_faucet_amount }} every 12 hours |
+| DataHaven Testnet | [Official Testnet Faucet](https://apps.datahaven.xyz/testnet/faucet){target=\_blank} | The faucet dispenses {{ networks.testnet.website_faucet_amount }} every 12 hours |
 
 To get Testnet MOCK tokens, connect your wallet to the [Official Testnet Faucet](https://apps.datahaven.xyz/testnet/faucet){target=\_blank} and sign a message to login to the dApp. Then, navigate to the faucet page and press **Request Tokens** as shown below:
 
