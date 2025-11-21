@@ -62,7 +62,7 @@ To get TestNet HAVE tokens, connect your wallet to the [Official Testnet Faucet]
 
 ![Requesting tokens from the testnet faucet](/images/faucet.gif)
 
-TestNet HAVE tokens have no market value. Please do not spam the faucet with unnecessary requests.
+Testnet MOCK tokens have no market value. Please do not spam the faucet with unnecessary requests.
 
 ## Pre-Funded Local Devnet Accounts
 
