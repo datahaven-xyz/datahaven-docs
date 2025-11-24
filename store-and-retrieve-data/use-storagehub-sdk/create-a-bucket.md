@@ -167,11 +167,11 @@ And that’s it. You’ve successfully created a bucket and verified it has succ
 
 <div class="grid cards" markdown>
 
--  <a href="/store-and-retrieve-data/use-storagehub-sdk/issue-a-storage-request/" markdown>:material-arrow-right: 
+-  <a href="/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/" markdown>:material-arrow-right: 
     
-    **Issue a Storage Request**
+    **Upload a File**
 
-    Once your bucket is created, the next step is to issue a storage request to upload and register your file on DataHaven.
+    Once your storage request is confirmed, use the StorageHub SDK to upload a file to the network.
 
     </a>
 
