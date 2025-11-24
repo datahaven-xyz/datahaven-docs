@@ -14,7 +14,7 @@ This guide covers the full path from a local file to a registered asset inside a
 --8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/prerequisites.md'
 
 - [A bucket created](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/){target=\_blank} with the ID handy
-- A file to upload to DataHaven (any file type is accepted; the current TestNet file size limit is 5 MB).
+- A file to upload to DataHaven (any file type is accepted; the current TestNet file size limit is {{ networks.testnet.file_size_limit }}).
 
 ## Initialize the Script Entry Point
 
