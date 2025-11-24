@@ -58,7 +58,7 @@ To begin building on a DataHaven test network, you'll need to obtain MOCK tokens
 |:-----------------:|:----------------------------------------------------------------------------:|----------------------------------------------------------------------------------|
 | DataHaven Testnet | [Official Testnet Faucet](https://apps.datahaven.xyz/faucet){target=\_blank} | The faucet dispenses {{ networks.testnet.website_faucet_amount }} every 12 hours |
 
-TestNet HAVE tokens have no market value. Please do not spam the faucet with unnecessary requests.
+Testnet MOCK tokens have no market value. Please do not spam the faucet with unnecessary requests.
 
 ## Pre-Funded Local Devnet Accounts
 

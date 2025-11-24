@@ -14,7 +14,7 @@ In this guide, you’ll go from a local file to a confirmed on-chain transaction
 --8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/prerequisites.md'
 
 - [A bucket created](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/){target=\_blank} with the ID handy
-- A file to upload to DataHaven (any file type is accepted; the current TestNet file size limit is 2 GB).
+- A file to upload to DataHaven (any file type is accepted; the current testnet file size limit is {{ networks.testnet.file_size_limit }}).
 
 ## Install Dependencies
 
