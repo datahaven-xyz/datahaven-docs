@@ -158,7 +158,7 @@ To interact with DataHaven's Main Storage Provider (MSP) services, you need to e
 
 ## Next Steps
 
-Now that you have the StorageHub SDK packages installed, you are ready to start building with DataHaven. 
+Now that you have the StorageHub SDK packages installed and all the necessary clients set up, you are ready to start building with DataHaven. 
 
 <div class="grid cards" markdown>
 
