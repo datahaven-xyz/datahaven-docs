@@ -9,6 +9,13 @@ The StorageHub SDK is a modular toolkit that makes it easy to build on DataHaven
 
 This guide introduces and compares the functionalities of the StorageHub SDK packages. You'll also find prerequisites for using DataHaven and instructions for how to [install the StorageHub SDK](#install-the-storagehub-sdk), along with instructions on [how to set up all of the necessary StorageHub SDK clients](#initialize-the-storagehub-sdk) you will need to have set up in order to use the StorageHub SDK's features and the following guides.
 
+## Workflow Overview
+
+A high-level look at how data moves through DataHaven, from storage requests to upload, verification, and retrieval.
+
+[timeline.left(datahaven-docs/.snippets/text/store-and-retrieve-data/overview/timeline-02.json)]
+
+
 ## StorageHub SDK Packages
 
 The StorageHub SDK contains the following packages:
