@@ -14,7 +14,7 @@ This guide covers the full path from a local file to a registered asset inside a
 --8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/prerequisites.md'
 
 - [A bucket created](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/){target=\_blank} with the ID handy
-- A file to upload to DataHaven (any file type is accepted; the current TestNet file size limit is {{ networks.testnet.file_size_limit }}).
+- A file to upload to DataHaven (any file type is accepted; the current testnet file size limit is {{ networks.testnet.file_size_limit }}).
 
 ## Initialize the Script Entry Point
 
@@ -178,7 +178,7 @@ Run the script:
 ts-node index.ts
 ```
 
-Upon successful verification, you'll see a message like:
+Upon successful storage request verification, you'll see a message like:
 
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/output-03.html'
 

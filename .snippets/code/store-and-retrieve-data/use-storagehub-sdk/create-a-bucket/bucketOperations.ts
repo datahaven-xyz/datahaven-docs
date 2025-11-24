@@ -5,11 +5,7 @@ import {
   publicClient,
   polkadotApi,
 } from '../services/clientService.js';
-import {
-  getMspHealth,
-  getMspInfo,
-  getValueProps,
-} from '../services/mspService.js';
+import { getMspInfo, getValueProps } from '../services/mspService.js';
 // --8<-- [end:imports]
 
 // --8<-- [start:create-bucket]

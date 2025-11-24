@@ -67,7 +67,7 @@ To create a bucket, we are going to:
 
 We need to fetch the `valueProps`, from the MSP we are connected to, because an MSP's value prop is its storage fee. The files we will store within a certain bucket will cost us based on the value prop we chose.
 
-In order to fetch `valueProps` from the MSP Client, add the following helper function to your `mspService.ts` file:
+To fetch `valueProps` from the MSP Client, add the following helper function to your `mspService.ts` file:
 
 ```ts title="mspService.ts"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/msp-service-with-value-props.ts:msp-value-props'
@@ -161,7 +161,7 @@ The response should look something like this:
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts'
     ```
 
-And that’s it. You’ve successfully created a bucket on-chain and verified its data.
+And that’s it. You’ve successfully created a bucket and verified it has successfully been created on-chain.
 
 ## Next Steps
 

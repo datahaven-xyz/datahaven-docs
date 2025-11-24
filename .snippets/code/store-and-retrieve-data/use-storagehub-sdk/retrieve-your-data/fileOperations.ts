@@ -10,7 +10,7 @@ import { DownloadResult } from '@storagehub-sdk/msp-client';
 export async function downloadFile(
   fileKey: H256,
   downloadPath: string
-): Promise<string> {
+): Promise<{ path: string; size: number; mime?: string }> {
   // Download file from MSP
   const downloadResponse: DownloadResult = await mspClient.files.downloadFile(
     fileKey.toHex()

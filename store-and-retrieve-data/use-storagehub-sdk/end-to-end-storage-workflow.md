@@ -11,74 +11,357 @@ This tutorial will cover the end-to-end process of creating a bucket, uploading 
 
 --8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/prerequisites.md'
 
-- The [StorageHub SDK](/store-and-retrieve-data/use-storagehub-sdk/get-started/#install-the-storagehub-sdk){target=\_blank} installed
+- A file to upload to DataHaven (any file type is accepted; the current testnet file size limit is {{ networks.testnet.file_size_limit }}).
 
-## Client Setup and Create a Bucket
+
+## Project Structure
+
+This project organizes scripts, client setup, and different types of operations for easy development and deployment. 
+
+The following sections will build on the already established helper methods from the `services` folder, so it's important to start here with already properly configured clients (as mentioned in the [Prerequisites](#prerequisites) section)
+
+```
+datahaven-project/
+├── package.json
+├── tsconfig.json
+└── src/
+    ├── files/
+    │   └── helloworld.txt
+    ├── operations/
+    │   ├── fileOperations.ts
+    │   └── bucketOperations.ts
+    ├── services/
+    │   ├── clientService.ts
+    │   └── mspService.ts
+    └── index.ts
+```
+
+## Initialize the Script Entry Point
+
+First, create an `index.ts` file and add the following code:
+
+```ts title="src/index.ts"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:imports'
+
+async function run() {
+  // For anything from @storagehub-sdk/core to work, initWasm() is required
+  // on top of the file
+  await initWasm();
+  
+  // --- End-to-end storage flow ---
+  // **PLACEHOLDER FOR STEP 1: CHECK MSP HEALTH**
+  // **PLACEHOLDER FOR STEP 2: CREATE BUCKET**
+  // **PLACEHOLDER FOR STEP 3: VERIFY BUCKET**
+  // **PLACEHOLDER FOR STEP 4: UPLOAD FILE**
+  // **PLACEHOLDER FOR STEP 5: DOWNLOAD FILE**
+  // **PLACEHOLDER FOR STEP 6: VERIFY FILE**
+
+  // Disconnect the Polkadot API at the very end
+  await polkadotApi.disconnect();
+}
+
+await run();
+```
+
+## Check MSP Health
+
+Next, since you are connected to the MSP client, check its health status before creating a bucket.
+
+Replace the placeholder `// **PLACEHOLDER FOR STEP 1: CHECK MSP HEALTH**` with the following code:
+
+```ts title="src/index.ts // **PLACEHOLDER FOR STEP 1: CHECK MSP HEALTH**"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:check-msp-health'
+```
+
+Then, check the health status by running the script:
+
+```bash
+ts-node index.ts
+```
+
+The response should return a **`healthy`** status, like this:
+
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/output-01.html'
+
+## Create a Bucket
 
 Buckets group your files under a specific Main Storage Provider (MSP) and value proposition. Derive a deterministic bucket ID, fetch MSP parameters, then create the bucket. If you run the script multiple times, use a new `bucketName` to avoid a revert, or modify the logic to use your existing bucket in later steps.
 
-In the following code, you will initialize the StorageHub, viem, and Polkadot.js clients on the DataHaven TestNet, sign in via SIWE (Sign in With Ethereum), and pull the MSP’s details/value proposition to prepare for bucket creation. Then you will derive the bucket ID, confirm it doesn’t exist, submit a `createBucket` transaction, wait for confirmation, and finally query the chain to verify that the new bucket’s MSP and owner match our account. 
+In the following code, you will pull the MSP’s details/value proposition to prepare for bucket creation. Then you will derive the bucket ID, confirm it doesn’t exist already, submit a `createBucket` transaction, wait for confirmation, and finally query the chain to verify that the new bucket’s MSP and owner match our account. 
 
-The following sections will build on this snippet, so it's important to start here to properly configure the client and ensure the bucket is created correctly. If you'd prefer to step through the steps to create a bucket individually, please see the [Create a Bucket](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/){target=\_blank} guide.
+If you'd prefer to step through the steps to create a bucket individually, please see the [Create a Bucket](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/){target=\_blank} guide.
 
-```ts title="Create a Bucket"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/create-a-bucket.ts'
+To create a bucket, we are going to: 
+
+- create a `getValueProps` helper method within `mspService.ts`
+- create a `createBucket` helper method within `bucketOperations.ts`
+- update our `index.ts` file to trigger the logic we've implemented
+
+To fetch `valueProps` from the MSP Client, add the following helper function to your `mspService.ts` file:
+
+```ts title="src/services/mspService.ts"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/msp-service-with-value-props.ts:msp-value-props'
 ```
 
-## Issue a Storage Request
+??? code "View complete `mspService.ts` file"
 
-Ensure your file is ready to upload. In this demonstration, we're using a `.jpg` file named `hello.jpg` stored in the current working directory, i.e., the same as the typescript project files, `/src/`. 
+    ```ts title="src/services/mspService.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/msp-service-with-value-props.ts'
+    ```
 
-Register your intent to store a file in your bucket and set its replication policy. Initialize `FileManager`, compute the file’s fingerprint, fetch MSP info (and extract peer IDs), choose a replication level and replica count, then call `issueStorageRequest`.
+Next, make sure to create a new folder called `operations` within the `src` folder (at the same level as the `services` folder) like so:
 
-```ts title="Issue a Storage Request"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/issue-storage-request.ts'
+```bash
+mkdir operations
 ```
 
-## Verify If Storage Request Is On-Chain
+Then, create a new file within the `operations` folder called `bucketOperations.ts` and add the following code:
 
-Derive the deterministic file key, query on-chain state, and confirm the request exists and matches your local fingerprint and bucket.
+```ts title="src/operations/bucketOperations.ts"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:imports'
 
-```ts title="Verify If Storage Request Is On-Chain"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/verify-storage-request.ts'
+  // Add helper methods here
 ```
 
-## Authenticate with SIWE and JWT
+Add the following code, instead of the placeholder `// Add helper methods here`:
 
-In this section, you'll trigger the SIWE flow: the connected wallet signs an EIP-4361 message, the MSP verifies it, and returns a JWT session token. Save that token as `sessionToken` and reuse it for subsequent authenticated requests.
-
-```ts title="Authenticate with SIWE and JWT"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/authenticate.ts'
+```ts title="src/operations/bucketOperations.ts"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:create-bucket'
 ```
+
+??? code "View complete `bucketOperations.ts` up to this point"
+
+    ```ts title="src/operations/bucketOperations.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:imports'
+
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:create-bucket'
+    ```
+
+Now that we've extracted all the bucket creation logic into its own method, let's update the `index.ts` file.
+
+Replace the placeholder `// **PLACEHOLDER FOR STEP 2: CREATE BUCKET**` with the following code:
+
+```ts title="src/index.ts // **PLACEHOLDER FOR STEP 2: CREATE BUCKET**"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:create-bucket'
+```
+
+!!! note
+    You can also get a list of all your created buckets within a certain MSP using the `mspClient.buckets.listBuckets()` function. Make sure you are authenticated before triggering this function.
+
+
+Finally, execute the `createBucket` method by running the script:
+
+```bash
+ts-node index.ts
+```
+
+The response should look something like this:
+
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/output-02.html'
+
+
+## Check if Bucket is On-Chain
+
+The last step is to verify that the bucket was created successfully on-chain and to confirm its stored data. Just like with the `createBucket` method you can extract all the bucket verification logic into its own `verifyBucketCreation` method. Add the following code in your `bucketOperations.ts` file:
+ 
+```ts title="bucketOperations.ts"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:verify-bucket'
+```
+
+Lastly, update the `index.ts` file to trigger the helper method we just implemented:
+
+```ts title="index.ts // **PLACEHOLDER FOR STEP 3: VERIFY BUCKET**"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:verify-bucket'
+```
+
+The response should look something like this:
+
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/output-03.html'
+
+??? code "View complete `bucketOperations.ts` file"
+
+    ```ts title="bucketOperations.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts'
+    ```
+
+??? code "View complete `index.ts` file"
+
+    ```ts title="index.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts'
+    ```
+
+You’ve successfully created a bucket and verified it has successfully been created on-chain. Now it's time upload a file to that bucket.
 
 ## Upload a File
 
-Send the file bytes to the MSP, linked to your storage request. Confirm that the upload receipt indicates a successful upload.
+Ensure your file is ready to upload. In this demonstration, we're using a `.txt` file named `helloworld.txt` stored in the `files` folder, i.e., `/src/files`. 
 
-```ts title="Upload a File"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/upload-a-file.ts'
+In this section you will learn how to upload a file to DataHaven by following a three-step flow: 
+
+- **Issue a Storage Request**: Register your intent to store a file in your bucket and set its replication policy. Initialize `FileManager`, compute the file’s fingerprint, fetch MSP info (and extract peer IDs), choose a replication level and replica count, then call `issueStorageRequest`.
+- **Verify If Storage Request Is On-Chain**: Derive the deterministic file key, query on-chain state, and confirm the request exists and matches your local fingerprint and bucket.
+- **Upload a File**: Send the file bytes to the MSP, linked to your storage request. Confirm that the upload receipt indicates a successful upload.
+
+All three of these steps will be handled within the `uploadFile` helper method as part of the `fileOperations.ts` file. After that, you will update the `index.ts` file accordingly to trigger this new logic.
+
+### Create Upload File Helper Method
+
+Create a new file within the `operations` folder called `fileOperations.ts` and add the following code:
+
+```ts title="operations/fileOperations.ts"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/fileOperations.ts:imports'
+
+  // Add helper methods here
+
 ```
 
-## Retrieve Your Data
+To implement the `uploadFile` helper method, add the following code to the `fileOperations.ts` file:
+
+```ts title="operations/fileOperations.ts // Add helper methods here"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/fileOperations.ts:upload-file-helper'
+```
+
+After a successful storage request, the transaction receipt will be output:
+
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/output-02.html'
+
+After successful storage request verification, you'll see a message like:
+
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/output-03.html'
+
+And after a successful file upload, the transaction receipt will be output:
+
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/output-04.html'
+
+### Use Upload File Helper Method
+
+Replace the placeholder `// **PLACEHOLDER FOR STEP 4: UPLOAD FILE**` with the following code:
+
+```ts title="src/index.ts // **PLACEHOLDER FOR STEP 4: UPLOAD FILE**"
+  --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:upload-file'
+```
+
+??? code "View complete `index.ts` up until this point"
+
+    ```ts title="src/index.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:imports'
+
+    async function run() {
+    // For anything from @storagehub-sdk/core to work, initWasm() is required
+    // on top of the file
+    await initWasm();
+    
+    // --- End-to-end storage flow ---
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:check-msp-health'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:create-bucket'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:verify-bucket'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:upload-file'
+    // **PLACEHOLDER FOR STEP 5: DOWNLOAD FILE**
+    // **PLACEHOLDER FOR STEP 6: VERIFY FILE**
+
+    // Disconnect the Polkadot API at the very end
+    await polkadotApi.disconnect();
+    }
+
+    await run();
+    ```
+
+## Download and Save File
 
 Download the file by its deterministic key from the MSP and save it locally.
 
-```ts title="Retrieve Your Data"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/retrieve-your-data.ts'
+### Create Download File Helper Method
+
+To create the `downloadFile` helper method, add the following code:
+
+```ts title="src/operations/fileOperations.ts"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/fileOperations.ts:download-file'
 ```
+
+### Use Download File Helper Method
+
+Replace the placeholder `// **PLACEHOLDER FOR STEP 5: DOWNLOAD FILE**` with the following code:
+
+```ts title="src/index.ts // **PLACEHOLDER FOR STEP 5: DOWNLOAD FILE**"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:download-data'
+```
+
+??? code "View complete `index.ts` file up until this point"
+
+    ```ts title="src/index.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow:imports'
+
+    async function run() {
+    // For anything from @storagehub-sdk/core to work, initWasm() is required
+    // on top of the file
+    await initWasm();
+    
+     // --- End-to-end storage flow ---
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:check-msp-health'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:create-bucket'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:verify-bucket'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:upload-file'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:download-data'
+    // **PLACEHOLDER FOR STEP 6: VERIFY FILE**
+
+    // Disconnect the Polkadot API at the very end
+    await polkadotApi.disconnect();
+    }
+
+    await run();
+    ```
+
+Upon a successful file download, you'll see output similar to:
+
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/output-01.html'
+
+## Verify Downloaded File
+
+Verify that the downloaded file exactly matches the file you've uploaded.
+
+### Create Verify Download Helper Method
+
+Implement the `verifyDownload` helper method logic to your `fileOperations.ts` file, by adding the following code:
+
+```ts title="src/operations/fileOperations.ts"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/fileOperations.ts:verify-download'
+```
+
+### Use Verify Download Helper Method
+
+Replace the placeholder `// **PLACEHOLDER FOR STEP 6: VERIFY FILE**` with the following code:
+
+```ts title="src/index.ts // **PLACEHOLDER FOR STEP 6: VERIFY FILE**"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/retrieve-data.ts:verify-download'
+```
+
 
 ## Putting It All Together
 
-The code containing the complete series of steps from issuing a storage request to retrieving the data is available below. As a reminder, before running the full script, ensure you have the following:
+The code containing the complete series of steps from creating a bucket to retrieving the data is available below. As a reminder, before running the full script, ensure you have the following:
 
 - Tokens to pay for the storage request on your account
-- A file to upload, such as `hello.jpg`
+- A file to upload, such as `helloworld.txt`
 
-??? code "View complete script"
+??? code "View complete `src/index.ts` script"
 
-    ```ts title="index.ts"
+    ```ts title="src/index.ts"
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end.ts'
     ```
+
+??? code "View complete `src/operations/fileOperations.ts`"
+
+    ```ts title="src/operations/fileOperations.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/fileOperations.ts'
+    ```
+
+??? code "View complete `src/operations/bucketOperations.ts`"
+
+    ```ts title="src/operations/bucketOperations.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts'
+    ```
+
+**add other complete files as well***
 
 ### Notes on Data Safety
 
