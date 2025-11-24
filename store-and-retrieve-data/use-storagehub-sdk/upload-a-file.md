@@ -59,16 +59,16 @@ export async function uploadFile(
   ) {
 
   // ISSUE STORAGE REQUEST
-  // **PLACEHOLDER FOR STEP 2: INITIALIZE FILE MANAGER**
-  // **PLACEHOLDER FOR STEP 3: CREATE FINGERPRINT**
-  // **PLACEHOLDER FOR STEP 4: ISSUE STORAGE REQUEST**
+  // **PLACEHOLDER FOR STEP 1: INITIALIZE FILE MANAGER**
+  // **PLACEHOLDER FOR STEP 2: CREATE FINGERPRINT**
+  // **PLACEHOLDER FOR STEP 3: ISSUE STORAGE REQUEST**
   // VERIFY STORAGE REQUEST ON-CHAIN
-  // **PLACEHOLDER FOR STEP 5: COMPUTE FILE KEY **
-  // **PLACEHOLDER FOR STEP 6: RETRIEVE STORAGE REQUEST DATA **
-  // **PLACEHOLDER FOR STEP 7: READ STORAGE REQUEST DATA**
+  // **PLACEHOLDER FOR STEP 4: COMPUTE FILE KEY **
+  // **PLACEHOLDER FOR STEP 5: RETRIEVE STORAGE REQUEST DATA **
+  // **PLACEHOLDER FOR STEP 6: READ STORAGE REQUEST DATA**
   // UPLOAD FILE
-  // **PLACEHOLDER FOR STEP 8: AUTHENTICATE **
-  // **PLACEHOLDER FOR STEP 9: UPLOAD FILE TO MSP **
+  // **PLACEHOLDER FOR STEP 7: AUTHENTICATE **
+  // **PLACEHOLDER FOR STEP 8: UPLOAD FILE TO MSP **
 
   return { fileKey, uploadReceipt };
   }
@@ -84,7 +84,7 @@ In this section of the guide, you’ll go from a local file to a confirmed on-ch
 
 To initialize the File Manager, add the following code to your file:
 
-```ts title="// **PLACEHOLDER FOR STEP 2: INITIALIZE FILE MANAGER**"
+```ts title="// **PLACEHOLDER FOR STEP 1: INITIALIZE FILE MANAGER**"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:initialize-file-manager'
 ```
 
@@ -92,7 +92,7 @@ To initialize the File Manager, add the following code to your file:
 
 To issue a storage request, you must create the `fingerprint` of your file from the File Manager, `fileSize` (in `BigInt` format), `mspId`, `peerId` (extracted from `multiaddresses`), `replicationLevel`, `replicas`, as well as have the `bucketId` and `fileName` handy from before. Add the following code to create all of these:
 
-```ts title="// **PLACEHOLDER FOR STEP 3: CREATE FINGERPRINT**"
+```ts title="// **PLACEHOLDER FOR STEP 2: CREATE FINGERPRINT**"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:define-storage-request-parameters'
 ```
 
@@ -100,7 +100,7 @@ To issue a storage request, you must create the `fingerprint` of your file from 
 
 Issue the storage request by adding the following code:
 
-```ts title="// **PLACEHOLDER FOR STEP 4: ISSUE STORAGE REQUEST**"
+```ts title="// **PLACEHOLDER FOR STEP 3: ISSUE STORAGE REQUEST**"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:issue-storage-request'
 ```
 
@@ -133,12 +133,12 @@ And upon a successful storage request, the transaction receipt will be output:
         --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:define-storage-request-parameters'
         --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:issue-storage-request'
         // VERIFY STORAGE REQUEST ON-CHAIN
-        // **PLACEHOLDER FOR STEP 5: COMPUTE FILE KEY **
-        // **PLACEHOLDER FOR STEP 6: RETRIEVE STORAGE REQUEST DATA **
-        // **PLACEHOLDER FOR STEP 7: READ STORAGE REQUEST DATA**
+        // **PLACEHOLDER FOR STEP 4: COMPUTE FILE KEY **
+        // **PLACEHOLDER FOR STEP 5: RETRIEVE STORAGE REQUEST DATA **
+        // **PLACEHOLDER FOR STEP 6: READ STORAGE REQUEST DATA**
         // UPLOAD FILE
-        // **PLACEHOLDER FOR STEP 8: AUTHENTICATE **
-        // **PLACEHOLDER FOR STEP 9: UPLOAD FILE TO MSP **
+        // **PLACEHOLDER FOR STEP 7: AUTHENTICATE **
+        // **PLACEHOLDER FOR STEP 8: UPLOAD FILE TO MSP **
 
     return { fileKey, uploadReceipt };
     }
@@ -152,7 +152,7 @@ Use this section of the guide to confirm that a file's storage request has been 
 
 To compute the deterministic file key, derive it from the owner (`AccountId20`), bucket ID, and file name:
 
-```ts title="// **PLACEHOLDER FOR STEP 5: COMPUTE THE FILE KEY**"
+```ts title="// **PLACEHOLDER FOR STEP 4: COMPUTE THE FILE KEY**"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:compute-file-key'
 ```
 
@@ -160,7 +160,7 @@ To compute the deterministic file key, derive it from the owner (`AccountId20`),
 
 To retrieve storage request data, query `fileSystem.storageRequests` and pass in the computed file key:
 
-```ts title="// **PLACEHOLDER FOR STEP 6: RETRIEVE STORAGE REQUEST DATA**"
+```ts title="// **PLACEHOLDER FOR STEP 5: RETRIEVE STORAGE REQUEST DATA**"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:verify-storage-request'
 ```
 
@@ -168,7 +168,7 @@ To retrieve storage request data, query `fileSystem.storageRequests` and pass in
 
 To read storage request data, it first must be unwrapped as follows:
 
-```ts title="// **PLACEHOLDER FOR STEP 7: READ STORAGE REQUEST DATA**"
+```ts title="// **PLACEHOLDER FOR STEP 6: READ STORAGE REQUEST DATA**"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:read-storage-request'
 ```
 
@@ -201,8 +201,8 @@ Upon successful storage request verification, you'll see a message like:
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:verify-storage-request'
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:read-storage-request'
     // UPLOAD FILE
-    // **PLACEHOLDER FOR STEP 8: AUTHENTICATE **
-    // **PLACEHOLDER FOR STEP 9: UPLOAD FILE TO MSP **
+    // **PLACEHOLDER FOR STEP 7: AUTHENTICATE **
+    // **PLACEHOLDER FOR STEP 8: UPLOAD FILE TO MSP **
 
     return { fileKey, uploadReceipt };
     }
@@ -218,7 +218,7 @@ This guide walks you through preparing your local file for upload and confirming
 
 Before any file operations, authenticate with the MSP. The `authenticateUser` helper signs a SIWE message and returns a session token that authorizes your uploads, updates, and deletions. Add the following code to use the `authenticateUser` helper method we've already implemented in `mspService.ts`:
 
-```ts title="// **PLACEHOLDER FOR STEP 8: AUTHENTICATE**"
+```ts title="// **PLACEHOLDER FOR STEP 7: AUTHENTICATE**"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:authenticate'
 ```
 
@@ -226,7 +226,7 @@ Before any file operations, authenticate with the MSP. The `authenticateUser` he
 
 Add the following code to trigger the file upload to the connected MSP and to verify if it was successful:
 
-```ts title="// **PLACEHOLDER FOR STEP 9: UPLOAD FILE TO MSP**"
+```ts title="// **PLACEHOLDER FOR STEP 8: UPLOAD FILE TO MSP**"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:upload-file'
 ```
 
