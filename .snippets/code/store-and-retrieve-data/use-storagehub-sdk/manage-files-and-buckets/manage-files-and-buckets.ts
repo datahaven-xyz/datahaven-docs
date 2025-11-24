@@ -12,7 +12,7 @@ async function run() {
   // --8<-- [start:init-setup]
   const bucketId = 'INSERT_BUCKET_ID'; // `0x${string}`
   const fileKey = 'INSERT_FILE_KEY'; // `0x${string}`
-  // If not in hex already convert it with .toHex()
+  // If not in hex already, convert it with .toHex()
   // --8<-- [end:init-setup]
 
   // --8<-- [start:authenticate]

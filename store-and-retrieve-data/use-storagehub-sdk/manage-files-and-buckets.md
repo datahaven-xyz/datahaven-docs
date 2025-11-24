@@ -76,9 +76,15 @@ To create the `requestDeleteFile` helper method, first make sure, if you haven't
 mkdir operations
 ```
 
-**TODO FIX THIS FLOW**
-
 Then, create a new file within the `operations` folder called `fileOperations.ts` and add the following code:
+
+```ts title="fileOperations.ts"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/fileOperations.ts'
+```
+
+### Use Request File Deletion Helper Method
+
+Update `index.ts` with the following code to trigger the `requestDeleteFile` helper method we just implemented:
 
 ```ts title='index.ts  // **PLACEHOLDER FOR STEP 2: REQUEST FILE DELETION**'
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:request-file-deletion'
@@ -104,9 +110,6 @@ Then, create a new file within the `operations` folder called `fileOperations.ts
     await run();
     ```
 
-
-### Use Request File Deletion Helper Method
-
 If you run the script with the code above, the `fileInfo` and `formattedFileInfo` should look like this:
 
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/output-01.html'
@@ -114,8 +117,6 @@ If you run the script with the code above, the `fileInfo` and `formattedFileInfo
 And the final response should include:
 
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/output-02.html'
-
-**this area*
 
 ## Delete a Bucket
 
@@ -134,7 +135,7 @@ Create a new file within the `operations` folder called `bucketOperations.ts` an
 
 ### Use Delete Bucket Helper Method
 
-Finally, update `index.ts` with the following code to trigger the helper method we just implemented:
+Finally, update `index.ts` with the following code to trigger the  `deleteBucket` helper method we just implemented:
 
 ```ts title="index.ts"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:delete-bucket'
@@ -143,7 +144,7 @@ Finally, update `index.ts` with the following code to trigger the helper method 
 ??? code "View complete `index.ts`"
 
     ```ts title="index.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/manage-files-and-buckets.ts'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts'
     ```
 
 If you run the script with the bucket deletion code, the response should include:
