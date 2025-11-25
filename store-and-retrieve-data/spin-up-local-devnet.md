@@ -18,6 +18,19 @@ Before you begin, ensure you have the following:
 - [Rust ≥ 1.86](https://rust-lang.org/tools/install/){target=\_blank} installed
 - [PostgreSQL](https://www.postgresql.org/download/){target=\_blank} installed 
 - [Diesel CLI](https://diesel.rs/guides/getting-started#installing-diesel-cli){target=\_blank} installed for database management
+    - Install system dependencies:
+        - **Linux**:
+        ```bash
+        sudo apt update && sudo apt install build-essential
+        ```
+
+        - **macOS**:
+        ```bash
+        xcode-select --install
+        ```
+        ```bash
+        cargo install diesel_cli --no-default-features --features postgres
+        ```
 
 ## Clone the StorageHub Repository
 
@@ -56,9 +69,6 @@ pnpm docker:start:solochain-evm:initialised
 ```
 
 Now you're ready to start building and testing with the StorageHub SDK against your local DataHaven devnet. You can use this setup to issue storage requests, create buckets, upload files, and more. The relevant local devnet configuration parameters (including Chain ID, RPC URL, WS URL, and MSP URL) can be found in the [Starter Kit](/store-and-retrieve-data/starter-kit/){target\_blank} guide.
-
-!!! note
-    Deleting files in the local devnet is currently not supported.
 
 ## Stop the Local Devnet
 
