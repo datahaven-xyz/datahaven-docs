@@ -28,9 +28,10 @@ Before you begin, ensure you have the following:
         ```bash
         xcode-select --install
         ```
-        ```bash
-        cargo install diesel_cli --no-default-features --features postgres
-        ```
+    - Then install Diesel CLI with PostgreSQL support:
+    ```bash
+    cargo install diesel_cli --no-default-features --features postgres
+    ```
 
 ## Clone the StorageHub Repository
 
