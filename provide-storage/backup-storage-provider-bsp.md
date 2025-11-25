@@ -24,6 +24,20 @@ Backup Storage Providers supply redundancy for every bucket on DataHaven. They s
 5. **Respond to challenges**: Monitor for scheduled challenge messages, derive proofs from your stored data, and respond before the deadline to avoid faults.
 6. **Assist migrations**: Serve stored replicas to new MSPs during bucket migrations or recovery events to minimize downtime for users.
 
+## Replication Targets and Pricing Signals
+
+DataHaven offers multiple replication tiers as follows:
+
+| Tier | BSP replicas |
+|:----:|:------------:|
+| Basic | 7 |
+| Standard | 12 |
+| High | 17 |
+| Super High | 22 |
+| Ultra High | 26 |
+
+Users pay for storage based on the data they store over time and the replication factor they choose. Lower replication factors reduce cost; higher tiers increase redundancy.
+
 ## Reliability and Readiness Checklist
 
 - **Durable storage**: Use redundant disks or volume management suited to sustained writes and reads of chunked data.
@@ -32,10 +46,24 @@ Backup Storage Providers supply redundancy for every bucket on DataHaven. They s
 - **Key and identity hygiene**: Protect signing keys used for AVS registration and on-chain updates; rotate credentials carefully to keep commitments intact.
 - **Test recoveries**: Periodically verify you can stream data to another node, mirroring the path used during MSP failover.
 
+## Run a BSP Node
+
+Run your node with the provider type `bsp` enabled:
+
+```bash
+datahaven-node --provider --provider-type bsp --max-storage-capacity 10737418240 --jump-capacity=1073741824 --storage-layer rocks-db --storage-path /data
+```
+
+BSP nodes must have the following key in the node's keystore:
+
+- **Blockchain service key**: key type `bcsv`, scheme `ecdsa`.
+
 ## Faults, Slashing, and Exits
 
 - Missed or invalid challenge responses and provable data loss are subject to slashing of the stake or collateral backing the BSP.
 - Keeping commitments up to date is essential; stale roots can create false failures during challenges.
+- BSP sign-up lock period: `BspSignUpLockPeriod = 90 * DAYS` (about 3 months) from sign-up.
+- Exits must respect TTLs and challenge windows; BSPs can be removed from the allowlist and operator set but rushing exits risks slashing.
 - If you need to scale down, drain capacity gracefully so pending replications and open challenges complete before exiting the operator set.
 
 ## Next Steps
