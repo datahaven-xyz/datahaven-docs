@@ -123,3 +123,30 @@ The image name can be anything. In this tutorial, we'll use `datahaven-bsp:0.7.0
 
 --8<-- 'code/provide-data/backup-storage-provider/end-to-end-bsp-onboarding/output-01.html'
 
+Next, in the root of your project, create a `docker-compose.yml` file and add the following code:
+
+```bash
+services:
+  datahaven-bsp:
+    image: datahaven-bsp:0.7.0
+    platform: linux/amd64
+    container_name: datahaven-bsp
+    restart: unless-stopped
+    volumes:
+      - ./data:/data
+      - ./node-base:/node-base
+    command:
+      - --provider
+      - --provider-type
+      - bsp
+      - --max-storage-capacity
+      - "10737418240"
+      - --jump-capacity
+      - "1073741824"
+      - --storage-layer
+      - rocks-db
+      - --storage-path
+      - /data
+```
+
+The Dockerfile defines how the BSP node image is built, but the docker-compose.yml defines how that image actually runs: which volumes to mount, which ports to expose, what command to start the node with, and how the container should behave. Compose makes it easy to reproduce the full BSP environment with a single command, without manually passing long flags or managing mounts each time.
