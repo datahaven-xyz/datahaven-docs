@@ -26,7 +26,7 @@ Then, in the **Faucet** tab, complete the captcha and click **Request tokens** t
 
 ## Open the Wayne dApp and authorize storage payments
 
-1. Go to the [Wayne dApp on testnet](https://datahaven.app/testnet){target=\_blank}
+1. Go to the [Wayne dApp on testnet](https://datahaven.app/testnet){target=\_blank}.
 2. Click **Connect wallet** and choose your wallet provider, then sign the login message.
 3. Approve the allowance prompts that appear. DataHaven charges on an ongoing basis for the amount of data you store and the desired replication factor, so these approvals let the dApp deduct storage fees from your testnet balance when you upload files.
 
