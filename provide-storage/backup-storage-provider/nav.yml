@@ -1,0 +1,6 @@
+nav:
+ - 'Get Started': get-started.md
+ - 'Run a BSP Node': run-a-bsp-node.md
+#  - 'Respond to Integrity Challenges': respond-to-integrity-challenges.md
+#  - 'Manage Economics and Scaling': manage-economics-and-scaling.md
+ - 'End-to-End BSP Onboarding': end-to-end-bsp-onboarding.md
