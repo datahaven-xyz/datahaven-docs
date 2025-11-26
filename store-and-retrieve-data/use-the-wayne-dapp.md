@@ -41,7 +41,7 @@ Then, in the **Faucet** tab, complete the captcha and click **Request tokens** t
 
 ![Buckets view in Wayne](/images/wayne/wayne-4.webp)
 
-In the pop up window, give the bucket a name and press **Create Bucket**. Then confirm the transaction in your wallet.
+In the pop-up window, give the bucket a name and press **Create Bucket**. Then confirm the transaction in your wallet.
 
 ![Creating a new bucket](/images/wayne/wayne-5.webp)
 
