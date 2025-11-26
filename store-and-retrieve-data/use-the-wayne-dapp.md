@@ -37,7 +37,7 @@ Then, in the **Faucet** tab, complete the captcha and click **Request tokens** t
 1. In Wayne, open **Buckets** and review the notice that buckets are public on testnet.
 2. Select the checkbox that you have read and agree to the terms and conditions.
 3. Press **Start**.
-4. Click **Create Bucket**
+4. Click **Create Bucket**.
 
 ![Buckets view in Wayne](/images/wayne/wayne-4.webp)
 
