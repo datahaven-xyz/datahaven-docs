@@ -5,7 +5,7 @@ description: This step-by-step tutorial follows the full process to spin up your
 
 # End-to-End BSP Onboarding
 
-This tutorial will cover the end-to-end process of spinning up a BSP node, using the correct chain spec, inserting your private key into the node keystore, and registering your BSP to the network, in a step-by-step format.
+This tutorial walks through the entire process of bringing a Backup Storage Provider (BSP) node online, from spinning up the node and selecting the correct chain spec to inserting your private key into the node’s keystore and registering your BSP on-chain. By the end, you will have a fully verified BSP that joins the DataHaven network, accepts storage assignments, and participates in StorageHub’s storage-proof lifecycle.
 
 ## Prerequisites
 

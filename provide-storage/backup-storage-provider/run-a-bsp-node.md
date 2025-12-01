@@ -1,15 +1,11 @@
 ---
 title: Run a BSP Node
-description: Run a BSP Node Desc
----
----
-title: End-to-End BSP Onboarding
-description: This step-by-step tutorial follows the full process to spin up your own BSP node and how to register to the DataHaven network
+description: Guide on how to set up, configure, and run a Backup Storage Provider (BSP) node on the DataHaven network using Docker.
 ---
 
 # Run a BSP Node
 
-This guide will cover the end-to-end process of spinning up a BSP node, using the correct chain spec, inserting your private key into the node keystore, and registering your BSP to the network, in a step-by-step format.
+This guide explains how to prepare your project workspace, run the node with Docker, select the correct chain spec, and inject your BSP service key. By the end, you’ll have a fully configured BSP that is ready to join the DataHaven network.
 
 ## Prerequisites
 
