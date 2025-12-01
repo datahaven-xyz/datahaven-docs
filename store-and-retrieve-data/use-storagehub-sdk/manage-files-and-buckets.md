@@ -12,9 +12,11 @@ This guide explains how to manage your storage resources on DataHaven using the 
 --8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/prerequisites.md'
 - [A file uploaded](/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/){target=\_blank} to DataHaven, along with the [file key](/store-and-retrieve-data/use-storagehub-sdk/verify-storage-request-registration/#compute-the-file-key){target=\_blank}
 
+## Initialize the Script Entry Point
 
+First, create an `index.ts` file, if you haven't already. Its `run` method will orchestrate all the logic in this guide, and you’ll replace the labelled placeholders with real code step by step. By now, your services folder (including the MSP and client helper services) should already be created. If not, see the [Get Started Guide](/store-and-retrieve-data/use-storagehub-sdk/get-started). The `index.ts` snippet below also imports `fileOperations.ts` and `bucketOperations.ts`, which are not in your project yet. That’s expected, as you’ll create it later in this guide.
 
-Create an `index.ts` and add the following code:
+Add the following code to your `index.ts` file:
 
 ```ts title="index.ts"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:imports'
@@ -36,7 +38,7 @@ await run();
 
 ## Authenticate
 
-Before any file operations, authenticate with the MSP. The `authenticateUser` helper signs a SIWE message and returns a session token that authorizes your uploads, updates, and deletions. Add the following code to use the `authenticateUser` helper method we've already implemented in `mspService.ts`:
+Before any file operations, authenticate with the MSP. The `authenticateUser` helper signs a SIWE message and returns a session token that authorizes your uploads, updates, and deletions. Add the following code to use the `authenticateUser` helper method you've already implemented in `mspService.ts`:
 
 ```ts title='index.ts // **PLACEHOLDER FOR STEP 1: AUTHENTICATE**'
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:authenticate'
@@ -64,7 +66,7 @@ Before any file operations, authenticate with the MSP. The `authenticateUser` he
 
 ## Request File Deletion
 
-To request file deletion, we are going to create a helper method called `requestDeleteFile` in a separate `fileOperations.ts` file and we are going to update the `index.ts` file accordingly, in order to execute that logic. We’ll first fetch the file’s metadata from the MSP, format it for on-chain compatibility, and then submit a deletion request using the StorageHub SDK.
+To request file deletion, you are going to create a helper method called `requestDeleteFile` in a separate `fileOperations.ts` file and you are going to update the `index.ts` file accordingly, in order to execute that logic. First, you’ll fetch the file’s metadata from the MSP, format it for on-chain compatibility, and then submit a deletion request using the StorageHub SDK.
 
 It’s important to note that files are not removed instantly. When a deletion request succeeds, the file is marked for deletion on-chain, but both the MSP and all BSPs storing that file still have the file inside their Merkle Patricia Forests until they pass the mandatory storage proof challenge. After that, the runtime automatically updates their Merkle Patricia Forest roots to remove the file.
 
@@ -84,7 +86,7 @@ Then, create a new file within the `operations` folder called `fileOperations.ts
 
 ### Use Request File Deletion Helper Method
 
-Update `index.ts` with the following code to trigger the `requestDeleteFile` helper method we just implemented:
+Update `index.ts` with the following code to trigger the `requestDeleteFile` helper method you just implemented:
 
 ```ts title='index.ts  // **PLACEHOLDER FOR STEP 2: REQUEST FILE DELETION**'
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:request-file-deletion'
@@ -120,7 +122,7 @@ And the final response should include:
 
 ## Delete a Bucket
 
-To delete a bucket, we are going to create a helper method called `deleteBucket` in a separate `bucketOperations.ts` file and we are going to update the `index.ts` file accordingly, in order to execute that logic.
+To delete a bucket, you are going to create a helper method called `deleteBucket` in a separate `bucketOperations.ts` file and you are going to update the `index.ts` file accordingly, in order to execute that logic.
 
 !!! note
     A bucket can only be deleted if all its files have already been deleted. Use the `mspClient.buckets.getFiles()` method by passing a `bucketId` as a parameter to check all the files currently stored in that bucket.
@@ -135,7 +137,7 @@ Create a new file within the `operations` folder called `bucketOperations.ts` an
 
 ### Use Delete Bucket Helper Method
 
-Finally, update `index.ts` with the following code to trigger the  `deleteBucket` helper method we just implemented:
+Finally, update `index.ts` with the following code to trigger the  `deleteBucket` helper method you just implemented:
 
 ```ts title="index.ts"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:delete-bucket'

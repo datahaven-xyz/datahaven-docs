@@ -11,60 +11,32 @@ This guide shows how to sign in to a StorageHub Main Storage Provider (MSP) usin
 
 --8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/prerequisites.md'
 
-## Initialize the Script Entry Point
+## Set Up Auth Script
 
-First, create an `index.ts` file and add the following code:
+Create an `index.ts` file, if you haven't already. Its `run` method will orchestrate all the logic in this guide. By now, your services folder (including the MSP and client helper services) should already be created. If not, see the [Get Started Guide](/store-and-retrieve-data/use-storagehub-sdk/get-started).
+
+Add the following code to your `index.ts` file:
 
 ```ts title="index.ts"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/authenticate-with-siwe-and-jwt/authenticate.ts:imports'
-
-async function run() {
-  // For anything from @storagehub-sdk/core to work, initWasm() is required
-  // on top of the file
-  await initWasm();
-  
-  // --- Authenticate logic ---
-  // **PLACEHOLDER : ADD AUTH HELPER METHOD**
-
-  // Disconnect the Polkadot API at the very end
-  await polkadotApi.disconnect();
-}
-
-await run();
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/authenticate-with-siwe-and-jwt/authenticate.ts'
 ```
 
-## Authenticate Your Address via MSP
+As you can see, the `authenticateUser` helper method is being called from your `mspService.ts` file. This is the method responsible for checking your address's authentication status and authenticating your address via the MSP Client. 
 
-As mentioned in the Prerequisites section, you should already have the `authenticateUser` helper method in your `mspService.ts` file. To check your address's authentication status via this method and to authenticate your address using the MSP Client, add the following code:
+Within the `authenticateUser` method, the SDK's `mspClient.auth.SIWE` method is triggered, which produces a JWT token that serves as proof of authentication. Within `mspService.ts`, this token is passed into the `sessionProvider` const that is one of the two required params for the `MspClient.connect` method. When you connect to an MSP while `sessionProvider` contains a valid JWT token, you are allowed to trigger certain MSP methods you otherwise wouldn't be able to (such as `MspClient.auth.getProfile`, `MspClient.files.uploadFile`, `MspClient.info.getPaymentStreams`).
 
-```ts title="index.ts // **PLACEHOLDER: ADD AUTH HELPER METHOD**"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/authenticate-with-siwe-and-jwt/authenticate.ts:authenticate'
-```
-
-Run the script:
+## Run Auth Script
 
 ```bash
 ts-node index.ts
 ```
 
-The SIWE session response should return a response like this:
+After the address has been authenticated, the `authenticateUser` method that triggers `MspClient.auth.getProfile` upon successful execution, should return a response like this:
 
 !!! note
     The ENS name is hardcoded currently.
 
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/authenticate-with-siwe-and-jwt/output-01.html'
-
-Also, after the address has been authenticated, fetching profile info should return a response like this:
-
-!!! note
-    The ENS name is hardcoded currently.
-
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/authenticate-with-siwe-and-jwt/output-02.html'
-
-??? code "View complete script"
-    ```ts title="index.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/authenticate-with-siwe-and-jwt/authenticate.ts'
-    ```
 
 ## Next Steps
 

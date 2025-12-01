@@ -38,7 +38,9 @@ datahaven-project/
 
 ## Initialize the Script Entry Point
 
-First, create an `index.ts` file and add the following code:
+First, create an `index.ts` file, if you haven't already. Its `run` method will orchestrate all the logic in this guide, and you’ll replace the labelled placeholders with real code step by step. By now, your services folder (including the MSP and client helper services) should already be created. If not, see the [Get Started Guide](/store-and-retrieve-data/use-storagehub-sdk/get-started). The `index.ts` snippet below also imports `bucketOperations.ts` and `fileOperations.ts`, which are not in your project yet. That’s expected, as you’ll create them later in this guide.
+
+Add the following code to your `index.ts` file:
 
 ```ts title="src/index.ts"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:imports'
@@ -65,7 +67,7 @@ await run();
 
 ## Check MSP Health
 
-Next, since you are connected to the MSP client, check its health status before creating a bucket.
+Next, since you are already connected to the MSP client, check its health status before creating a bucket.
 
 Replace the placeholder `// **PLACEHOLDER FOR STEP 1: CHECK MSP HEALTH**` with the following code:
 
@@ -87,78 +89,79 @@ The response should return a **`healthy`** status, like this:
 
 Buckets group your files under a specific Main Storage Provider (MSP) and value proposition. Derive a deterministic bucket ID, fetch MSP parameters, then create the bucket. If you run the script multiple times, use a new `bucketName` to avoid a revert, or modify the logic to use your existing bucket in later steps.
 
-In the following code, you will pull the MSP’s details/value proposition to prepare for bucket creation. Then you will derive the bucket ID, confirm it doesn’t exist already, submit a `createBucket` transaction, wait for confirmation, and finally query the chain to verify that the new bucket’s MSP and owner match our account. 
+In the following code, you will pull the MSP’s details/value proposition to prepare for bucket creation. Then you will derive the bucket ID, confirm it doesn’t exist already, submit a `createBucket` transaction, wait for confirmation, and finally query the chain to verify that the new bucket’s MSP and owner address match the account address that you are using. 
 
 If you'd prefer to step through the steps to create a bucket individually, please see the [Create a Bucket](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/){target=\_blank} guide.
 
-To create a bucket, we are going to: 
+To create a bucket, you are going to: 
 
-- create a `getValueProps` helper method within `mspService.ts`
-- create a `createBucket` helper method within `bucketOperations.ts`
-- update our `index.ts` file to trigger the logic we've implemented
+1. Create a `getValueProps` helper method within `mspService.ts`.
+2. Create a `createBucket` helper method within `bucketOperations.ts`.
+3. Update the `index.ts` file to trigger the logic you've implemented.
+4. Check `createBucket` method output
 
-To fetch `valueProps` from the MSP Client, add the following helper function to your `mspService.ts` file:
+Here are the in-depth instructions:
 
-```ts title="src/services/mspService.ts"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/msp-service-with-value-props.ts:msp-value-props'
-```
-
-??? code "View complete `mspService.ts` file"
+1. To fetch `valueProps` from the MSP Client, add the following helper function to your `mspService.ts` file:
 
     ```ts title="src/services/mspService.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/msp-service-with-value-props.ts'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/msp-service-with-value-props.ts:msp-value-props'
     ```
 
-Next, make sure to create a new folder called `operations` within the `src` folder (at the same level as the `services` folder) like so:
+    ??? code "View complete `mspService.ts` file"
 
-```bash
-mkdir operations
-```
+        ```ts title="src/services/mspService.ts"
+        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/msp-service-with-value-props.ts'
+        ```
 
-Then, create a new file within the `operations` folder called `bucketOperations.ts` and add the following code:
+2. Next, make sure to create a new folder called `operations` within the `src` folder (at the same level as the `services` folder) like so:
 
-```ts title="src/operations/bucketOperations.ts"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:imports'
+    ```bash
+    mkdir operations
+    ```
 
-  // Add helper methods here
-```
-
-Add the following code, instead of the placeholder `// Add helper methods here`:
-
-```ts title="src/operations/bucketOperations.ts"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:create-bucket'
-```
-
-??? code "View complete `bucketOperations.ts` up to this point"
+    Then, create a new file within the `operations` folder called `bucketOperations.ts` and add the following code:
 
     ```ts title="src/operations/bucketOperations.ts"
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:imports'
 
+    // Add helper methods here
+    ```
+
+    Add the following code, instead of the placeholder `// Add helper methods here`:
+
+    ```ts title="src/operations/bucketOperations.ts"
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:create-bucket'
     ```
 
-Now that we've extracted all the bucket creation logic into its own method, let's update the `index.ts` file.
+    ??? code "View complete `bucketOperations.ts` up to this point"
 
-Replace the placeholder `// **PLACEHOLDER FOR STEP 2: CREATE BUCKET**` with the following code:
+        ```ts title="src/operations/bucketOperations.ts"
+        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:imports'
 
-```ts title="src/index.ts // **PLACEHOLDER FOR STEP 2: CREATE BUCKET**"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:create-bucket'
-```
+        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:create-bucket'
+        ```
 
-!!! note
-    You can also get a list of all your created buckets within a certain MSP using the `mspClient.buckets.listBuckets()` function. Make sure you are authenticated before triggering this function.
+3. Now that you've extracted all the bucket creation logic into its own method, let's update the `index.ts` file.
 
+    Replace the placeholder `// **PLACEHOLDER FOR STEP 2: CREATE BUCKET**` with the following code:
 
-Finally, execute the `createBucket` method by running the script:
+    ```ts title="src/index.ts // **PLACEHOLDER FOR STEP 2: CREATE BUCKET**"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:create-bucket'
+    ```
 
-```bash
-ts-node index.ts
-```
+    !!! note
+        You can also get a list of all your created buckets within a certain MSP using the `mspClient.buckets.listBuckets()` function. Make sure you are authenticated before triggering this function.
 
-The response should look something like this:
+4. Finally, execute the `createBucket` method by running the script:
 
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/output-02.html'
+    ```bash
+    ts-node index.ts
+    ```
 
+    The response should look something like this:
+
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/output-02.html'
 
 ## Check if Bucket is On-Chain
 
@@ -168,7 +171,7 @@ The last step is to verify that the bucket was created successfully on-chain and
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:verify-bucket'
 ```
 
-Lastly, update the `index.ts` file to trigger the helper method we just implemented:
+Lastly, update the `index.ts` file to trigger the helper method you just implemented:
 
 ```ts title="index.ts // **PLACEHOLDER FOR STEP 3: VERIFY BUCKET**"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:verify-bucket'
@@ -194,7 +197,7 @@ You’ve successfully created a bucket and verified it has successfully been cre
 
 ## Upload a File
 
-Ensure your file is ready to upload. In this demonstration, we're using a `.txt` file named `helloworld.txt` stored in the `files` folder, i.e., `/src/files`. 
+Ensure your file is ready to upload. In this demonstration, a `.txt` file named `helloworld.txt` is stored in the `files` folder as an example, i.e., `/src/files`. 
 
 In this section you will learn how to upload a file to DataHaven by following a three-step flow: 
 
@@ -346,7 +349,7 @@ The code containing the complete series of steps from creating a bucket to retri
 ??? code "View complete `src/index.ts` script"
 
     ```ts title="src/index.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end.ts'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts'
     ```
 
 ??? code "View complete `src/operations/fileOperations.ts`"
@@ -360,8 +363,6 @@ The code containing the complete series of steps from creating a bucket to retri
     ```ts title="src/operations/bucketOperations.ts"
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts'
     ```
-
-**add other complete files as well***
 
 ### Notes on Data Safety
 

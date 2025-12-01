@@ -18,14 +18,13 @@ async function run() {
   // --- Bucket creating logic ---
 
   // --8<-- [start:check-msp-health]
-  // 1. Create Bucket
-
   // Check MSP Health Status
   const mspHealth: HealthStatus = await mspClient.info.getHealth();
   console.log('MSP Health Status:', mspHealth);
   // --8<-- [end:check-msp-health]
 
   // --8<-- [start:create-bucket]
+  // Create a bucket
   const bucketName = 'init-bucket';
   const { bucketId, txReceipt } = await createBucket(bucketName);
   console.log(`Created Bucket ID: ${bucketId}`);
@@ -33,8 +32,7 @@ async function run() {
   // --8<-- [end:create-bucket]
 
   // --8<-- [start:verify-bucket]
-  // 2. Verify bucket exists on chain
-
+  // Verify bucket exists on chain
   const bucketData = await verifyBucketCreation(bucketId);
   console.log('Bucket data:', bucketData);
   // --8<-- [end:verify-bucket]

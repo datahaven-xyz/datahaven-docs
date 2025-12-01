@@ -7,14 +7,13 @@ description: Set up your development environment, install the StorageHub SDK, an
 
 The StorageHub SDK is a modular toolkit that makes it easy to build on DataHaven, giving developers direct access to functionalities for managing storage, buckets, and proofs. It simplifies both on-chain and off-chain interactions so you can focus on your application logic rather than low-level integrations.
 
-This guide introduces and compares the functionalities of the StorageHub SDK packages. You'll also find prerequisites for using DataHaven and instructions for how to [install the StorageHub SDK](#install-the-storagehub-sdk), along with instructions on [how to set up all of the necessary StorageHub SDK clients](#initialize-the-storagehub-sdk) you will need to have set up in order to use the StorageHub SDK's features and the following guides.
+This guide introduces and compares the functionalities of the StorageHub SDK packages. You can use the StorageHub SDK for every step in the storage request and retrieval process. For more information, see the [Workflow Overview](#workflow-overview).
 
 ## Workflow Overview
 
 A high-level look at how data moves through DataHaven, from storage requests to upload, verification, and retrieval.
 
 [timeline.left(datahaven-docs/.snippets/text/store-and-retrieve-data/overview/timeline-02.json)]
-
 
 ## StorageHub SDK Packages
 
@@ -145,14 +144,14 @@ You'll need to set up the necessary clients to connect to the DataHaven network,
 To interact with DataHaven's Main Storage Provider (MSP) services, you need to establish a connection using the `MspClient` from the StorageHub SDK. This involves configuring the HTTP client, setting up session management for authenticated requests, and initializing the MSP client itself.
 
 
-1. Create a `mspService.ts` file within your `services` folder and add the following code:
+Create a `mspService.ts` file within your `services` folder and add the following code:
 
-    !!! note
-        The code below uses **DataHaven Testnet** configuration values, which include the **Chain ID**, **RPC URL**, **WSS URL**, **MSP URL**, and **token metadata**. If you’re running a **local devnet**, make sure to replace these with your local configuration parameters. You can find all the relevant **local devnet values** in the [Quick Start Guide](/store-and-retrieve-data/quick-start).
+!!! note
+    The code below uses **DataHaven Testnet** configuration values, which include the **Chain ID**, **RPC URL**, **WSS URL**, **MSP URL**, and **token metadata**. If you’re running a **local devnet**, make sure to replace these with your local configuration parameters. You can find all the relevant **local devnet values** in the [Storage Starter Kit](/store-and-retrieve-data/starter-kit).
 
-    ```ts title="mspService.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/get-started/msp-service.ts'
-    ```
+```ts title="mspService.ts"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/get-started/msp-service.ts'
+```
 
 --8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/initialize-msp-service-summary.md'
 

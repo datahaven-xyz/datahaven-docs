@@ -1,9 +1,11 @@
+// --8<-- [start:imports]
 import '@storagehub/api-augment';
 import { initWasm } from '@storagehub-sdk/core';
 import { polkadotApi } from './services/clientService.js';
 import { authenticateUser } from './services/mspService.js';
 import { requestDeleteFile } from './operations/fileOperations.js';
 import { deleteBucket } from './operations/bucketOperations.js';
+// --8<-- [end:imports]
 
 async function run() {
   // Initialize WASM

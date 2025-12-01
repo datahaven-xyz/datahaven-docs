@@ -1,32 +1,34 @@
 <div class="termynal" data-termynal>
     <span data-ty="input"><span class="file-path"></span>ts-node index.ts</span>
-    <span data-ty><pre>Storage request receipt: {
-  transactionHash: '0xfb344dc05359ee4d13189e65fc3230a1998a1802d3a0cf929ffb80a0670d7ce0',
-  transactionIndex: 0,
-  blockHash: '0x0cd98b5d6050b926e6876a5b09124d1840e2c94d95faffdd6668a659e3c5c6a7',
-  from: '0x00fa35d84a43db75467d2b2c1ed8974aca57223e',
-  to: '0x0000000000000000000000000000000000000404',
-  blockNumber: 98684n,
-  cumulativeGasUsed: 239712n,
-  gasUsed: 239712n,
-  contractAddress: null,
-  logs: [
-    {
-      address: '0x0000000000000000000000000000000000000404',
-      topics: [Array],
-      data: '0x',
-      blockHash: '0x0cd98b5d6050b926e6876a5b09124d1840e2c94d95faffdd6668a659e3c5c6a7',
-      blockNumber: 98684n,
-      transactionHash: '0xfb344dc05359ee4d13189e65fc3230a1998a1802d3a0cf929ffb80a0670d7ce0',
-      transactionIndex: 0,
-      logIndex: 0,
-      transactionLogIndex: '0x0',
-      removed: false
-    }
+    <span data-ty><pre> Storage request data: Type(13) [Map] {
+  'requestedAt' => <BN: 4987d>,
+  'expiresAt' => <BN: 498eb>,
+  'owner' => Type(20) [Uint8Array] [
+    0,
+    ...
+    62,
+    registry: TypeRegistry { createdAtHash: undefined },
+    createdAtHash: undefined,
+    initialU8aLength: 20,
+    isStorageFallback: undefined
+    ...
+    'bspsRequired' => <BN: 1>,
+    'bspsConfirmed' => <BN: 0>,
+    'bspsVolunteered' => <BN: 0>,
+    'depositPaid' => <BN: de0bfe6b7eef7c2>,
+    registry: TypeRegistry { createdAtHash: undefined },
+    createdAtHash: Type(32) [Uint8Array] [
+    127,
+    ...
+    211,
+    registry: TypeRegistry { createdAtHash: undefined },
+    createdAtHash: undefined,
+    initialU8aLength: 32,
+    isStorageFallback: undefined
   ],
-  logsBloom: '0x00000000000000040000000000000000000000000000000000000000000000040000000000000000000000000001000000000000000000000000080000000000000000040000000000000000000000000000000000000140000000000000000000000000000000000000000000000400000000100000000000000000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000800800000000000000000000000000200000000000000000000000010000000000000000000000000000080000',
-  status: 'success',
-  effectiveGasPrice: 1000000000n,
-  type: 'legacy'
+  initialU8aLength: 337,
+  isStorageFallback: undefined
 }</pre></span>
+    <span data-ty>Storage request bucketId: 0x8bb80c024079126ba72150cce1d60665e4d4da038c56f75121471912b036c70a</span>
+    <span data-ty>Storage request fingerprint should be the same as initial fingerprint: true</span>
 </div>

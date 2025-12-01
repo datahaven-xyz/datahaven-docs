@@ -15,7 +15,10 @@ This guide shows how to fetch a previously uploaded file from your chosen Main S
 
 ## Initialize the Script Entry Point
 
-First, create an `index.ts` file and add the following code:
+
+First, create an `index.ts` file, if you haven't already. Its `run` method will orchestrate all the logic in this guide, and you’ll replace the labelled placeholders with real code step by step. By now, your services folder (including the MSP and client helper services) should already be created. If not, see the [Get Started Guide](/store-and-retrieve-data/use-storagehub-sdk/get-started). The `index.ts` snippet below also imports `fileOperations.ts`, which is not in your project yet. That’s expected, as you’ll create it later in this guide.
+
+Add the following code to your `index.ts` file:
 
 ```ts title="index.ts"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/retrieve-data.ts:imports'
@@ -40,7 +43,7 @@ await run();
 
 ## Download and Save File
 
-To download a file we've already uploaded to the network, we will create a `downloadFile` helper method through which we will retrieve the file from the network and then save it locally to our machine. Then, we will update the `index.ts` file accordingly in order to execute that logic.
+To download a file you've already uploaded to the network, you will create a `downloadFile` helper method through which you will retrieve the file from the network and then save it locally to our machine. Then, update the `index.ts` file accordingly in order to execute that logic.
 
 ### Create Download File Helper Method
 
@@ -74,7 +77,7 @@ Next, implement the `downloadFile` helper method logic to your `fileOperations.t
 
 ## Use Download File Helper Method
 
-Proceed with updating the `index.ts` file with the following code in order to execute the download logic we just implemented:
+Proceed with updating the `index.ts` file with the following code in order to execute the download logic you just implemented:
 
 ```ts title="index.ts"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/retrieve-data.ts:download-data'
@@ -114,7 +117,7 @@ Upon a successful file download, you'll see output similar to:
 
 ### Verify Downloaded File
 
-To verify the integrity of the file we've just downloaded, we will create a `verifyDownload` helper method through which we will match the bytes of our original file to the bytes of the newly downloaded file. Then, we will update the `index.ts` file accordingly in order to execute that logic.
+To verify the integrity of the file you've just downloaded, create a `verifyDownload` helper method through which the bytes of the original file will be matched to the bytes of the newly downloaded file. Then, you'll will update the `index.ts` file accordingly in order to execute that logic.
 
 ### Create Verify Download Helper Method
 
@@ -132,7 +135,7 @@ Implement the `verifyDownload` helper method logic to your `fileOperations.ts` f
 
 ### Use Verify Download Helper Method
 
-Update the `index.ts` file with the following code in order to execute the verification logic we just implemented:
+Update the `index.ts` file with the following code in order to execute the verification logic you just implemented:
 
 ```ts title="index.ts"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/retrieve-data.ts:verify-download'

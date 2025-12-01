@@ -34,7 +34,8 @@ const NETWORKS = {
 // Configure the HTTP client to point to the MSP backend
 const httpCfg: HttpClientConfig = { baseUrl: NETWORKS.testnet.mspUrl };
 
-// Initialize a session token for authenticated requests (updated after authentication through SIWE)
+// Initialize a session token for authenticated requests (updated after authentication
+// through SIWE)
 let sessionToken: string | undefined = undefined;
 
 // Provide session information to the MSP client whenever available
