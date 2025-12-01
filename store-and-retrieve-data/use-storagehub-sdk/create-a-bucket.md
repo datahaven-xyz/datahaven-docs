@@ -106,6 +106,10 @@ Bucket-related logic will live in a separate `bucketOperations.ts` file. To impl
 
 3. Add the following code:
 
+    !!! note
+        Within the `createBucket` helper method, the `getValueProps` helper method from the previous section is used.
+
+
     ```ts title="bucketOperations.ts"
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:imports'
 
@@ -116,7 +120,7 @@ Bucket-related logic will live in a separate `bucketOperations.ts` file. To impl
     
     Once this check passes, the `createBucket` extrinsic is called, and `bucketId` along with the `txReceipt` are returned back to the `index.ts` file from where you will trigger this helper method.
 
-### Call the Create Bucket Method
+### Call the Create Bucket Helper Method
 
 Now that you've extracted all the bucket creation logic into its own method, let's update the `index.ts` file.
 
