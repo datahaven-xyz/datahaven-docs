@@ -5,7 +5,11 @@ description: Guide on how to turn your local file into a fully registered and pe
 
 # Upload a File
 
-In this guide, you will learn how to upload a file to DataHaven by following a three-step flow: issue a storage request on-chain, verify that the request appears on-chain, and transfer the file bytes to the selected Main Storage Provider (MSP). 
+In this guide, you will learn how to upload a file to DataHaven by following a three-step flow: 
+
+1. **Issue a Storage Request**: Register your intent to store a file in your bucket and set its replication policy. Initialize `FileManager`, compute the file’s fingerprint, fetch MSP info (and extract peer IDs), choose a replication level and replica count, then call `issueStorageRequest`.
+2. **Verify If Storage Request Is On-Chain**: Derive the deterministic file key, query on-chain state, and confirm the request exists and matches your local fingerprint and bucket.
+3. **Upload a File**: Send the file bytes to the MSP, linked to your storage request. Confirm that the upload receipt indicates a successful upload.
 
 This guide covers the full path from a local file to a registered asset inside a bucket. It sets up the required SDK clients, creates the on-chain request with a deterministic file key, confirms the request through the Polkadot.js API, and hands the file to the MSP for ingestion and replication. These steps form the core workflow for any application that places data into DataHaven.
 
@@ -44,37 +48,41 @@ await run();
 
 ## Add Method to Upload File
 
-To create the `uploadFile` helper method, first make sure, if you haven't already in the previous guide, to create a new folder called `operations` within the `src` folder (at the same level as the `services` folder) like so:
+Because of the `uploadFile` method's complexity, you will be adding pieces of its logic step by step. Before that, you need to prepare the file and the method's imports, by following these steps:
 
-```bash
-mkdir operations
-```
+1. Create a new folder called `operations` within the `src` folder (at the same level as the `services` folder) like so:
 
-Then, create a new file within the `operations` folder called `fileOperations.ts` and add the following code:
+    ```bash
+    mkdir operations
+    ```
 
-```ts title="fileOperations.ts"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:imports'
+2. Create a new file within the `operations` folder called `fileOperations.ts`
 
-export async function uploadFile(
-  bucketId: string,
-  filePath: string,
-  fileName: string
-  ) {
-  // ISSUE STORAGE REQUEST
-  // **PLACEHOLDER FOR STEP 1: INITIALIZE FILE MANAGER**
-  // **PLACEHOLDER FOR STEP 2: CREATE FINGERPRINT**
-  // **PLACEHOLDER FOR STEP 3: ISSUE STORAGE REQUEST**
-  // VERIFY STORAGE REQUEST ON-CHAIN
-  // **PLACEHOLDER FOR STEP 4: COMPUTE FILE KEY**
-  // **PLACEHOLDER FOR STEP 5: RETRIEVE STORAGE REQUEST DATA**
-  // **PLACEHOLDER FOR STEP 6: READ STORAGE REQUEST DATA**
-  // UPLOAD FILE
-  // **PLACEHOLDER FOR STEP 7: AUTHENTICATE**
-  // **PLACEHOLDER FOR STEP 8: UPLOAD FILE TO MSP**
+3. Add the following code:
 
-  return { fileKey, uploadReceipt };
-  }
-```
+    ```ts title="fileOperations.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:imports'
+
+    export async function uploadFile(
+    bucketId: string,
+    filePath: string,
+    fileName: string
+    ) {
+    // ISSUE STORAGE REQUEST
+    // **PLACEHOLDER FOR STEP 1: INITIALIZE FILE MANAGER**
+    // **PLACEHOLDER FOR STEP 2: CREATE FINGERPRINT**
+    // **PLACEHOLDER FOR STEP 3: ISSUE STORAGE REQUEST**
+    // VERIFY STORAGE REQUEST ON-CHAIN
+    // **PLACEHOLDER FOR STEP 4: COMPUTE FILE KEY**
+    // **PLACEHOLDER FOR STEP 5: RETRIEVE STORAGE REQUEST DATA**
+    // **PLACEHOLDER FOR STEP 6: READ STORAGE REQUEST DATA**
+    // UPLOAD FILE
+    // **PLACEHOLDER FOR STEP 7: AUTHENTICATE**
+    // **PLACEHOLDER FOR STEP 8: UPLOAD FILE TO MSP**
+
+    return { fileKey, uploadReceipt };
+    }
+    ```
 
 ## Issue a Storage Request
 
