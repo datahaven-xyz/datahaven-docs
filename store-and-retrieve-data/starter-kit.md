@@ -62,7 +62,7 @@ To get testnet MOCK tokens:
 
 1. Connect your wallet to the [Official Testnet Faucet](https://apps.datahaven.xyz/testnet/faucet){target=\_blank}.
 2. Sign a message to login to the dApp.
-3. From the faucet page, press **Request Tokens**.
+3. From the **Faucet** page, press **Request Tokens**.
 
 ![Requesting tokens from the testnet faucet](images/store-and-retrieve-data/starter-kit/starter-kit-01.gif)
 
