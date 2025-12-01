@@ -45,7 +45,7 @@ await run();
 
 To download a file you've already uploaded to the network, you will create a `downloadFile` helper method through which you will retrieve the file from the network and then save it locally to our machine. Then, update the `index.ts` file accordingly in order to execute that logic.
 
-### Create Download File Helper Method
+### Add Method to Download File
 
 To create the `downloadFile` helper method, first make sure, if you haven't already in the previous guide, to create a new folder called `operations` within the `src` folder (at the same level as the `services` folder) like so:
 
@@ -75,7 +75,7 @@ Next, implement the `downloadFile` helper method logic to your `fileOperations.t
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/fileOperations.ts:download-file'
     ```
 
-## Use Download File Helper Method
+## Call the Download File Helper Method
 
 Proceed with updating the `index.ts` file with the following code in order to execute the download logic you just implemented:
 
@@ -119,7 +119,7 @@ Upon a successful file download, you'll see output similar to:
 
 To verify the integrity of the file you've just downloaded, create a `verifyDownload` helper method through which the bytes of the original file will be matched to the bytes of the newly downloaded file. Then, you'll will update the `index.ts` file accordingly in order to execute that logic.
 
-### Create Verify Download Helper Method
+### Add Method to Verify Download
 
 Implement the `verifyDownload` helper method logic to your `fileOperations.ts` file, by adding the following code:
 
@@ -133,7 +133,7 @@ Implement the `verifyDownload` helper method logic to your `fileOperations.ts` f
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/fileOperations.ts'
     ```
 
-### Use Verify Download Helper Method
+### Call the Verify Download Helper Method
 
 Update the `index.ts` file with the following code in order to execute the verification logic you just implemented:
 

@@ -207,7 +207,7 @@ In this section you will learn how to upload a file to DataHaven by following a 
 
 All three of these steps will be handled within the `uploadFile` helper method as part of the `fileOperations.ts` file. After that, you will update the `index.ts` file accordingly to trigger this new logic.
 
-### Create Upload File Helper Method
+### Add Method to Upload File
 
 Create a new file within the `operations` folder called `fileOperations.ts` and add the following code:
 
@@ -224,19 +224,11 @@ To implement the `uploadFile` helper method, add the following code to the `file
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/fileOperations.ts:upload-file-helper'
 ```
 
-After a successful storage request, the transaction receipt will be output:
+After a successful file upload the logs should look something like:
 
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/output-02.html'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/output-05.html'
 
-After successful storage request verification, you'll see a message like:
-
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/output-03.html'
-
-And after a successful file upload, the transaction receipt will be output:
-
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/output-04.html'
-
-### Use Upload File Helper Method
+### Call the Upload File Helper Method
 
 Replace the placeholder `// **PLACEHOLDER FOR STEP 4: UPLOAD FILE**` with the following code:
 
@@ -273,7 +265,7 @@ Replace the placeholder `// **PLACEHOLDER FOR STEP 4: UPLOAD FILE**` with the fo
 
 Download the file by its deterministic key from the MSP and save it locally.
 
-### Create Download File Helper Method
+### Add Method to Download File
 
 To create the `downloadFile` helper method, add the following code:
 
@@ -281,7 +273,7 @@ To create the `downloadFile` helper method, add the following code:
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/fileOperations.ts:download-file'
 ```
 
-### Use Download File Helper Method
+### Call the Download File Helper Method
 
 Replace the placeholder `// **PLACEHOLDER FOR STEP 5: DOWNLOAD FILE**` with the following code:
 
@@ -322,7 +314,7 @@ Upon a successful file download, you'll see output similar to:
 
 Verify that the downloaded file exactly matches the file you've uploaded.
 
-### Create Verify Download Helper Method
+### Add Method to Verify Download
 
 Implement the `verifyDownload` helper method logic to your `fileOperations.ts` file, by adding the following code:
 
@@ -330,7 +322,7 @@ Implement the `verifyDownload` helper method logic to your `fileOperations.ts` f
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/fileOperations.ts:verify-download'
 ```
 
-### Use Verify Download Helper Method
+### Call the Verify Download Helper Method
 
 Replace the placeholder `// **PLACEHOLDER FOR STEP 6: VERIFY FILE**` with the following code:
 

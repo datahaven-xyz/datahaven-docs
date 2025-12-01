@@ -100,6 +100,7 @@ export async function uploadFile(
   if (receipt.status !== 'success') {
     throw new Error(`Storage request failed: ${txHash}`);
   }
+  console.log('issueStorageRequest() txReceipt:', receipt);
   // --8<-- [end:issue-storage-request]
 
   //   VERIFY STORAGE REQUEST ON CHAIN
@@ -131,15 +132,16 @@ export async function uploadFile(
 
   // --8<-- [start:read-storage-request]
   // Read the storage request data
-  const storageRequestData = storageRequest.unwrap();
+  // Read the storage request data
+  const storageRequestData = storageRequest.unwrap().toHuman();
   console.log('Storage request data:', storageRequestData);
   console.log(
-    'Storage request bucketId:',
-    storageRequestData.bucketId.toString()
+    'Storage request bucketId matches initial bucketId:',
+    storageRequestData.bucketId === bucketId
   );
   console.log(
-    'Storage request fingerprint should be the same as initial fingerprint:',
-    storageRequestData.fingerprint.toString() === fingerprint.toString()
+    'Storage request fingerprint matches initial fingerprint: ',
+    storageRequestData.fingerprint === fingerprint.toString()
   );
   // --8<-- [end:read-storage-request]
 

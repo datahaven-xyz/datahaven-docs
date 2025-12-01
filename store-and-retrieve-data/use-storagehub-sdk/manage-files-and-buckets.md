@@ -70,7 +70,7 @@ To request file deletion, you are going to create a helper method called `reques
 
 It’s important to note that files are not removed instantly. When a deletion request succeeds, the file is marked for deletion on-chain, but both the MSP and all BSPs storing that file still have the file inside their Merkle Patricia Forests until they pass the mandatory storage proof challenge. After that, the runtime automatically updates their Merkle Patricia Forest roots to remove the file.
 
-### Create Request File Deletion Helper Method
+### Add Method to Request File Deletion
 
 To create the `requestDeleteFile` helper method, first make sure, if you haven't already in the previous guide, to create a new folder called `operations` within the `src` folder (at the same level as the `services` folder) like so:
 
@@ -84,7 +84,7 @@ Then, create a new file within the `operations` folder called `fileOperations.ts
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/fileOperations.ts'
 ```
 
-### Use Request File Deletion Helper Method
+### Call the Request File Deletion Helper Method
 
 Update `index.ts` with the following code to trigger the `requestDeleteFile` helper method you just implemented:
 
@@ -127,7 +127,7 @@ To delete a bucket, you are going to create a helper method called `deleteBucket
 !!! note
     A bucket can only be deleted if all its files have already been deleted. Use the `mspClient.buckets.getFiles()` method by passing a `bucketId` as a parameter to check all the files currently stored in that bucket.
 
-### Create Delete Bucket Helper Method
+### Add Method to Delete Bucket
 
 Create a new file within the `operations` folder called `bucketOperations.ts` and add the following code:
 
@@ -135,7 +135,7 @@ Create a new file within the `operations` folder called `bucketOperations.ts` an
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/bucketOperations.ts'
 ```
 
-### Use Delete Bucket Helper Method
+### Call the Delete Bucket Helper Method
 
 Finally, update `index.ts` with the following code to trigger the  `deleteBucket` helper method you just implemented:
 

@@ -1,34 +1,27 @@
 <div class="termynal" data-termynal>
     <span data-ty="input"><span class="file-path"></span>ts-node index.ts</span>
-    <span data-ty><pre> Storage request data: Type(13) [Map] {
-  'requestedAt' => <BN: 4987d>,
-  'expiresAt' => <BN: 498eb>,
-  'owner' => Type(20) [Uint8Array] [
-    0,
-    ...
-    62,
-    registry: TypeRegistry { createdAtHash: undefined },
-    createdAtHash: undefined,
-    initialU8aLength: 20,
-    isStorageFallback: undefined
-    ...
-    'bspsRequired' => <BN: 1>,
-    'bspsConfirmed' => <BN: 0>,
-    'bspsVolunteered' => <BN: 0>,
-    'depositPaid' => <BN: de0bfe6b7eef7c2>,
-    registry: TypeRegistry { createdAtHash: undefined },
-    createdAtHash: Type(32) [Uint8Array] [
-    127,
-    ...
-    211,
-    registry: TypeRegistry { createdAtHash: undefined },
-    createdAtHash: undefined,
-    initialU8aLength: 32,
-    isStorageFallback: undefined
+    <span data-ty><pre> Storage request data: {
+  requestedAt: '387,185',
+  expiresAt: '387,295',
+  owner: '0x00FA35D84a43db75467D2B2c1ed8974aCA57223e',
+  bucketId: '0x8009cc4028ab4c8e333b13d38b840107f8467e27be11e9624e3b0d505314a5da',
+  location: 'helloworld.txt',
+  fingerprint: '0x1bc3a71173c16c1eee04f7e7cf2591678b0b6cdf08eb81c638ae60a38b706aad',
+  size_: '18',
+  msp: [
+    '0x0000000000000000000000000000000000000000000000000000000000000001',
+    false
   ],
-  initialU8aLength: 337,
-  isStorageFallback: undefined
+  userPeerIds: [
+    '12D3KooWNEor6iiEAbZhCXqJbXibdjethDY8oeDoieVVxpZhQcW1',
+    '12D3KooWNEor6iiEAbZhCXqJbXibdjethDY8oeDoieVVxpZhQcW1',
+    '12D3KooWNEor6iiEAbZhCXqJbXibdjethDY8oeDoieVVxpZhQcW1'
+  ],
+  bspsRequired: '1',
+  bspsConfirmed: '0',
+  bspsVolunteered: '0',
+  depositPaid: '1,000,010,114,925,524,930'
 }</pre></span>
-    <span data-ty>Storage request bucketId: 0x8bb80c024079126ba72150cce1d60665e4d4da038c56f75121471912b036c70a</span>
-    <span data-ty>Storage request fingerprint should be the same as initial fingerprint: true</span>
+    <span data-ty>'Storage request bucketId matches initial bucketId: true</span>
+    <span data-ty>Storage request fingerprint matches initial fingerprint: true</span>
 </div>

@@ -42,7 +42,7 @@ async function run() {
 await run();
 ```
 
-## Create Upload File Helper Method
+## Add Method to Upload File
 
 To create the `uploadFile` helper method, first make sure, if you haven't already in the previous guide, to create a new folder called `operations` within the `src` folder (at the same level as the `services` folder) like so:
 
@@ -229,7 +229,7 @@ Upon a successful file upload, the transaction receipt will look like this:
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts'
     ```
 
-## Use Upload File Helper Method
+## Call the Upload File Helper Method
 
 Replace the placeholder `// **PLACEHOLDER: ADD UPLOAD FILE HELPER METHOD**` with the following code:
 

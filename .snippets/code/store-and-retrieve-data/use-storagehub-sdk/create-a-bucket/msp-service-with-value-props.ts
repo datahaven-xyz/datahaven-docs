@@ -89,8 +89,9 @@ const getValueProps = async (): Promise<`0x${string}`> => {
   console.log(`Chose Value Prop ID: ${valuePropId}`);
   return valuePropId;
 };
-// Make sure to add this method to the export statement at the bottom of the file too
 // --8<-- [end:msp-value-props]
 
+// --8<-- [start:exports]
 // Export initialized client and helper functions for use in other modules
 export { mspClient, getMspInfo, getMspHealth, authenticateUser, getValueProps };
+// --8<-- [end:exports]
