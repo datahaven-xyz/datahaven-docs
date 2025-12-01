@@ -43,21 +43,21 @@ await run();
 
 Next, since you are already connected to the MSP client, check its health status before creating a bucket.
 
-Replace the placeholder `// **PLACEHOLDER FOR STEP 1: CHECK MSP HEALTH**` with the following code:
+1. Replace the placeholder `// **PLACEHOLDER FOR STEP 1: CHECK MSP HEALTH**` with the following code:
 
-```ts title="index.ts // **PLACEHOLDER FOR STEP 1: CHECK MSP HEALTH**"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:check-msp-health'
-```
+    ```ts title="index.ts // **PLACEHOLDER FOR STEP 1: CHECK MSP HEALTH**"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:check-msp-health'
+    ```
 
-Then, check the health status by running the script:
+2. Check the health status by running the script:
 
-```bash
-ts-node index.ts
-```
+    ```bash
+    ts-node index.ts
+    ```
 
-The response should return a **`healthy`** status, like this:
+    The response should return a **`healthy`** status, like this:
 
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/output-01.html'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/output-01.html'
 
 ## Create a Bucket
 
