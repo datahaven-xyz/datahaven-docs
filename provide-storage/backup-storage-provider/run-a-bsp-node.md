@@ -2,3 +2,389 @@
 title: Run a BSP Node
 description: Run a BSP Node Desc
 ---
+---
+title: End-to-End BSP Onboarding
+description: This step-by-step tutorial follows the full process to spin up your own BSP node and how to register to the DataHaven network
+---
+
+# Run a BSP Node
+
+This guide will cover the end-to-end process of spinning up a BSP node, using the correct chain spec, inserting your private key into the node keystore, and registering your BSP to the network, in a step-by-step format.
+
+## Prerequisites
+
+Before you begin, ensure you have the following:
+
+- macOS or Linux operating system
+- At least 10 GB free disk space (as BSP storage capacity)
+- At least 8 GB RAM recommended
+- [Docker](https://www.docker.com/){target=\_blank} and [Docker Compose](https://docs.docker.com/compose/install/){target=\_blank} installed and running
+- [Node.js ≥ 24](https://nodejs.org/en/download){target=\_blank} installed. LTS version recommended
+- A keystore / ECDSA keypair for the BSP node (a 32 byte private key)
+
+## Project Structure
+
+This is how the project structure will look like, once everything is set up.
+
+```
+datahaven-bsp-node/
+├── datahaven-node
+├── data
+│   └── storagehub
+│       ├── file_storage
+│       └── forest_storage
+├── Dockerfile
+├── docker-compose.yml
+├── bsp.log
+└── node-base
+    └── chains
+        ├── datahaven_stagenet_local
+        └── datahaven_testnet
+```
+
+## Project Setup
+
+Before running a BSP node, you will need to obtain the `datahaven-node` client binary, the chain specifications for the network you want to join, and a basic directory structure for persistent storage.
+
+### Download Latest Client Release
+
+From the [Releases](https://github.com/datahaven-xyz/datahaven/releases){target=\_blank} section of the DataHaven repo, the latest version of the `datahaven-node` binary can be found. Currently, the latest version is {{ networks.testnet.client_version }} and it can be downloaded directly from [this link](https://github.com/datahaven-xyz/datahaven/releases/download/{{ networks.testnet.client_version }}/datahaven-node).
+
+Make sure to download it in the root of your `datahaven-bsp-node` folder and to make the binary executable by running the following command:
+
+```bash
+chmod +x datahaven-node
+```
+
+### Download Desired Chain Specs
+
+Next, [download the testnet chain specs](#){target=\_blank} and include them in the root of your project. Call the file `datahaven-testnet-raw-specs.json`. The specs you use dictate to which DataHaven network your BSP will connect and interact with.
+
+### Create Directories
+
+Create a `data` directory for all the data that will be stored throughout the BSP node's lifecycle and a `node-base` directory for storing the node's keystores:
+
+```bash
+mkdir data
+mkdir node-base
+```
+
+## Spin Up BSP Node
+
+The `datahaven-node` binaries that are published on the DataHaven repo are precompiled Linux `x86-64` binaries, which means if you are a Linux user you can use the following command to spin up the node right away:
+
+```bash
+./datahaven-node \
+  --provider \
+  --provider-type bsp \
+  --max-storage-capacity 10737418240 \
+  --jump-capacity=1073741824 \
+  --storage-layer rocks-db \
+  --storage-path ./data
+```
+
+And the output would look something like this:
+
+--8<-- 'code/provide-data/backup-storage-provider/end-to-end-bsp-onboarding/output-01.html'
+
+However, we want a more easily repeatable process than this one where we would have to type in a long command each time we want to interact with the node. That's where Docker comes in. Docker will also enable macOS users with an Apple Silicon chip to easily run the `x86-64` Linux binary under emulation.
+
+## Docker Configuration for the BSP Node
+
+In this section you’ll create the `Dockerfile`, `docker-compose.yml`, and `.dockerignore` needed to run the node, mount your keystore, load the chain spec, and expose the required ports. After this step, your BSP can run cleanly in an isolated, reproducible container.
+
+In the root of your project, create a `Dockerfile` file and add the following code:
+
+```dockerfile title="Dockerfile"
+# Note: This Dockerfile is architecture-agnostic. Use
+# `docker build --platform=linux/amd64` on Apple Silicon
+# so Rosetta can emulate x86-64 binaries.
+FROM ubuntu:22.04
+
+# Install runtime dependencies for datahaven-node
+RUN apt-get update && apt-get install -y \
+    libpq5 \
+    ca-certificates \
+ && rm -rf /var/lib/apt/lists/*
+
+# Copy the datahaven-node binary into the image
+COPY datahaven-node /usr/local/bin/datahaven-node
+RUN chmod +x /usr/local/bin/datahaven-node
+
+# Default entrypoint: just run the node
+ENTRYPOINT ["datahaven-node"]
+```
+
+Also, create a `.dockerignore` file with the `data` folder listed, by running the following command:
+
+```bash
+echo "data" > .dockerignore
+```
+
+This way the `data` folder and its contents won't get included in the docker image.
+
+Now you can build the docker image with the following command:
+
+!!! note
+    The following command has the `--platform=linux/amd64` flag which should be included for macOS users that have an Apple Silicon chip. The `datahaven-node` binary is built so it natively supports `x86_64` chips. In order for this flag to work macOS users need to go to their Docker Desktop app and toggle on the `Use Rosetta for x86_64/amd64 emulation on Apple Silicon` setting in Settings -> General -> Virtual Machine Options -> Apple Virtualization Framework.
+
+```bash
+docker build --platform=linux/amd64 -t datahaven-bsp:0.7.0 .
+```
+
+The image name can be anything. In this tutorial, we'll use `datahaven-bsp:0.7.0`. Now you can run a BSP in the background through a `datahaven-bsp` docker container by running:
+
+!!! note
+    Add `--platform=linux/amd64` if using Apple Silicon.
+
+```bash
+docker run -d \
+  --platform=linux/amd64 \
+  --name datahaven-bsp \
+  --restart unless-stopped \
+  -v "$PWD/data":/data \
+  datahaven-bsp:0.7.0 \
+    --provider \
+    --provider-type bsp \
+    --max-storage-capacity 10737418240 \
+    --jump-capacity 1073741824 \
+    --storage-layer rocks-db \
+    --storage-path /data
+```
+
+To display the logs in terminal, run:
+
+!!! note
+    Running `Ctrl+C` will stop displaying the logs in terminal, but it won't actually stop the container from running.
+
+```bash
+docker logs -f datahaven-bsp
+```
+
+Once the container is named `datahaven-bsp`, further management is easy:
+
+```bash
+docker stop datahaven-bsp # stop the container
+docker start datahaven-bsp # start the container
+docker restart datahaven-bsp # restart the container
+docker rm datahaven-bsp # delete the stopped container entirely
+```
+
+The logs output should be the same as before:
+
+--8<-- 'code/provide-data/backup-storage-provider/end-to-end-bsp-onboarding/output-01.html'
+
+Next, to simplify this process, in the root of your project create a `docker-compose.yml` file and add the following code:
+
+```yaml title="docker-compose.yml"
+services:
+  datahaven-bsp:
+    image: datahaven-bsp:0.7.0
+    platform: linux/amd64
+    container_name: datahaven-bsp
+    restart: unless-stopped
+    volumes:
+      - ./data:/data
+      - ./node-base:/node-base
+    command:
+      - --base-path
+      - /node-base
+      - --provider
+      - --provider-type
+      - bsp
+      - --max-storage-capacity
+      - "10737418240"
+      - --jump-capacity
+      - "1073741824"
+      - --storage-layer
+      - rocks-db
+      - --storage-path
+      - /data
+```
+
+The `Dockerfile` defines how the BSP node image is built, but the `docker-compose.yml` defines how that image actually runs: which volumes to mount, which ports to expose, what command to start the node with, and how the container should behave. It makes it easy to reproduce the full BSP environment with a single command, without manually passing long flags or managing mounts each time.
+
+Before running the updated container via Docker Compose, make sure to stop and remove the currently running container:
+
+```bash
+docker stop datahaven-bsp
+docker rm datahaven-bsp
+```
+
+To run the BSP all we have to do now is run the following command:
+
+```bash
+docker compose up -d
+```
+
+The output will look something like this:
+
+--8<-- 'code/provide-data/backup-storage-provider/end-to-end-bsp-onboarding/output-02.html'
+
+To stop and remove the container run the following command:
+
+```bash
+docker compose down
+```
+
+To check status and logs while the container is running:
+
+```bash
+docker compose ps
+```
+
+Or to actively tail logs in your terminal:
+
+```bash
+docker compose logs -f
+```
+
+To actively stream and save all those logs into a file, you can run:
+
+```bash
+docker compose logs -f > bsp.log
+```
+
+While to actively display logs in terminal and save them into a file, you can run:
+
+```bash
+docker compose logs -f | tee bsp.log
+```
+
+## Select Chain Spec
+
+The Chain specs you include and select determine on which DataHaven network your BSP node will be operating and communicating with. You might have noticed that the BSP thus far was opting for `DataHaven Stagenet Local` by default.
+
+Next, update your `docker-compose.yml` file with a new `--chain` flag, as well as a new `volumes` addition, like so:
+
+```bash title="docker-compose.yml"
+services:
+  datahaven-bsp:
+    image: datahaven-bsp:0.7.0
+    platform: linux/amd64
+    container_name: datahaven-bsp
+    restart: unless-stopped
+    volumes:
+      - ./data:/data
+      - ./node-base:/node-base
+       # Mount the chain spec into the container as read-only
+      - ./datahaven-testnet-raw-specs.json:/testnet-chain-spec.json:ro
+    command:
+      - --base-path             # Include this flag
+      - /node-base
+      - --chain
+      - /testnet-chain-spec.json # use the mounted file
+      - --provider
+      - --provider-type
+      - bsp
+      - --max-storage-capacity
+      - "10737418240"
+      - --jump-capacity
+      - "1073741824"
+      - --storage-layer
+      - rocks-db
+      - --storage-path
+      - /data
+```
+
+After that, build the image again:
+
+```bash
+docker build --platform=linux/amd64 -t datahaven-bsp:0.7.0 .
+```
+
+Then, start the container again and display the logs:
+
+```bash
+docker compose up -d
+docker compose logs -f
+```
+
+Make sure the `Chain specification` log is displaying the network that matches the chain spec you are using:
+
+--8<-- 'code/provide-data/backup-storage-provider/end-to-end-bsp-onboarding/output-04.html'
+
+## Inject the BSP Blockchain Service Key
+
+The node has a keystore directory. BSP nodes need the Blockchain service key injected into the node's keystore. The key is of type `bcsv` and scheme `ECDSA` which is the same curve scheme that’s used for Ethereum-style keys. That key will serve as your BSP node's "BSP service identity” through which it will sign transactions on-chain.
+
+### Prepare Private Key
+
+Either use an already existing private key of your choosing or generate a new one by running:
+
+```bash
+openssl rand -hex 32
+```
+
+Save that private key for the next step.
+
+### Create Keystore Directory
+
+Create a new folder in project root like so:
+
+```bash
+mkdir -p node-base
+```
+
+!!! note
+    To keep your keys across restarts, we've already included the `node-base` directory in the `docker-compose.yml` file, within `volumes` and `command`.
+
+### Inject Key Into Node Keystore
+
+Make sure to stop and remove the container by running:
+
+```bash
+docker compose down
+```
+
+Then, proceed with the following command that you will run only once:
+
+!!! note
+    Make sure to add `0x` as a prefix to the private key you are including in the command if it is not included already.
+
+```bash
+docker compose run --rm \
+  datahaven-bsp \
+    key insert \
+      --base-path /node-base \
+      --chain /testnet-chain-spec.json \
+      --scheme ecdsa \
+      --key-type bcsv \
+      --suri "INSERT_0X_PRIVATE_KEY"
+```
+
+This command writes the resulting key into `/node-base/chains/datahaven_testnet/keystore` on your host. You can check if the command was successful by running:
+
+```bash
+find node-base -maxdepth 4 -type d -name keystore
+ls node-base/chains/*/keystore
+```
+
+The output should look something like this:
+
+--8<-- 'code/provide-data/backup-storage-provider/end-to-end-bsp-onboarding/output-05.html'
+
+Finally, you have a running BSP node within an easily maintainable docker container and an injected keystore on the DataHaven network you've specified.
+
+## Next Steps
+
+<div class="grid cards" markdown>
+
+-  <a href="/provide-storage/backup-storage-provider/verify-bsp-on-chain" markdown>:material-arrow-right: 
+
+    **Create A Bucket**
+
+    Follow this guide to verify your BSP on-chain and thus enable your BSP node to participate in replicating DataHaven's files.
+
+    </a>
+
+-  <a href="/provide-storage/backup-storage-provider/end-to-end-bsp-onboarding.md" markdown>:material-arrow-right:
+
+    **End-to-End Storage Workflow**
+
+    This tutorial takes you step-by-step through spinning up a BSP and verifying it on-chain.
+
+    </a>
+
+</div>
+

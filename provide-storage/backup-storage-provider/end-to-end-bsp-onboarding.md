@@ -40,6 +40,7 @@ datahaven-bsp-node/
 
 ## Project Setup
 
+Before running a BSP node, you will need to obtain the `datahaven-node` client binary, the chain specifications for the network you want to join, and a basic directory structure for persistent storage.
 
 ### Download Latest Client Release
 
@@ -246,7 +247,6 @@ While to actively display logs in terminal and save them into a file, you can ru
 docker compose logs -f | tee bsp.log
 ```
 
-
 ## Select Chain Spec
 
 The Chain specs you include and select determine on which DataHaven network your BSP node will be operating and communicating with. You might have noticed that the BSP thus far was opting for `DataHaven Stagenet Local` by default.
@@ -333,7 +333,7 @@ Make sure to stop and remove the container by running:
 docker compose down
 ```
 
-Then, proceed with the following command:
+Then, proceed with the following command that you will run only once:
 
 !!! note
     Make sure to add `0x` as a prefix to the private key you are including in the command if it is not included already.
@@ -359,7 +359,6 @@ ls node-base/chains/*/keystore
 The output should look something like this:
 
 --8<-- 'code/provide-data/backup-storage-provider/end-to-end-bsp-onboarding/output-05.html'
-
 
 ## Verify BSP On-Chain
 
