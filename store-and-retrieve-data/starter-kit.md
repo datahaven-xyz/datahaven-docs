@@ -64,7 +64,7 @@ To get testnet MOCK tokens:
 2. Sign a message to log in to the dApp.
 3. From the **Faucet** page, press **Request Tokens**.
 
-![Requesting tokens from the testnet faucet](images/store-and-retrieve-data/starter-kit/starter-kit-01.gif)
+![Requesting tokens from the testnet faucet](/images/store-and-retrieve-data/starter-kit/starter-kit-01.gif)
 
 Testnet MOCK tokens have no market value. Please do not spam the faucet with unnecessary requests.
 
