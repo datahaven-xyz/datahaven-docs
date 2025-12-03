@@ -1,5 +1,5 @@
 <div class="termynal" data-termynal>
-    <span data-ty="input"><span class="file-path"></span> docker compose logs -f</span>
-    <span data-ty><pre>datahaven-bsp  | 2025-11-28 17:55:16 📋 Chain specification: DataHaven Testnet
-</pre></span>
+    <span data-ty="input"><span class="file-path"></span>docker compose run --rm datahaven-bsp \
+    key inspect --scheme ecdsa --output-type json "$SEED" | jq -r '.ss58PublicKey'</span>
+    <span data-ty><pre>KWD8ccdd317Nzf849PnQ2dqBQ2zoTcSqL9LFFnRrsKv16VRRW</pre></span>
 </div>

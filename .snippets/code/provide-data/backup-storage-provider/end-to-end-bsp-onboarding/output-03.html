@@ -1,4 +1,44 @@
 <div class="termynal" data-termynal>
-    <span data-ty="input"><span class="file-path"></span>openssl rand -hex 32</span>
-    <span data-ty><pre>8ce9c18c1342471aa2317e6bbe8673fbe9f14e297542013b171e9a06dcd3403e</pre></span>
+    <span data-ty="input"><span class="file-path"></span>docker compose logs -f | tee bsp.log</span>
+    <span data-ty><pre>datahaven-bsp  | 2025-12-02 14:24:06 DataHaven Node
+datahaven-bsp  | 2025-12-02 14:24:06 ✌️  version 0.7.0-unknown
+datahaven-bsp  | 2025-12-02 14:24:06 ❤️  by Moonsong Labs, 2025-2025
+datahaven-bsp  | 2025-12-02 14:24:06 📋 Chain specification: DataHaven Testnet
+datahaven-bsp  | 2025-12-02 14:24:06 🏷  Node name: BSP01
+datahaven-bsp  | 2025-12-02 14:24:06 👤 Role: FULL
+datahaven-bsp  | 2025-12-02 14:24:06 💾 Database: RocksDb at /data/chains/datahaven_testnet/db/full
+datahaven-bsp  | 2025-12-02 14:24:07 🔨 Initializing Genesis block/state (state: 0x211e…61b4, header-hash: 0xdbf4…df99)
+datahaven-bsp  | 2025-12-02 14:24:07 👴 Loading GRANDPA authority set from genesis on what appears to be first startup.
+datahaven-bsp  | 2025-12-02 14:24:07 👶 Creating empty BABE epoch changes on what appears to be first startup.
+datahaven-bsp  | 2025-12-02 14:24:07 Using default protocol ID "sup" because none is configured in the chain specs
+datahaven-bsp  | 2025-12-02 14:24:07 🏷  Local node identity is: 12D3KooWE7qLwmTYupNzD6VQQQ2EAi4APfTrpf8HBabXgvp4RZmY
+datahaven-bsp  | 2025-12-02 14:24:07 Running libp2p network backend
+datahaven-bsp  | 2025-12-02 14:24:07 Starting as a Storage Provider. Storage path: Some("/data/storage"), Max storage capacity: Some(10737418240), Jump capacity: Some(1073741824), MSP charging period: None
+datahaven-bsp  | 2025-12-02 14:24:07 💾 StorageHub's File Transfer Service starting up!
+datahaven-bsp  | 2025-12-02 14:24:07 Emitting RetryBucketMoveDownload event to check for pending bucket downloads
+datahaven-bsp  | 2025-12-02 14:24:07 No listener for emitted event.
+datahaven-bsp  | 2025-12-02 14:24:07 💻 Operating system: linux
+datahaven-bsp  | 2025-12-02 14:24:07 💻 CPU architecture: x86_64
+datahaven-bsp  | 2025-12-02 14:24:07 💻 Target environment: gnu
+datahaven-bsp  | 2025-12-02 14:24:07 💻 CPU: VirtualApple @ 2.50GHz
+datahaven-bsp  | 2025-12-02 14:24:07 💻 CPU cores: 14
+datahaven-bsp  | 2025-12-02 14:24:07 💻 Memory: 10942MB
+datahaven-bsp  | 2025-12-02 14:24:07 💻 Kernel: 6.12.54-linuxkit
+datahaven-bsp  | 2025-12-02 14:24:07 💻 Linux distribution: Ubuntu 22.04.5 LTS
+datahaven-bsp  | 2025-12-02 14:24:07 💻 Virtual machine: no
+datahaven-bsp  | 2025-12-02 14:24:07 📦 Highest known block at #0
+datahaven-bsp  | 2025-12-02 14:24:07 〽️ Prometheus exporter started at 127.0.0.1:9615
+datahaven-bsp  | 2025-12-02 14:24:07 Running JSON-RPC server: addr=127.0.0.1:9946,[::1]:9946
+datahaven-bsp  | 2025-12-02 14:24:07 🥩 BEEFY gadget waiting for BEEFY pallet to become available...
+datahaven-bsp  | 2025-12-02 14:24:07 Blockchain service state store path: /data/storagehub/blockchain_service/
+datahaven-bsp  | 2025-12-02 14:24:07 BSP peer manager DB path: /data/bsp_peer_manager
+datahaven-bsp  | 2025-12-02 14:24:07 💾 StorageHub's Blockchain Service starting up!
+datahaven-bsp  | 2025-12-02 14:24:07 Loaded 0 BSP peers from database
+datahaven-bsp  | 2025-12-02 14:24:07 Successfully initialized BSP peer manager
+datahaven-bsp  | 2025-12-02 14:24:07 Download state store path: /tmp/storagehub/storagehub/download_state/
+datahaven-bsp  | 2025-12-02 14:24:07 Starting BSP tasks
+datahaven-bsp  | 2025-12-02 14:24:12 💤 Idle (0 peers), best: #0 (0xdbf4…df99), finalized #0 (0xdbf4…df99), ⬇ 0.3kiB/s ⬆ 3.8kiB/s
+datahaven-bsp  | 2025-12-02 14:24:17 💤 Idle (0 peers), best: #0 (0xdbf4…df99), finalized #0 (0xdbf4…df99), ⬇ 99 B/s ⬆ 1.0kiB/s
+datahaven-bsp  | 2025-12-02 14:24:22 💤 Idle (0 peers), best: #0 (0xdbf4…df99), finalized #0 (0xdbf4…df99), ⬇ 73 B/s ⬆ 1.3kiB/s
+</pre></span>
 </div>
