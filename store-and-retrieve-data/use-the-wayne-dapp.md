@@ -5,7 +5,7 @@ description: Use the Wayne web dApp to create buckets, upload files, and downloa
 
 # Use the Wayne dApp
 
-The Wayne dApp is a convenient front-end for users to interact with the DataHaven network. It guides you through connecting your wallet, creating buckets, and uploading or downloading files without writing any code. Buckets created in Wayne are currently public; private buckets will be added in a future release.
+The Wayne dApp is a convenient front-end for users to interact with the DataHaven network. It guides you through connecting your wallet, creating buckets, and uploading or downloading files without writing any code. **Buckets created in Wayne are currently public, meaning anyone can access the data stored in them.** There are no access controls or privacy features at this time; private buckets will be added in a future release.
 
 ## Prerequisites
 
