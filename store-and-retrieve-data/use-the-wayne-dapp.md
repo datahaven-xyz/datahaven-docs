@@ -5,7 +5,7 @@ description: Use the Wayne web dApp to create buckets, upload files, and downloa
 
 # Use the Wayne dApp
 
-The Wayne dApp is a convenient front-end for users to interact with the DataHaven network. It guides you through connecting your wallet, creating buckets, and uploading or downloading files without writing any code. Buckets created in Wayne are currently public; private buckets will be added in a future release.
+The Wayne dApp is a convenient front-end for users to interact with the DataHaven network. It guides you through connecting your wallet, creating buckets, and uploading or downloading files without writing any code. **Buckets created in Wayne are currently public, meaning anyone can access the data stored in them.** There are no access controls or privacy features at this time; private buckets will be added in a future release.
 
 ## Prerequisites
 
@@ -36,12 +36,12 @@ Then, in the **Faucet** tab, complete the captcha and click **Request tokens** t
 
 1. In Wayne, open **Buckets** and review the notice that buckets are public on testnet.
 2. Select the checkbox that you have read and agree to the terms and conditions.
-3. Press **Start**
-4. Click **Create Bucket**
+3. Press **Start**.
+4. Click **Create Bucket**.
 
 ![Buckets view in Wayne](/images/wayne/wayne-4.webp)
 
-In the pop up window, give the bucket a name and press **Create Bucket**. Then confirm the transaction in your wallet.
+In the pop-up window, give the bucket a name and press **Create Bucket**. Then confirm the transaction in your wallet.
 
 ![Creating a new bucket](/images/wayne/wayne-5.webp)
 
