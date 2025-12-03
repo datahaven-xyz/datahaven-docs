@@ -70,15 +70,13 @@ export async function verifyBucketCreation(bucketId: string) {
     throw new Error('Bucket not found on chain after creation');
   }
 
-  const bucketData = bucket.unwrap();
+  const bucketData = bucket.unwrap().toHuman();
   console.log(
     'Bucket userId matches initial bucket owner address',
-    bucketData.userId.toString() === address
+    bucketData.userId === address
   );
   console.log(
-    `Bucket MSPId matches initial MSPId: ${
-      bucketData.mspId.toString() === mspId
-    }`
+    `Bucket MSPId matches initial MSPId: ${bucketData.mspId === mspId}`
   );
   return bucketData;
 }
