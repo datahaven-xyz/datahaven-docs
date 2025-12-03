@@ -72,13 +72,15 @@ It’s important to note that files are not removed instantly. When a deletion r
 
 ### Add Method to Request File Deletion
 
-To create the `requestDeleteFile` helper method, first make sure, if you haven't already in the previous guide, to create a new folder called `operations` within the `src` folder (at the same level as the `services` folder) like so:
+1. Create a new folder called `operations` within the `src` folder (at the same level as the `services` folder) like so:
 
-```bash
-mkdir operations
-```
+    ```bash
+    mkdir operations
+    ```
 
-Then, create a new file within the `operations` folder called `fileOperations.ts` and add the following code:
+2. Create a new file within the `operations` folder called `fileOperations.ts`
+
+3. Add the following code:
 
 ```ts title="fileOperations.ts"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/fileOperations.ts'
@@ -112,13 +114,9 @@ Update `index.ts` with the following code to trigger the `requestDeleteFile` hel
     await run();
     ```
 
-If you run the script with the code above, the `fileInfo` and `formattedFileInfo` should look like this:
+If you run the script with the code above, the full response should look like this:
 
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/output-01.html'
-
-And the final response should include:
-
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/output-02.html'
 
 ## Delete a Bucket
 
@@ -137,7 +135,7 @@ Create a new file within the `operations` folder called `bucketOperations.ts` an
 
 ### Call the Delete Bucket Helper Method
 
-Finally, update `index.ts` with the following code to trigger the  `deleteBucket` helper method you just implemented:
+Update `index.ts` with the following code to trigger the  `deleteBucket` helper method you just implemented:
 
 ```ts title="index.ts"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:delete-bucket'
@@ -151,7 +149,7 @@ Finally, update `index.ts` with the following code to trigger the  `deleteBucket
 
 If you run the script with the bucket deletion code, the response should include:
 
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/output-03.html'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/output-02.html'
 
 ## Next Steps
 

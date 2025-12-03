@@ -47,27 +47,15 @@ To download a file you've already uploaded to the network, you will create a `do
 
 ### Add Method to Download File
 
-To create the `downloadFile` helper method, first make sure, if you haven't already in the previous guide, to create a new folder called `operations` within the `src` folder (at the same level as the `services` folder) like so:
+1. Create a new folder called `operations` within the `src` folder (at the same level as the `services` folder) like so:
 
-```bash
-mkdir operations
-```
+    ```bash
+    mkdir operations
+    ```
 
-Then, create a new file within the `operations` folder called `fileOperations.ts` and add the following code:
+2. Create a new file within the `operations` folder called `fileOperations.ts`
 
-```ts title="fileOperations.ts"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/fileOperations.ts:imports'
-
-  // Add helper methods
-```
-
-Next, implement the `downloadFile` helper method logic to your `fileOperations.ts` file, by adding the following code:
-
-```ts title="fileOperations.ts"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/fileOperations.ts:download-file'
-```
-
-??? code "View complete `fileOperations.ts` up until this point"
+3. Add the following code:
 
     ```ts title="fileOperations.ts"
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/fileOperations.ts:imports'
@@ -77,42 +65,42 @@ Next, implement the `downloadFile` helper method logic to your `fileOperations.t
 
 ## Call the Download File Helper Method
 
-Proceed with updating the `index.ts` file with the following code in order to execute the download logic you just implemented:
-
-```ts title="index.ts"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/retrieve-data.ts:download-data'
-```
-
-??? code "View complete `index.ts` file up until this point"
+1. Proceed with updating the `index.ts` file with the following code in order to execute the download logic you just implemented:
 
     ```ts title="index.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/retrieve-data.ts:imports'
-
-    async function run() {
-    // For anything from @storagehub-sdk/core to work, initWasm() is required
-    // on top of the file
-    await initWasm();
-    
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/retrieve-data.ts:init-setup'
-
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/retrieve-data.ts:download-data'
-
-    // Disconnect the Polkadot API at the very end
-    await polkadotApi.disconnect();
-    }
-
-    await run();
     ```
 
-Run the script:
+    ??? code "View complete `index.ts` file up until this point"
 
-```bash
-ts-node index.ts
-```
+        ```ts title="index.ts"
+        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/retrieve-data.ts:imports'
 
-Upon a successful file download, you'll see output similar to:
+        async function run() {
+        // For anything from @storagehub-sdk/core to work, initWasm() is required
+        // on top of the file
+        await initWasm();
+        
+        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/retrieve-data.ts:init-setup'
 
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/output-01.html'
+        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/retrieve-data.ts:download-data'
+
+        // Disconnect the Polkadot API at the very end
+        await polkadotApi.disconnect();
+        }
+
+        await run();
+        ```
+
+2. Run the script:
+
+    ```bash
+    ts-node index.ts
+    ```
+
+    Upon a successful file download, you'll see output similar to:
+
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/output-01.html'
 
 
 ### Verify Downloaded File
@@ -135,27 +123,27 @@ Implement the `verifyDownload` helper method logic to your `fileOperations.ts` f
 
 ### Call the Verify Download Helper Method
 
-Update the `index.ts` file with the following code in order to execute the verification logic you just implemented:
-
-```ts title="index.ts"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/retrieve-data.ts:verify-download'
-```
-
-??? code "View complete `index.ts` file"
+1. Update the `index.ts` file with the following code in order to execute the verification logic you just implemented:
 
     ```ts title="index.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/retrieve-data.ts'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/retrieve-data.ts:verify-download'
     ```
 
-Run the script:
+    ??? code "View complete `index.ts` file"
 
-```bash
-ts-node index.ts
-```
+        ```ts title="index.ts"
+        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/retrieve-data.ts'
+        ```
 
-Upon a successful file download, you'll see the following output:
+2. Run the script:
 
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/output-02.html'
+    ```bash
+    ts-node index.ts
+    ```
+
+    Upon a successful file download, you'll see the following output:
+
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/output-02.html'
 
 
 

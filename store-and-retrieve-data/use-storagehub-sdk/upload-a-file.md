@@ -5,13 +5,13 @@ description: Guide on how to turn your local file into a fully registered and pe
 
 # Upload a File
 
-In this guide, you will learn how to upload a file to DataHaven by following a three-step flow: 
+This guide covers the full path from a local file to a registered asset inside a bucket on DataHaven. This path can be divided into three major steps:
 
 1. **Issue a Storage Request**: Register your intent to store a file in your bucket and set its replication policy. Initialize `FileManager`, compute the file’s fingerprint, fetch MSP info (and extract peer IDs), choose a replication level and replica count, then call `issueStorageRequest`.
 2. **Verify If Storage Request Is On-Chain**: Derive the deterministic file key, query on-chain state, and confirm the request exists and matches your local fingerprint and bucket.
 3. **Upload a File**: Send the file bytes to the MSP, linked to your storage request. Confirm that the upload receipt indicates a successful upload.
 
-This guide covers the full path from a local file to a registered asset inside a bucket. It sets up the required SDK clients, creates the on-chain request with a deterministic file key, confirms the request through the Polkadot.js API, and hands the file to the MSP for ingestion and replication. These steps form the core workflow for any application that places data into DataHaven.
+These steps form the core workflow for any application that places data into DataHaven.
 
 ## Prerequisites
 

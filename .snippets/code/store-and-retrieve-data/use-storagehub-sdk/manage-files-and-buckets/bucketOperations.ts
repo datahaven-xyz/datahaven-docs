@@ -13,7 +13,7 @@ export async function deleteBucket(bucketId: string): Promise<boolean> {
   const receipt = await publicClient.waitForTransactionReceipt({
     hash: txHash,
   });
-  console.log('Bucket deletion receipt:', receipt);
+  console.log('deleteBucket() txReceipt:', receipt);
   if (receipt.status !== 'success') {
     throw new Error(`Bucket deletion failed: ${txHash}`);
   }

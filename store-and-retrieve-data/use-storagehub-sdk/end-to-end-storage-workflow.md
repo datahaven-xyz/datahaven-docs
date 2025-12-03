@@ -67,7 +67,7 @@ await run();
 
 ## Check MSP Health
 
-Next, since you are already connected to the MSP client, check its health status before creating a bucket.
+Since you are already connected to the MSP client, check its health status before creating a bucket.
 
 1. Replace the placeholder `// **PLACEHOLDER FOR STEP 1: CHECK MSP HEALTH**` with the following code:
 
@@ -149,7 +149,7 @@ Here are the in-depth instructions:
     !!! note
         You can also get a list of all your created buckets within a certain MSP using the `mspClient.buckets.listBuckets()` function. Make sure you are authenticated before triggering this function.
 
-7. Finally, execute the `createBucket` method by running the script:
+7. Execute the `createBucket` method by running the script:
 
     ```bash
     ts-node index.ts

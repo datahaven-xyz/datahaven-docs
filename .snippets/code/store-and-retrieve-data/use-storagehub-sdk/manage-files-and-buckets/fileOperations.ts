@@ -30,7 +30,7 @@ export async function requestDeleteFile(
       hash: txHashRequestDeleteFile,
     }
   );
-  console.log('File deletion receipt:', receiptRequestDeleteFile);
+  console.log('requestDeleteFile() txReceipt:', receiptRequestDeleteFile);
   if (receiptRequestDeleteFile.status !== 'success') {
     throw new Error(`File deletion failed: ${txHashRequestDeleteFile}`);
   }
