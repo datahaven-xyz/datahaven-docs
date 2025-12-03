@@ -10,13 +10,13 @@ The Wayne dApp is a convenient front-end for users to interact with the DataHave
 ## Prerequisites
 
 - An EVM-compatible wallet (for example, MetaMask) installed in your browser
-- DataHaven Testnet RPC added to your wallet (see the [Storage Starter Kit](/store-and-retrieve-data/starter-kit/#network-configurations){target=\_blank} for RPC details; the connection flow below will also prompt you to add it)
-- MOCK testnet tokens to cover transactions and storage fees — request them from the [Official Testnet Faucet](https://apps.datahaven.xyz/faucet){target=\_blank}
-- Current Wayne testnet URL: [Wayne dApp (testnet)](https://datahaven.app/testnet){target=\_blank}
+- DataHaven Testnet RPC added to your wallet (see the [Storage Starter Kit](/store-and-retrieve-data/starter-kit/#network-configurations){target=_blank} for RPC details; the connection flow below will also prompt you to add it)
+- MOCK testnet tokens to cover transactions and storage fees — request them from the [Official Testnet Faucet](https://apps.datahaven.xyz/faucet){target=_blank}
+- Current Wayne testnet URL: [Wayne dApp (testnet)](https://datahaven.app/testnet){target=_blank}
 
 ## Connect to the DataHaven testnet and fund your wallet
 
-To get started, visit the [DataHaven Testnet portal](https://apps.datahaven.xyz/testnet){target=\_blank} and click **Connect**. When prompted, approve adding the DataHaven Testnet RPC to your wallet, then sign the login message to authenticate.
+To get started, visit the [DataHaven Testnet portal](https://apps.datahaven.xyz/testnet){target=_blank} and click **Connect**. When prompted, approve adding the DataHaven Testnet RPC to your wallet, then sign the login message to authenticate.
 
 ![Connect your wallet on the DataHaven portal](/images/wayne/wayne-1.webp)
 
@@ -26,7 +26,7 @@ Then, in the **Faucet** tab, complete the captcha and click **Request tokens** t
 
 ## Open the Wayne dApp and authorize storage payments
 
-1. Go to the [Wayne dApp on testnet](https://datahaven.app/testnet){target=\_blank}.
+1. Go to the [Wayne dApp on testnet](https://datahaven.app/testnet){target=_blank}.
 2. Click **Connect wallet** and choose your wallet provider, then sign the login message.
 3. Approve the allowance prompts that appear. DataHaven charges on an ongoing basis for the amount of data you store and the desired replication factor, so these approvals let the dApp deduct storage fees from your testnet balance when you upload files.
 
