@@ -54,9 +54,10 @@ async function run() {
   // **PLACEHOLDER FOR STEP 1: CHECK MSP HEALTH**
   // **PLACEHOLDER FOR STEP 2: CREATE BUCKET**
   // **PLACEHOLDER FOR STEP 3: VERIFY BUCKET**
-  // **PLACEHOLDER FOR STEP 4: UPLOAD FILE**
-  // **PLACEHOLDER FOR STEP 5: DOWNLOAD FILE**
-  // **PLACEHOLDER FOR STEP 6: VERIFY FILE**
+  // **PLACEHOLDER FOR STEP 4: WAIT FOR INDEXER**
+  // **PLACEHOLDER FOR STEP 5: UPLOAD FILE**
+  // **PLACEHOLDER FOR STEP 6: DOWNLOAD FILE**
+  // **PLACEHOLDER FOR STEP 7: VERIFY FILE**
 
   // Disconnect the Polkadot API at the very end
   await polkadotApi.disconnect();
@@ -131,9 +132,9 @@ Here are the in-depth instructions:
 5. Add the following code:
 
     ```ts title="src/operations/bucketOperations.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:imports'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/bucketOperations.ts:imports'
 
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:create-bucket'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/bucketOperations.ts:create-bucket'
     ```
 
     With the `createBucket` helper method you go through the full lifecycle of a bucket-creation transaction. First, the `mspId` is fetched and one of the MSP's value props is selected, since a value prop (a file storing payment plan) is one of the required params while creating a bucket. Then, a deterministic bucket ID is derived from your wallet address and chosen bucket name, which ensures the same inputs always generate the same `bucketId`. Before any on-chain transactions, there is a check whether the bucket already exists in the `providers.buckets` mapping to prevent accidental overwrites and to avoid a failing transaction. 
@@ -166,7 +167,7 @@ The last step is to verify that the bucket was created successfully on-chain and
 1. Add the following code in your `bucketOperations.ts` file:
     
     ```ts title="bucketOperations.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:verify-bucket'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/bucketOperations.ts:verify-bucket'
     ```
 
 2. Update the `index.ts` file to trigger the helper method you just implemented:
@@ -179,19 +180,59 @@ The last step is to verify that the bucket was created successfully on-chain and
 
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/output-03.html'
 
-??? code "View complete `bucketOperations.ts` file"
+??? code "View complete `index.ts` file up until now"
 
+    ```ts title="src/index.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:imports'
+
+    async function run() {
+    // For anything from @storagehub-sdk/core to work, initWasm() is required
+    // on top of the file
+    await initWasm();
+    
+    // --- End-to-end storage flow ---
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:check-msp-health'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:create-a-bucket'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:verify-bucket'
+    // **PLACEHOLDER FOR STEP 4: WAIT FOR INDEXER**
+    // **PLACEHOLDER FOR STEP 5: UPLOAD FILE**
+    // **PLACEHOLDER FOR STEP 6: DOWNLOAD FILE**
+    // **PLACEHOLDER FOR STEP 7: VERIFY FILE**
+
+    // Disconnect the Polkadot API at the very end
+    await polkadotApi.disconnect();
+    }
+
+    await run();
+    ```
+
+You’ve successfully created a bucket and verified it has successfully been created on-chain.
+
+## Wait for Indexer
+
+Through the script you are currently building, you will attempt to upload a file right after creating a bucket. That means yor script will be racing DataHaven's own indexer in order to upload the file, but the ..
+
+1. Add the following code in your `bucketOperations.ts` file:
+    
     ```ts title="bucketOperations.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/bucketOperations.ts:wait-for-indexer'
     ```
 
-??? code "View complete `index.ts` file"
+2. Update the `index.ts` file to trigger the helper method you just implemented:
 
-    ```ts title="index.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts'
+    ```ts title="index.ts // **PLACEHOLDER FOR STEP 4: WAIT FOR INDEXER**"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:wait-for-indexer'
     ```
 
-You’ve successfully created a bucket and verified it has successfully been created on-chain. Now it's time upload a file to that bucket.
+    The response should look something like this:
+
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/output-01.html'
+
+??? code "View complete `bucketOperations.ts`"
+
+     ```ts title="src/operations/bucketOperations.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/bucketOperations.ts'
+    ```
 
 ## Upload a File
 
@@ -228,9 +269,9 @@ After a successful file upload the logs should look something like:
 
 ### Call the Upload File Helper Method
 
-Replace the placeholder `// **PLACEHOLDER FOR STEP 4: UPLOAD FILE**` with the following code:
+Replace the placeholder `// **PLACEHOLDER FOR STEP 5: UPLOAD FILE**` with the following code:
 
-```ts title="src/index.ts // **PLACEHOLDER FOR STEP 4: UPLOAD FILE**"
+```ts title="src/index.ts // **PLACEHOLDER FOR STEP 5: UPLOAD FILE**"
   --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:upload-file'
 ```
 
@@ -248,9 +289,10 @@ Replace the placeholder `// **PLACEHOLDER FOR STEP 4: UPLOAD FILE**` with the fo
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:check-msp-health'
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:create-bucket'
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:verify-bucket'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:wait-for-indexer'
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:upload-file'
-    // **PLACEHOLDER FOR STEP 5: DOWNLOAD FILE**
-    // **PLACEHOLDER FOR STEP 6: VERIFY FILE**
+    // **PLACEHOLDER FOR STEP 6: DOWNLOAD FILE**
+    // **PLACEHOLDER FOR STEP 7: VERIFY FILE**
 
     // Disconnect the Polkadot API at the very end
     await polkadotApi.disconnect();
@@ -273,9 +315,9 @@ To create the `downloadFile` helper method, add the following code:
 
 ### Call the Download File Helper Method
 
-Replace the placeholder `// **PLACEHOLDER FOR STEP 5: DOWNLOAD FILE**` with the following code:
+Replace the placeholder `// **PLACEHOLDER FOR STEP 6: DOWNLOAD FILE**` with the following code:
 
-```ts title="src/index.ts // **PLACEHOLDER FOR STEP 5: DOWNLOAD FILE**"
+```ts title="src/index.ts // **PLACEHOLDER FOR STEP 6: DOWNLOAD FILE**"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:download-data'
 ```
 
@@ -293,9 +335,10 @@ Replace the placeholder `// **PLACEHOLDER FOR STEP 5: DOWNLOAD FILE**` with the 
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:check-msp-health'
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:create-bucket'
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:verify-bucket'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:wait-for-indexer'
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:upload-file'
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:download-data'
-    // **PLACEHOLDER FOR STEP 6: VERIFY FILE**
+    // **PLACEHOLDER FOR STEP 7: VERIFY FILE**
 
     // Disconnect the Polkadot API at the very end
     await polkadotApi.disconnect();
@@ -322,9 +365,9 @@ Implement the `verifyDownload` helper method logic to your `fileOperations.ts` f
 
 ### Call the Verify Download Helper Method
 
-Replace the placeholder `// **PLACEHOLDER FOR STEP 6: VERIFY FILE**` with the following code:
+Replace the placeholder `// **PLACEHOLDER FOR STEP 7: VERIFY FILE**` with the following code:
 
-```ts title="src/index.ts // **PLACEHOLDER FOR STEP 6: VERIFY FILE**"
+```ts title="src/index.ts // **PLACEHOLDER FOR STEP 7: VERIFY FILE**"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/retrieve-data.ts:verify-download'
 ```
 

@@ -12,6 +12,7 @@ import { mspClient } from './services/mspService.js';
 import {
   createBucket,
   verifyBucketCreation,
+  waitForBucket,
 } from './operations/bucketOperations.js';
 // --8<-- [end:imports]
 
@@ -41,8 +42,13 @@ async function run() {
   console.log('Bucket data:', bucketData);
   // --8<-- [end:verify-bucket]
 
+  // --8<-- [start:wait-for-indexer]
+  // 4. Wait until indexer/backend knows about the bucket
+  await waitForBucket(bucketId);
+  // --8<-- [end:wait-for-indexer]
+
   // --8<-- [start:upload-file]
-  // 4. Upload file
+  // 5. Upload file
   const fileName = 'helloworld.txt';
   const filePath = new URL(`./files/${fileName}`, import.meta.url).pathname;
 
@@ -56,7 +62,7 @@ async function run() {
   // --8<-- [end:upload-file]
 
   // --8<-- [start:download-data]
-  // 5. Download file
+  // 6. Download file
   const downloadedFilePath = new URL(
     './files/helloworld_downloaded.txt',
     import.meta.url
@@ -69,7 +75,7 @@ async function run() {
   // --8<-- [end:download-data]
 
   // --8<-- [start:verify-download]
-  // 6. Verify download integrity
+  // 7. Verify download integrity
   const isValid = await verifyDownload(filePath, downloadedFilePath);
   console.log(`File integrity verified: ${isValid ? 'PASSED' : 'FAILED'}`);
   // --8<-- [end:verify-download]
