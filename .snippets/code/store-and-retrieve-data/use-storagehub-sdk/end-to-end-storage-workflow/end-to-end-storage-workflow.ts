@@ -6,13 +6,15 @@ import {
   downloadFile,
   uploadFile,
   verifyDownload,
+  waitForBackendFileReady,
+  waitForMSPConfirmOnChain,
 } from './operations/fileOperations.js';
 import { HealthStatus } from '@storagehub-sdk/msp-client';
 import { mspClient } from './services/mspService.js';
 import {
   createBucket,
   verifyBucketCreation,
-  waitForIndexer,
+  waitForBackendBucketReady,
 } from './operations/bucketOperations.js';
 // --8<-- [end:imports]
 
@@ -42,10 +44,10 @@ async function run() {
   console.log('Bucket data:', bucketData);
   // --8<-- [end:verify-bucket]
 
-  // --8<-- [start:wait-for-indexer]
+  // --8<-- [start:wait-for-backend-bucket-ready]
   // 4. Wait until indexer/backend knows about the bucket
-  await waitForIndexer(bucketId);
-  // --8<-- [end:wait-for-indexer]
+  await waitForBackendBucketReady(bucketId);
+  // --8<-- [end:wait-for-backend-bucket-ready]
 
   // --8<-- [start:upload-file]
   // 5. Upload file
@@ -61,8 +63,14 @@ async function run() {
   console.log(`Status: ${uploadReceipt.status}`);
   // --8<-- [end:upload-file]
 
+  // --8<-- [start:wait-for-backend-file-ready]
+  // 6. Wait for file to be ready in the network and indexer/backend to know about the file
+  await waitForMSPConfirmOnChain(fileKey.toHex());
+  await waitForBackendFileReady(bucketId, fileKey.toHex());
+  // --8<-- [end:wait-for-backend-file-ready]
+
   // --8<-- [start:download-data]
-  // 6. Download file
+  // 7. Download file
   const downloadedFilePath = new URL(
     './files/helloworld_downloaded.txt',
     import.meta.url
@@ -75,7 +83,7 @@ async function run() {
   // --8<-- [end:download-data]
 
   // --8<-- [start:verify-download]
-  // 7. Verify download integrity
+  // 8. Verify download integrity
   const isValid = await verifyDownload(filePath, downloadedFilePath);
   console.log(`File integrity verified: ${isValid ? 'PASSED' : 'FAILED'}`);
   // --8<-- [end:verify-download]

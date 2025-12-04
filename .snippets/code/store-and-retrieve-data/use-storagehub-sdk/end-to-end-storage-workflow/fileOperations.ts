@@ -17,6 +17,7 @@ import {
   authenticateUser,
 } from '../services/mspService.js';
 import { DownloadResult } from '@storagehub-sdk/msp-client';
+import { PalletFileSystemStorageRequestMetadata } from '@polkadot/types/lookup';
 // --8<-- [end:imports]
 
 // --8<-- [start:upload-file-helper]
@@ -238,3 +239,78 @@ export async function verifyDownload(
   return originalBuffer.equals(downloadedBuffer);
 }
 // --8<-- [end:verify-download]
+
+// --8<-- [start:wait-for-msp-confirm-on-chain]
+export async function waitForMSPConfirmOnChain(fileKey: string) {
+  const maxAttempts = 10;
+  const delayMs = 2000;
+
+  for (let i = 0; i < maxAttempts; i++) {
+    console.log(
+      `Check storage request has been confirmed by the MSP on-chain, attempt ${
+        i + 1
+      } of ${maxAttempts}...`
+    );
+
+    const req = await polkadotApi.query.fileSystem.storageRequests(fileKey);
+    if (req.isNone) {
+      throw new Error(
+        `StorageRequest for ${fileKey} no longer exists on-chain.`
+      );
+    }
+    const data: PalletFileSystemStorageRequestMetadata = req.unwrap();
+
+    // MSP confirmation
+    const mspTuple = data.msp.isSome ? data.msp.unwrap() : null;
+    // here convert mspTuple[1] from codec Bool to native boolean by checking isTrue
+    const mspConfirmed = mspTuple ? (mspTuple[1] as any).isTrue : false;
+
+    if (mspConfirmed) {
+      console.log('Storage request confirmed by MSP on-chain');
+      return;
+    }
+
+    await new Promise((r) => setTimeout(r, delayMs));
+  }
+  throw new Error(
+    `FileKey ${fileKey} not ready for download after waiting ${
+      maxAttempts * delayMs
+    } ms`
+  );
+}
+// --8<-- [end:wait-for-msp-confirm-on-chain]
+
+// --8<-- [start:wait-for-backend-file-ready]
+export async function waitForBackendFileReady(
+  bucketId: string,
+  fileKey: string
+) {
+  const maxAttempts = 10;
+  const delayMs = 2000;
+
+  for (let i = 0; i < maxAttempts; i++) {
+    console.log(
+      `Checking for file in MSP backend, attempt ${i + 1} of ${maxAttempts}...`
+    );
+    try {
+      const file = await mspClient.files.getFileInfo(bucketId, fileKey);
+
+      if (file) {
+        console.log('File found in MSP backend:', file);
+        return;
+      }
+    } catch (error: any) {
+      if (error.status === 404 || error.body.error === 'Not found: Record') {
+        console.log(`File not found in MSP backend yet (404).`);
+      } else {
+        console.log('Unexpected error while fetching file from MSP:', error);
+        throw error;
+      }
+    }
+    await new Promise((r) => setTimeout(r, delayMs));
+  }
+  throw new Error(
+    `File with fileKey ${fileKey} not found in MSP backend after waiting`
+  );
+}
+// --8<-- [end:wait-for-backend-file-ready]
