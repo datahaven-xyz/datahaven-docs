@@ -112,19 +112,19 @@ Upon a successful storage request, the output will look something like this:
     fileName: string
     ) {
 
-        // ISSUE STORAGE REQUEST
-        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:initialize-file-manager'
-        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:define-storage-request-parameters'
-        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:issue-storage-request'
-        // VERIFY STORAGE REQUEST ON-CHAIN
-        // **PLACEHOLDER FOR STEP 4: COMPUTE FILE KEY **
-        // **PLACEHOLDER FOR STEP 5: RETRIEVE STORAGE REQUEST DATA **
-        // **PLACEHOLDER FOR STEP 6: READ STORAGE REQUEST DATA**
-        // UPLOAD FILE
-        // **PLACEHOLDER FOR STEP 7: AUTHENTICATE **
-        // **PLACEHOLDER FOR STEP 8: UPLOAD FILE TO MSP **
+      // ISSUE STORAGE REQUEST
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:initialize-file-manager'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:define-storage-request-parameters'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:issue-storage-request'
+      // VERIFY STORAGE REQUEST ON-CHAIN
+      // **PLACEHOLDER FOR STEP 4: COMPUTE FILE KEY **
+      // **PLACEHOLDER FOR STEP 5: RETRIEVE STORAGE REQUEST DATA **
+      // **PLACEHOLDER FOR STEP 6: READ STORAGE REQUEST DATA**
+      // UPLOAD FILE
+      // **PLACEHOLDER FOR STEP 7: AUTHENTICATE **
+      // **PLACEHOLDER FOR STEP 8: UPLOAD FILE TO MSP **
 
-    return { fileKey, uploadReceipt };
+      return { fileKey, uploadReceipt };
     }
     ```
 
@@ -170,19 +170,19 @@ Upon successful storage request verification, you'll see a message like:
     fileName: string
     ) {
 
-    // ISSUE STORAGE REQUEST
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:initialize-file-manager'
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:define-storage-request-parameters'
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:issue-storage-request'
-    // VERIFY STORAGE REQUEST ON-CHAIN
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:compute-file-key'
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:verify-storage-request'
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:read-storage-request'
-    // UPLOAD FILE
-    // **PLACEHOLDER FOR STEP 7: AUTHENTICATE **
-    // **PLACEHOLDER FOR STEP 8: UPLOAD FILE TO MSP **
+      // ISSUE STORAGE REQUEST
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:initialize-file-manager'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:define-storage-request-parameters'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:issue-storage-request'
+      // VERIFY STORAGE REQUEST ON-CHAIN
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:compute-file-key'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:verify-storage-request'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:read-storage-request'
+      // UPLOAD FILE
+      // **PLACEHOLDER FOR STEP 7: AUTHENTICATE **
+      // **PLACEHOLDER FOR STEP 8: UPLOAD FILE TO MSP **
 
-    return { fileKey, uploadReceipt };
+      return { fileKey, uploadReceipt };
     }
     ```
 

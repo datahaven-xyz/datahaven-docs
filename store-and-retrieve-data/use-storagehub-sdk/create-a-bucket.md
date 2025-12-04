@@ -77,7 +77,7 @@ Fetch the `valueProps` from the MSP you are connected to. An MSP's value prop is
 
 To fetch `valueProps` from the MSP Client, take the following steps:
 
-1. Add the following helper function to your `mspService.ts` file:
+1. Add the following helper method to your `mspService.ts` file:
 
     ```ts title="mspService.ts"
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/msp-service-with-value-props.ts:msp-value-props'
