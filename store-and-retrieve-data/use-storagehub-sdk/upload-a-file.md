@@ -20,34 +20,6 @@ These steps form the core workflow for any application that places data into Dat
 - [A bucket created](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/){target=\_blank} with the ID handy
 - A file to upload to DataHaven (any file type is accepted; the current testnet file size limit is {{ networks.testnet.file_size_limit }}).
 
-## Initialize the Script Entry Point
-
-First, create an `index.ts` file if you haven't already. Its `run` method will orchestrate all the logic in this guide, and you’ll replace the labelled placeholder with real code step by step. By now, your services folder (including the MSP and client helper services) should already be created. If not, see the [Get Started](/store-and-retrieve-data/use-storagehub-sdk/get-started/) guide.  
-
-The `index.ts` snippet below also imports `fileOperations.ts`, which is not in your project yet—that's expected, as you'll create it later in this guide.  
-
-Add the following code to your `index.ts` file:
-
-```ts title="index.ts"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/upload-a-file.ts:imports'
-
-async function run() {
-  // For anything from @storagehub-sdk/core to work, initWasm() is required
-  // on top of the file
-  await initWasm();
-  
-  --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/upload-a-file.ts:init-setup'
-
-  // --- File upload logic ---
-  // **PLACEHOLDER: ADD UPLOAD FILE HELPER METHOD**
-
-  // Disconnect the Polkadot API at the very end
-  await polkadotApi.disconnect();
-}
-
-await run();
-```
-
 ## Add Method to Upload File
 
 Because of the `uploadFile` method's complexity, you will be adding pieces of its logic step by step. Before that, you need to prepare the file and the method's imports, by following these steps:
@@ -251,10 +223,14 @@ Upon a successful file upload, the transaction receipt will look like this:
 
 ## Call the Upload File Helper Method
 
-Replace the placeholder `// **PLACEHOLDER: ADD UPLOAD FILE HELPER METHOD**` with the following code:
+Create an `index.ts` file if you haven't already. Its `run` method will orchestrate all the logic in this guide. By now, your services folder (including the MSP and client helper services) should already be created. If not, see the [Get Started](/store-and-retrieve-data/use-storagehub-sdk/get-started/) guide.  
 
-```ts title="index.ts // **PLACEHOLDER: ADD UPLOAD FILE HELPER METHOD**"
-  --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/upload-a-file.ts:upload-file'
+The `index.ts` snippet below also imports `fileOperations.ts`, which you've created already through the previous sections in this guide.  
+
+Add the following code to your `index.ts` file:
+
+```ts title="index.ts"
+  --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/upload-a-file.ts'
 ```
 
 Run the script:
