@@ -87,7 +87,7 @@ export async function verifyBucketCreation(bucketId: string) {
 // --8<-- [end:verify-bucket]
 
 // --8<-- [start:wait-for-indexer]
-export async function waitForBucket(bucketId: string) {
+export async function waitForIndexer(bucketId: string) {
   const maxAttempts = 10;
   const delayMs = 2000;
 

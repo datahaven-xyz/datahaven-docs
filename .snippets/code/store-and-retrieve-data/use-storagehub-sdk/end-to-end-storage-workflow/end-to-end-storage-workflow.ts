@@ -12,7 +12,7 @@ import { mspClient } from './services/mspService.js';
 import {
   createBucket,
   verifyBucketCreation,
-  waitForBucket,
+  waitForIndexer,
 } from './operations/bucketOperations.js';
 // --8<-- [end:imports]
 
@@ -44,7 +44,7 @@ async function run() {
 
   // --8<-- [start:wait-for-indexer]
   // 4. Wait until indexer/backend knows about the bucket
-  await waitForBucket(bucketId);
+  await waitForIndexer(bucketId);
   // --8<-- [end:wait-for-indexer]
 
   // --8<-- [start:upload-file]

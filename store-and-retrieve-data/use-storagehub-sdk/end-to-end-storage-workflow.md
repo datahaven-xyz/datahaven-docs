@@ -210,7 +210,8 @@ You’ve successfully created a bucket and verified it has successfully been cre
 
 ## Wait for Indexer
 
-Through the script you are currently building, you will attempt to upload a file right after creating a bucket. That means yor script will be racing DataHaven's own indexer in order to upload the file, but the ..
+Right after a bucket is created, your script will immediately try to upload a file. At this point, the bucket exists on-chain, but DataHaven’s indexer may not have processed the block yet. Until the indexer catches up, the MSP backend can’t resolve the new bucket ID, so any upload attempt will fail.
+To avoid that race condition, you’ll add a small polling helper that waits for the indexer to acknowledge the bucket before continuing.
 
 1. Add the following code in your `bucketOperations.ts` file:
     
