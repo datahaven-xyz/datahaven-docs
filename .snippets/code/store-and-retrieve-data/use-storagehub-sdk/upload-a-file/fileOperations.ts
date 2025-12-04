@@ -132,7 +132,6 @@ export async function uploadFile(
 
   // --8<-- [start:read-storage-request]
   // Read the storage request data
-  // Read the storage request data
   const storageRequestData = storageRequest.unwrap().toHuman();
   console.log('Storage request data:', storageRequestData);
   console.log(
