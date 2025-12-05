@@ -293,24 +293,27 @@ export async function waitForBackendFileReady(
       `Checking for file in MSP backend, attempt ${i + 1} of ${maxAttempts}...`
     );
     try {
-      const file = await mspClient.files.getFileInfo(bucketId, fileKey);
+      const fileInfo = await mspClient.files.getFileInfo(bucketId, fileKey);
 
-      if (file) {
-        console.log('File found in MSP backend:', file);
-        return;
+      if (fileInfo.status === 'ready') {
+        console.log('File found in MSP backend:', fileInfo);
+        return fileInfo; // or `return;` if you prefer
+      } else if (fileInfo.status === 'revoked') {
+        throw new Error('File upload was cancelled by user');
+      } else if (fileInfo.status === 'rejected') {
+        throw new Error('File upload was rejected by MSP');
+      } else if (fileInfo.status === 'expired') {
+        throw new Error('File upload request expired before MSP processed it');
       }
+
+      // For any other status (e.g. "pending"), just keep waiting
+      console.log(`File status is "${fileInfo.status}", waiting...`);
     } catch (error: any) {
-      if (error.status === 404 || error.body.error === 'Not found: Record') {
-        console.log(`File not found in MSP backend yet (404).`);
-      } else {
-        console.log('Unexpected error while fetching file from MSP:', error);
-        throw error;
-      }
+      console.log('Unexpected error while fetching file from MSP:', error);
+      throw error;
     }
     await new Promise((r) => setTimeout(r, delayMs));
   }
-  throw new Error(
-    `File with fileKey ${fileKey} not found in MSP backend after waiting`
-  );
+  throw new Error('Timed out waiting for MSP backend to mark file as ready');
 }
 // --8<-- [end:wait-for-backend-file-ready]
