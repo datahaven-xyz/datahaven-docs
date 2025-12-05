@@ -64,17 +64,25 @@ const getMspHealth = async (): Promise<HealthStatus> => {
   return mspHealth;
 };
 
+// --8<-- [start:auth-user]
 // Authenticate the user via SIWE (Sign-In With Ethereum) using the connected wallet
 // Once authenticated, store the returned session token and retrieve the user’s profile
 const authenticateUser = async (): Promise<UserInfo> => {
   console.log('Authenticating user with MSP via SIWE...');
-  const siweSession = await mspClient.auth.SIWE(walletClient);
+
+  // In development domain and uri can be arbitrary placeholders,
+  // but in production they must match your actual frontend origin.
+  const domain = 'localnost';
+  const uri = 'http://localnost';
+
+  const siweSession = await mspClient.auth.SIWE(walletClient, domain, uri);
   console.log('SIWE Session:', siweSession);
   sessionToken = (siweSession as { token: string }).token;
 
   const profile: UserInfo = await mspClient.auth.getProfile();
   return profile;
 };
+// --8<-- [end:auth-user]
 // --8<-- [end:msp-helper-functions]
 
 // Export initialized client and helper functions for use in other modules
