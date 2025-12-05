@@ -28,7 +28,7 @@ Before you begin, ensure you have the following:
         ```bash
         xcode-select --install
         ```
-    - Then install Diesel CLI with PostgreSQL support:
+    - Then regardless of platform you'll need to install Diesel CLI with PostgreSQL support:
     ```bash
     cargo install diesel_cli --no-default-features --features postgres
     ```
