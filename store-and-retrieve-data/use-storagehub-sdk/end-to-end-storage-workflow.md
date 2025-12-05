@@ -194,8 +194,9 @@ The last step is to verify that the bucket was created successfully on-chain and
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:verify-bucket'
     // **PLACEHOLDER FOR STEP 4: WAIT FOR BACKEND TO HAVE BUCKET**
     // **PLACEHOLDER FOR STEP 5: UPLOAD FILE**
-    // **PLACEHOLDER FOR STEP 6: DOWNLOAD FILE**
-    // **PLACEHOLDER FOR STEP 7: VERIFY FILE**
+    // **PLACEHOLDER FOR STEP 6: WAIT FOR BACKEND TO HAVE FILE**
+    // **PLACEHOLDER FOR STEP 7: DOWNLOAD FILE**
+    // **PLACEHOLDER FOR STEP 8: VERIFY FILE**
 
     // Disconnect the Polkadot API at the very end
     await polkadotApi.disconnect();
@@ -290,7 +291,7 @@ After a successful file upload the logs should look something like:
       --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:verify-bucket'
       --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:wait-for-backend-bucket-ready'
       --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:upload-file'
-      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:wait-for-backend-file-ready'
+      // **PLACEHOLDER FOR STEP 6: WAIT FOR BACKEND TO HAVE FILE**
       // **PLACEHOLDER FOR STEP 7: DOWNLOAD FILE**
       // **PLACEHOLDER FOR STEP 8: VERIFY FILE**
 
@@ -306,7 +307,7 @@ After a successful file upload the logs should look something like:
 In this step you wire in two small helper methods:
 
 1. **`waitForMSPConfirmOnChain`**: Polls the DataHaven runtime until the MSP has confirmed the storage request on-chain. 
-2. **`waitForBackendFileReady`**: Polls the MSP backend using `mspClient.files.getFileInfo(bucketId, fileKey)` until the file metadata becomes available. 
+2. **`waitForBackendFileReady`**: Polls the MSP backend using `mspClient.files.getFileInfo(bucketId, fileKey)` until the file metadata becomes available. Even if the file is confirmed on-chain, the backend may not yet be aware of it.
 
 Once both checks pass, you know the file is committed on-chain and the MSP backend is ready to serve it, so the subsequent download call won’t randomly fail with a `404` while the system is still syncing.
 
@@ -326,9 +327,32 @@ Once both checks pass, you know the file is committed on-chain and the MSP backe
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:wait-for-backend-file-ready'
     ```
 
-    The response should look something like this:
+    ??? code "View complete `index.ts` file up until this point"
 
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/output-02.html'
+        ```ts title="src/index.ts"
+        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:imports'
+
+        async function run() {
+        // For anything from @storagehub-sdk/core to work, initWasm() is required
+        // on top of the file
+        await initWasm();
+        
+        // --- End-to-end storage flow ---
+        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:check-msp-health'
+        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:create-bucket'
+        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:verify-bucket'
+        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:wait-for-backend-bucket-ready'
+        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:upload-file'
+        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:wait-for-backend-file-ready'
+        // **PLACEHOLDER FOR STEP 7: DOWNLOAD FILE**
+        // **PLACEHOLDER FOR STEP 8: VERIFY FILE**
+
+        // Disconnect the Polkadot API at the very end
+        await polkadotApi.disconnect();
+        }
+
+        await run();
+        ```
 
 ## Download and Save File
 

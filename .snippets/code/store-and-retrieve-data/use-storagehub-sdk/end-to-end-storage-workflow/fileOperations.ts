@@ -242,8 +242,8 @@ export async function verifyDownload(
 
 // --8<-- [start:wait-for-msp-confirm-on-chain]
 export async function waitForMSPConfirmOnChain(fileKey: string) {
-  const maxAttempts = 10;
-  const delayMs = 2000;
+  const maxAttempts = 10; // Number of polling attempts
+  const delayMs = 2000; // Delay between attempts in milliseconds
 
   for (let i = 0; i < maxAttempts; i++) {
     console.log(
@@ -252,26 +252,36 @@ export async function waitForMSPConfirmOnChain(fileKey: string) {
       } of ${maxAttempts}...`
     );
 
+    // Query the runtime for the StorageRequest entry associated with this fileKey
     const req = await polkadotApi.query.fileSystem.storageRequests(fileKey);
+
+    // StorageRequest removed from state before confirmation is an error
     if (req.isNone) {
       throw new Error(
         `StorageRequest for ${fileKey} no longer exists on-chain.`
       );
     }
+
+    // Decode the on-chain metadata struct
     const data: PalletFileSystemStorageRequestMetadata = req.unwrap();
 
-    // MSP confirmation
+    // Extract the MSP confirmation tuple (mspId, bool)
     const mspTuple = data.msp.isSome ? data.msp.unwrap() : null;
-    // here convert mspTuple[1] from codec Bool to native boolean by checking isTrue
+
+    // The second value in the tuple is a SCALE Bool (codec), so convert using .isTrue
     const mspConfirmed = mspTuple ? (mspTuple[1] as any).isTrue : false;
 
+    // If MSP has confirmed the storage request, we’re good to proceed
     if (mspConfirmed) {
       console.log('Storage request confirmed by MSP on-chain');
       return;
     }
 
+    // Wait before polling again
     await new Promise((r) => setTimeout(r, delayMs));
   }
+
+  // All attempts exhausted
   throw new Error(
     `FileKey ${fileKey} not ready for download after waiting ${
       maxAttempts * delayMs
@@ -285,20 +295,26 @@ export async function waitForBackendFileReady(
   bucketId: string,
   fileKey: string
 ) {
-  const maxAttempts = 10;
-  const delayMs = 2000;
+  const maxAttempts = 10; // Number of polling attempts
+  const delayMs = 2000; // Delay between attempts in milliseconds
 
   for (let i = 0; i < maxAttempts; i++) {
     console.log(
       `Checking for file in MSP backend, attempt ${i + 1} of ${maxAttempts}...`
     );
+
     try {
+      // Query MSP backend for the file metadata
       const fileInfo = await mspClient.files.getFileInfo(bucketId, fileKey);
 
+      // File is fully ready — backend has indexed it and can serve it
       if (fileInfo.status === 'ready') {
         console.log('File found in MSP backend:', fileInfo);
-        return fileInfo; // or `return;` if you prefer
-      } else if (fileInfo.status === 'revoked') {
+        return fileInfo;
+      }
+
+      // Failure statuses (irrecoverable for this upload lifecycle)
+      if (fileInfo.status === 'revoked') {
         throw new Error('File upload was cancelled by user');
       } else if (fileInfo.status === 'rejected') {
         throw new Error('File upload was rejected by MSP');
@@ -306,14 +322,19 @@ export async function waitForBackendFileReady(
         throw new Error('File upload request expired before MSP processed it');
       }
 
-      // For any other status (e.g. "pending"), just keep waiting
+      // Otherwise still pending (indexer not done, MSP still syncing, etc.)
       console.log(`File status is "${fileInfo.status}", waiting...`);
     } catch (error: any) {
+      // Any unexpected backend error should stop the workflow and surface to the caller
       console.log('Unexpected error while fetching file from MSP:', error);
       throw error;
     }
+
+    // Wait before polling again
     await new Promise((r) => setTimeout(r, delayMs));
   }
+
+  // All attempts exhausted
   throw new Error('Timed out waiting for MSP backend to mark file as ready');
 }
 // --8<-- [end:wait-for-backend-file-ready]

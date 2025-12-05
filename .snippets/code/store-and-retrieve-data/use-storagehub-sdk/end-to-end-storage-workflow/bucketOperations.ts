@@ -88,8 +88,8 @@ export async function verifyBucketCreation(bucketId: string) {
 
 // --8<-- [start:wait-for-backend-bucket-ready]
 export async function waitForBackendBucketReady(bucketId: string) {
-  const maxAttempts = 10;
-  const delayMs = 2000;
+  const maxAttempts = 10; // Number of polling attempts
+  const delayMs = 2000; // Delay between attempts in milliseconds
 
   for (let i = 0; i < maxAttempts; i++) {
     console.log(
@@ -98,22 +98,29 @@ export async function waitForBackendBucketReady(bucketId: string) {
       } of ${maxAttempts}...`
     );
     try {
+      // Query the MSP backend for the bucket metadata.
+      // If the backend has synced the bucket, this call resolves successfully.
       const bucket = await mspClient.buckets.getBucket(bucketId);
 
       if (bucket) {
+        // Bucket is now available and the script can safely continue
         console.log('Bucket found in MSP backend:', bucket);
         return;
       }
     } catch (error: any) {
+      // Backend hasn’t indexed the bucket yet
       if (error.status === 404 || error.body.error === 'Not found: Record') {
         console.log(`Bucket not found in MSP backend yet (404).`);
       } else {
+        // Any other error is unexpected and should fail the entire workflow
         console.log('Unexpected error while fetching bucket from MSP:', error);
         throw error;
       }
     }
+    // Wait before polling again
     await new Promise((r) => setTimeout(r, delayMs));
   }
+  // All attempts exhausted
   throw new Error(`Bucket ${bucketId} not found in MSP backend after waiting`);
 }
 // --8<-- [end:wait-for-backend-bucket-ready]

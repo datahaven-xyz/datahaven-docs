@@ -64,7 +64,7 @@ async function run() {
   // --8<-- [end:upload-file]
 
   // --8<-- [start:wait-for-backend-file-ready]
-  // 6. Wait for file to be ready in the network and indexer/backend to know about the file
+  // 6. Wait until indexer/backend knows about the file
   await waitForMSPConfirmOnChain(fileKey.toHex());
   await waitForBackendFileReady(bucketId, fileKey.toHex());
   // --8<-- [end:wait-for-backend-file-ready]
