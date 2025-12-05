@@ -13,12 +13,11 @@ This tutorial will cover the end-to-end process of creating a bucket, uploading 
 
 - A file to upload to DataHaven (any file type is accepted; the current testnet file size limit is {{ networks.testnet.file_size_limit }}).
 
-
 ## Project Structure
 
 This project organizes scripts, client setup, and different types of operations for easy development and deployment. 
 
-The following sections will build on the already established helper methods from the `services` folder, so it's important to start here with already properly configured clients (as mentioned in the [Prerequisites](#prerequisites) section)
+The following sections will build on the already established helper methods from the `services` folder, so it's important to start here with already properly configured clients (as mentioned in the [Prerequisites](#prerequisites) section).
 
 ```
 datahaven-project/
@@ -38,7 +37,10 @@ datahaven-project/
 
 ## Initialize the Script Entry Point
 
-First, create an `index.ts` file, if you haven't already. Its `run` method will orchestrate all the logic in this guide, and you’ll replace the labelled placeholders with real code step by step. By now, your services folder (including the MSP and client helper services) should already be created. If not, see the [Get Started Guide](/store-and-retrieve-data/use-storagehub-sdk/get-started). The `index.ts` snippet below also imports `bucketOperations.ts` and `fileOperations.ts`, which are not in your project yet. That’s expected, as you’ll create them later in this guide.
+
+First, create an `index.ts` file if you haven't already. Its `run` method will orchestrate all the logic in this guide, and you’ll replace the labelled placeholders with real code step by step. By now, your services folder (including the MSP and client helper services) should already be created. If not, see the [Get Started](/store-and-retrieve-data/use-storagehub-sdk/get-started/) guide.
+
+The `index.ts` snippet below also imports `bucketOperations.ts` and `fileOperations.ts`, which are not in your project yet—that's expected, as you'll create them later in this guide. All their imports are included right away so feel free to comment out the imports you don't need until you get to the step that implements that logic.
 
 Add the following code to your `index.ts` file:
 
@@ -89,22 +91,19 @@ Since you are already connected to the MSP client, check its health status befor
 
 ## Create a Bucket
 
-Buckets group your files under a specific Main Storage Provider (MSP) and value proposition. Derive a deterministic bucket ID, fetch MSP parameters, then create the bucket. If you run the script multiple times, use a new `bucketName` to avoid a revert, or modify the logic to use your existing bucket in later steps.
+Buckets group your files under a specific Main Storage Provider (MSP) and value proposition that describes what the storage fees under that MSP are going to look like. 
 
 In the following code, you will pull the MSP’s details/value proposition to prepare for bucket creation. Then you will derive the bucket ID, confirm it doesn’t exist already, submit a `createBucket` transaction, wait for confirmation, and finally query the chain to verify that the new bucket’s MSP and owner address match the account address that you are using. 
 
-If you'd prefer to step through the steps to create a bucket individually, please see the [Create a Bucket](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/){target=\_blank} guide.
-
-To create a bucket, you are going to: 
+To do all this, you are going to: 
 
 1. Create a `getValueProps` helper method within `mspService.ts`.
 2. Create a `createBucket` helper method within `bucketOperations.ts`.
 3. Update the `index.ts` file to trigger the logic you've implemented.
-4. Check `createBucket` method output
 
-Here are the in-depth instructions:
+Go through the in-depth instructions as follows:
 
-1. To fetch `valueProps` from the MSP Client, add the following helper function to your `mspService.ts` file:
+1. Add the following helper method to your `mspService.ts` file to fetch `valueProps` from the MSP Client:
 
     ```ts title="src/services/mspService.ts"
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/msp-service-with-value-props.ts:msp-value-props'
@@ -116,11 +115,11 @@ Here are the in-depth instructions:
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/msp-service-with-value-props.ts:exports'
     ```
 
-??? code "View complete `mspService.ts` file"
+    ??? code "View complete `mspService.ts` file"
 
-    ```ts title="src/services/mspService.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/msp-service-with-value-props.ts'
-    ```
+        ```ts title="src/services/mspService.ts"
+        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/msp-service-with-value-props.ts'
+        ```
 
 3. Next, make sure to create a new folder called `operations` within the `src` folder (at the same level as the `services` folder) like so:
 
@@ -128,7 +127,7 @@ Here are the in-depth instructions:
     mkdir operations
     ```
 
-4. Then, create a new file within the `operations` folder called `bucketOperations.ts`
+4. Then, create a new file within the `operations` folder called `bucketOperations.ts`.
 
 5. Add the following code:
 
@@ -138,9 +137,15 @@ Here are the in-depth instructions:
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/bucketOperations.ts:create-bucket'
     ```
 
-    With the `createBucket` helper method you go through the full lifecycle of a bucket-creation transaction. First, the `mspId` is fetched and one of the MSP's value props is selected, since a value prop (a file storing payment plan) is one of the required params while creating a bucket. Then, a deterministic bucket ID is derived from your wallet address and chosen bucket name, which ensures the same inputs always generate the same `bucketId`. Before any on-chain transactions, there is a check whether the bucket already exists in the `providers.buckets` mapping to prevent accidental overwrites and to avoid a failing transaction. 
+    The `createBucket` helper handles the full lifecycle of a bucket-creation transaction:  
+
+    - It fetches the MSP ID and selects a value prop (required to create a bucket).  
+    - It derives a deterministic bucket ID from your wallet address and chosen bucket name.  
+    - Before sending any on-chain transaction, it checks whether the bucket already exists to prevent accidental overwrites.  
+
+    Once the check passes, the `createBucket` extrinsic is called via the StorageHub client, returning the `bucketId` and `txReceipt`. 
     
-6. Now that you've extracted all the bucket-creation logic into its own method, let's update the `index.ts` file.
+6. Now that you've extracted all the bucket-creation logic into its own method, update the `index.ts` file.
 
     Replace the placeholder `// **PLACEHOLDER FOR STEP 2: CREATE BUCKET**` with the following code:
 
@@ -151,15 +156,7 @@ Here are the in-depth instructions:
     !!! note
         You can also get a list of all your created buckets within a certain MSP using the `mspClient.buckets.listBuckets()` function. Make sure you are authenticated before triggering this function.
 
-7. Execute the `createBucket` method by running the script:
-
-    ```bash
-    ts-node index.ts
-    ```
-
-    The response should look something like this:
-
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/output-02.html'
+    If you run the script multiple times, use a new `bucketName` to avoid a revert, or modify the logic to use your existing bucket in later steps.
 
 ## Check if Bucket is On-Chain
 
@@ -265,10 +262,6 @@ To implement the `uploadFile` helper method, add the following code to the `file
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/fileOperations.ts:upload-file-helper'
 ```
 
-After a successful file upload the logs should look something like:
-
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/output-05.html'
-
 ### Call the Upload File Helper Method
 
 Replace the placeholder `// **PLACEHOLDER FOR STEP 5: UPLOAD FILE**` with the following code:
@@ -277,28 +270,32 @@ Replace the placeholder `// **PLACEHOLDER FOR STEP 5: UPLOAD FILE**` with the fo
   --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:upload-file'
 ```
 
+After a successful file upload the logs should look something like:
+
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/output-05.html'
+
 ??? code "View complete `index.ts` up until this point"
 
     ```ts title="src/index.ts"
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:imports'
 
     async function run() {
-    // For anything from @storagehub-sdk/core to work, initWasm() is required
-    // on top of the file
-    await initWasm();
+      // For anything from @storagehub-sdk/core to work, initWasm() is required
+      // on top of the file
+      await initWasm();
     
-    // --- End-to-end storage flow ---
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:check-msp-health'
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:create-bucket'
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:verify-bucket'
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:wait-for-backend-bucket-ready'
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:upload-file'
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:wait-for-backend-file-ready'
-    // **PLACEHOLDER FOR STEP 7: DOWNLOAD FILE**
-    // **PLACEHOLDER FOR STEP 8: VERIFY FILE**
+      // --- End-to-end storage flow ---
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:check-msp-health'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:create-bucket'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:verify-bucket'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:wait-for-backend-bucket-ready'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:upload-file'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:wait-for-backend-file-ready'
+      // **PLACEHOLDER FOR STEP 7: DOWNLOAD FILE**
+      // **PLACEHOLDER FOR STEP 8: VERIFY FILE**
 
-    // Disconnect the Polkadot API at the very end
-    await polkadotApi.disconnect();
+      // Disconnect the Polkadot API at the very end
+      await polkadotApi.disconnect();
     }
 
     await run();
@@ -356,25 +353,25 @@ Replace the placeholder `// **PLACEHOLDER FOR STEP 7: DOWNLOAD FILE**` with the 
 ??? code "View complete `index.ts` file up until this point"
 
     ```ts title="src/index.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow:imports'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:imports'
 
     async function run() {
-    // For anything from @storagehub-sdk/core to work, initWasm() is required
-    // on top of the file
-    await initWasm();
+      // For anything from @storagehub-sdk/core to work, initWasm() is required
+      // on top of the file
+      await initWasm();
     
-     // --- End-to-end storage flow ---
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:check-msp-health'
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:create-bucket'
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:verify-bucket'
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:wait-for-backend-bucket-ready'
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:upload-file'
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:wait-for-backend-file-ready'
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:download-data'
-    // **PLACEHOLDER FOR STEP 8: VERIFY FILE**
+      // --- End-to-end storage flow ---
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:check-msp-health'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:create-bucket'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:verify-bucket'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:wait-for-backend-bucket-ready'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:upload-file'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:wait-for-backend-file-ready'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:download-data'
+      // **PLACEHOLDER FOR STEP 8: VERIFY FILE**
 
-    // Disconnect the Polkadot API at the very end
-    await polkadotApi.disconnect();
+      // Disconnect the Polkadot API at the very end
+      await polkadotApi.disconnect();
     }
 
     await run();

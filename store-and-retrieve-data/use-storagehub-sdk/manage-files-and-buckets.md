@@ -10,11 +10,13 @@ This guide explains how to manage your storage resources on DataHaven using the 
 ## Prerequisites
 
 --8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/prerequisites.md'
-- [A file uploaded](/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/){target=\_blank} to DataHaven, along with the [file key](/store-and-retrieve-data/use-storagehub-sdk/verify-storage-request-registration/#compute-the-file-key){target=\_blank}
+- [A file uploaded](/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/){target=\_blank} to DataHaven, along with the [file key](/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/#compute-the-file-key){target=\_blank}
 
 ## Initialize the Script Entry Point
 
-First, create an `index.ts` file, if you haven't already. Its `run` method will orchestrate all the logic in this guide, and you’ll replace the labelled placeholders with real code step by step. By now, your services folder (including the MSP and client helper services) should already be created. If not, see the [Get Started Guide](/store-and-retrieve-data/use-storagehub-sdk/get-started). The `index.ts` snippet below also imports `fileOperations.ts` and `bucketOperations.ts`, which are not in your project yet. That’s expected, as you’ll create it later in this guide.
+First, create an `index.ts` file if you haven't already. Its `run` method will orchestrate all the logic in this guide, and you’ll replace the labelled placeholders with real code step by step. By now, your services folder (including the MSP and client helper services) should already be created. If not, see the [Get Started](/store-and-retrieve-data/use-storagehub-sdk/get-started/) guide.
+
+The `index.ts` snippet below also imports `bucketOperations.ts` and `fileOperations.ts`, which are not in your project yet—that's expected, as you'll create them later in this guide.
 
 Add the following code to your `index.ts` file:
 
@@ -47,18 +49,18 @@ Before any file operations, authenticate with the MSP. The `authenticateUser` he
 ??? code "View complete `index.ts` up until this point"
 
     ```ts title="index.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:imports'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:imports'
 
-    async function run() {
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:init-setup'
+      async function run() {
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:init-setup'
 
-    // --- Data deletion logic ---
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:authenticate'
-    // **PLACEHOLDER FOR STEP 2: REQUEST FILE DELETION**
-    // **PLACEHOLDER FOR STEP 3: DELETE A BUCKET**
+      // --- Data deletion logic ---
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:authenticate'
+      // **PLACEHOLDER FOR STEP 2: REQUEST FILE DELETION**
+      // **PLACEHOLDER FOR STEP 3: DELETE A BUCKET**
 
-    // Disconnect the Polkadot API at the very end
-    await polkadotApi.disconnect();
+      // Disconnect the Polkadot API at the very end
+      await polkadotApi.disconnect();
     }
 
     await run();
@@ -78,13 +80,13 @@ It’s important to note that files are not removed instantly. When a deletion r
     mkdir operations
     ```
 
-2. Create a new file within the `operations` folder called `fileOperations.ts`
+2. Create a new file within the `operations` folder called `fileOperations.ts`.
 
 3. Add the following code:
 
-```ts title="fileOperations.ts"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/fileOperations.ts'
-```
+    ```ts title="fileOperations.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/fileOperations.ts'
+    ```
 
 ### Call the Request File Deletion Helper Method
 
@@ -100,15 +102,15 @@ Update `index.ts` with the following code to trigger the `requestDeleteFile` hel
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:imports'
 
     async function run() {
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:init-setup'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:init-setup'
 
-    // --- Data deletion logic ---
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:authenticate'
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:request-file-deletion'
-    // **PLACEHOLDER FOR STEP 3: DELETE A BUCKET**
+      // --- Data deletion logic ---
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:authenticate'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:request-file-deletion'
+      // **PLACEHOLDER FOR STEP 3: DELETE A BUCKET**
 
-    // Disconnect the Polkadot API at the very end
-    await polkadotApi.disconnect();
+      // Disconnect the Polkadot API at the very end
+      await polkadotApi.disconnect();
     }
 
     await run();

@@ -12,14 +12,15 @@ async function run() {
 
   // --8<-- [start:init-setup]
   const fileKeyHex = 'INSERT_FILE_KEY_AS_HEX';
-  const fileKey = polkadotApi.createType('H256', fileKeyHex); // Convert to H256 type if not already
+  // Convert to H256 type if not already
+  const fileKey = polkadotApi.createType('H256', fileKeyHex);
+  // Make sure the file extension matches the original file
   const filePath = new URL(`./files/INSERT_FILENAME.png`, import.meta.url)
     .pathname;
   const downloadedFilePath = new URL(
     './files/INSERT_FILENAME_downloaded.png',
     import.meta.url
   ).pathname;
-  // make sure the file extension matches the original file
   // --8<-- [end:init-setup]
 
   // --8<-- [start:download-data]

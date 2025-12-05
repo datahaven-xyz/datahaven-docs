@@ -7,13 +7,13 @@ description: Set up your development environment, install the StorageHub SDK, an
 
 The StorageHub SDK is a modular toolkit that makes it easy to build on DataHaven, giving developers direct access to functionalities for managing storage, buckets, and proofs. It simplifies both on-chain and off-chain interactions so you can focus on your application logic rather than low-level integrations.
 
-This guide introduces and compares the functionalities of the StorageHub SDK packages. You can use the StorageHub SDK for every step in the storage request and retrieval process. For more information, see the [Workflow Overview](#workflow-overview).
+This guide introduces and compares the functionalities of the StorageHub SDK packages. You can use the StorageHub SDK for every step in the storage request and retrieval process. For more information, see the Workflow Overview.
 
 ## Workflow Overview
 
 A high-level look at how data moves through DataHaven, from storage requests to upload, verification, and retrieval.
 
-[timeline.left(datahaven-docs/.snippets/text/store-and-retrieve-data/overview/timeline-02.json)]
+[timeline.left(datahaven-docs/.snippets/text/store-and-retrieve-data/overview/timeline-01.json)]
 
 ## StorageHub SDK Packages
 
@@ -128,7 +128,9 @@ You'll need to set up the necessary clients to connect to the DataHaven network,
     mkdir services && cd services
     ```
 
-2. Create a `clientService.ts` file and add the following code:
+2. Create a `clientService.ts` file.
+
+3. Add the following code:
 
     !!! note
         The code below uses DataHaven testnet configuration values, which include the chain ID RPC URL, WSS URL, MSP URL, and token metadata. If you’re running a local devnet, make sure to replace these with your local configuration parameters. You can find all the relevant local devnet values in the [Storage Starter Kit](/store-and-retrieve-data/starter-kit/).
@@ -137,23 +139,37 @@ You'll need to set up the necessary clients to connect to the DataHaven network,
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/get-started/client-service.ts'
     ```
 
---8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/initialize-client-service-summary.md'
+    !!! warning
+        It is assumed that private keys are securely stored and managed in accordance with standard security practices.
+
+    With the above code in place, you now have the following:
+
+    - **`walletClient`**: Used for signing and broadcasting transactions using the derived private key.
+    - **`publicClient`**: Used for reading general public data from the chain, such as checking transaction receipts or block status.
+    - **`storageHubClient`**: Used for interacting with the StorageHub network APIs, including creating buckets, issuing storage requests, uploading or deleting files, and managing storage proofs.
+    - **`polkadotApi`**: Used for reading code chain logic and state data from the underlying DataHaven Substrate node.
 
 ### Set Up MSP Service
 
 To interact with DataHaven's Main Storage Provider (MSP) services, you need to establish a connection using the `MspClient` from the StorageHub SDK. This involves configuring the HTTP client, setting up session management for authenticated requests, and initializing the MSP client itself.
 
+1. Create a `mspService.ts` file within your `services` folder.
 
-Create a `mspService.ts` file within your `services` folder and add the following code:
+2. Add the following code:
 
-!!! note
-    The code below uses **DataHaven Testnet** configuration values, which include the **Chain ID**, **RPC URL**, **WSS URL**, **MSP URL**, and **token metadata**. If you’re running a **local devnet**, make sure to replace these with your local configuration parameters. You can find all the relevant **local devnet values** in the [Storage Starter Kit](/store-and-retrieve-data/starter-kit).
+    !!! note
+        The code below uses DataHaven testnet configuration values, which include the chain ID, RPC URL, WSS URL, MSP URL, and token metadata. If you’re running a local devnet, make sure to replace these with your local configuration parameters. You can find all the relevant local devnet values in the [Storage Starter Kit](/store-and-retrieve-data/starter-kit).
 
-```ts title="mspService.ts"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/get-started/msp-service.ts'
-```
+    ```ts title="mspService.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/get-started/msp-service.ts'
+    ```
 
---8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/initialize-msp-service-summary.md'
+    With the above code in place, you now have the following:
+
+    - **`mspClient`**: Used for interacting with a Main Storage Provider (MSP) backend — allowing you to authenticate via SIWE, retrieve MSP information and health status, and perform storage-related actions through REST-like endpoints.
+    - **`getMspInfo`**: Fetches general MSP metadata such as its unique ID, version, and available endpoints.
+    - **`getMspHealth`**: Checks the operational health of the MSP and reports whether it’s running normally or facing issues.
+    - **`authenticateUser`**: Authenticates your wallet with the MSP via Sign-In With Ethereum (SIWE), creates a session token, and returns your user profile.
 
 ## Next Steps
 

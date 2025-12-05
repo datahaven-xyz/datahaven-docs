@@ -13,7 +13,7 @@ This guide shows how to sign in to a StorageHub Main Storage Provider (MSP) usin
 
 ## Set Up Auth Script
 
-Create an `index.ts` file, if you haven't already. Its `run` method will orchestrate all the logic in this guide. By now, your services folder (including the MSP and client helper services) should already be created. If not, see the [Get Started Guide](/store-and-retrieve-data/use-storagehub-sdk/get-started).
+Create an `index.ts` file if you haven't already. Its `run` method will orchestrate all the logic in this guide. By now, your services folder (including the MSP and client helper services) should already be created. If not, see the [Get Started](/store-and-retrieve-data/use-storagehub-sdk/get-started/) guide.
 
 Add the following code to your `index.ts` file:
 
@@ -21,11 +21,21 @@ Add the following code to your `index.ts` file:
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/authenticate-with-siwe-and-jwt/authenticate.ts'
 ```
 
-As you can see, the `authenticateUser` helper method is being called from your `mspService.ts` file. This is the method responsible for checking your address's authentication status and authenticating your address via the MSP Client. 
+In this code, the authenticateUser helper method from mspService.ts is called. This method:
 
-Within the `authenticateUser` method, the SDK's `mspClient.auth.SIWE` method is triggered, which produces a JWT token that serves as proof of authentication. Within `mspService.ts`, this token is passed into the `sessionProvider` const that is one of the two required params for the `MspClient.connect` method. When you connect to an MSP while `sessionProvider` contains a valid JWT token, you are allowed to trigger certain MSP methods you otherwise wouldn't be able to (such as `MspClient.auth.getProfile`, `MspClient.files.uploadFile`, `MspClient.info.getPaymentStreams`).
+- Checks and authenticates your address via the MSP Client.
+- Calls the SDK's `mspClient.auth.SIWE` method, which produces a JWT token used as proof of authentication.
+- Passes the JWT token to the `sessionProvider` constant, one of the two required parameters for `MspClient.connect`.
+
+When you connect to the MSP with a valid `sessionProvider`, you can trigger certain methods you wouldn’t otherwise be able to, such as:
+
+- `MspClient.auth.getProfile`
+- `MspClient.files.uploadFile`
+- `MspClient.info.getPaymentStreams`
 
 ## Run Auth Script
+
+Execute the `authenticateUser` method by running the script:
 
 ```bash
 ts-node index.ts
