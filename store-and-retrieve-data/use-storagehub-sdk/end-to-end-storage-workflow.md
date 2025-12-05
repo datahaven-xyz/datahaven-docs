@@ -17,7 +17,7 @@ This tutorial will cover the end-to-end process of creating a bucket, uploading 
 
 This project organizes scripts, client setup, and different types of operations for easy development and deployment. 
 
-The following sections will build on the already established helper methods from the `services` folder, so it's important to start here with already properly configured clients (as mentioned in the [Prerequisites](#prerequisites) section)
+The following sections will build on the already established helper methods from the `services` folder, so it's important to start here with already properly configured clients (as mentioned in the [Prerequisites](#prerequisites) section).
 
 ```
 datahaven-project/
@@ -125,7 +125,7 @@ Go through the in-depth instructions as follows:
     mkdir operations
     ```
 
-4. Then, create a new file within the `operations` folder called `bucketOperations.ts`
+4. Then, create a new file within the `operations` folder called `bucketOperations.ts`.
 
 5. Add the following code:
 
@@ -279,7 +279,7 @@ Replace the placeholder `// **PLACEHOLDER FOR STEP 5: DOWNLOAD FILE**` with the 
 ??? code "View complete `index.ts` file up until this point"
 
     ```ts title="src/index.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow:imports'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:imports'
 
     async function run() {
       // For anything from @storagehub-sdk/core to work, initWasm() is required

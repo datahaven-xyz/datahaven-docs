@@ -84,9 +84,9 @@ It’s important to note that files are not removed instantly. When a deletion r
 
 3. Add the following code:
 
-```ts title="fileOperations.ts"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/fileOperations.ts'
-```
+    ```ts title="fileOperations.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/fileOperations.ts'
+    ```
 
 ### Call the Request File Deletion Helper Method
 

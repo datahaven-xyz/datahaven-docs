@@ -14,7 +14,9 @@ This guide shows how to fetch a previously uploaded file from your chosen Main S
 
 ## Initialize the Script Entry Point
 
-First, create an `index.ts` file, if you haven't already. Its `run` method will orchestrate all the logic in this guide, and you’ll replace the labelled placeholders with real code step by step. By now, your services folder (including the MSP and client helper services) should already be created. If not, see the [Get Started Guide](/store-and-retrieve-data/use-storagehub-sdk/get-started). The `index.ts` snippet below also imports `fileOperations.ts`, which is not in your project yet. That’s expected, as you’ll create it later in this guide.
+First, create an `index.ts` file, if you haven't already. Its `run` method will orchestrate all the logic in this guide, and you’ll replace the labelled placeholders with real code step by step. By now, your services folder (including the MSP and client helper services) should already be created. If not, see the [Get Started](/store-and-retrieve-data/use-storagehub-sdk/get-started/) guide.
+
+The `index.ts` snippet below also imports `fileOperations.ts`, which is not in your project yet—that's expected, as you'll create it later in this guide.
 
 Add the following code to your `index.ts` file:
 
