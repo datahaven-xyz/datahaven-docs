@@ -48,11 +48,11 @@ You can also visit the [End-to-End Storage Workflow](/store-and-retrieve-data/us
 
 <div class="grid cards" markdown>
 
--  <a href="/store-and-retrieve-data/starter-kit/" markdown>:material-arrow-right: 
+-  <a href="/store-and-retrieve-data/testnet-starter-kit/" markdown>:material-arrow-right: 
     
-    **Data Storage Starter Kit**
+    **Testnet Starter Kit**
 
-    Find what you need to connect and build on DataHaven, from network configurations to obtaining testnet tokens.
+    Find what you need to connect and build on the DataHaven testnet, from network configurations to obtaining testnet tokens.
 
     </a>
 

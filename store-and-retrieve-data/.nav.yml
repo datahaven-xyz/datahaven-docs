@@ -1,5 +1,5 @@
 nav:
  - 'Overview': index.md
- - 'Storage Starter Kit': starter-kit.md
+ - 'Networks': networks
  - 'Spin up Local Devnet': spin-up-local-devnet.md
  - 'Use StorageHub SDK': use-storagehub-sdk
