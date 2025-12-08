@@ -27,7 +27,7 @@ To interact with the network, use the following information to configure DataHav
 
 DataHaven provides dedicated explorers for both its EVM and Substrate layers:
 
- |                                 Explorer                                  |   Layer   |
+|                                 Explorer                                  |   Layer   |
     |:-------------------------------------------------------------------------:|:---------:|
     | [DataHaven Testnet Explorer](https://testnet.dhscan.io/){target=\_blank}  | Ethereum  |
     | [Basic Explorer](https://datahaven-explorer.netlify.app/){target=\_blank} | Ethereum  |
