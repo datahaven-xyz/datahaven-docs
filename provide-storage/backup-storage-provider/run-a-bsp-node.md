@@ -85,13 +85,13 @@ Before running a BSP node, you will need to obtain the `datahaven-node` client b
 
 ### Download Latest Client Release
 
-From the [Releases](https://github.com/datahaven-xyz/datahaven/releases){target=\_blank} section of the DataHaven repo, the latest version of the `datahaven-node` binary can be found. Currently, the latest version is {{ networks.testnet.client_version }} and it can be downloaded directly from [this link](https://github.com/datahaven-xyz/datahaven/releases/download/{{ networks.testnet.client_version }}/datahaven-node).
+From the [Releases](https://github.com/datahaven-xyz/datahaven/releases){target=\_blank} section of the DataHaven repo, the latest version of the [`datahaven-node` binary](https://github.com/datahaven-xyz/datahaven/releases/download/{{ networks.testnet.client_version }}/datahaven-node){target=_\blank} can be found. Currently, the latest version is {{ networks.testnet.client_version }}.
 
 Make sure to download it in the root of your `datahaven-bsp-node` folder.
 
 ### Download Desired Chain Specs
 
-Next, [download the testnet chain specs](#){target=\_blank} and include them in the root of your project. Call the file `datahaven-testnet-raw-specs.json`. The specs you use dictate to which DataHaven network your BSP will connect and interact with.
+Next, [download the testnet chain specs](/downloads/datahaven-testnet-raw-specs.json){target=\_blank} and include them in the root of your project. Make sure the file is called `datahaven-testnet-raw-specs.json`. The specs you use dictate to which DataHaven network your BSP will connect and interact with.
 
 ## Docker Configuration for the BSP Node
 
@@ -244,7 +244,7 @@ The `datahaven-node` binaries published in the DataHaven repository are precompi
           - "--bsp-submit-proof-max-attempts=3"
           - "--port=30333"
           - "--rpc-port=9946"
-    restart: unless-stopped
+        restart: unless-stopped
     
     volumes:
       bsp-data:
@@ -293,6 +293,7 @@ The node has a keystore directory. BSP nodes need the Blockchain service key inj
 ### Prepare BCSV Key
 
 You have two options:
+
 - Use an already existing seed phrase and derive its SS58 public key.
 - Generate a completely new seed phrase and derive its SS58 public key.
 
