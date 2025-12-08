@@ -56,7 +56,7 @@ Before you begin, ensure you have the following:
 
 - [Node.js ≥ 22](https://nodejs.org/en/download){target=\_blank} installed. LTS version recommended.
 - [pnpm](https://pnpm.io/){target=\_blank}, [npm](https://www.npmjs.com/){target=\_blank}, or [yarn](https://yarnpkg.com/){target=\_blank} installed for package management
-- [Testnet network configuration details](/store-and-retrieve-data/testnet-starter-kit/#network-configurations){target=\_blank}, including the RPC and WSS endpoints
+- [Testnet network configuration details](/store-and-retrieve-data/testnet-starter-kit/#network-configuration){target=\_blank}, including the RPC and WSS endpoints
 - [Testnet MSP base URL](/store-and-retrieve-data/testnet-starter-kit/#msp-service-endpoint-testnet){target=\_blank}
 - [Testnet tokens](https://apps.datahaven.xyz/faucet){target=\_blank}
 
