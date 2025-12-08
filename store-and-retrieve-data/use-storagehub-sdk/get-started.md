@@ -133,7 +133,7 @@ You'll need to set up the necessary clients to connect to the DataHaven network,
 3. Add the following code:
 
     !!! note
-        The code below uses DataHaven testnet configuration values, which include the chain ID RPC URL, WSS URL, MSP URL, and token metadata. If you’re running a local devnet, make sure to replace these with your local configuration parameters. You can find all the relevant local devnet values in the [Local Devnet Starter Kit](/store-and-retrieve-data/local-devnet-starter-kit/).
+        The code below uses DataHaven testnet configuration values, which include the chain ID RPC URL, WSS URL, MSP URL, and token metadata. If you’re running a local devnet, make sure to replace these with your local configuration parameters. You can find all the relevant local devnet values in the [Local Devnet Starter Kit](/store-and-retrieve-data/networks/local-devnet-starter-kit/).
 
     ```ts title="clientService.ts"
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/get-started/client-service.ts'
