@@ -48,7 +48,7 @@ You can also visit the [End-to-End Storage Workflow](/store-and-retrieve-data/us
 
 <div class="grid cards" markdown>
 
--  <a href="/store-and-retrieve-data/testnet-starter-kit/" markdown>:material-arrow-right: 
+-  <a href="/store-and-retrieve-data/networks/testnet-starter-kit/" markdown>:material-arrow-right: 
     
     **Testnet Starter Kit**
 
