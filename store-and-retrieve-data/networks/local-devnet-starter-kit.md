@@ -17,11 +17,11 @@ The following sections provide essential information for configuring your local 
 
 To interact with the network, use the following information to configure DataHaven's local devnet within the developer tools you are using:
 
-   |    Variable     |                    Value                    |
-    |:---------------:|:-------------------------------------------:|
-    |    Chain ID     | <pre>`{{ networks.devnet.chain_id }}`</pre> |
-    | Public RPC URLs | <pre>`{{ networks.devnet.rpc_url }}`</pre>  |
-    | Public WSS URLs | <pre>`{{ networks.devnet.wss_url }}`</pre>  |
+|    Variable     |                    Value                    |
+|:---------------:|:-------------------------------------------:|
+|    Chain ID     | <pre>`{{ networks.devnet.chain_id }}`</pre> |
+| Public RPC URLs | <pre>`{{ networks.devnet.rpc_url }}`</pre>  |
+| Public WSS URLs | <pre>`{{ networks.devnet.wss_url }}`</pre>  |
 
 ## Block Explorers
 
