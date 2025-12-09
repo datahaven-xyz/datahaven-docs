@@ -68,7 +68,7 @@ Before any file operations, authenticate with the MSP. The `authenticateUser` he
 
 ## Request File Deletion
 
-To request file deletion, you are going to create a helper method called `requestDeleteFile` in a separate `fileOperations.ts` file and you are going to update the `index.ts` file accordingly, in order to execute that logic. First, you’ll fetch the file’s metadata from the MSP, format it for on-chain compatibility, and then submit a deletion request using the StorageHub SDK.
+To request file deletion, create a helper method called `requestDeleteFile` in a separate `fileOperations.ts` file and then update the `index.ts` file accordingly, in order to execute that logic. First, fetch the file’s metadata from the MSP, format it for on-chain compatibility, and then submit a deletion request using the StorageHub SDK.
 
 It’s important to note that files are not removed instantly. When a deletion request succeeds, the file is marked for deletion on-chain, but both the MSP and all BSPs storing that file still have the file inside their Merkle Patricia Forests until they pass the mandatory storage proof challenge. After that, the runtime automatically updates their Merkle Patricia Forest roots to remove the file.
 
@@ -122,7 +122,7 @@ If you run the script with the code above, the full response should look like th
 
 ## Delete a Bucket
 
-To delete a bucket, you are going to create a helper method called `deleteBucket` in a separate `bucketOperations.ts` file and you are going to update the `index.ts` file accordingly, in order to execute that logic.
+To delete a bucket, create a helper method called `deleteBucket` in a separate `bucketOperations.ts` file and then update the `index.ts` file accordingly, in order to execute that logic.
 
 !!! note
     A bucket can only be deleted if all its files have already been deleted. Use the `mspClient.buckets.getFiles()` method by passing a `bucketId` as a parameter to check all the files currently stored in that bucket.
