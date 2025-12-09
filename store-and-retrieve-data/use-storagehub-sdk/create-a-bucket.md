@@ -107,7 +107,7 @@ Bucket-related logic will live in a separate `bucketOperations.ts` file. To impl
 
 2. Create a new file within the `operations` folder called `bucketOperations.ts`
 
-3. Add the following code, which uses the `getValueProps` helper from the previous section in createBucket:
+3. Add the following code, which uses the `getValueProps` helper from the previous section in `createBucket`:
 
     ```ts title="bucketOperations.ts"
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:imports'
