@@ -184,28 +184,29 @@ The last step is to verify that the bucket was created successfully on-chain and
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:imports'
 
     async function run() {
-    // For anything from @storagehub-sdk/core to work, initWasm() is required
-    // on top of the file
-    await initWasm();
+      // For anything from @storagehub-sdk/core to work, initWasm() is required
+      // on top of the file
+      await initWasm();
     
-    // --- End-to-end storage flow ---
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:check-msp-health'
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:create-a-bucket'
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:verify-bucket'
-    // **PLACEHOLDER FOR STEP 4: WAIT FOR BACKEND TO HAVE BUCKET**
-    // **PLACEHOLDER FOR STEP 5: UPLOAD FILE**
-    // **PLACEHOLDER FOR STEP 6: WAIT FOR BACKEND TO HAVE FILE**
-    // **PLACEHOLDER FOR STEP 7: DOWNLOAD FILE**
-    // **PLACEHOLDER FOR STEP 8: VERIFY FILE**
+      // --- End-to-end storage flow ---
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:check-msp-health'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:create-bucket'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:verify-bucket'
 
-    // Disconnect the Polkadot API at the very end
-    await polkadotApi.disconnect();
+      // **PLACEHOLDER FOR STEP 4: WAIT FOR BACKEND TO HAVE BUCKET**
+      // **PLACEHOLDER FOR STEP 5: UPLOAD FILE**
+      // **PLACEHOLDER FOR STEP 6: WAIT FOR BACKEND TO HAVE FILE**
+      // **PLACEHOLDER FOR STEP 7: DOWNLOAD FILE**
+      // **PLACEHOLDER FOR STEP 8: VERIFY FILE**
+
+      // Disconnect the Polkadot API at the very end
+      await polkadotApi.disconnect();
     }
 
     await run();
     ```
 
-You’ve successfully created a bucket and verified it has successfully been created on-chain.
+You’ve successfully created a bucket and verified it on-chain.
 
 ## Wait for Backend to Have Bucket
 
@@ -230,7 +231,7 @@ To avoid that race condition, you’ll add a small polling helper that waits for
 
 ??? code "View complete `bucketOperations.ts`"
 
-     ```ts title="src/operations/bucketOperations.ts"
+    ```ts title="src/operations/bucketOperations.ts"
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/bucketOperations.ts'
     ```
 
@@ -253,7 +254,7 @@ Create a new file within the `operations` folder called `fileOperations.ts` and 
 ```ts title="operations/fileOperations.ts"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/fileOperations.ts:imports'
 
-  // Add helper methods here
+// Add helper methods here
 
 ```
 
@@ -291,6 +292,7 @@ After a successful file upload the logs should look something like:
       --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:verify-bucket'
       --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:wait-for-backend-bucket-ready'
       --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:upload-file'
+
       // **PLACEHOLDER FOR STEP 6: WAIT FOR BACKEND TO HAVE FILE**
       // **PLACEHOLDER FOR STEP 7: DOWNLOAD FILE**
       // **PLACEHOLDER FOR STEP 8: VERIFY FILE**
@@ -304,12 +306,12 @@ After a successful file upload the logs should look something like:
 
 ## Wait for Backend to Have File
 
-In this step you wire in two small helper methods:
+In this step, you wire in two small helper methods:
 
 1. **`waitForMSPConfirmOnChain`**: Polls the DataHaven runtime until the MSP has confirmed the storage request on-chain. 
 2. **`waitForBackendFileReady`**: Polls the MSP backend using `mspClient.files.getFileInfo(bucketId, fileKey)` until the file metadata becomes available. Even if the file is confirmed on-chain, the backend may not yet be aware of it.
 
-Once both checks pass, you know the file is committed on-chain and the MSP backend is ready to serve it, so the subsequent download call won’t randomly fail with a `404` while the system is still syncing.
+Once both checks pass, you know the file is committed on-chain, and the MSP backend is ready to serve it, so the subsequent download call won’t randomly fail with a `404` while the system is still syncing.
 
 1. Add the following code in your `fileOperations.ts` file:
     
@@ -327,28 +329,33 @@ Once both checks pass, you know the file is committed on-chain and the MSP backe
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:wait-for-backend-file-ready'
     ```
 
+    The response should look something like this:
+
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/output-02.html'
+
     ??? code "View complete `index.ts` file up until this point"
 
         ```ts title="src/index.ts"
         --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:imports'
 
         async function run() {
-        // For anything from @storagehub-sdk/core to work, initWasm() is required
-        // on top of the file
-        await initWasm();
+          // For anything from @storagehub-sdk/core to work, initWasm() is required
+          // on top of the file
+          await initWasm();
         
-        // --- End-to-end storage flow ---
-        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:check-msp-health'
-        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:create-bucket'
-        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:verify-bucket'
-        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:wait-for-backend-bucket-ready'
-        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:upload-file'
-        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:wait-for-backend-file-ready'
-        // **PLACEHOLDER FOR STEP 7: DOWNLOAD FILE**
-        // **PLACEHOLDER FOR STEP 8: VERIFY FILE**
+          // --- End-to-end storage flow ---
+          --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:check-msp-health'
+          --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:create-bucket'
+          --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:verify-bucket'
+          --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:wait-for-backend-bucket-ready'
+          --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:upload-file'
+          --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:wait-for-backend-file-ready'
 
-        // Disconnect the Polkadot API at the very end
-        await polkadotApi.disconnect();
+          // **PLACEHOLDER FOR STEP 7: DOWNLOAD FILE**
+          // **PLACEHOLDER FOR STEP 8: VERIFY FILE**
+
+          // Disconnect the Polkadot API at the very end
+          await polkadotApi.disconnect();
         }
 
         await run();
@@ -356,7 +363,10 @@ Once both checks pass, you know the file is committed on-chain and the MSP backe
 
 ## Download and Save File
 
-Download the file by its deterministic key from the MSP and save it locally.
+In this step, you'll fetch your file from the DataHaven network via the MSP, and you'll save it locally on your machine.
+
+To do this, you'll create the `downloadFile` helper method as part of the `fileOperations.ts` file. After that, you will update the `index.ts` file accordingly to trigger this new logic.
+
 
 ### Add Method to Download File
 
@@ -392,6 +402,7 @@ Replace the placeholder `// **PLACEHOLDER FOR STEP 7: DOWNLOAD FILE**` with the 
       --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:upload-file'
       --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:wait-for-backend-file-ready'
       --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:download-data'
+
       // **PLACEHOLDER FOR STEP 8: VERIFY FILE**
 
       // Disconnect the Polkadot API at the very end
@@ -447,7 +458,7 @@ The code containing the complete series of steps from creating a bucket to retri
 ??? code "View complete `src/operations/bucketOperations.ts`"
 
     ```ts title="src/operations/bucketOperations.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/bucketOperations.ts'
     ```
 
 ### Notes on Data Safety
