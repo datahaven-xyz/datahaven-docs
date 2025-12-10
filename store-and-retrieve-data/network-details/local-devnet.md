@@ -28,7 +28,7 @@ To interact with the network, use the following information to configure DataHav
 The local devnet does not include hosted explorers. Use tools such as:
 
 - [Hardhat local chain](https://v2.hardhat.org/hardhat-network/docs/overview){target=\_blank} inspection  
-- Polkadot.js Apps (local Substrate RPC)  
+- [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2F127.0.0.1%3A9666#/explorer){target=\_blank} (local Substrate RPC)  
 
 ## Pre-Funded Devnet Accounts
 
