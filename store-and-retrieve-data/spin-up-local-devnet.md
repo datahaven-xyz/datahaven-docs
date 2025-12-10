@@ -18,21 +18,28 @@ Before you begin, ensure you have the following:
 - [Rust ≥ 1.86](https://rust-lang.org/tools/install/){target=\_blank} installed
 - [PostgreSQL](https://www.postgresql.org/download/){target=\_blank} installed 
 - [Diesel CLI](https://diesel.rs/guides/getting-started#installing-diesel-cli){target=\_blank} installed for database management
-    - Install system dependencies:
-        - **Linux**:
-        ```bash
-        sudo apt update && sudo apt install build-essential
-        ```
+ 
+    ??? interface "Diesel CLI installation instructions"
 
-        - **macOS**:
-        ```bash
-        xcode-select --install
-        ```
-        
-    - Then, regardless of platform you'll need to install Diesel CLI with PostgreSQL support:
-        ```bash
-        cargo install diesel_cli --no-default-features --features postgres
-        ```
+        - Install system dependencies:
+
+            === "Linux"
+
+                ```bash
+                sudo apt update && sudo apt install build-essential
+                ```
+
+            === "macOS"
+
+                ```bash
+                xcode-select --install
+                ```
+            
+        - Install Diesel CLI with PostgreSQL support:
+
+            ```bash
+            cargo install diesel_cli --no-default-features --features postgres
+            ```
 
 ## Clone the StorageHub Repository
 
