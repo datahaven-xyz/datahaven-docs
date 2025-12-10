@@ -1,9 +1,9 @@
 ---
-title: Local Devnet Starter Kit
+title: Local Devnet
 description: Configuration details, pre-funded accounts, and MSP endpoints that help you set up your environment and start developing on the DataHaven local devnet.
 ---
 
-# Local Devnet Starter Kit
+# Local Devnet
 
 DataHaven is a fully EVM-compatible decentralized storage and computation platform built as a Substrate-based Layer 1 blockchain. Developers can interact with DataHaven using Ethereum RPCs, popular wallets, and libraries such as MetaMask or viem, while also accessing Substrate APIs for additional features.
 
@@ -27,7 +27,7 @@ To interact with the network, use the following information to configure DataHav
 
 The local devnet does not include hosted explorers. Use tools such as:
 
-- `hardhat` local chain inspection  
+- [Hardhat local chain](https://v2.hardhat.org/hardhat-network/docs/overview){target=\_blank} inspection  
 - Polkadot.js Apps (local Substrate RPC)  
 
 ## Pre-Funded Devnet Accounts
@@ -45,15 +45,15 @@ The local devnet ships with multiple **pre-funded test accounts**, which reset e
 |  **Goliath**  | <pre>`0x7BF369283338E12C90514468aa3868A551AB2929`</pre> | <pre>`0x96b8a38e12e1a31dee1eab2fffdf9d9990045f5b37e44d8cc27766ef294acf18`</pre> |
 
 !!! note
-    These keys are for **local development only** and should **never be used on public networks**. Every time you start the local devnet, all balances and states are reset.
+    These keys are for **local development only** and should **never be used on public networks**. Every time you start the local devnet, all balances and states are reset. Use of these accounts on production networks will result in loss of funds.
 
-## MSP Service Endpoint (Local Devnet)
+## MSP Service Endpoint
 
 Use the following base URL when interacting with an MSP through the StorageHub SDK:
 
-|        Network         |                  Endpoint                   |
-|:----------------------:|:-------------------------------------------:|
-| DataHaven Local Devnet | <pre>`{{ networks.devnet.msp_url }}`</pre>  |
+```
+{{ networks.devnet.msp_url }}
+```
 
 ## Next Steps
 
@@ -67,11 +67,11 @@ Use the following base URL when interacting with an MSP through the StorageHub S
 
     </a>
 
--   <a href="/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/" markdown>:material-arrow-right:
+-   <a href="/store-and-retrieve-data/spin-up-local-devnet.md" markdown>:material-arrow-right:
 
-    **End-to-End Storage Workflow**
+    **Spin Up Local Devnet**
 
-    Learn step-by-step how to store a file on DataHaven and retrieve it from the network.
+    Learn how to set up a local DataHaven development network to test storage operations and interact with the StorageHub SDK in a self-contained environment.
 
     </a>
 

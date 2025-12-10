@@ -1,5 +1,5 @@
 nav:
  - 'Overview': index.md
- - 'Networks': networks
+ - 'Network Details': network-details
  - 'Spin up Local Devnet': spin-up-local-devnet.md
  - 'Use StorageHub SDK': use-storagehub-sdk
