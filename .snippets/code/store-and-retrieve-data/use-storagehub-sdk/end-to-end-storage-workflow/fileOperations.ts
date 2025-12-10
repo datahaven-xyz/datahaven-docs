@@ -295,7 +295,7 @@ export async function waitForBackendFileReady(
   bucketId: string,
   fileKey: string
 ) {
-  const maxAttempts = 10; // Number of polling attempts
+  const maxAttempts = 15; // Number of polling attempts
   const delayMs = 2000; // Delay between attempts in milliseconds
 
   for (let i = 0; i < maxAttempts; i++) {
@@ -325,7 +325,16 @@ export async function waitForBackendFileReady(
       // Otherwise still pending (indexer not done, MSP still syncing, etc.)
       console.log(`File status is "${fileInfo.status}", waiting...`);
     } catch (error: any) {
-      // Any unexpected backend error should stop the workflow and surface to the caller
+      if (error?.status === 404 || error?.body?.error === 'Not found: Record') {
+        // Handle "not yet indexed" as a *non-fatal* condition
+        console.log(
+          'File not yet indexed in MSP backend (404 Not Found). Waiting before retry...'
+        );
+      } else {
+        // Any unexpected backend error should stop the workflow and surface to the caller
+        console.log('Unexpected error while fetching file from MSP:', error);
+        throw error;
+      }
       console.log('Unexpected error while fetching file from MSP:', error);
       throw error;
     }
