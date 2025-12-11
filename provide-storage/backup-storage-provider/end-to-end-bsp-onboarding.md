@@ -147,7 +147,7 @@ The `datahaven-node` binaries published in the DataHaven repository are precompi
     docker build --platform=linux/amd64 -t datahaven-bsp:latest .
     ```
 
-    The image name can be anything; This guide, uses `datahaven-bsp:latest`.
+    The image name can be anything; This tutorial, uses `datahaven-bsp:latest`.
     
     ??? interface "(Optional) Spin up the BSP node now to see what the output is like."
 
