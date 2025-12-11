@@ -13,7 +13,7 @@ The Wayne dApp is a convenient front-end for users to interact with the DataHave
 
 - An EVM-compatible wallet (for example, [MetaMask](https://metamask.io/){target=\_blank}) installed in your browser
 - DataHaven testnet RPC added to your wallet (see the [Storage Starter Kit](/store-and-retrieve-data/starter-kit/#network-configurations){target=_blank} for RPC details; the connection flow below will also prompt you to add it)
-- MOCK testnet tokens to cover transactions and storage fees — request them from the [Official Testnet Faucet](https://apps.datahaven.xyz/faucet){target=_blank}
+- [MOCK testnet tokens](https://apps.datahaven.xyz/faucet){target=\_blank} to cover transactions and storage fees
 - [Wayne testnet URL](https://datahaven.app/testnet){target=\_blank}
 
 ## Connect to the DataHaven testnet and fund your wallet
