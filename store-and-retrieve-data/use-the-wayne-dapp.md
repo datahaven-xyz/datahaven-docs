@@ -15,7 +15,7 @@ The Wayne dApp is a convenient front-end for users to interact with the DataHave
 - [MOCK testnet tokens](https://apps.datahaven.xyz/faucet){target=\_blank} to cover transactions and storage fees
 - [Wayne testnet URL](https://datahaven.app/testnet){target=\_blank}
 
-## Connect to the DataHaven testnet and fund your wallet
+## Connect and Fund Your Wallet
 
 To get started, visit the [DataHaven testnet portal](https://apps.datahaven.xyz/testnet){target=\_blank} and click **Connect**. When prompted, approve adding the DataHaven testnet RPC to your wallet, then sign the login message to authenticate.
 
