@@ -16,7 +16,7 @@ DataHaven depends on independent operators to keep replicas available and verifi
 
 ## What to Expect as a Provider
 
-- **Operate through EigenLayer and DataHaven**: Operators register with the DataHaven AVS and bond restaked stake or collateral to join the BSP set.
+- **Register on DataHaven and bond BSP stake**: Use the BSP signup flow on the DataHaven chain to post collateral; EigenLayer registration applies to validators, not BSPs.
 - **Stay reachable for replication and proofs**: MSPs rely on BSPs to accept replication quickly; protocol challenges have deadlines.
 - **Plan for durability and bandwidth**: Keep enough capacity to accommodate new replicas, and maintain consistent throughput to answer chunk-level challenges.
 - **Monitor network status**: Review known issues and release notes so you understand current replication behavior and any temporary protocol limits.
@@ -24,11 +24,27 @@ DataHaven depends on independent operators to keep replicas available and verifi
 !!! note
     BSP replication availability can change during testnet iterations. Check [Known Issues](/store-and-retrieve-data/known-issues/) for the latest status before onboarding capacity.
 
+## Hardware Guidelines (MSP and BSP)
+
+MSPs and BSPs use similar hardware profiles to keep replication and proof responses reliable.
+
+| Component | Baseline requirement |
+|:---------:|:--------------------|
+| CPU | 8 physical cores @ 3.4 GHz (Intel Ice Lake+ or AMD Zen3+) |
+| RAM | 32 GB DDR4 ECC |
+| System storage | 500 GB NVMe SSD (chain data) |
+| User data storage | 1 TB+ NVMe SSD or HDD (expandable) |
+| Network | 500 Mbit/s symmetric |
+
+- Keep chain data and user data on separate volumes for steadier I/O.
+- Size `--max-storage-capacity` to roughly 80% of available disk so filesystems and temporary files have headroom.
+- Plan for growth; expandable storage or dedicated cloud volumes work well when performance is consistent.
+
 ## Next Steps
 
 <div class="grid cards" markdown>
 
- -  <a href="/provide-storage/backup-storage-provider-bsp/" markdown>:material-arrow-right: 
+-  <a href="/provide-storage/backup-storage-provider-bsp/" markdown>:material-arrow-right: 
     
     **Backup Storage Provider (BSP)**
 

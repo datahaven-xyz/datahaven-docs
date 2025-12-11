@@ -21,7 +21,7 @@ The responsibilities of BSPs include:
 
 Follow this sequence to understand the onboarding and operations of a BSP from registration through replication, commitments, and proof responses.
 
-1. **Register and bond**: Join the BSP operator set through the DataHaven AVS (via EigenLayer) and stake the collateral that backs your commitments.
+1. **Register and bond**: Enroll on the DataHaven chain via `bsp_sign_up`, posting BSP stake or collateral directly to DataHaven (BSPs do not onboard through EigenLayer).
 2. **Prepare endpoints**: Run your BSP service on reliable storage and bandwidth, expose secure endpoints MSPs can reach for replication, and keep time in sync for challenge deadlines.
 3. **Accept and persist replicas**: When selected, fetch the file data from the MSP, validate chunk hashes, and acknowledge completion so the MSP can finalize the upload on-chain.
 4. **Publish commitments**: Update your BSP commitment after each accepted replica so the on-chain root matches your local inventory.
@@ -74,7 +74,7 @@ BSP nodes must have the following key in the node's keystore:
 
 <div class="grid cards" markdown>
 
--  <a href="/provide-storage/" markdown>:material-compass-outline: 
+-  <a href="/provide-storage/" markdown>:material-arrow-right: 
     
     **Provide Storage Overview**
 
@@ -82,7 +82,7 @@ BSP nodes must have the following key in the node's keystore:
 
     </a>
 
--   <a href="/how-it-works/data-and-provider-model/buckets-files-and-merkle-proofs/" markdown>:material-source-branch-plus: 
+-   <a href="/how-it-works/data-and-provider-model/buckets-files-and-merkle-proofs/" markdown>:material-arrow-right: 
 
     **Buckets, Files, and Merkle Proofs**
 
