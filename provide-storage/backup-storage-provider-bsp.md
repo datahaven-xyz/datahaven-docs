@@ -52,15 +52,7 @@ Users pay for storage based on the data they store over time and the replication
 
 ## Run a BSP Node
 
-Run your node with the provider type `bsp` enabled:
-
-```bash
-datahaven-node --provider --provider-type bsp --max-storage-capacity 10737418240 --jump-capacity=1073741824 --storage-layer rocks-db --storage-path /data
-```
-
-BSP nodes must have the following key in the node's keystore:
-
-- **Blockchain service key**: key type `bcsv`, scheme `ecdsa`.
+For node CLI flags, key setup, and deployment patterns, see **Run a BSP Node**. The upcoming guide covers registration, capacity sizing, and task flags in one place. [Run a BSP Node instructions](/provide-storage/backup-storage-provider/run-a-bsp-node/).
 
 ## Faults, Slashing, and Exits
 
