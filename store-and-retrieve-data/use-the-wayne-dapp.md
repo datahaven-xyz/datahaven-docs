@@ -48,7 +48,7 @@ In the pop-up window, give the bucket a name and press **Create Bucket**. Then c
 
 Wait a few moments while the bucket is indexed. Once it appears, you can open it to manage files and folders.
 
-## Upload and download a file
+## Upload and Download a File
 
 1. Open your bucket and (optionally) create folders to organize files.
 2. Click **Upload**, choose a file from your computer, and leave replication settings as-is (they are fixed in the current release).
