@@ -52,7 +52,7 @@ Users pay for storage based on the data they store over time and the replication
 
 ## Run a BSP Node
 
-For node CLI flags, key setup, and deployment patterns, see **Run a BSP Node**. The upcoming guide covers registration, capacity sizing, and task flags in one place. [Run a BSP Node instructions](/provide-storage/backup-storage-provider/run-a-bsp-node/).
+For node CLI flags, key setup, and deployment patterns, see [Run a BSP Node instructions](/provide-storage/backup-storage-provider/run-a-bsp-node/). This guide covers registration, capacity sizing, and task flags in one place. 
 
 ## Faults, Slashing, and Exits
 
