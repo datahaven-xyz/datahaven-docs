@@ -361,7 +361,7 @@ Finally, you have a running BSP node within an easily maintainable Docker contai
 
 -  <a href="/provide-storage/backup-storage-provider/verify-bsp-on-chain" markdown>:material-arrow-right: 
 
-    **Create A Bucket**
+    **Verify BSP On-Chain**
 
     Follow this guide to verify your BSP on-chain and thus enable your BSP node to participate in replicating DataHaven's files.
 
@@ -369,7 +369,7 @@ Finally, you have a running BSP node within an easily maintainable Docker contai
 
 -  <a href="/provide-storage/backup-storage-provider/end-to-end-bsp-onboarding/" markdown>:material-arrow-right:
 
-    **End-to-End Storage Workflow**
+    **End-to-End BSP Onboarding**
 
     This tutorial takes you step-by-step through spinning up a BSP and verifying it on-chain.
 
