@@ -10,28 +10,18 @@
         "icon": ":fontawesome-solid-2:"
     },
     {
-        "title": "[Issue a Storage Request](/store-and-retrieve-data/use-storagehub-sdk/issue-a-storage-request/)",
-        "content": "Use the File Manager to create your file fingerprint and issue a storage request.",
+        "title": "[Authenticate with SIWE and JWT](/store-and-retrieve-data/use-storagehub-sdk/authenticate-with-siwe-and-jwt/)",
+        "content": "Use Sign-In with Ethereum (SIWE) and JSON Web Tokens (JWT) for secure authentication.",
         "icon": ":fontawesome-solid-3:"
     },
     {
-        "title": "[Verify Storage Request](/store-and-retrieve-data/use-storagehub-sdk/verify-storage-request-registration/)",
-        "content": "Compute a file key to retrieve and read storage request data for verification of on-chain registration.",
-        "icon": ":fontawesome-solid-4:"
-    },
-    {
-        "title": "[Authenticate with SIWE and JWT](/store-and-retrieve-data/use-storagehub-sdk/authenticate-with-siwe-and-jwt/)",
-        "content": "Use Sign-In with Ethereum (SIWE) and JSON Web Tokens (JWT) for secure authentication.",
-        "icon": ":fontawesome-solid-5:"
-    },
-    {
         "title": "[Upload a File](/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/)",
-        "content": "Upload a file to the connected MSP. Includes steps to verify upload success.",
-        "icon": ":fontawesome-solid-6:"
+        "content": "Issue a Storage Request, verify it, then upload a file to the connected MSP. Includes steps to verify upload success.",
+        "icon": ":fontawesome-solid-4:"
     },
     {
         "title": "[Retrieve Your Data](/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/)",
         "content": "Use your file key to download your file from the MSP client and save it programmatically.",
-        "icon": ":fontawesome-solid-7:"
+        "icon": ":fontawesome-solid-5:"
     }
 ]
