@@ -25,7 +25,7 @@ Then, in the **Faucet** tab, complete the captcha and click **Request tokens** t
 
 ![Requesting testnet funds from the faucet](/images/wayne/wayne-2.webp)
 
-## Open the Wayne dApp and authorize storage payments
+## Authorize Storage Payments
 
 1. Go to the [Wayne dApp on testnet](https://datahaven.app/testnet){target=\_blank}.
 2. Click **Connect wallet** and choose your wallet provider, then sign the login message.
