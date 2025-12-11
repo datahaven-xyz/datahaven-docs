@@ -28,7 +28,7 @@ DataHaven depends on independent operators to keep replicas available and verifi
 
 <div class="grid cards" markdown>
 
--  <a href="/provide-storage/backup-storage-provider-bsp/" markdown>:material-shield-check: 
+ -  <a href="/provide-storage/backup-storage-provider-bsp/" markdown>:material-arrow-right: 
     
     **Backup Storage Provider (BSP)**
 
@@ -36,7 +36,7 @@ DataHaven depends on independent operators to keep replicas available and verifi
 
     </a>
 
--   <a href="/how-it-works/data-and-provider-model/data-flow-and-lifecycle/" markdown>:material-lan: 
+-   <a href="/how-it-works/data-and-provider-model/data-flow-and-lifecycle/" markdown>:material-arrow-right: 
 
     **Data Flow and Lifecycle**
 
