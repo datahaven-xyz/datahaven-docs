@@ -19,6 +19,8 @@ The responsibilities of BSPs include:
 
 ## Operational Flow
 
+Follow this sequence to understand the onboarding and operations of a BSP from registration through replication, commitments, and proof responses.
+
 1. **Register and bond**: Join the BSP operator set through the DataHaven AVS (via EigenLayer) and stake the collateral that backs your commitments.
 2. **Prepare endpoints**: Run your BSP service on reliable storage and bandwidth, expose secure endpoints MSPs can reach for replication, and keep time in sync for challenge deadlines.
 3. **Accept and persist replicas**: When selected, fetch the file data from the MSP, validate chunk hashes, and acknowledge completion so the MSP can finalize the upload on-chain.
