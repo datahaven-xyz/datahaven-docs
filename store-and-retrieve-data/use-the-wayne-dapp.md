@@ -33,7 +33,7 @@ Then, in the **Faucet** tab, complete the captcha and click **Request tokens** t
 
 ![Approving ongoing storage allowances in Wayne](/images/wayne/wayne-3.webp)
 
-## Create a bucket
+## Create a Bucket
 
 1. In Wayne, open **Buckets** and review the notice that buckets are public on testnet.
 2. Select the checkbox that you have read and agree to the terms and conditions.
