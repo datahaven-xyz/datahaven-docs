@@ -3,7 +3,7 @@ title: Backup Storage Provider (BSP)
 description: Understand the responsibilities, operating flow, and reliability expectations for running a Backup Storage Provider on DataHaven.
 ---
 
-# Backup Storage Provider (BSP)
+# Backup Storage Providers
 
 Backup Storage Providers supply redundancy for every bucket on DataHaven. They store replicated file bytes, maintain a verifiable record of the file keys they hold, answer periodic proof challenges, and serve data if a Main Storage Provider (MSP) becomes unavailable.
 
