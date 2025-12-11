@@ -9,6 +9,8 @@ Backup Storage Providers (BSPs) supply redundancy for every bucket on DataHaven.
 
 ## What Does a BSP Do?
 
+The responsibilities of BSPs include:
+
 - **Accept replication from MSPs**: Receive file chunks from MSPs after a user upload, validate integrity, and persist replicas until policy allows deletion.
 - **Maintain a global commitment**: Track stored file keys in a Merkle forest, publish the resulting root on-chain, and keep it current as files are added or removed.
 - **Answer protocol challenges**: Respond within the challenge window using Merkle proofs derived from local data to show continued custody. Missed or invalid answers can lead to slashing.
