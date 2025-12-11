@@ -7,7 +7,7 @@ description: Understand the responsibilities, operating flow, and reliability ex
 
 Backup Storage Providers supply redundancy for every bucket on DataHaven. They store replicated file bytes, maintain a verifiable record of the file keys they hold, answer periodic proof challenges, and serve data if a Main Storage Provider (MSP) becomes unavailable.
 
-## What a BSP Does
+## What Does a BSP Do?
 
 - **Accept replication from MSPs**: Receive file chunks from MSPs after a user upload, validate integrity, and persist replicas until policy allows deletion.
 - **Maintain a global commitment**: Track stored file keys in a Merkle forest, publish the resulting root on-chain, and keep it current as files are added or removed.
