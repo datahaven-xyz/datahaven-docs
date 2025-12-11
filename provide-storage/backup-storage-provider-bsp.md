@@ -66,7 +66,7 @@ BSP nodes must have the following key in the node's keystore:
 - Keeping commitments up to date is essential; stale roots can create false failures during challenges.
 - BSP sign-up lock period: `BspSignUpLockPeriod = 90 * DAYS` (about 3 months) from sign-up.
 - Exits must respect TTLs and challenge windows; BSPs can be removed from the allowlist and operator set, but rushing exits risks slashing.
-- If you need to scale down, drain capacity gracefully so pending replications and open challenges complete before exiting the operator set.
+- If you need to scale down, drain capacity gracefully so pending replications and open challenges are complete before exiting the operator set.
 
 ## Next Steps
 
