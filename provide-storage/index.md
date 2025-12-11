@@ -24,12 +24,6 @@ DataHaven depends on independent operators to keep replicas available and verifi
 !!! note
     BSP replication availability can change during testnet iterations. Check [Known Issues](/store-and-retrieve-data/known-issues/) for the latest status before onboarding capacity.
 
-## Where to Start
-
-1. Learn how MSPs and BSPs interact in [Data Flow and Lifecycle](/how-it-works/data-and-provider-model/data-flow-and-lifecycle/).
-2. Read the [Backup Storage Provider (BSP)](/provide-storage/backup-storage-provider-bsp/) guide to understand expectations and operating flow.
-3. Confirm the current network state in [Known Issues](/store-and-retrieve-data/known-issues/) so you plan around any temporary constraints.
-
 ## Next Steps
 
 <div class="grid cards" markdown>
