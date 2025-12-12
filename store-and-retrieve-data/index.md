@@ -50,7 +50,7 @@ You can also visit the [End-to-End Storage Workflow](/store-and-retrieve-data/us
 
 -  <a href="/store-and-retrieve-data/network-details/testnet/" markdown>:material-arrow-right: 
     
-    **Testnet Starter Kit**
+    **Testnet**
 
     Find what you need to connect and build on the DataHaven testnet, from network configurations to obtaining testnet tokens.
 
