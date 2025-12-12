@@ -1,6 +1,6 @@
 nav:
  - 'Overview': index.md
- - 'Storage Starter Kit': starter-kit.md
+ - 'Network Details': network-details
  - 'Spin up Local Devnet': spin-up-local-devnet.md
  - 'Use the Wayne dApp': use-the-wayne-dapp.md
  - 'Use StorageHub SDK': use-storagehub-sdk

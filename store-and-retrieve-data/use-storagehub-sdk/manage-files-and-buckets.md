@@ -116,6 +116,9 @@ Update `index.ts` with the following code to trigger the `requestDeleteFile` hel
     await run();
     ```
 
+    !!! note
+        After a file is uploaded to a Main Storage Provider (MSP), the network allows a 10-minute window for Backup Storage Providers (BSPs) to replicate the file to the required count. Within this time window, the deletion of a file cannot be requested. If the replication target is not met within this window, the request transitions to `expired` even though the upload to the MSP succeeded.
+
 If you run the script with the code above, the full response should look like this:
 
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/output-01.html'
