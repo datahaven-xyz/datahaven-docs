@@ -30,7 +30,7 @@ async function run() {
     fileKey
   );
   console.log(
-    'File deletion request submitted succesfully:',
+    'File deletion request submitted successfully:',
     isDeletionRequestSuccessful
   );
   // --8<-- [end:request-file-deletion]
