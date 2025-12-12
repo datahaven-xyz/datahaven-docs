@@ -1,4 +1,5 @@
 nav:
  - 'Home': index.md
  - 'Store and Retrieve Data': store-and-retrieve-data
+ - 'Provide Storage': provide-storage
  - 'How It Works': how-it-works
