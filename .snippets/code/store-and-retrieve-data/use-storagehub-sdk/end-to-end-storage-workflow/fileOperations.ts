@@ -335,8 +335,6 @@ export async function waitForBackendFileReady(
         console.log('Unexpected error while fetching file from MSP:', error);
         throw error;
       }
-      console.log('Unexpected error while fetching file from MSP:', error);
-      throw error;
     }
 
     // Wait before polling again
