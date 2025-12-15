@@ -10,48 +10,29 @@ This guide shows how to fetch a previously uploaded file from your chosen Main S
 ## Prerequisites
 
 --8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/prerequisites.md'
-- [A file uploaded](/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/){target=\_blank} to DataHaven, along with the [file key](/store-and-retrieve-data/use-storagehub-sdk/verify-storage-request-registration/#compute-the-file-key){target=\_blank}
+- [A file uploaded](/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/){target=\_blank} to DataHaven, along with the [file key](/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/#compute-the-file-key){target=\_blank}
 
-## Install Dependencies
+## Initialize the Script Entry Point
 
-=== "pnpm"
+First, create an `index.ts` file, if you haven't already. Its `run` method will orchestrate all the logic in this guide, and you’ll replace the labelled placeholders with real code step by step. By now, your services folder (including the MSP and client helper services) should already be created. If not, see the [Get Started](/store-and-retrieve-data/use-storagehub-sdk/get-started/) guide.
 
-    ```bash { .break-spaces }
-    pnpm add @storagehub-sdk/core @storagehub-sdk/msp-client @storagehub/types-bundle @polkadot/api @storagehub/api-augment viem
-    ```
+The `index.ts` snippet below also imports `fileOperations.ts`, which is not in your project yet—that's expected, as you'll create it later in this guide.
 
-=== "yarn"
-
-    ```bash { .break-spaces }
-    yarn add @storagehub-sdk/core @storagehub-sdk/msp-client @storagehub/types-bundle @polkadot/api @storagehub/api-augment viem
-    ```
-
-=== "npm"
-
-    ```bash { .break-spaces }
-    npm install @storagehub-sdk/core @storagehub-sdk/msp-client @storagehub/types-bundle @polkadot/api @storagehub/api-augment viem
-    ```
-
-## Initialize Clients and Authenticate MSP Client
-
-First, you'll need to set up the necessary clients to connect to the DataHaven network, which runs on a dual-protocol architecture (Substrate for core logic and EVM for compatibility).
-
-If you've already followed the [Upload a File](/store-and-retrieve-data/use-storagehub-sdk/issue-a-storage-request/){target=\_blank} guide, your clients may already be initialized and your MSP client authenticated. In that case, review the placeholders at the bottom of the following snippet to see where you'll add logic in this guide, then skip ahead to [Download Your File from MSP Client](#download-your-file-from-msp-client).
-
-Create an `index.ts` and add the following code:
-
-!!! note
-    The code below uses **DataHaven Testnet** configuration values, which include the **Chain ID**, **RPC URL**, **WSS URL**, **MSP URL**, and **token metadata**. If you’re running a **local devnet**, make sure to replace these with your local configuration parameters. You can find all the relevant **local devnet values** in the [Starter Kit](/store-and-retrieve-data/starter-kit/).
+Add the following code to your `index.ts` file:
 
 ```ts title="index.ts"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/retrieve-data.ts:imports'
 
 async function run() {
-  --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/retrieve-data.ts:initialize-and-setup'
+  // For anything from @storagehub-sdk/core to work, initWasm() is required
+  // on top of the file
+  await initWasm();
+  
+  --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/retrieve-data.ts:init-setup'
 
-  // --- Upload file logic ---
-  // **PLACEHOLDER FOR STEP 1: DOWNLOAD FILE FROM MSP CLIENT**
-  // **PLACEHOLDER FOR STEP 2: SAVE DOWNLOADED FILE**
+  // --- Retrieve file logic ---
+  // **PLACEHOLDER FOR STEP 1: ADD DOWNLOAD FILE HELPER METHOD**
+  // **PLACEHOLDER FOR STEP 2: VERIFY FILE HELPER METHOD**
 
   // Disconnect the Polkadot API at the very end
   await polkadotApi.disconnect();
@@ -60,27 +41,109 @@ async function run() {
 await run();
 ```
 
-## Download Your File from MSP Client
+## Download and Save File
 
-Call the `files.downloadFile` function of the `mspClient` and pass the file key in hex format as follows:
+To download a file you've already uploaded to the network, you will create a `downloadFile` helper method through which you will retrieve the file from the network and then save it locally to your machine. Then, update the `index.ts` file accordingly in order to execute that logic.
 
-```ts title="// **PLACEHOLDER FOR STEP 1: DOWNLOAD FILE FROM MSP CLIENT**"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/retrieve-data.ts:download-file'
-```
+### Add Method to Download File
 
-## Save Downloaded File
+1. Create a new folder called `operations` within the `src` folder (at the same level as the `services` folder) like so:
 
-To save the retrieved file from the MSP on your local machine, add the following code:
+    ```bash
+    mkdir operations
+    ```
 
-```ts title="// **PLACEHOLDER FOR STEP 2: SAVE DOWNLOADED FILE**"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/retrieve-data.ts:save-download'
-```
+2. Create a new file within the `operations` folder called `fileOperations.ts`.
 
-??? code "View complete script"
+3. Add the following code:
+
+    ```ts title="fileOperations.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/fileOperations.ts:imports'
+
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/fileOperations.ts:download-file'
+    ```
+
+### Call the Download File Helper Method
+
+1. Proceed with updating the `index.ts` file with the following code in order to execute the download logic you just implemented:
 
     ```ts title="index.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/retrieve-data.ts'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/retrieve-data.ts:download-data'
     ```
+
+    ??? code "View complete `index.ts` file up until this point"
+
+        ```ts title="index.ts"
+        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/retrieve-data.ts:imports'
+
+        async function run() {
+          // For anything from @storagehub-sdk/core to work, initWasm() is required
+          // on top of the file
+          await initWasm();
+        
+          --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/retrieve-data.ts:init-setup'
+
+          --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/retrieve-data.ts:download-data'
+
+          // Disconnect the Polkadot API at the very end
+          await polkadotApi.disconnect();
+        }
+
+        await run();
+        ```
+
+2. Run the script:
+
+    ```bash
+    ts-node index.ts
+    ```
+
+    Upon a successful file download, you'll see output similar to:
+
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/output-01.html'
+
+
+## Verify Downloaded File
+
+To verify the integrity of the file you've just downloaded, you'll create a `verifyDownload` helper method through which the bytes of the original file will be matched to the bytes of the newly downloaded file. Then, you'll update the `index.ts` file accordingly in order to execute that logic.
+
+### Add Method to Verify Download
+
+Implement the `verifyDownload` helper method logic to your `fileOperations.ts` file, by adding the following code:
+
+```ts title="fileOperations.ts"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/fileOperations.ts:verify-download'
+```
+
+??? code "View complete `fileOperations.ts` file"
+
+    ```ts title="fileOperations.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/fileOperations.ts'
+    ```
+
+### Call the Verify Download Helper Method
+
+1. Update the `index.ts` file with the following code in order to execute the verification logic you just implemented:
+
+    ```ts title="index.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/retrieve-data.ts:verify-download'
+    ```
+
+    ??? code "View complete `index.ts` file"
+
+        ```ts title="index.ts"
+        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/retrieve-data.ts'
+        ```
+
+2. Run the script:
+
+    ```bash
+    ts-node index.ts
+    ```
+
+    Upon a successful file download, you'll see the following output:
+
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/output-02.html'
 
 ## Next Steps
 

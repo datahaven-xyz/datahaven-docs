@@ -1,0 +1,27 @@
+[
+    {
+        "title": "Get Started with StorageHub SDK",
+        "content": "Set up your development environment, install the StorageHub SDK, and prepare your project to start interacting with the DataHaven network.",
+        "icon": ":fontawesome-solid-1:"
+    },
+    {
+        "title": "Create a Bucket",
+        "content": "Connect your wallet or app identity, select a Main Storage Provider (MSP), and create or reuse a bucket.",
+        "icon": ":fontawesome-solid-2:"
+    },
+    {
+        "title": "Authenticate with SIWE and JWT",
+        "content": "Use Sign-In with Ethereum (SIWE) and JSON Web Tokens (JWT) for secure authentication.",
+        "icon": ":fontawesome-solid-3:"
+    },
+    {
+        "title": "Upload a File",
+        "content": "Issue a Storage Request, verify it, then upload a file to the connected MSP. Includes steps to verify upload success.",
+        "icon": ":fontawesome-solid-4:"
+    },
+    {
+        "title": "Retrieve Your Data",
+        "content": "Use your file key to download your file from the MSP client and save it programmatically.",
+        "icon": ":fontawesome-solid-5:"
+    }
+]

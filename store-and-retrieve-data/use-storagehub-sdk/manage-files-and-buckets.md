@@ -10,45 +10,26 @@ This guide explains how to manage your storage resources on DataHaven using the 
 ## Prerequisites
 
 --8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/prerequisites.md'
-- [A file uploaded](/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/){target=\_blank} to DataHaven, along with the [file key](/store-and-retrieve-data/use-storagehub-sdk/verify-storage-request-registration/#compute-the-file-key){target=\_blank}
+- [A file uploaded](/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/){target=\_blank} to DataHaven, along with the [file key](/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/#compute-the-file-key){target=\_blank}
 
-## Install Dependencies
+## Initialize the Script Entry Point
 
-=== "pnpm"
+First, create an `index.ts` file if you haven't already. Its `run` method will orchestrate all the logic in this guide, and you’ll replace the labelled placeholders with real code step by step. By now, your services folder (including the MSP and client helper services) should already be created. If not, see the [Get Started](/store-and-retrieve-data/use-storagehub-sdk/get-started/) guide.
 
-    ```bash { .break-spaces }
-    pnpm add @storagehub-sdk/core @storagehub-sdk/msp-client @storagehub/types-bundle @polkadot/api @storagehub/api-augment viem
-    ```
+The `index.ts` snippet below also imports `bucketOperations.ts` and `fileOperations.ts`, which are not in your project yet—that's expected, as you'll create them later in this guide.
 
-=== "yarn"
-
-    ```bash { .break-spaces }
-    yarn add @storagehub-sdk/core @storagehub-sdk/msp-client @storagehub/types-bundle @polkadot/api @storagehub/api-augment viem
-    ```
-
-=== "npm"
-
-    ```bash { .break-spaces }
-    npm install @storagehub-sdk/core @storagehub-sdk/msp-client @storagehub/types-bundle @polkadot/api @storagehub/api-augment viem
-    ```
-
-## Initialize Clients and Authenticate MSP Client
-
-First, you'll need to set up the necessary clients to connect to the DataHaven network, which runs on a dual-protocol architecture (Substrate for core logic and EVM for compatibility).
-
-If you've already followed the [Upload a File](/store-and-retrieve-data/use-storagehub-sdk/issue-a-storage-request/){target=\_blank} guide, your clients may already be initialized and your MSP client authenticated. In that case, review the placeholders at the bottom of the following snippet to see where you'll add logic in this guide, then skip ahead to [Request file deletion](#request-file-deletion).
-
-Create an `index.ts` and add the following code:
+Add the following code to your `index.ts` file:
 
 ```ts title="index.ts"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:imports'
 
 async function run() {
-  --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:initialize-clients'
+  --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:init-setup'
 
   // --- Data deletion logic ---
-  // **PLACEHOLDER FOR STEP 1: REQUEST FILE DELETION**
-  // **PLACEHOLDER FOR STEP 2: DELETE A BUCKET**
+  // **PLACEHOLDER FOR STEP 1: AUTHENTICATE**
+  // **PLACEHOLDER FOR STEP 2: REQUEST FILE DELETION**
+  // **PLACEHOLDER FOR STEP 3: DELETE A BUCKET**
 
   // Disconnect the Polkadot API at the very end
   await polkadotApi.disconnect();
@@ -57,36 +38,120 @@ async function run() {
 await run();
 ```
 
+## Authenticate
+
+Before any file operations, authenticate with the MSP. The `authenticateUser` helper signs a SIWE message and returns a session token that authorizes your uploads, updates, and deletions. Add the following code to use the `authenticateUser` helper method you've already implemented in `mspService.ts`:
+
+```ts title='index.ts // **PLACEHOLDER FOR STEP 1: AUTHENTICATE**'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:authenticate'
+```
+
+??? code "View complete `index.ts` up until this point"
+
+    ```ts title="index.ts"
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:imports'
+
+      async function run() {
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:init-setup'
+
+      // --- Data deletion logic ---
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:authenticate'
+      // **PLACEHOLDER FOR STEP 2: REQUEST FILE DELETION**
+      // **PLACEHOLDER FOR STEP 3: DELETE A BUCKET**
+
+      // Disconnect the Polkadot API at the very end
+      await polkadotApi.disconnect();
+    }
+
+    await run();
+    ```
+
 ## Request File Deletion
 
-Add the code below to remove a specific file from the DataHaven network. You’ll first fetch the file’s metadata from the MSP, format it for on-chain compatibility, and then submit a deletion request using the StorageHub SDK.
+To request file deletion, you are going to create a helper method called `requestDeleteFile` in a separate `fileOperations.ts` file and you are going to update the `index.ts` file accordingly, in order to execute that logic. First, you’ll fetch the file’s metadata from the MSP and then submit a deletion request using the StorageHub SDK.
 
-```ts 
+It’s important to note that files are not removed instantly. When a deletion request succeeds, the file is marked for deletion on-chain, but both the MSP and all BSPs storing that file still have the file inside their Merkle Patricia Forests until they pass the mandatory storage proof challenge. After that, the runtime automatically updates their Merkle Patricia Forest roots to remove the file.
+
+### Add Method to Request File Deletion
+
+1. Create a new folder called `operations` within the `src` folder (at the same level as the `services` folder) like so:
+
+    ```bash
+    mkdir operations
+    ```
+
+2. Create a new file within the `operations` folder called `fileOperations.ts`.
+
+3. Add the following code:
+
+    ```ts title="fileOperations.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/fileOperations.ts'
+    ```
+
+### Call the Request File Deletion Helper Method
+
+Update `index.ts` with the following code to trigger the `requestDeleteFile` helper method you just implemented:
+
+```ts title='index.ts  // **PLACEHOLDER FOR STEP 2: REQUEST FILE DELETION**'
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:request-file-deletion'
 ```
 
-If you run the script with the code above, the `fileInfo` and `formattedFileInfo` should look like this:
+??? code "View complete `index.ts` up until this point"
+
+    ```ts title="index.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:imports'
+
+    async function run() {
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:init-setup'
+
+      // --- Data deletion logic ---
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:authenticate'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:request-file-deletion'
+      // **PLACEHOLDER FOR STEP 3: DELETE A BUCKET**
+
+      // Disconnect the Polkadot API at the very end
+      await polkadotApi.disconnect();
+    }
+
+    await run();
+    ```
+
+If you run the script with the code above, the full response should look like this:
 
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/output-01.html'
 
-And the final response should include:
-
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/output-02.html'
-
 ## Delete a Bucket
 
-To delete your bucket, add the following code:
+To delete a bucket, you are going to create a helper method called `deleteBucket` in a separate `bucketOperations.ts` file and you are going to update the `index.ts` file accordingly, in order to execute that logic.
 
 !!! note
     A bucket can only be deleted if all its files have already been deleted. Use the `mspClient.buckets.getFiles()` method by passing a `bucketId` as a parameter to check all the files currently stored in that bucket.
 
-```ts 
+### Add Method to Delete Bucket
+
+Create a new file within the `operations` folder called `bucketOperations.ts` and add the following code:
+
+```ts title="bucketOperations.ts"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/bucketOperations.ts'
+```
+
+### Call the Delete Bucket Helper Method
+
+Update `index.ts` with the following code to trigger the  `deleteBucket` helper method you just implemented:
+
+```ts title="index.ts"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:delete-bucket'
 ```
 
+??? code "View complete `index.ts`"
+
+    ```ts title="index.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts'
+    ```
+
 If you run the script with the bucket deletion code, the response should include:
 
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/output-03.html'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/output-02.html'
 
 ## Next Steps
 
