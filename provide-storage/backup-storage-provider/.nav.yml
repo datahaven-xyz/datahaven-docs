@@ -5,4 +5,4 @@ nav:
  - 'End-to-End BSP Onboarding': end-to-end-bsp-onboarding.md
  - 'Deregister as BSP': deregister-as-bsp.md
  - 'BSP CLI Glags': bsp-cli-flags.md
- - 'BSP Troubleshooting': bsp-troubleshooting.md
+ - 'BSP Troubleshooting': faqs-and-troubleshooting.md
