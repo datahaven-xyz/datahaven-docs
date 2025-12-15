@@ -1,0 +1,8 @@
+nav:
+ - 'Get Started': get-started.md
+ - 'Run a BSP Node': run-a-bsp-node.md
+ - 'Verify BSP Node': verify-bsp-node.md
+ - 'End-to-End BSP Onboarding': end-to-end-bsp-onboarding.md
+ - 'Deregister as BSP': deregister-as-bsp.md
+ - 'BSP CLI Glags': bsp-cli-flags.md
+ - 'BSP Troubleshooting': bsp-troubleshooting.md
