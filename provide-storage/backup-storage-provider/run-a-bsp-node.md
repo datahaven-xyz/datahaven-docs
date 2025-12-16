@@ -176,7 +176,7 @@ The `datahaven-node` binaries published in the DataHaven repository are precompi
 
         The logs output should be something like:
 
-        --8<-- 'code/provide-data/backup-storage-provider/end-to-end-bsp-onboarding/output-01.html'
+        --8<-- 'code/provide-storage/backup-storage-provider/end-to-end-bsp-onboarding/output-01.html'
 
         If you have spun up this `datahaven-bsp` container, prior to the upcoming step, make sure to stop it and remove it:
 
@@ -245,7 +245,7 @@ The `datahaven-node` binaries published in the DataHaven repository are precompi
 
     The output will look something like this:
 
-    --8<-- 'code/provide-data/backup-storage-provider/end-to-end-bsp-onboarding/output-02.html'
+    --8<-- 'code/provide-storage/backup-storage-provider/end-to-end-bsp-onboarding/output-02.html'
 
 9. Check BSP's logs:
 
@@ -255,7 +255,7 @@ The `datahaven-node` binaries published in the DataHaven repository are precompi
 
     Make sure the `Chain specification` log is displaying the network that matches the chain spec you are using:
 
-    --8<-- 'code/provide-data/backup-storage-provider/end-to-end-bsp-onboarding/output-03.html'
+    --8<-- 'code/provide-storage/backup-storage-provider/end-to-end-bsp-onboarding/output-03.html'
 
 ### Useful Docker Commands
 
@@ -317,7 +317,7 @@ You have two options:
 
     The output should look something like this:
 
-    --8<-- 'code/provide-data/backup-storage-provider/end-to-end-bsp-onboarding/output-04.html'
+    --8<-- 'code/provide-storage/backup-storage-provider/end-to-end-bsp-onboarding/output-04.html'
 
 ### Insert BCSV Key (ECDSA)
 
@@ -351,7 +351,7 @@ You have two options:
 
     The output should look something like this:
 
-    --8<-- 'code/provide-data/backup-storage-provider/end-to-end-bsp-onboarding/output-05.html'
+    --8<-- 'code/provide-storage/backup-storage-provider/end-to-end-bsp-onboarding/output-05.html'
 
 Finally, you have a running BSP node within an easily maintainable Docker container, with an injected keystore on the DataHaven network you've specified.
 
