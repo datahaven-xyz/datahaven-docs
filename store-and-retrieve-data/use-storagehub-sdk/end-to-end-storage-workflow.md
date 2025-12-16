@@ -365,7 +365,7 @@ Once both checks pass, you know the file is committed on-chain, and the MSP back
 
 In this step, you'll fetch your file from the DataHaven network via the MSP, and you'll save it locally on your machine.
 
-To do this, you'll create the `downloadFile` helper method as part of the `fileOperations.ts` file. After that, you will update the `index.ts` file accordingly to trigger this new logic.
+To do this, create the `downloadFile` helper method as part of the `fileOperations.ts` file. After that, you will update the `index.ts` file accordingly to trigger this new logic.
 
 
 ### Add Method to Download File
