@@ -77,7 +77,7 @@ With everything set up, start your local DataHaven devnet using the preconfigure
 pnpm docker:start:solochain-evm:initialised
 ```
 
-Now you're ready to start building and testing with the StorageHub SDK against your local DataHaven devnet. You can use this setup to issue storage requests, create buckets, upload files, and more. The relevant local devnet configuration parameters (including Chain ID, RPC URL, WS URL, and MSP URL) can be found in the [Starter Kit](/store-and-retrieve-data/starter-kit/){target=\_blank} guide.
+Now you're ready to start building and testing with the StorageHub SDK against your local DataHaven devnet. You can use this setup to issue storage requests, create buckets, upload files, and more. The relevant local devnet configuration parameters (including Chain ID, RPC URL, WS URL, and MSP URL) can be found in the [Local Devnet](/store-and-retrieve-data/network-details/local-devnet/) page.
 
 ## Stop the Local Devnet
 
