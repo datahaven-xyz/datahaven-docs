@@ -13,7 +13,7 @@ This guide shows how to sign in to a StorageHub Main Storage Provider (MSP) usin
 
 ## Set Up Auth Script
 
-Create an `index.ts` file if you haven't already. Its `run` method will orchestrate all the logic in this guide. By now, your services folder (including the MSP and client helper services) should already be created. If not, see the [Get Started](/store-and-retrieve-data/use-storagehub-sdk/get-started/) guide.
+Create an `index.ts` file if you haven't already. Its `run` method will orchestrate all the logic in this guide. By now, your services folder (including the MSP and client helper services) should already be created, which means you should already have the `authenticateUser` helper method implemented. If not, see the [Get Started](/store-and-retrieve-data/use-storagehub-sdk/get-started/) guide.
 
 Add the following code to your `index.ts` file:
 
@@ -21,17 +21,23 @@ Add the following code to your `index.ts` file:
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/authenticate-with-siwe-and-jwt/authenticate.ts'
 ```
 
-In this code, the authenticateUser helper method from mspService.ts is called. This method:
+In this code, the `authenticateUser` helper method from `mspService.ts` is called. This method:
 
 - Checks and authenticates your address via the MSP Client.
 - Calls the SDK's `mspClient.auth.SIWE` method, which produces a JWT token used as proof of authentication.
 - Passes the JWT token to the `sessionProvider` constant, one of the two required parameters for `MspClient.connect`.
 
-When you connect to the MSP with a valid `sessionProvider`, you can trigger certain methods you wouldn’t otherwise be able to, such as:
+??? interface "Take a look at the `authenticateUser` helper method code."
 
-- `MspClient.auth.getProfile`
-- `MspClient.files.uploadFile`
-- `MspClient.info.getPaymentStreams`
+    ```ts title="mspService.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/get-started/msp-service.ts:auth-user'
+    ```
+
+When you connect to the MSP with a valid `sessionProvider`, you can trigger certain methods you wouldn’t otherwise be able to:
+
+- **`MspClient.auth.getProfile`**: Returns the authenticated user's profile.
+- **`MspClient.files.uploadFile`**: Uploads a file to the MSP.
+- **`MspClient.info.getPaymentStreams`**: Returns the authenticated user's payment streams.
 
 ## Run Auth Script
 
