@@ -93,19 +93,19 @@ Follow the steps in this section to set up the clients needed to work with the S
 === "pnpm"
 
     ```bash { .break-spaces }
-    pnpm add @storagehub/types-bundle @polkadot/api @storagehub/api-augment viem
+    pnpm add @storagehub/types-bundle @polkadot/api @polkadot/types @storagehub/api-augment viem
     ```
 
 === "yarn"
 
     ```bash { .break-spaces }
-    yarn add @storagehub/types-bundle @polkadot/api @storagehub/api-augment viem
+    yarn add @storagehub/types-bundle @polkadot/api @polkadot/types @storagehub/api-augment viem
     ```
 
 === "npm"
 
     ```bash { .break-spaces }
-    npm install @storagehub/types-bundle @polkadot/api @storagehub/api-augment viem
+    npm install @storagehub/types-bundle @polkadot/api @polkadot/types @storagehub/api-augment viem
     ```
 
 ??? interface "Why do I need these dependencies?"

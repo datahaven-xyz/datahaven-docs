@@ -9,7 +9,7 @@ networks:
     wss_url: wss://services.datahaven-testnet.network/testnet
     msp_url: https://deo-dh-backend.testnet.datahaven-infra.network/
     chain_id: 55931
-    website_faucet_amount: 1000 MOCK tokens
+    website_faucet_amount: 500 MOCK tokens
     file_size_limit: 5 MB
   mainnet:
     chain_id: 55930

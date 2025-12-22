@@ -39,7 +39,7 @@ To build on the testnet, you will need **MOCK** tokens for transaction fees.
 
 |      Testnet      |                           Where To Get Tokens From                           | Amount Dispensed                                                                 |
 |:-----------------:|:----------------------------------------------------------------------------:|----------------------------------------------------------------------------------|
-| DataHaven Testnet | [Official Testnet Faucet](https://apps.datahaven.xyz/testnet/faucet){target=\_blank} | The faucet dispenses {{ networks.testnet.website_faucet_amount }} every 12 hours |
+| DataHaven Testnet | [Official Testnet Faucet](https://apps.datahaven.xyz/testnet/faucet){target=\_blank} | The faucet dispenses {{ networks.testnet.website_faucet_amount }} every 24 hours |
 
 ### How to Get Tokens
 
