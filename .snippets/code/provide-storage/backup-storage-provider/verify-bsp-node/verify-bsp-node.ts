@@ -1,54 +1,53 @@
 // --8<-- [start:imports]
 import { initWasm } from '@storagehub-sdk/core';
 import { polkadotApi } from './services/clientService';
-import { Binary } from 'polkadot-api';
 import {
   cancelBspSignUp,
   checkBspBalance,
   confirmBspSignUp,
   fundBspAddress,
+  getMultiaddresses,
   requestBspSignUp,
 } from './operations/bspOperations';
+import { bspEvmSigner } from './services/bspService';
 // --8<-- [end:imports]
 
-// --8<-- [start:run-sign-up-request]
+// --8<-- [start:request-sign-up]
 async function runSignUpRequest() {
   // Initialize WASM
   await initWasm();
 
   // --8<-- [start:init-setup]
-  // Make sure to set the BSP SS58 public key you saved when following the "Run a BSP Node" steps
-  const bspAddress = 'KWD8ccdd317Nzf849PnQ2dqBQ2zoTcSqL9LFFnRrsKv16VRRW';
+  // Make sure to set the BSP public key from the seed phrase you saved when following the "Run a BSP Node" steps
+  const bspAddress = bspEvmSigner.address as `0x${string}`;
   // --8<-- [end:init-setup]
+  // console.log('bspSigner.address:', bspSigner.address);
 
   // --8<-- [start:fund-bsp-address]
   // Amount in smallest units of the native token.
-  const depositAmount = 10_000_000_000_000_000_000n;
+  const depositAmount = 200_000_000_000_000_000_000n;
 
   await fundBspAddress(bspAddress, depositAmount);
 
   await checkBspBalance(bspAddress);
   // --8<-- [end:fund-bsp-address]
 
-  // --8<-- [start:request-bsp-sign-up]
+  // --8<-- [start:call-sign-up-method]
   // BSP configuration
-  const ipAddress = '79.117.162.20';
-  // Node identity should match the node-key set in docker-compose.yml
-  const nodeIdentity = '12D3KooWPPvCxeYfyPYC9eGT674VDzUc8QSYujJrQtZsVZSdHgAS';
-  // Convert multiaddresses to Binary format
-  const multiaddresses = [
-    `/ip4/${ipAddress}/tcp/30334/p2p/${nodeIdentity}`,
-  ].map((addr) => Binary.fromText(addr));
+
+  // Get multiaddresses from the BSP node
+  const multiaddresses = await getMultiaddresses();
+
   // Capacity should match the capacity set in docker-compose.yml
   // This is just an example value.
   const capacity = BigInt(10_737_418_240); // 10 GiB (80% of 12 GiB disk)
 
   await requestBspSignUp(bspAddress, multiaddresses, capacity);
-  // --8<-- [end:request-bsp-sign-up]
+  // --8<-- [end:call-sign-up-method]
 
   await polkadotApi.disconnect();
 }
-// --8<-- [end:run-sign-up-request]
+// --8<-- [end:request-sign-up]
 
 // --8<-- [start:cancel-bsp-sign-up]
 async function runSignUpCancel() {
@@ -77,6 +76,6 @@ async function runSignUpConfirm() {
 // wait accordingly before running `runSignUpConfirm()`
 // as explained in the documentation
 
-// runSignUpRequest();
-runSignUpConfirm();
+runSignUpRequest();
+// runSignUpConfirm();
 // --8<-- [end:confirm-bsp-sign-up]

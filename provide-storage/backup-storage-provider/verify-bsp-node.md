@@ -12,6 +12,27 @@ Lorem ipsum
 - [A running BSP node](/provide-storage/backup-storage-provider/run-a-bsp-node.md){target=\_blank} with your BSP seed phrase and SS58 public key handy.
 --8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/prerequisites.md'
 
+### Deposit Requirements
+
+The formula for the deposit is as follows:
+
+`SpMinDeposit` + (`capacity_in_gib` * `DepositPerData`) + `buffer`
+
+- **`SpMinDeposit`**: Base deposit of 100 MOCK
+- **`capacity_in_gib`**: The set GiB capacity of your hardware
+- **`DepositPerData`**: 2 MOCK per GiB
+- **`buffer`**: An additional safety margin
+
+Examples:
+
+- **800 GiB capacity**: 100 + (800 × 2) = 1,700 MOCK required (1,800 MOCK recommended)
+- **1.6 TiB capacity**: 100 + (1,638 × 2) = 3,376 MOCK required (3,500+ MOCK recommended)
+
+The deposit is held (reserved) from your account when you start the BSP registration process and remains held while you operate as a BSP. The deposit is returned when you deregister as a BSP.
+
+!!! note
+    Your BSP account must be funded before BSP registration.
+
 ## Install Additional Dependencies
 
 Install the following dependencies:
@@ -35,8 +56,9 @@ pnpm add polkadot-api @polkadot/util-crypto
 
 ## Request BSP Sign Up
 
+Lorem
 
-### Add Methods to Fund Account and Request Sign Up
+### Add Helper Methods to Request Sign Up
 
 To fund your BSP account from the MSP Client, take the following steps:
 
@@ -51,10 +73,34 @@ mkdir operations
 3. Add the following helper methods to your `bspOperations.ts` file:
 
     ```ts title="bspOperations.ts"
-    --8<-- 'code/provide-storage/backup-storage-provider/verify-bsp-node/bspOperations.ts:'
+    --8<-- 'code/provide-storage/backup-storage-provider/verify-bsp-node/bspOperations.ts:imports'
+
+    --8<-- 'code/provide-storage/backup-storage-provider/verify-bsp-node/bspOperations.ts:fund-bsp-address'
+
+    --8<-- 'code/provide-storage/backup-storage-provider/verify-bsp-node/bspOperations.ts:check-bsp-balance'
+
+    --8<-- 'code/provide-storage/backup-storage-provider/verify-bsp-node/bspOperations.ts:check-bsp-balance:get-multiaddresses'
+
+    --8<-- 'code/provide-storage/backup-storage-provider/verify-bsp-node/bspOperations.ts:request-bsp-sign-up'
+
+    // Add other BSP helper methods here
     ```
 
-??? interface "How much funds are enough?"
+### Call the Request Sign Up Method
+
+1. Create an `index.ts` file adjacent to your `operations` and `services` folder, if you haven't already.
+
+2. Add the following code:
+
+    ```ts
+    --8<-- 'code/provide-storage/backup-storage-provider/verify-bsp-node/verify-bsp-node.ts:imports'
+
+    --8<-- 'code/provide-storage/backup-storage-provider/verify-bsp-node/verify-bsp-node.ts:request-sign-up'
+
+    // Add other script methods here
+    ```
+
+    Check the [formula for the deposit](/provide-storage/backup-storage-provider/verify-bsp-node.md#deposit-requirements) to make sure you've prepared the right amount of funds.
 
 
 

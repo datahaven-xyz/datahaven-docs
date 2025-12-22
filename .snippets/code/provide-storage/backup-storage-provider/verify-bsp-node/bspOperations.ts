@@ -1,46 +1,71 @@
 // --8<-- [start:imports]
 import { Binary } from 'polkadot-api';
-import { signer, bspSigner } from '../services/bspService.js';
-import { polkadotApi } from '../services/clientService.js';
+import { bspEvmSigner, bspSubstrateSigner } from '../services/bspService.js';
+import {
+  chain,
+  account,
+  publicClient,
+  walletClient,
+  polkadotApi,
+} from '../services/clientService.js';
+import { formatEther } from 'viem/utils';
+import { polkadotApiBsp } from '../services/bspService.js';
 // --8<-- [end:imports]
 
 // --8<-- [start:fund-bsp-address]
-export async function fundBspAddress(bspAddress: string, amount: bigint) {
+export async function fundBspAddress(
+  bspAddress: `0x${string}`,
+  amount: bigint
+) {
   console.log('Recipient:', bspAddress);
   console.log('Amount (raw):', amount.toString());
 
-  // Build transfer extrinsic
-  const tx = polkadotApi.tx.balances.transferKeepAlive(bspAddress, amount);
-
-  const unsub = await tx.signAndSend(signer, (result) => {
-    const { status, dispatchError } = result;
-    console.log(`Current status: ${status.type}`);
-
-    if (dispatchError) {
-      if (dispatchError.isModule) {
-        const decoded = polkadotApi.registry.findMetaError(
-          dispatchError.asModule
-        );
-        const { name, section } = decoded;
-        console.log(`Error: ${section}.${name}`);
-      }
-    }
-
-    if (status.isFinalized) {
-      console.log('Transaction successfully finalized');
-      unsub();
-    }
+  const txHash = await walletClient.sendTransaction({
+    account: account,
+    chain: chain,
+    to: bspAddress,
+    value: amount,
   });
+  console.log('Tx hash:', txHash);
+
+  const receipt = await publicClient.waitForTransactionReceipt({
+    hash: txHash,
+  });
+  console.log('Finalized in block:', receipt.blockNumber.toString());
 }
 // --8<-- [end:fund-bsp-address]
 
 // --8<-- [start:check-bsp-balance]
-export async function checkBspBalance(bspAddress: string) {
+export async function checkBspBalance(bspAddress: `0x${string}`) {
   // Query balance
-  const { data: balance } = await polkadotApi.query.system.account(bspAddress);
-  console.log(`BSP Address Balance: ${balance.free.toBigInt()} (raw units)`);
+  const balance = formatEther(
+    await publicClient.getBalance({ address: bspAddress })
+  );
+
+  console.log(`BSP EVM Address: ${bspAddress}`);
+  console.log(`Balance: ${balance} (wei)`);
 }
 // --8<-- [end:check-bsp-balance]
+
+// --8<-- [start:get-multiaddresses]
+export async function getMultiaddresses() {
+  try {
+    const addresses = await polkadotApiBsp.rpc.system.localListenAddresses();
+
+    // addresses are Vec<Text> type. Turn into plain strings
+    const stringAddresses = addresses
+      .map((a) => a.toString())
+      .filter((addr) => !addr.includes('/ip4/127.0.0.1'))
+      .filter((addr) => !addr.includes('/ip6/::1'));
+    console.log('Local listen addresses:', stringAddresses);
+    // Convert multiaddresses to Binary format
+    return stringAddresses.map((addr) => Binary.fromText(addr));
+  } catch (error) {
+    console.error('Error fetching local listen addresses:', error);
+    throw new Error('Failed to fetch local listen addresses');
+  }
+}
+// --8<-- [end:get-multiaddresses]
 
 // --8<-- [start:request-bsp-sign-up]
 export async function requestBspSignUp(
@@ -52,13 +77,13 @@ export async function requestBspSignUp(
   const requestTx = polkadotApi.tx.Providers.request_bsp_sign_up({
     capacity: capacity,
     multiaddresses: multiaddresses,
-    payment_account: bspSigner.publicKey, // Account receiving payments
+    payment_account: bspEvmSigner.address, // Account receiving payments
   });
 
   // Sign and submit the request
   await new Promise<void>((resolve, reject) => {
     requestTx
-      .signAndSend(bspSigner, ({ status, dispatchError }) => {
+      .signAndSend(bspSubstrateSigner, ({ status, dispatchError }) => {
         console.log('BSP sign-up requested. Waiting for finalization...');
         if (dispatchError) {
           reject(dispatchError);
@@ -82,7 +107,7 @@ export async function confirmBspSignUp() {
 
   await new Promise<void>((resolve, reject) => {
     confirmTx
-      .signAndSend(bspSigner, ({ status, dispatchError }) => {
+      .signAndSend(bspSubstrateSigner, ({ status, dispatchError }) => {
         console.log('Confirming BSP registration...');
         if (dispatchError) {
           reject(dispatchError);
@@ -104,7 +129,7 @@ export async function cancelBspSignUp() {
 
   await new Promise<void>((resolve, reject) => {
     cancelTx
-      .signAndSend(bspSigner, ({ status, dispatchError }) => {
+      .signAndSend(bspSubstrateSigner, ({ status, dispatchError }) => {
         console.log('Cancelling BSP registration...');
         if (dispatchError) {
           reject(dispatchError);
