@@ -56,7 +56,7 @@ You can view your detailed billing history by connecting your wallet to [apps.da
 
 ## Can I create a private bucket?
 
-Currently buckets are public. To ensure privacy, encrypt your files before uploading them to DataHaven.
+Yes. Make sure to define the param `isPrivate` as `true` when creating a new bucket.
 
 ## Can I rename a bucket?
 

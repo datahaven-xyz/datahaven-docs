@@ -9,9 +9,9 @@ This page lists the major known issues affecting the DataHaven StorageHub SDK (a
 
 If you encounter a problem not listed here, please join the [DataHaven Discord](https://discord.com/invite/datahaven){target=\_blank} and use the Support Ticket chat to report it. This will create a private channel where our support team can respond directly.
 
-## Bucket Sharing Not Yet Supported
+## Private Bucket Sharing Not Yet Supported
 
-Bucket sharing is not yet permitted. For now, only the bucket owner can access a bucket, regardless of whether it’s set to `Public` or `Private`. A future release will enable true public access for public buckets and allow private buckets to be shared with permitted users beyond the owner.
+Private buckets are currently available, however sharing private bucket access with someone other than the bucket owner is currently not supported. A future release will enable private buckets to be shared with permitted users beyond the owner.
 
 ## Get Profile Method Returns Hardcoded Placeholder
 
