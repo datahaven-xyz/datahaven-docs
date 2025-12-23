@@ -1,3 +1,5 @@
 nav:
  - 'Overview': index.md
- - 'Backup Storage Provider (BSP)': backup-storage-provider-bsp.md
+ - 'Quickstart': quickstart.md
+#  - 'Main Storage Provider': main-storage-provider
+ - 'Backup Storage Provider': backup-storage-provider
