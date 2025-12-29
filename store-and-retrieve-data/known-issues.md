@@ -28,10 +28,6 @@ The `auth.getProfile()` client method returns the correct address but a hardcode
 }
 ```
 
-## File Deletion Not Supported on Devnet
-
-File deletion is not yet supported when running a local DataHaven development network. As a workaround, you can shut down the network and spin it back up again, which will result in the network state being reset, including deletion of all buckets and files. 
-
 ## Get Info Method Returns Hardcoded Placeholder Values
 
 When querying the `getInfo()` method, you'll see the following hardcoded placeholder values that do not reflect the uptime statistics.

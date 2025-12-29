@@ -1,6 +1,6 @@
 import { storageHubClient, publicClient } from '../services/clientService.js';
 import { mspClient } from '../services/mspService.js';
-import { FileInfo } from '@storagehub-sdk/msp-client';
+import { FileInfo } from '@storagehub-sdk/core';
 
 export async function requestDeleteFile(
   bucketId: string,
@@ -11,13 +11,7 @@ export async function requestDeleteFile(
     bucketId,
     fileKey
   );
-  console.log('File info before deletion:', fileInfo);
-
-  let formattedFileInfo: any = fileInfo;
-  ['fileKey', 'fingerprint', 'bucketId'].forEach(
-    (k) => (formattedFileInfo[k] = '0x' + formattedFileInfo[k])
-  );
-  console.log('Formatted file info for deletion:', formattedFileInfo);
+  console.log('File info:', fileInfo);
 
   // Request file deletion
   const txHashRequestDeleteFile: `0x${string}` =

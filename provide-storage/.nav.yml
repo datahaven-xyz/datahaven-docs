@@ -1,4 +1,5 @@
 nav:
  - 'Overview': index.md
-#  - 'Main Storage Provider': main-storage-provider
+ - 'Main Storage Provider': main-storage-provider
  - 'Backup Storage Provider': backup-storage-provider
+ - 'Quickstart': quickstart.md
