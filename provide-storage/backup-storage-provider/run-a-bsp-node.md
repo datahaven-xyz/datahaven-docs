@@ -289,13 +289,13 @@ The node has a keystore directory. BSP nodes need the blockchain service key inj
 
 You have two options:
 
-- Use an already existing seed phrase and derive its SS58 public key.
-- Generate a completely new seed phrase and derive its SS58 public key.
+- Use an already existing seed phrase.
+- Generate a completely new seed phrase.
 
 !!! note
-    If you are a Linux user and can run the `datahaven-node` binary natively, you can replace `docker compose run --rm datahaven-bsp` with `datahaven-node` in the commands below.
+    If you are a Linux user and can run the `datahaven-node` binary natively, you can replace `docker compose run --rm datahaven-bsp` with `datahaven-node` in the command below.
 
-1. Save seed phrase to `$SEED` variable:
+Save seed phrase to `$SEED` variable:
 
     ```bash
     # Use an already existing seed phrase
@@ -305,19 +305,8 @@ You have two options:
 
     # Generate a completely new seed phrase
     SEED=$(docker compose run --rm datahaven-bsp \
-    key generate --scheme ecdsa --output-type json | jq -r '.secretPhrase')
+    key generate --scheme ecdsa --output-type json | jq -r '.secretSeed')
     ```
-
-2. Derive BSP account:
-
-    ```bash
-    docker compose run --rm datahaven-bsp \
-    key inspect --scheme ecdsa --output-type json "$SEED" | jq -r '.ss58PublicKey'
-    ```
-
-    The output should look something like this:
-
-    --8<-- 'code/provide-storage/backup-storage-provider/end-to-end-bsp-onboarding/output-04.html'
 
 ### Insert BCSV Key (ECDSA)
 
@@ -335,7 +324,7 @@ You have two options:
     ```bash
     docker compose run --rm \
     datahaven-bsp key insert \
-      --base-path /data \
+      --base-path /data/keystore \
       --chain /testnet-chain-spec.json \
       --key-type bcsv \
       --scheme ecdsa \

@@ -3,4 +3,4 @@ nav:
  - 'Run a BSP Node': run-a-bsp-node.md
  - 'Verify BSP Node': verify-bsp-node.md
  - 'End-to-End BSP Onboarding': end-to-end-bsp-onboarding.md
- - 'Deregister as BSP': deregister-as-bsp.md
+#  - 'Deregister BSP Node': deregister-bsp-node.md

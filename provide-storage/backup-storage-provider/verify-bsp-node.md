@@ -5,7 +5,7 @@ description: Guide on how to register your BSP node on-chain and start contribut
 
 # Verify BSP Node
 
-Lorem ipsum
+This guide walks you through how to register your Backup Storage Provider (BSP) on-chain and verify it is eligible to participate in the DataHaven network.
 
 ## Prerequisites
 
@@ -43,11 +43,13 @@ pnpm add polkadot-api @polkadot/util-crypto
 
 ## Set Up Keyrings
 
+Set up the keyrings needed to sign BSP-related transactions and derive the correct on-chain identities.
+
 1. Within your `services` folder, create a new file called `bspService.ts`.
 
 2. Add the following code:
 
-```ts
+```ts  title="bspService.ts"
 --8<-- 'code/provide-storage/backup-storage-provider/verify-bsp-node/bspService.ts'
 ```
 
@@ -56,11 +58,11 @@ pnpm add polkadot-api @polkadot/util-crypto
 
 ## Request BSP Sign Up
 
-Lorem
+Submit an on-chain request to register your node as an official Backup Storage Provider.
 
 ### Add Helper Methods to Request Sign Up
 
-To fund your BSP account from the MSP Client, take the following steps:
+Add reusable helper methods for funding your BSP account, checking balances, resolving multiaddresses, and submitting the sign-up transaction.
 
 1. If you haven't already, create an `operations` folder adjacent to your `services` folder:
 
@@ -86,13 +88,22 @@ mkdir operations
     // Add other BSP helper methods here
     ```
 
+The roles each helper method plays:
+
+- **`fundBspAddress`**: Ensures the BSP account has enough balance to cover the required deposit.
+- **`checkBspBalance`**: Verifies available funds of the BSP address.
+- **`requestBspSignUp`**: Fetches the network addresses your BSP advertises to the network and selects the proper multiaddresses for the `request_bsp_sign_up` extrinsic.
+- **`requestBspSignUp`**: Submits the on-chain request to register the BSP node by calling the `request_bsp_sign_up` extrinsic.
+
 ### Call the Request Sign Up Method
+
+Trigger the BSP sign-up flow from your main script to submit the registration request on-chain.
 
 1. Create an `index.ts` file adjacent to your `operations` and `services` folder, if you haven't already.
 
 2. Add the following code:
 
-    ```ts
+    ```ts title="index.ts"
     --8<-- 'code/provide-storage/backup-storage-provider/verify-bsp-node/verify-bsp-node.ts:imports'
 
     --8<-- 'code/provide-storage/backup-storage-provider/verify-bsp-node/verify-bsp-node.ts:request-sign-up'
@@ -102,7 +113,47 @@ mkdir operations
 
     Check the [formula for the deposit](/provide-storage/backup-storage-provider/verify-bsp-node.md#deposit-requirements) to make sure you've prepared the right amount of funds.
 
+## Cancel BSP Sign Up If Needed
 
+Mistakes can happen during the BSP verification process. That's why the `cancel_sign_up` extrinsic is available after the `request_bsp_sign_up` has been called in order to revoke the request before it has been finalized on-chain. This extrinsic can only be called prior to confirming verification via the `confirm_sign_up` extrinsic.
+
+### Add Helper Method to Cancel Sign Up
+
+Add the `cancelBspSignUp` helper method that submits the transaction to cancel a pending BSP registration.
+
+Add the following code to your `bspOperations.ts` file:
+
+```ts title="bspOperations.ts"
+--8<-- 'code/provide-storage/backup-storage-provider/verify-bsp-node/bspOperations.ts:cancel-bsp-sign-up'
+```
+
+### Call the Cancel Sign Up Method
+
+Invoke the cancel method from your script to abort the BSP sign-up process, with the following code:
+
+```ts title="index.ts"
+--8<-- 'code/provide-storage/backup-storage-provider/verify-bsp-node/verify-bsp-node.ts:cancel-bsp-sign-up'
+```
+
+## Confirm BSP Sign Up
+
+Confirm your BSP registration after the required waiting period has passed. You should only trigger the `confirmBspSignUp` method after a new epoch has begun. An epoch lasts 1 hour. You can use your BSP node's `wsURL` to check how long the current epoch will last on [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9946#/explorer){target=\_blank}
+
+### Add Helper Method to Confirm Sign Up
+
+To add the `confirmBspSignUp` helper method and thus finalize the BSP registration on-chain, add the following code to your `bspOperations.ts` file:
+
+```ts title="bspOperations.ts"
+--8<-- 'code/provide-storage/backup-storage-provider/verify-bsp-node/bspOperations.ts:confirm-bsp-sign-up'
+```
+
+### Call the Confirm Sign Up Method
+
+Call the confirmation method with the following code to complete BSP registration:
+
+```ts title="index.ts"
+--8<-- 'code/provide-storage/backup-storage-provider/verify-bsp-node/verify-bsp-node.ts:confirm-bsp-sign-up'
+```
 
 ## Next Steps
 
