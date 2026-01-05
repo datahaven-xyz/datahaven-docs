@@ -1,13 +1,13 @@
 ---
 title: End-to-End BSP Onboarding
-description: This step-by-step tutorial follows the full process to spin up your own BSP node and how to register to the DataHaven network
+description: This step-by-step tutorial follows the full process to spin up your own BSP node and how to register to the DataHaven network.
 ---
 
 # End-to-End BSP Onboarding
 
 Backup Storage Providers (BSPs) provide redundant storage for files in the DataHaven network, receiving files from Main Storage Providers (MSPs) and submitting proofs of storage.
 
-This tutorial walks through the entire process of bringing a Backup Storage Provider (BSP) node online, from spinning up the node and selecting the correct chain spec to inserting your private key into the node’s keystore and registering your BSP on-chain. By the end, you will have a fully verified BSP that joins the DataHaven network, accepts storage assignments, and participates in StorageHub’s storage-proof lifecycle.
+This tutorial walks through the entire process of bringing a BSP node online, from spinning up the node and selecting the correct chain spec to inserting your private key into the node’s keystore and registering your BSP on-chain. By the end, you will have a fully verified BSP that joins the DataHaven network, accepts storage assignments, and participates in StorageHub’s storage-proof lifecycle.
 
 
 ## Prerequisites
@@ -88,11 +88,11 @@ datahaven-bsp-node/
 
 Before running a BSP node, you will need to obtain the `datahaven-node` client binary and the chain specifications for the network you want to join.
 
-1. Download the latest client release from the [Releases](https://github.com/datahaven-xyz/datahaven/releases){target=\_blank} section of the DataHaven repo. There, you'll find the latest version of the [`datahaven-node` binary](https://github.com/datahaven-xyz/datahaven/releases/download/{{ networks.testnet.client_version }}/datahaven-node){target=_\blank}. Currently, the latest version is {{ networks.testnet.client_version }}.
+1. Download the latest client release from the Releases section of the DataHaven repo. There, you'll find the latest version of the [`datahaven-node` binary](https://github.com/datahaven-xyz/datahaven/releases/download/{{ networks.testnet.client_version }}/datahaven-node){target=_\blank}. Currently, the latest version is {{ networks.testnet.client_version }}.
 
-Make sure to download it in the root of your `datahaven-bsp-node` folder.
+    Make sure to download it in the root of your `datahaven-bsp-node` folder.
 
-2. Next, [download the testnet chain specs](/downloads/datahaven-testnet-raw-specs.json){target=\_blank} and include them in the root of your project. Make sure the file is called `datahaven-testnet-raw-specs.json`. The specs you use dictate to which DataHaven network your BSP will connect and interact with.
+2. [Download the testnet chain specs](/downloads/datahaven-testnet-raw-specs.json){target=\_blank} and include them in the root of your project. Make sure the file is called `datahaven-testnet-raw-specs.json`. The specs you use dictate to which DataHaven network your BSP will connect and interact with.
 
 ## Configure Docker for the BSP Node
 
@@ -226,7 +226,7 @@ The `datahaven-node` binaries published in the DataHaven repository are precompi
           - "--bsp-move-bucket-task"
           - "--bsp-move-bucket-grace-period=300"
           - "--bsp-charge-fees-task"
-          - "--bsp-charge-fees-min-debt=0"
+          - "--bsp-charge-fees-min-debt=1000000000000000000"
           - "--bsp-submit-proof-task"
           - "--bsp-submit-proof-max-attempts=3"
           - "--port=30333"
@@ -264,25 +264,25 @@ The `datahaven-node` binaries published in the DataHaven repository are precompi
 
 A collection of helpful Docker Compose commands you’ll use while developing or debugging your BSP node:
 
-    ```bash
-    # run the container in the background
-    docker compose up -d
+```bash
+# Run the container in the background
+docker compose up -d
 
-    # stop and remove the container
-    docker compose down
+# Stop and remove the container
+docker compose down
 
-    # check status and logs while the container is running
-    docker compose ps
+# Check status and logs while the container is running
+docker compose ps
 
-    # continuously tail logs in terminal
-    docker compose logs -f
+# Continuously tail logs in terminal
+docker compose logs -f
 
-    # continuously display logs in terminal and save them into a file
-    docker compose logs -f | tee bsp.log
+# Continuously display logs in terminal and save them into a file
+docker compose logs -f | tee bsp.log
 
-    # continuously stream and continuously save all logs into a file
-    docker compose logs -f > bsp.log
-    ```
+# Continuously stream and continuously save all logs into a file
+docker compose logs -f > bsp.log
+```
 
 ## Inject the BSP Blockchain Service Key
 
@@ -292,8 +292,11 @@ The node has a keystore directory. BSP nodes need the blockchain service key inj
 
 You have two options:
 
-- Use an already existing seed phrase and derive its SS58 public key.
-- Generate a completely new seed phrase and derive its SS58 public key.
+- Use an already existing **ECDSA raw seed**.
+- Generate a completely new raw seed.
+
+!!! warning "Key Scheme Requirement"
+    DataHaven BSPs must use ECDSA keys. If you're bringing an existing seed, ensure it was generated with `--scheme ecdsa`. Other key types will not work.
 
 !!! note
     If you are a Linux user and can run the `datahaven-node` binary natively, you can replace `docker compose run --rm datahaven-bsp` with `datahaven-node` in the commands below.
@@ -301,26 +304,22 @@ You have two options:
 1. Save seed phrase to `$SEED` variable:
 
     ```bash
-    # Use an already existing seed phrase
-    SEED="INSERT_SEED_PHRASE_OR_0X_PRIVATE_KEY"
+    # Option 1: Use an already existing ECDSA raw seed
+    # Format: 0x-prefixed hex string (66 characters total)
+    SEED="INSERT_0X_RAW_SEED"
 
     # OR
 
-    # Generate a completely new seed phrase
+    # Option 2: Generate a new ECDSA raw seed
     SEED=$(docker compose run --rm datahaven-bsp \
-    key generate --scheme ecdsa --output-type json | jq -r '.secretPhrase')
+    key generate --scheme ecdsa --output-type json | jq -r '.secretSeed')
     ```
 
-2. Derive BSP account:
+2. Verify the seed was saved:
 
     ```bash
-    docker compose run --rm datahaven-bsp \
-    key inspect --scheme ecdsa --output-type json "$SEED" | jq -r '.ss58PublicKey'
+    echo $SEED
     ```
-
-    The output should look something like this:
-
-    --8<-- 'code/provide-storage/backup-storage-provider/end-to-end-bsp-onboarding/output-04.html'
 
 ### Insert BCSV Key (ECDSA)
 
@@ -338,7 +337,7 @@ You have two options:
     ```bash
     docker compose run --rm \
     datahaven-bsp key insert \
-      --base-path /data \
+      --base-path /data/keystore \
       --chain /testnet-chain-spec.json \
       --key-type bcsv \
       --scheme ecdsa \
@@ -358,5 +357,61 @@ You have two options:
 
 Now, you have a running BSP node within an easily maintainable Docker container, with an injected keystore on the DataHaven network you've specified.
 
-## Verify BSP On-Chain
+## Verify BSP Node
+
+This section walks you through the 2-step process of registering your BSP on-chain and verifying that it is eligible to participate in the DataHaven network using [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=ws://127.0.0.1:9946#){target=\_blank} along with your BSP node's `wsUrl`.
+
+### Request BSP Sign Up
+
+Trigger the BSP sign-up flow from Polkadot.js Apps to submit the registration request on-chain.
+
+1. On [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank}, open the navbar on the top left, and set your custom `wsUrl` to be `ws://127.0.0.1:9946`. You should use the port number `9946` because that is the port number you should have defined in your `docker-compose.yml` file.
+
+    ![Set custom wsUrl](/images/provide-storage/verify-bsp-node/verify-bsp-node-1.webp)
+
+2. Within the Developer section, go to the Extrinsics page, and select the `providers.requestBspSignUp` extrinsic. 
+
+    Three parameters are required to execute this extrinsic:
+
+    - capacity
+    - multiaddresses
+    - paymentAccount
+
+    ![Select the `providers.requestBspSignUp` extrinsic on the Extrinsics page](/images/provide-storage/verify-bsp-node/verify-bsp-node-2.webp)
+
+3. Set capacity based on your machine's capabilities and the [hardware requirements](#hardware-requirements) provided in this guide.
+
+    ![Requesting testnet funds from the faucet](/images/provide-storage/verify-bsp-node/verify-bsp-node-3.webp)
+
+4. In order to find the correct multiaddress, within the Developer section, go to the RPC calls page and submit the `system.localListenAddresses` RPC call. Out of the provided list, you should copy the multiaddress that doesn't contain neither `127.0.0.1` nor `::1`, but the one with the actual IP address such as `192.168.97.2`.
+
+    ![Call `system.localListenAddresses` to find multiaddresses](/images/provide-storage/verify-bsp-node/verify-bsp-node-4.webp)
+
+5. Once you've pasted your multiaddress in the second param field of the `providers.requestBspSignUp` extrinsic, make sure to choose a public address on which you want to receive BSP rewards.
+
+    ![Choose account to receive payments](/images/provide-storage/verify-bsp-node/verify-bsp-node-5.webp)
+
+6. Submit transaction.
+
+    ![Submit transaction](/images/provide-storage/verify-bsp-node/verify-bsp-node-6.webp)
+
+### Confirm BSP Sign Up
+
+Confirm your BSP registration after the required waiting period has passed. You should only trigger the `confirmBspSignUp` method after a new epoch has begun. An epoch lasts 1 hour.
+
+1. Check if a new epoch has begun on Polkadot. js Apps' [Explorer page](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9946#/explorer){target=\_blank}.
+
+    ![Check epoch](/images/provide-storage/verify-bsp-node/verify-bsp-node-7.webp)
+
+2. Go to the Extrinsics page, and select the `providers.confirmSignUp` extrinsic. 
+
+
+    ![Call `providers.confirmSignUp` extrinsic](/images/provide-storage/verify-bsp-node/verify-bsp-node-8.webp)
+
+3. Submit transaction.
+
+    ![Submit transaction](/images/provide-storage/verify-bsp-node/verify-bsp-node-9.webp)
+
+
+
 

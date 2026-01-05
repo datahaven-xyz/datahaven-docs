@@ -137,7 +137,7 @@ Invoke the cancel method from your script to abort the BSP sign-up process, with
 
 ## Confirm BSP Sign Up
 
-Confirm your BSP registration after the required waiting period has passed. You should only trigger the `confirmBspSignUp` method after a new epoch has begun. An epoch lasts 1 hour. You can use your BSP node's `wsURL` to check how long the current epoch will last on [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9946#/explorer){target=\_blank}
+Confirm your BSP registration after the required waiting period has passed. You should only trigger the `confirmBspSignUp` method after a new epoch has begun. An epoch lasts 1 hour. You can check if a new epoch has begun on the Explorer page on [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9946#/explorer){target=\_blank}
 
 ### Add Helper Method to Confirm Sign Up
 
