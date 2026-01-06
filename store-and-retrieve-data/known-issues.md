@@ -11,7 +11,7 @@ If you encounter a problem not listed here, please join the [DataHaven Discord](
 
 ## Private Bucket Sharing Not Yet Supported
 
-Private buckets are currently available, however sharing private bucket access with someone other than the bucket owner is currently not supported. A future release will enable private buckets to be shared with permitted users beyond the owner.
+Private buckets are available; however, sharing private bucket access with someone other than the bucket owner is not supported. A future release will enable private buckets to be shared with permitted users beyond the owner.
 
 ## Get Profile Method Returns Hardcoded Placeholder
 
