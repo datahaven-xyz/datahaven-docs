@@ -1,6 +1,6 @@
 ---
 title: BSP FAQs and Troubleshooting
-description: 
+description: Conversational style BSP-related FAQs and their answers. Includes most common pitfalls, best practices, and proof submission monitoring.
 ---
 
 # BSP FAQs and Troubleshooting
@@ -54,11 +54,11 @@ BSPs automatically submit proofs when `--bsp-submit-proof-task` is enabled.
 
 The proof submission flow is as follows:
 
-1. **Challenge Received**: BSP receives storage proof challenge from ProofsDealer pallet
-2. **Proof Generation**: BSP generates Merkle proof for challenged data
-3. **Proof Submission**: BSP submits proof via `proofsDealer.submitProof` extrinsic
-4. **Verification**: ProofsDealer pallet verifies proof on-chain
-5. **Reward/Penalty**: BSP receives reward for valid proof or penalty for invalid/missing proof
+1. **Challenge received**: BSP receives storage proof challenge from ProofsDealer pallet.
+2. **Proof generation**: BSP generates Merkle proof for challenged data.
+3. **Proof submission**: BSP submits proof via `proofsDealer.submitProof` extrinsic.
+4. **Verification**: ProofsDealer pallet verifies proof on-chain.
+5. **Reward/Penalty**: BSP receives reward for valid proof or penalty for invalid/missing proof.
 
 ## How can I monitor proof submissions?
 
@@ -73,14 +73,14 @@ curl -s -H "Content-Type: application/json" \
 
 ## What are best practices I should keep in mind?
 
-1. Use production-grade storage (NVMe SSD recommended)
-2. Monitor storage capacity proactively
-3. Enable all BSP tasks for full functionality
-4. Keep node software updated
-5. Implement monitoring and alerting for proof submissions
-6. Set reasonable `bsp-submit-proof-max-attempts` (3-5)
-7. Document operational procedures
-8. Monitor network connectivity to MSPs
+1. Use production-grade storage (NVMe SSD recommended).
+2. Monitor storage capacity proactively.
+3. Enable all BSP tasks for full functionality.
+4. Keep node software updated.
+5. Implement monitoring and alerting for proof submissions.
+6. Set reasonable `bsp-submit-proof-max-attempts` (3-5).
+7. Document operational procedures.
+8. Monitor network connectivity to MSPs.
 
 ## How do I perform a health check for my BSP?
 
@@ -102,31 +102,31 @@ curl -s -H "Content-Type: application/json" \
 
 A collection of helpful Docker Compose commands you’ll use while developing or debugging your BSP node:
 
-    ```bash
-    # run the container in the background
-    docker compose up -d
+```bash
+# Run the container in the background
+docker compose up -d
 
-    # stop and remove the container
-    docker compose down
+# Stop and remove the container
+docker compose down
 
-    # check status and logs while the container is running
-    docker compose ps
+# Check status and logs while the container is running
+docker compose ps
 
-    # continuously tail logs in terminal
-    docker compose logs -f
+# Continuously tail logs in terminal
+docker compose logs -f
 
-    # continuously display logs in terminal and save them into a file
-    docker compose logs -f | tee bsp.log
+# Continuously display logs in terminal and save them into a file
+docker compose logs -f | tee bsp.log
 
-    # continuously stream and continuously save all logs into a file
-    docker compose logs -f > bsp.log
+# Continuously stream and continuously save all logs into a file
+docker compose logs -f > bsp.log
 
-    # filter logs for storage-related events
-    docker compose logs 2>&1 | grep -i "storage\|proof\|file"
+# Filter logs for storage-related events
+docker compose logs 2>&1 | grep -i "storage\|proof\|file"
 
-    # monitor storage proof submissions
-    docker compose logs 2>&1 | grep -i "proof"
-    ```
+# Monitor storage proof submissions
+docker compose logs 2>&1 | grep -i "proof"
+```
 
 ## What are key metrics to monitor?
 

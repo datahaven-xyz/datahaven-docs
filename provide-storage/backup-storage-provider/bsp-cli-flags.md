@@ -21,11 +21,13 @@ Core provider flags are required to run a node in BSP mode. They help define sto
 | `--storage-path <PATH>` | Storage path (required if rocksdb) | No | None |
 
 **Example Values:**
+
 - `--max-storage-capacity 858993459200` (800 GiB = 80% of 1 TB disk)
 - `--max-storage-capacity 1717986918400` (1.6 TiB = 80% of 2 TB disk)
 - `--jump-capacity 107374182400` (100 GiB)
 
-**Note**: Set `--max-storage-capacity` to approximately **80% of your available physical disk space** to leave headroom for filesystem overhead and temporary files.
+!!! note
+    Set `--max-storage-capacity` to approximately **80% of your available physical disk space** to leave headroom for filesystem overhead and temporary files.
 
 ## BSP-Specific Task Flags
 
