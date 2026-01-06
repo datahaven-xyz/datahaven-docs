@@ -13,6 +13,19 @@ Before you begin, ensure you have the following:
 
 - macOS or Linux operating system
 - [Docker](https://www.docker.com/){target=\_blank} installed and running
+
+    ??? interface "Instructions if running macOS Tahoe (v26 or higher)"
+
+        If running macOS Tahoe (v26 or higher), instead of using Docker, you should install [OrbStack](https://orbstack.dev/download){target=\_blank}. Make sure Docker Desktop is not running while using OrbStack to ensure it works properly. You can run all your Docker commands the same way while using OrbStack. 
+        
+        After installing OrbStack, to confirm you are using OrbStack under the hood instead of Docker Desktop, you can run the following command in the terminal:
+
+        ```bash
+        docker context show
+        ```
+
+        The output should be `orbstack`.
+
 - [Node.js ≥ 24](https://nodejs.org/en/download){target=\_blank} installed. LTS version recommended
 - [pnpm](https://pnpm.io/){target=\_blank} installed for package management
 - [Rust ≥ 1.86](https://rust-lang.org/tools/install/){target=\_blank} installed
