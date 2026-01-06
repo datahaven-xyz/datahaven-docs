@@ -361,6 +361,14 @@ Now, you have a running BSP node within an easily maintainable Docker container,
 
 This section walks you through the 2-step process of registering your BSP on-chain and verifying that it is eligible to participate in the DataHaven network using [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=ws://127.0.0.1:9946#){target=\_blank} along with your BSP node's `wsUrl`.
 
+### Import BSP Account Into Wallet
+
+To proceed with verifying your BSP node, you must have your BSP account ready to sign transactions in your browser.
+
+1. Install in your browser the [Talisman](https://talisman.xyz/){target=\_blank} wallet or the [Polkadot Developer Signer](https://polkadot.js.org/extension/){target=\_blank} if you haven't already.
+
+2. Import into your wallet of choice, the same ECDSA raw seed that you injected into your BSP node's keystore.
+
 ### Request BSP Sign Up
 
 Trigger the BSP sign-up flow from Polkadot.js Apps to submit the registration request on-chain.
