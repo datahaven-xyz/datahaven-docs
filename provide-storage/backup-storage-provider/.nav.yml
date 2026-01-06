@@ -4,3 +4,5 @@ nav:
  - 'Verify BSP Node': verify-bsp-node.md
  - 'End-to-End BSP Onboarding': end-to-end-bsp-onboarding.md
 #  - 'Deregister BSP Node': deregister-bsp-node.md
+ - 'BSP CLI Glags': bsp-cli-flags.md
+ - 'BSP Troubleshooting': bsp-troubleshooting.md
