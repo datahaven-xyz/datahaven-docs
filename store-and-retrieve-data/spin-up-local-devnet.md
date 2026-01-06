@@ -18,7 +18,7 @@ Before you begin, ensure you have the following:
 
         If running macOS Tahoe (v26 or higher), instead of using Docker, you should install [OrbStack](https://orbstack.dev/download){target=\_blank}. Make sure Docker Desktop is not running while you are using OrbStack in order to allow OrbStack to work properly. You can run all your docker commands the same way while using OrbStack. 
         
-        After installing OrbStack to confirm you are using OrbStack under the hood instead of Docker Desktop you can run the following command in terminal:
+        After installing OrbStack, to confirm you are using OrbStack under the hood instead of Docker Desktop, you can run the following command in the terminal:
 
         ```bash
         docker context show
