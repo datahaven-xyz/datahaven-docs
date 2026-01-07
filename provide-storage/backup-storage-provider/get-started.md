@@ -21,12 +21,12 @@ The responsibilities of BSPs include:
 
 Follow this sequence to understand the onboarding and operations of a BSP from registration through replication, commitments, and proof responses.
 
-- **Register and bond**: Start BSP signup on DataHaven with `request_bsp_sign_up`, then confirm with `confirm_sign_up` to post stake or collateral (BSPs do not onboard through EigenLayer).
-- **Prepare endpoints**: Run your BSP service on reliable storage and bandwidth, expose secure endpoints MSPs can reach for replication, and keep time in sync for challenge deadlines.
-- **Accept and persist replicas**: When selected, fetch the file data from the MSP, validate chunk hashes, and acknowledge completion so the MSP can finalize the upload on-chain.
-- **Publish commitments**: Update your BSP commitment after each accepted replica so the on-chain root matches your local inventory.
-- **Respond to challenges**: Monitor for scheduled challenge messages, derive proofs from your stored data, and respond before the deadline to avoid faults.
-- **Assist migrations**: Serve stored replicas to new MSPs during bucket migrations or recovery events to minimize downtime for users.
+1. **Register and bond**: Start BSP signup on DataHaven with `request_bsp_sign_up`, then confirm with `confirm_sign_up` to post stake or collateral (BSPs do not onboard through EigenLayer).
+2. **Prepare endpoints**: Run your BSP service on reliable storage and bandwidth, expose secure endpoints MSPs can reach for replication, and keep time in sync for challenge deadlines.
+3. **Accept and persist replicas**: When selected, fetch the file data from the MSP, validate chunk hashes, and acknowledge completion so the MSP can finalize the upload on-chain.
+4. **Publish commitments**: Update your BSP commitment after each accepted replica so the on-chain root matches your local inventory.
+5. **Respond to challenges**: Monitor for scheduled challenge messages, derive proofs from your stored data, and respond before the deadline to avoid faults.
+6. **Assist migrations**: Serve stored replicas to new MSPs during bucket migrations or recovery events to minimize downtime for users.
 
 ## Replication Targets and Pricing Signals
 
