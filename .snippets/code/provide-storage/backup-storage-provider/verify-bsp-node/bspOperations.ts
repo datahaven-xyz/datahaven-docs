@@ -43,7 +43,7 @@ export async function checkBspBalance(bspAddress: `0x${string}`) {
   );
 
   console.log(`BSP EVM Address: ${bspAddress}`);
-  console.log(`Balance: ${balance} (wei)`);
+  console.log(`Balance: ${balance} MOCK`);
 }
 // --8<-- [end:check-bsp-balance]
 
