@@ -19,7 +19,11 @@ To get started, visit the [DataHaven testnet portal](https://apps.datahaven.xyz/
 
 ![Connect your wallet on the DataHaven portal](/images/store-and-retrieve-data/use-the-datahaven-dapp/use-the-datahaven-dapp-1.webp)
 
-Then, in the **Faucet** tab, complete the captcha and click **Request tokens** to receive MOCK for gas and storage payments.
+To request tokens:
+
+1. Go to the **Faucet** tab.
+2. Complete the captcha.
+3. Click **Request tokens** to receive MOCK for gas and storage payments.
 
 ![Requesting testnet funds from the faucet](/images/store-and-retrieve-data/use-the-datahaven-dapp/use-the-datahaven-dapp-2.webp)
 
