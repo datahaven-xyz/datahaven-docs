@@ -44,7 +44,7 @@ MSPs and BSPs use similar hardware profiles to keep replication and proof respon
 
 <div class="grid cards" markdown>
 
- -  <a href="/provide-storage/backup-storage-provider/get-started/" markdown>:material-arrow-right: 
+-   <a href="/provide-storage/backup-storage-provider/get-started/" markdown>:material-arrow-right: 
  
     **Backup Storage Provider: Get Started**
 
