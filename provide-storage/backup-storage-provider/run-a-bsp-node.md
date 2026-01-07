@@ -348,7 +348,7 @@ Finally, you have a running BSP node within an easily maintainable Docker contai
 
 <div class="grid cards" markdown>
 
--  <a href="/provide-storage/backup-storage-provider/verify-bsp-on-chain" markdown>:material-arrow-right: 
+-  <a href="/provide-storage/backup-storage-provider/verify-bsp-node/" markdown>:material-arrow-right: 
 
     **Verify BSP On-Chain**
 

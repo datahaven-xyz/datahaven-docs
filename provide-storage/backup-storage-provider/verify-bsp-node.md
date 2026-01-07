@@ -81,7 +81,7 @@ mkdir operations
 
     --8<-- 'code/provide-storage/backup-storage-provider/verify-bsp-node/bspOperations.ts:check-bsp-balance'
 
-    --8<-- 'code/provide-storage/backup-storage-provider/verify-bsp-node/bspOperations.ts:check-bsp-balance:get-multiaddresses'
+    --8<-- 'code/provide-storage/backup-storage-provider/verify-bsp-node/bspOperations.ts:get-multiaddresses'
 
     --8<-- 'code/provide-storage/backup-storage-provider/verify-bsp-node/bspOperations.ts:request-bsp-sign-up'
 
