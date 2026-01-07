@@ -70,7 +70,7 @@ For node CLI flags, key setup, and deployment patterns, see [Run a BSP Node inst
     
     **Provide Storage Overview**
 
-    How BSPs and MSPs fit together plus what to expect before onboarding capacity.
+    How BSPs and MSPs fit together, plus what to expect before onboarding capacity.
 
     </a>
 
