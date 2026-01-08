@@ -33,19 +33,19 @@
         === "pnpm"
             
             ``` bash
-            pnpm add -D typescript ts-node @types/node
+            pnpm add -D typescript tsx ts-node @types/node
             ```
 
         === "yarn"
             
             ``` bash
-            yarn add -D typescript ts-node @types/node
+            yarn add -D typescript tsx ts-node @types/node
             ```
 
         === "npm"
             
             ``` bash
-            npm install -D typescript ts-node @types/node
+            npm install -D typescript tsx ts-node @types/node
             ```
 
     4. Create a `tsconfig.json` file in the root of your project and paste the following configuration:

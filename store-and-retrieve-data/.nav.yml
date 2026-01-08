@@ -2,5 +2,5 @@ nav:
  - 'Overview': index.md
  - 'Network Details': network-details
  - 'Spin up Local Devnet': spin-up-local-devnet.md
- - 'Use the Wayne dApp': use-the-wayne-dapp.md
+ - 'Use the DataHaven dApp': use-the-datahaven-dapp.md
  - 'Use StorageHub SDK': use-storagehub-sdk
