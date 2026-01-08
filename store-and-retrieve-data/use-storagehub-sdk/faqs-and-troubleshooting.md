@@ -1,6 +1,6 @@
 ---
 title: FAQs and Troubleshooting
-description: Conversational style StorageHub SDK-related FAQs and their answers. Includes bucket management, security best practices, and the role of EigneLayer.
+description: Conversational style StorageHub SDK-related FAQs and their answers. Includes bucket management, security best practices, and the role of EigenLayer.
 ---
 
 # StorageHub SDK FAQs
@@ -32,7 +32,7 @@ Actions on the DataHaven network, such as uploading files and creating buckets, 
 
 You can view your detailed billing history by connecting your wallet to [apps.datahaven.xyz](https://apps.datahaven.xyz) and visiting the **Payments** section.
 
-## How do I estimates costs when comparing Main Storage Providers?
+## How do I estimate costs when comparing Main Storage Providers?
 
 Each Main Storage Provider (MSP) exposes a public API endpoint that lists its current pricing tiers. You can query this endpoint to see the price per gigabyte per block that the MSP charges for storage.
 
@@ -56,7 +56,7 @@ You can view your detailed billing history by connecting your wallet to [apps.da
 
 ## Can I create a private bucket?
 
-Currently buckets are public. To ensure privacy, encrypt your files before uploading them to DataHaven.
+Yes. Make sure to define the param `isPrivate` as `true` when creating a new bucket.
 
 ## Can I rename a bucket?
 
@@ -81,7 +81,7 @@ Once your file has completed both steps, it is considered securely stored in the
 DataHaven employs a dual-provider model with the following defined roles:
 
 - **Main Storage Providers (MSPs)**: User-selected providers that store your files.
-- **Backup Storage Providers (BSPs)**: Providers randomly assigned by the network for backup storage to ensure redunancy.
+- **Backup Storage Providers (BSPs)**: Providers randomly assigned by the network for backup storage to ensure redundancy.
 
 BSPs ensure data reliability and redundancy in a decentralized network, backing up data to keep it available even if an MSP fails. Each file stored by a BSP is split into chunks, "Merkleized," and linked to a file key. The Merkle root is then stored on-chain as proof of storage. BSPs must hold collateral that can be slashed if data is lost. 
 
