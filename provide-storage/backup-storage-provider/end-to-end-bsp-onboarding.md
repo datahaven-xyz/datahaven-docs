@@ -70,17 +70,23 @@ This is how the project structure will look like, once everything is set up.
 datahaven-bsp-node/
 ├── datahaven-node
 ├── bsp-data
-│   └── chains
-│   │   ├── datahaven_stagenet_local
-│   │   │   └── keystore
-│   │   └── datahaven_testnet
-│   │       └── keystore
-│   bsp-storage    
+│   ├── keystore
+│   ├── chains
+│   │   ├── datahaven_testnet
+│   │   │   ├── db
+│   │   │   ├── frontier
+│   │   │   └── network
+│   │   └── datahaven_stagenet_local
+│   ├── bsp_peer_manager
+│   ├── storage
+│   └── storagehub
+├── bsp-storage    
 │   └── storagehub    
 │       ├── file_storage
 │       └── forest_storage      
 ├── Dockerfile
 ├── docker-compose.yml
+├── datahaven-testnet-raw-specs.json
 └── bsp.log    
 ```
 
@@ -88,11 +94,17 @@ datahaven-bsp-node/
 
 Before running a BSP node, you will need to obtain the `datahaven-node` client binary and the chain specifications for the network you want to join.
 
-1. Download the latest client release from the Releases section of the DataHaven repo. There, you'll find the latest version of the [`datahaven-node` binary](https://github.com/datahaven-xyz/datahaven/releases/download/{{ networks.testnet.client_version }}/datahaven-node){target=_\blank}. Currently, the latest version is {{ networks.testnet.client_version }}.
+1. Create a `datahaven-bsp-node` folder:
+
+    ```bash
+    mkdir datahaven-bsp-node
+    ```
+
+2. Download the latest client release from the Releases section of the DataHaven repo. There, you'll find the latest version of the [`datahaven-node` binary](https://github.com/datahaven-xyz/datahaven/releases/download/{{ networks.testnet.client_version }}/datahaven-node){target=_\blank}. Currently, the latest version is {{ networks.testnet.client_version }}.
 
     Make sure to download it in the root of your `datahaven-bsp-node` folder.
 
-2. [Download the testnet chain specs](/downloads/datahaven-testnet-raw-specs.json){target=\_blank} and include them in the root of your project. Make sure the file is called `datahaven-testnet-raw-specs.json`. The specs you use dictate to which DataHaven network your BSP will connect and interact with.
+3. [Download the testnet chain specs](/downloads/datahaven-testnet-raw-specs.json){target=\_blank} and include them in the root of your project. Make sure the file is called `datahaven-testnet-raw-specs.json`. The specs you use dictate to which DataHaven network your BSP will connect and interact with.
 
 ## Configure Docker for the BSP Node
 
@@ -131,10 +143,11 @@ The `datahaven-node` binaries published in the DataHaven repository are precompi
 4. List the `data` folder within the `.dockerignore` file:
 
     ```bash
-    echo "data" > .dockerignore
+    echo "bsp-data" > .dockerignore
+    echo "bsp-storage" > .dockerignore
     ```
 
-    This way the `data` folder and its contents won't get included in the Docker image.
+    This way the `bsp-data` and `bsp-storage` folders and their contents won't get included in the Docker image.
 
 5. Build the Docker image:
 
@@ -188,12 +201,22 @@ The `datahaven-node` binaries published in the DataHaven repository are precompi
         docker rm datahaven-bsp
         ```
 
-6. In the root of your project create a `docker-compose.yml` file.
+6. Generate node key:
 
-7. Add the following code:
+    ```bash
+    docker run --rm datahaven-bsp:latest key generate-node-key
+    ```
+
+    The output should look something like:
+
+    --8<-- 'code/provide-storage/backup-storage-provider/end-to-end-bsp-onboarding/output-02.html'
+
+7. In the root of your project create a `docker-compose.yml` file.
+
+8. Add the following code:
 
     !!! note
-        This step adds the `--chain` flag and updates `volumes` to point to the chain spec you downloaded earlier. If omitted, the node defaults to DataHaven Local Stagenet.  
+        This step adds the `--chain` flag and updates `volumes` to point to the chain spec you downloaded earlier. If omitted, the node defaults to DataHaven Local Stagenet.
 
 
     ```yaml title="docker-compose.yml"
@@ -211,13 +234,17 @@ The `datahaven-node` binaries published in the DataHaven repository are precompi
           - ./datahaven-testnet-raw-specs.json:/testnet-chain-spec.json:ro
         command:
           - "--chain=/testnet-chain-spec.json"
+          - "--node-key=INSERT_NODE_KEY"
+          - "--node-key-type=ed25519"
+          - "--unsafe-rpc-external"
+          - "--rpc-methods=unsafe"
           - "--name=BSP01"
           - "--base-path=/data"
           - "--keystore-path=/data/keystore"
           - "--provider"
           - "--provider-type=bsp"
-          - "--max-storage-capacity=858993459200"
-          - "--jump-capacity=107374182400"
+          - "--max-storage-capacity=1099511627776"
+          - "--jump-capacity=137438953472"
           - "--storage-layer=rocks-db"
           - "--storage-path=/data/storage"
           - "--bsp-upload-file-task"
@@ -248,7 +275,7 @@ The `datahaven-node` binaries published in the DataHaven repository are precompi
 
     The output will look something like this:
 
-    --8<-- 'code/provide-storage/backup-storage-provider/end-to-end-bsp-onboarding/output-02.html'
+    --8<-- 'code/provide-storage/backup-storage-provider/end-to-end-bsp-onboarding/output-03.html'
 
 9. Check BSP's logs:
 
@@ -258,7 +285,7 @@ The `datahaven-node` binaries published in the DataHaven repository are precompi
 
     Make sure the `Chain specification` log is displaying the network that matches the chain spec you are using:
 
-    --8<-- 'code/provide-storage/backup-storage-provider/end-to-end-bsp-onboarding/output-03.html'
+    --8<-- 'code/provide-storage/backup-storage-provider/end-to-end-bsp-onboarding/output-04.html'
 
 ### Useful Docker Commands
 
@@ -299,9 +326,9 @@ You have two options:
     DataHaven BSPs must use ECDSA keys. If you're bringing an existing seed, ensure it was generated with `--scheme ecdsa`. Other key types will not work.
 
 !!! note
-    If you are a Linux user and can run the `datahaven-node` binary natively, you can replace `docker compose run --rm datahaven-bsp` with `datahaven-node` in the commands below.
+    If you are a Linux user and can run the `datahaven-node` binary natively, you can replace `docker compose run --rm datahaven-bsp` with `datahaven-node` in the commands bellow.
 
-1. Save seed phrase to `$SEED` variable:
+1. Save seed to `$SEED` variable:
 
     ```bash
     # Option 1: Use an already existing ECDSA raw seed
@@ -332,12 +359,12 @@ You have two options:
 2. Run the following command:
 
     !!! note
-        The `--base-path` flag is crucial for keeping your keys across restarts.
+        The `--keystore-path` flag is crucial for keeping your keys across restarts.
 
     ```bash
     docker compose run --rm \
     datahaven-bsp key insert \
-      --base-path /data/keystore \
+      --keystore-path /data/keystore \
       --chain /testnet-chain-spec.json \
       --key-type bcsv \
       --scheme ecdsa \
@@ -347,8 +374,7 @@ You have two options:
     This command writes the resulting key into `/bsp-data/chains/datahaven_testnet/keystore` on your host. You can check if the command was successful by running:
 
     ```bash
-    find bsp-data -maxdepth 4 -type d -name keystore
-    ls bsp-data/chains/*/keystore
+    ls -la bsp-data/keystore/
     ```
 
     The output should look something like this:
@@ -365,7 +391,7 @@ This section walks you through the 2-step process of registering your BSP on-cha
 
 To proceed with verifying your BSP node, you must have your BSP account ready to sign transactions in your browser.
 
-1. Install in your browser the [Talisman](https://talisman.xyz/){target=\_blank} wallet or the [Polkadot Developer Signer](https://polkadot.js.org/extension/){target=\_blank} if you haven't already.
+1. Install in your browser the [Talisman](https://talisman.xyz/){target=\_blank} wallet if you haven't already.
 
 2. Import into your wallet of choice, the same ECDSA raw seed that you injected into your BSP node's keystore.
 
