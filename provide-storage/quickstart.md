@@ -26,7 +26,7 @@ For the full prerequisites checklist, see the [Provide Storage Overview](/provid
 
 - **Infrastructure**: 8 cores @ 3.4 GHz, 32 GB RAM, 500 GB NVMe (chain), 1 TB+ NVMe/HDD (user data), 500 Mbit/s symmetric. Keep chain and user data on separate volumes; set `--max-storage-capacity` to ~80% of available disk.
 - **Access**: DataHaven testnet endpoints ([RPC/WSS and MSP service URLs](/store-and-retrieve-data/network-details/testnet/)), reachable hostname/ports, and solid time sync (NTP).
-- **Wallet and funds**: Operational keys plus [testnet tokens](https://apps.datahaven.xyz/faucet){target=_blank} for fees and collateral. Deposit is `SpMinDeposit` + (`capacity_in_gib` × `DepositPerData`) + buffer; for example, ~800 GiB needs about 1,700 MOCK (add headroom).
+- **Wallet and funds**: Operational keys plus [testnet tokens](https://apps.datahaven.xyz/testnet/faucet){target=_blank} for fees and collateral. Deposit is `SpMinDeposit` + (`capacity_in_gib` × `DepositPerData`) + buffer; for example, ~800 GiB needs about 1,700 MOCK (add headroom).
 - **Ops hygiene**: Logs/metrics and alerts for replication latency, anchoring health, challenge deadlines, and disk utilization.
 
 ## BSP Path: Replicate, Commit, and Prove
