@@ -52,11 +52,11 @@ MSPs and BSPs use similar hardware profiles to keep replication and proof respon
 
     </a>
 
--   <a href="/how-it-works/data-and-provider-model/data-flow-and-lifecycle/" markdown>:material-arrow-right: 
+-   <a href="/provide-storage/quickstart/" markdown>:material-arrow-right: 
 
-    **Data Flow and Lifecycle**
+    **Provide Storage Quickstart**
 
-    End-to-end view of how uploads, replication, proofs, and recovery fit together.
+    Fast path for MSPs and BSPs to confirm prerequisites, launch services, and validate replication and proofs before taking traffic.
 
     </a>
 
