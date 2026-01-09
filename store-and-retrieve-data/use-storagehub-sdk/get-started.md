@@ -56,8 +56,8 @@ Before you begin, ensure you have the following:
 
 - [Node.js ≥ 22](https://nodejs.org/en/download){target=\_blank} installed. LTS version recommended.
 - [pnpm](https://pnpm.io/){target=\_blank}, [npm](https://www.npmjs.com/){target=\_blank}, or [yarn](https://yarnpkg.com/){target=\_blank} installed for package management
-- [Network configuration details](/store-and-retrieve-data/starter-kit/#network-configurations){target=\_blank}, including the RPC and WSS endpoints
-- [MSP base URL](/store-and-retrieve-data/starter-kit/#msp-service-endpoints){target=\_blank}
+- [Testnet network configuration details](/store-and-retrieve-data/network-details/testnet/#network-configuration){target=\_blank}, including the RPC and WSS endpoints
+- [Testnet MSP base URL](/store-and-retrieve-data/network-details/testnet/#msp-service-endpoint){target=\_blank}
 - [Testnet tokens](https://apps.datahaven.xyz/faucet){target=\_blank}
 
 --8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/create-typescript-project.md'
@@ -93,19 +93,19 @@ Follow the steps in this section to set up the clients needed to work with the S
 === "pnpm"
 
     ```bash { .break-spaces }
-    pnpm add @storagehub/types-bundle @polkadot/api @storagehub/api-augment viem
+    pnpm add @storagehub/types-bundle @polkadot/api @polkadot/types @storagehub/api-augment viem
     ```
 
 === "yarn"
 
     ```bash { .break-spaces }
-    yarn add @storagehub/types-bundle @polkadot/api @storagehub/api-augment viem
+    yarn add @storagehub/types-bundle @polkadot/api @polkadot/types @storagehub/api-augment viem
     ```
 
 === "npm"
 
     ```bash { .break-spaces }
-    npm install @storagehub/types-bundle @polkadot/api @storagehub/api-augment viem
+    npm install @storagehub/types-bundle @polkadot/api @polkadot/types @storagehub/api-augment viem
     ```
 
 ??? interface "Why do I need these dependencies?"
@@ -133,7 +133,7 @@ You'll need to set up the necessary clients to connect to the DataHaven network,
 3. Add the following code:
 
     !!! note
-        The code below uses DataHaven testnet configuration values, which include the chain ID RPC URL, WSS URL, MSP URL, and token metadata. If you’re running a local devnet, make sure to replace these with your local configuration parameters. You can find all the relevant local devnet values in the [Storage Starter Kit](/store-and-retrieve-data/starter-kit/).
+        The code below uses DataHaven testnet configuration values, which include the chain ID RPC URL, WSS URL, MSP URL, and token metadata. If you’re running a local devnet, make sure to replace these with your local configuration parameters. You can find all the relevant local devnet values in the [Local Devnet](/store-and-retrieve-data/network-details/local-devnet/) page.
 
     ```ts title="clientService.ts"
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/get-started/client-service.ts'
@@ -158,7 +158,7 @@ To interact with DataHaven's Main Storage Provider (MSP) services, you need to e
 2. Add the following code:
 
     !!! note
-        The code below uses DataHaven testnet configuration values, which include the chain ID, RPC URL, WSS URL, MSP URL, and token metadata. If you’re running a local devnet, make sure to replace these with your local configuration parameters. You can find all the relevant local devnet values in the [Storage Starter Kit](/store-and-retrieve-data/starter-kit).
+        The code below uses DataHaven testnet configuration values, which include the chain ID, RPC URL, WSS URL, MSP URL, and token metadata. If you’re running a local devnet, make sure to replace these with your local configuration parameters. You can find all the relevant local devnet values in the [Local Devnet](/store-and-retrieve-data/network-details/local-devnet) page.
 
     ```ts title="mspService.ts"
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/get-started/msp-service.ts'
