@@ -56,7 +56,7 @@ MSPs and BSPs use similar hardware profiles to keep replication and proof respon
 
     **Provide Storage Quickstart**
 
-    Fast path for MSPs and BSPs to confirm prerequisites, launch services, and validate replication and proofs before taking traffic.
+    Fast path for BSPs to confirm prerequisites, launch services, and validate replication and proofs before taking traffic.
 
     </a>
 
