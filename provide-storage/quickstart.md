@@ -20,7 +20,6 @@ Ready to put your storage capacity to work on DataHaven? This quickstart walks y
 - **Main Storage Provider (MSP)**: Chosen by users; handles uploads and reads, anchors bucket roots on-chain, and coordinates replication to BSPs.
 - **Backup Storage Provider (BSP)**: Assigned by the network; stores replicas, maintains a global commitment, answers periodic proof challenges, and helps recovery if an MSP fails. Slashing applies for missed proofs or lost data.
 
-
 ## Shared Prerequisites
 
 For the full prerequisites checklist, see the [Provide Storage Overview](/provide-storage/). The essentials are:
