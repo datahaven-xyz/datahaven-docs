@@ -1,6 +1,6 @@
 ---
 title: Provide Storage Quickstart
-description: Fast path for operators to bring a Backup Storage Provider online with the right prerequisites, registration steps, and validation checkpoints (with light pointers to MSP coordination).
+description: Fast path for operators to bring a Backup Storage Provider online with the right prerequisites, registration steps, and validation checkpoints. Focused on Backup Storage Providers (BSPs) only.
 ---
 
 # Provide Storage Quickstart
