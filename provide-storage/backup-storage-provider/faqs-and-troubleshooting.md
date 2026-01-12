@@ -103,52 +103,44 @@ curl -s -H "Content-Type: application/json" \
 A collection of helpful Docker Compose commands you’ll use while developing or debugging your BSP node. Copy the specific command you need:
 
 - Run the container in the background:
-
-```bash
-docker compose up -d
-```
+  ```bash
+  docker compose up -d
+  ```
 
 - Stop and remove the container:
-
-```bash
-docker compose down
-```
+  ```bash
+  docker compose down
+  ```
 
 - Check status and logs while the container is running:
-
-```bash
-docker compose ps
-```
+  ```bash
+  docker compose ps
+  ```
 
 - Continuously tail logs in terminal:
-
-```bash
-docker compose logs -f
-```
+  ```bash
+  docker compose logs -f
+  ```
 
 - Continuously display logs in terminal and save them into a file:
-
-```bash
-docker compose logs -f | tee bsp.log
-```
+  ```bash
+  docker compose logs -f | tee bsp.log
+  ```
 
 - Continuously stream and continuously save all logs into a file:
-
-```bash
-docker compose logs -f > bsp.log
-```
+  ```bash
+  docker compose logs -f > bsp.log
+  ```
 
 - Filter logs for storage-related events:
-
-```bash
-docker compose logs 2>&1 | grep -i "storage\|proof\|file"
-```
+  ```bash
+  docker compose logs 2>&1 | grep -i "storage\|proof\|file"
+  ```
 
 - Monitor storage proof submissions:
-
-```bash
-docker compose logs 2>&1 | grep -i "proof"
-```
+  ```bash
+  docker compose logs 2>&1 | grep -i "proof"
+  ```
 
 ## What are key metrics to monitor?
 
