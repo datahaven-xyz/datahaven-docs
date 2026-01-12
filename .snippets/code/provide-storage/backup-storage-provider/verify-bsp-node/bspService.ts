@@ -20,7 +20,8 @@ const bspSubstrateKeyring = new Keyring({ type: 'ecdsa' });
 const bspSubstrateSigner = bspSubstrateKeyring.addFromUri(
   'INSERT_BSP_RAW_SEED'
 );
-// Create Polkadot API client, but for your actively running BSP node
+// If running BSP node on your local machine
+// create Polkadot API client, but for your actively running BSP node
 const localBSPwsUrl = `ws://127.0.0.1:9946`;
 const provider = new WsProvider(localBSPwsUrl);
 const polkadotApiBsp: ApiPromise = await ApiPromise.create({

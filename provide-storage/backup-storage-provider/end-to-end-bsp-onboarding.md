@@ -9,13 +9,43 @@ Backup Storage Providers (BSPs) provide redundant storage for files in the DataH
 
 This tutorial walks through the entire process of bringing a BSP node online, from spinning up the node and selecting the correct chain spec to inserting your private key into the node’s keystore and registering your BSP on-chain. By the end, you will have a fully verified BSP that joins the DataHaven network, accepts storage assignments, and participates in StorageHub’s storage-proof lifecycle.
 
-
 ## Prerequisites
 
 Before you begin, ensure you have the following:
 
-- macOS or Linux operating system
+- Linux operating system
 - [Docker](https://www.docker.com/){target=\_blank} and [Docker Compose](https://docs.docker.com/compose/install/){target=\_blank} installed and running
+
+    ??? interface "Docker installation instructions"
+
+        To install Docker properly on Linux, make sure to do the following:
+
+        1. Install Docker
+
+            ```bash
+            curl -fsSL https://get.docker.com -o get-docker.sh
+            sudo sh get-docker.sh
+            ```
+            
+        2. Add your user to docker group (so you don't need sudo)
+            
+            ```bash
+            sudo usermod -aG docker $USER
+            ```
+
+        3. Apply group changes:
+
+            ```bash
+            newgrp docker
+            ```
+
+        4. Verify Docker is working:
+
+            ```bash
+            docker --version
+            docker ps
+            ```
+
 - A BCSV key of scheme ECDSA (a 32 byte private key) for the BSP node's on-chain identity and signing
 - Sufficient account balance for deposits and collateral
 - Stable network connection
@@ -98,13 +128,28 @@ Before running a BSP node, you will need to obtain the `datahaven-node` client b
 
     ```bash
     mkdir datahaven-bsp-node
+    cd datahaven-bsp-node
     ```
 
-2. Download the latest client release from the Releases section of the DataHaven repo. There, you'll find the latest version of the [`datahaven-node` binary](https://github.com/datahaven-xyz/datahaven/releases/download/{{ networks.testnet.client_version }}/datahaven-node){target=_\blank}. Currently, the latest version is {{ networks.testnet.client_version }}.
+2. Download the latest client release ({{ networks.testnet.client_version }}) of the `datahaven-node` binary from the Releases section of the DataHaven repo. Make sure to download it in the root of your `datahaven-bsp-node` folder.
 
-    Make sure to download it in the root of your `datahaven-bsp-node` folder.
+    ```bash
+    curl -LO https://github.com/datahaven-xyz/datahaven/releases/download/{{networks.testnet.client_version}}/datahaven-node
+    ```
 
-3. [Download the testnet chain specs](/downloads/datahaven-testnet-raw-specs.json){target=\_blank} and include them in the root of your project. Make sure the file is called `datahaven-testnet-raw-specs.json`. The specs you use dictate to which DataHaven network your BSP will connect and interact with.
+3. Download the testnet chain specs and include them in the root of your project. Make sure the file is called `datahaven-testnet-raw-specs.json`. The specs you use dictate to which DataHaven network your BSP will connect and interact with.
+
+    Either manually [download the testnet chain specs](/downloads/datahaven-testnet-raw-specs.json){target=\_blank} and use SCP to upload the specs to your server:
+
+    ```bash
+    scp /path/to/your/chainspec.json ubuntu@INSERT_SERVER_IP:~/datahaven-bsp-node/datahaven-testnet-raw-specs.json
+    ```
+
+    or download the specs to your server directly via terminal:
+
+    ```bash
+    curl -LO https://docs.datahaven.xyz/downloads/datahaven-testnet-raw-specs.json
+    ```
 
 ## Configure Docker for the BSP Node
 
@@ -136,7 +181,7 @@ The `datahaven-node` binaries published in the DataHaven repository are precompi
     ENTRYPOINT ["datahaven-node"]
     ```
 
-    This `Dockerfile` builds a minimal Ubuntu-based image containing the `datahaven-node` binary and its required runtime libraries. It installs only the necessary dependencies, copies the node executable into the container, and marks it as runnable. On macOS with Apple Silicon, the image must be built with `--platform=linux/amd64` so Docker can emulate the `x86-64` Linux environment that the precompiled DataHaven binaries expect. The default entrypoint runs `datahaven-node` directly, allowing the container to behave like a fully configured BSP node.
+    This `Dockerfile` builds a minimal Ubuntu-based image containing the `datahaven-node` binary and its required runtime libraries. It installs only the necessary dependencies, copies the node executable into the container, and marks it as runnable. The default entrypoint runs `datahaven-node` directly, allowing the container to behave like a fully configured BSP node.
 
 3. Create a `.dockerignore` file.
 
@@ -151,13 +196,8 @@ The `datahaven-node` binaries published in the DataHaven repository are precompi
 
 5. Build the Docker image:
 
-    !!! note "Note for macOS (Apple Silicon) users"
-        The `--platform=linux/amd64` flag is required on Apple Silicon because the `datahaven-node` binary targets x86_64.
-
-        To ensure proper emulation, open Docker Desktop → **Settings** → **General** → **Apple Virtualization Framework** and enable **Use Rosetta for x86_64/amd64 emulation on Apple Silicon**.
-
     ```bash
-    docker build --platform=linux/amd64 -t datahaven-bsp:latest .
+    docker build -t datahaven-bsp:latest .
     ```
 
     The image name can be anything; This tutorial, uses `datahaven-bsp:latest`.
@@ -168,15 +208,14 @@ The `datahaven-node` binaries published in the DataHaven repository are precompi
 
         ```bash
         docker run -d \
-        --platform=linux/amd64 \
         --name datahaven-bsp \
         --restart unless-stopped \
-        -v "./data":/data \
+        -v "./preview-data":/data \
         datahaven-bsp:latest \
             --provider \
             --provider-type bsp \
-            --max-storage-capacity 10737418240 \
-            --jump-capacity 1073741824 \
+            --max-storage-capacity 32212254720 \
+            --jump-capacity 5368709120 \
             --storage-layer rocks-db \
             --storage-path /data
         ```
@@ -216,8 +255,7 @@ The `datahaven-node` binaries published in the DataHaven repository are precompi
 8. Add the following code:
 
     !!! note
-        This step adds the `--chain` flag and updates `volumes` to point to the chain spec you downloaded earlier. If omitted, the node defaults to DataHaven Local Stagenet.
-
+        This configuration uses your generated node key (`--node-key`) and the chain spec you downloaded (`--chain`). The chain spec file must be mounted into the container via `volumes`. If `--chain` is omitted, the node defaults to DataHaven Local Stagenet.
 
     ```yaml title="docker-compose.yml"
     services:
@@ -267,6 +305,8 @@ The `datahaven-node` binaries published in the DataHaven repository are precompi
 
     Docker Compose makes the setup reproducible, easier to maintain, and safer for operators who shouldn’t need to remember every flag manually. It also ensures the node restarts automatically and mounts persistent storage correctly.
 
+    To better understand each of these flags, make sure to check out the [BSP CLI Flags](/provide-storage/backup-storage-provider/bsp-cli-flags.md) guide.
+
 8. Run the BSP:
 
     ```bash
@@ -283,9 +323,48 @@ The `datahaven-node` binaries published in the DataHaven repository are precompi
     docker compose logs -f | tee bsp.log
     ```
 
-    Make sure the `Chain specification` log is displaying the network that matches the chain spec you are using:
+    The output should look something like this (with varying storage capacity depending on the capacity you've set for your machine):
 
     --8<-- 'code/provide-storage/backup-storage-provider/end-to-end-bsp-onboarding/output-04.html'
+
+   What these logs tell you:
+
+    -  Your node is running on the correct network with the identity derived from your node key.
+        ```
+        📋 Chain specification: DataHaven Testnet
+        🏷 Node name: BSP01
+        👤 Role: FULL
+        🏷 Local node identity is: 12D3KooWQ3fycKkf4X8qgoj4Kd6QSQEiWBD5tPhPPSkzK9KYVW95
+        ```
+    - Storage provider started.
+        ```
+        Starting as a Storage Provider.
+        Storage path: Some("/data/storage"),
+        Max storage capacity: Some(32212254720),
+        Jump capacity: Some(5368709120)
+        ```
+        - **Max storage capacity**: 32,212,254,720 bytes (~30 GiB)
+        - **Jump capacity**: 5,368,709,120 bytes (~5 GiB)
+    - External address discovered (multiaddress).
+
+        !!! note
+            This is your node's multiaddress and you will use it as a param while verifying the BSP node on-chain later.
+        ```
+        🔍 Discovered new external address for our node:
+        /ip4/37.187.93.17/tcp/30333/ws/p2p/12D3KooWQ3fycKkf4X8qgoj4Kd6QSQEiWBD5tPhPPSkzK9KYVW95
+        ```
+
+    - Node started syncing with network.
+        ```
+        ⚙️ Syncing, target=#1021251 (7 peers), best: #1611, finalized #1536
+        ⬇ 384.5kiB/s ⬆ 11.7kiB/s
+        ```
+        - **Target**: Current chain head (#1,021,251)
+        - **Best**: Blocks downloaded so far (#1,611)
+        - **Finalized**: Blocks confirmed as final (#1,536)
+        - **Peers**: 7 connected nodes
+
+        Your node will catch up over time. Once `best` reaches `target`, you're fully synced.
 
 ### Useful Docker Commands
 
@@ -385,7 +464,7 @@ Now, you have a running BSP node within an easily maintainable Docker container,
 
 ## Verify BSP Node
 
-This section walks you through the 2-step process of registering your BSP on-chain and verifying that it is eligible to participate in the DataHaven network using [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=ws://127.0.0.1:9946#){target=\_blank} along with your BSP node's `wsUrl`.
+This section walks you through the 2-step process of registering your BSP on-chain and verifying that it is eligible to participate in the DataHaven network using the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} UI along with DataHaven's public testnet WebSocket endpoint.
 
 ### Import BSP Account Into Wallet
 
@@ -399,9 +478,9 @@ To proceed with verifying your BSP node, you must have your BSP account ready to
 
 Trigger the BSP sign-up flow from Polkadot.js Apps to submit the registration request on-chain.
 
-1. On [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank}, open the navbar on the top left, and set your custom `wsUrl` to be `ws://127.0.0.1:9946`. You should use the port number `9946` because that is the port number you should have defined in your `docker-compose.yml` file.
+1. On [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank}, open the navbar on the top left, and set your custom `wsUrl` to be `wss://services.datahaven-testnet.network/testnet`.
 
-    ![Set custom wsUrl](/images/provide-storage/verify-bsp-node/verify-bsp-node-1.webp)
+    ![Set custom wsUrl](/images/provide-storage/verify-bsp-node/verify-bsp-node-1a.webp)
 
 2. Within the Developer section, go to the Extrinsics page, and select the `providers.requestBspSignUp` extrinsic. 
 
@@ -417,11 +496,11 @@ Trigger the BSP sign-up flow from Polkadot.js Apps to submit the registration re
 
     ![Requesting testnet funds from the faucet](/images/provide-storage/verify-bsp-node/verify-bsp-node-3.webp)
 
-4. In order to find the correct multiaddress, within the Developer section, go to the RPC calls page and submit the `system.localListenAddresses` RPC call. Out of the provided list, you should copy the multiaddress that doesn't contain neither `127.0.0.1` nor `::1`, but the one with the actual IP address such as `192.168.97.2`.
+4. Add your BSP node's multiaddress into the `multiaddresses` field. You can find it in the logs of your BSP node as shown in the [Run a BSP Node](/provide-storage/backup-storage-provider/run-a-bsp-node.md) guide.
 
-    ![Call `system.localListenAddresses` to find multiaddresses](/images/provide-storage/verify-bsp-node/verify-bsp-node-4.webp)
+    ![Add multiaddress into `multiaddresses` field](/images/provide-storage/verify-bsp-node/verify-bsp-node-4a.webp)
 
-5. Once you've pasted your multiaddress in the second param field of the `providers.requestBspSignUp` extrinsic, make sure to choose a public address on which you want to receive BSP rewards.
+5. Choose a public address on which you want to receive BSP rewards.
 
     ![Choose account to receive payments](/images/provide-storage/verify-bsp-node/verify-bsp-node-5.webp)
 
@@ -433,7 +512,7 @@ Trigger the BSP sign-up flow from Polkadot.js Apps to submit the registration re
 
 Confirm your BSP registration after the required waiting period has passed. You should only trigger the `confirmBspSignUp` method after a new epoch has begun. An epoch lasts 1 hour.
 
-1. Check if a new epoch has begun on Polkadot. js Apps' [Explorer page](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9946#/explorer){target=\_blank}.
+1. Check if a new epoch has begun on Polkadot. js Apps' [Explorer page](https://polkadot.js.org/apps/explorer){target=\_blank}.
 
     ![Check epoch](/images/provide-storage/verify-bsp-node/verify-bsp-node-7.webp)
 
@@ -446,6 +525,26 @@ Confirm your BSP registration after the required waiting period has passed. You 
 
     ![Submit transaction](/images/provide-storage/verify-bsp-node/verify-bsp-node-9.webp)
 
+## Next Steps
 
+<div class="grid cards" markdown>
+
+-  <a href="/provide-storage/backup-storage-provider/faqs-and-troubleshooting" markdown>:material-arrow-right: 
+
+    **BSP FAQ and Troubleshooting**
+
+    For any issues you may have encountered regarding the BSP and all processes related to spinning it up, make sure to check out this FAQ page.
+
+    </a>
+
+-  <a href="/provide-storage/backup-storage-provider/bsp-cli-flags" markdown>:material-arrow-right:
+
+    **BSP CLI Flags**
+
+    Check out all the flags that can be ran via your BSP node to configure it in the best way for your needs.
+
+    </a>
+
+</div>
 
 

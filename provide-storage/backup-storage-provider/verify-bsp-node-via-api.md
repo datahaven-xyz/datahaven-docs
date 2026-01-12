@@ -1,15 +1,15 @@
 ---
 title: Verify BSP Node
-description: Guide on how to register your BSP node on-chain and start contributing to the DataHaven network.
+description: Guide on how to register your BSP node on-chain via Polkadot API and start contributing to the DataHaven network.
 ---
 
-# Verify BSP Node
+# Verify BSP Node via API
 
-This guide walks you through how to register your Backup Storage Provider (BSP) on-chain and verify it is eligible to participate in the DataHaven network.
+This guide walks you through how to register your Backup Storage Provider (BSP) on-chain and verify it is eligible to participate in the DataHaven network through scripts that utilize the Polkadot API.
 
 ## Prerequisites
 
-- [A running BSP node](/provide-storage/backup-storage-provider/run-a-bsp-node.md){target=\_blank} with your BSP seed phrase and SS58 public key handy.
+- [A running BSP node](/provide-storage/backup-storage-provider/run-a-bsp-node.md){target=\_blank} with your BSP secret/raw seed and your BSP's multiaddress handy.
 --8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/prerequisites.md'
 
 ### Deposit Requirements
@@ -92,7 +92,7 @@ The roles each helper method plays:
 
 - **`fundBspAddress`**: Ensures the BSP account has enough balance to cover the required deposit.
 - **`checkBspBalance`**: Verifies available funds of the BSP address.
-- **`requestBspSignUp`**: Fetches the network addresses your BSP advertises to the network and selects the proper multiaddresses for the `request_bsp_sign_up` extrinsic.
+- **`getMultiaddresses`**: Fetches the network addresses your BSP advertises to the network and selects the proper multiaddresses for the `request_bsp_sign_up` extrinsic (needed only if you are running BSP node on your local machine).
 - **`requestBspSignUp`**: Submits the on-chain request to register the BSP node by calling the `request_bsp_sign_up` extrinsic.
 
 ### Call the Request Sign Up Method

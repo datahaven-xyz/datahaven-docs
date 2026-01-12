@@ -35,8 +35,10 @@ async function runSignUpRequest() {
   // --8<-- [start:call-sign-up-method]
   // BSP configuration
 
-  // Get multiaddresses from the BSP node
-  const multiaddresses = await getMultiaddresses();
+  const multiaddresses = ['INSERT_MULTIADDRESS'];
+  // If running BSP on your local machine
+  // get multiaddresses from the BSP node directly by uncommenting the line below
+  // const multiaddresses = await getMultiaddresses();
 
   // Capacity should match the capacity set in docker-compose.yml
   // This is just an example value.

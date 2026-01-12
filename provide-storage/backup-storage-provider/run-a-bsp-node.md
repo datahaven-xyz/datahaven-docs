@@ -13,6 +13,51 @@ Before you begin, ensure you have the following:
 
 - macOS or Linux operating system
 - [Docker](https://www.docker.com/){target=\_blank} and [Docker Compose](https://docs.docker.com/compose/install/){target=\_blank} installed and running
+
+    ??? interface "Docker installation instructions"
+
+        If you are using macOS Tahoe (v26 or higher) or Linux, make sure to follow these instructions:
+
+        === "Linux"
+
+            1. Install Docker
+
+                ```bash
+                curl -fsSL https://get.docker.com -o get-docker.sh
+                sudo sh get-docker.sh
+                ```
+            
+            2. Add your user to docker group (so you don't need sudo)
+            
+                ```bash
+                sudo usermod -aG docker $USER
+                ```
+
+            3. Apply group changes:
+
+                ```bash
+                newgrp docker
+                ```
+
+            4. Verify Docker is working:
+
+                ```bash
+                docker --version
+                docker ps
+                ```
+
+        === "macOS Tahoe (v26 or higher)"
+
+            If running macOS Tahoe (v26 or higher), instead of using Docker, you should install [OrbStack](https://orbstack.dev/download){target=\_blank}. Make sure Docker Desktop is not running while using OrbStack to ensure it works properly. You can run all your Docker commands the same way while using OrbStack. 
+        
+            After installing OrbStack, to confirm you are using OrbStack under the hood instead of Docker Desktop, you can run the following command in the terminal:
+
+            ```bash
+            docker context show
+            ```
+
+            The output should be `orbstack`.
+
 - A BCSV key of scheme ECDSA (a 32 byte private key) for the BSP node's on-chain identity and signing
 - Sufficient account balance for deposits and collateral
 - Stable network connection
@@ -95,13 +140,22 @@ Before running a BSP node, you will need to obtain the `datahaven-node` client b
 
     ```bash
     mkdir datahaven-bsp-node
+    cd datahaven-bsp-node
     ```
 
-2. Download the latest client release from the [Releases](https://github.com/datahaven-xyz/datahaven/releases){target=\_blank} section of the DataHaven repo. There, you'll find the latest version of the [`datahaven-node` binary](https://github.com/datahaven-xyz/datahaven/releases/download/{{ networks.testnet.client_version }}/datahaven-node){target=_\blank}. Currently, the latest version is {{ networks.testnet.client_version }}.
+2. Download the latest client release ({{ networks.testnet.client_version }}) of the `datahaven-node` binary from the Releases section of the DataHaven repo. Make sure to download it in the root of your `datahaven-bsp-node` folder.
 
-Make sure to download it in the root of your `datahaven-bsp-node` folder.
+    ```bash
+    curl -LO https://github.com/datahaven-xyz/datahaven/releases/download/{{networks.testnet.client_version}}/datahaven-node
+    ```
 
-3. Next, [download the testnet chain specs](/downloads/datahaven-testnet-raw-specs.json){target=\_blank} and include them in the root of your project. Make sure the file is called `datahaven-testnet-raw-specs.json`. The specs you use dictate to which DataHaven network your BSP will connect and interact with.
+3. Download the testnet chain specs and include them in the root of your project. Make sure the file is called `datahaven-testnet-raw-specs.json`. The specs you use dictate to which DataHaven network your BSP will connect and interact with.
+
+    Either manually [download the testnet chain specs](/downloads/datahaven-testnet-raw-specs.json){target=\_blank} or download them via terminal:
+
+    ```bash
+    curl -LO https://docs.datahaven.xyz/downloads/datahaven-testnet-raw-specs.json
+    ```
 
 ## Configure Docker for the BSP Node
 
@@ -153,9 +207,17 @@ The `datahaven-node` binaries published in the DataHaven repository are precompi
 
         To ensure proper emulation, open Docker Desktop → **Settings** → **General** → **Apple Virtualization Framework** and enable **Use Rosetta for x86_64/amd64 emulation on Apple Silicon**.
 
-    ```bash
-    docker build --platform=linux/amd64 -t datahaven-bsp:latest .
-    ```
+    === "Linux"
+
+        ```bash
+        docker build -t datahaven-bsp:latest .
+        ```
+
+    === "macOS"
+
+        ```bash
+        docker build --platform=linux/amd64 -t datahaven-bsp:latest .
+        ```
 
     The image name can be anything; This guide, uses `datahaven-bsp:latest`.
     
@@ -163,20 +225,38 @@ The `datahaven-node` binaries published in the DataHaven repository are precompi
 
         Going forward, you won't run the BSP this way, but right now you could run a BSP node in the background through the `datahaven-bsp` Docker container with a command like this:
 
-        ```bash
-        docker run -d \
-        --platform=linux/amd64 \
-        --name datahaven-bsp \
-        --restart unless-stopped \
-        -v "./data":/data \
-        datahaven-bsp:latest \
-            --provider \
-            --provider-type bsp \
-            --max-storage-capacity 10737418240 \
-            --jump-capacity 1073741824 \
-            --storage-layer rocks-db \
-            --storage-path /data
-        ```
+        === "Linux"
+
+            ```bash
+            docker run -d \
+            --name datahaven-bsp \
+            --restart unless-stopped \
+            -v "./preview-data":/data \
+            datahaven-bsp:latest \
+                --provider \
+                --provider-type bsp \
+                --max-storage-capacity 32212254720 \
+                --jump-capacity 5368709120 \
+                --storage-layer rocks-db \
+                --storage-path /data
+            ```
+            
+        === "macOS"
+
+            ```bash
+            docker run -d \
+            --platform=linux/amd64 \
+            --name datahaven-bsp \
+            --restart unless-stopped \
+            -v "./preview-data":/data \
+            datahaven-bsp:latest \
+                --provider \
+                --provider-type bsp \
+                --max-storage-capacity 32212254720 \
+                --jump-capacity 5368709120 \
+                --storage-layer rocks-db \
+                --storage-path /data
+            ```
 
         To display this container's logs in terminal, run:
 
@@ -213,8 +293,7 @@ The `datahaven-node` binaries published in the DataHaven repository are precompi
 8. Add the following code:
 
     !!! note
-        This step adds the `--chain` flag and updates `volumes` to point to the chain spec you downloaded earlier. If omitted, the node defaults to DataHaven Local Stagenet.  
-
+        This configuration uses your generated node key (`--node-key`) and the chain spec you downloaded (`--chain`). The chain spec file must be mounted into the container via `volumes`. If `--chain` is omitted, the node defaults to DataHaven Local Stagenet.
 
     ```yaml title="docker-compose.yml"
     services:
@@ -264,6 +343,8 @@ The `datahaven-node` binaries published in the DataHaven repository are precompi
 
     Docker Compose makes the setup reproducible, easier to maintain, and safer for operators who shouldn’t need to remember every flag manually. It also ensures the node restarts automatically and mounts persistent storage correctly.
 
+    To better understand each of these flags, make sure to check out the [BSP CLI Flags](/provide-storage/backup-storage-provider/bsp-cli-flags.md) guide.
+
 8. Run the BSP:
 
     ```bash
@@ -280,9 +361,48 @@ The `datahaven-node` binaries published in the DataHaven repository are precompi
     docker compose logs -f | tee bsp.log
     ```
 
-    Make sure the `Chain specification` log is displaying the network that matches the chain spec you are using:
+    The output should look something like this (with varying storage capacity depending on the capacity you've set for your machine):
 
     --8<-- 'code/provide-storage/backup-storage-provider/end-to-end-bsp-onboarding/output-04.html'
+
+    What these logs tell you:
+
+    -  Your node is running on the correct network with the identity derived from your node key.
+        ```
+        📋 Chain specification: DataHaven Testnet
+        🏷 Node name: BSP01
+        👤 Role: FULL
+        🏷 Local node identity is: 12D3KooWQ3fycKkf4X8qgoj4Kd6QSQEiWBD5tPhPPSkzK9KYVW95
+        ```
+    - Storage provider started.
+        ```
+        Starting as a Storage Provider.
+        Storage path: Some("/data/storage"),
+        Max storage capacity: Some(32212254720),
+        Jump capacity: Some(5368709120)
+        ```
+        - **Max storage capacity**: 32,212,254,720 bytes (~30 GiB)
+        - **Jump capacity**: 5,368,709,120 bytes (~5 GiB)
+    - External address discovered (multiaddress).
+
+        !!! note
+            This is your node's multiaddress and you will use it as a param while verifying the BSP node on-chain later.
+        ```
+        🔍 Discovered new external address for our node:
+        /ip4/37.187.93.17/tcp/30333/ws/p2p/12D3KooWQ3fycKkf4X8qgoj4Kd6QSQEiWBD5tPhPPSkzK9KYVW95
+        ```
+
+    - Node started syncing with network.
+        ```
+        ⚙️ Syncing, target=#1021251 (7 peers), best: #1611, finalized #1536
+        ⬇ 384.5kiB/s ⬆ 11.7kiB/s
+        ```
+        - **Target**: Current chain head (#1,021,251)
+        - **Best**: Blocks downloaded so far (#1,611)
+        - **Finalized**: Blocks confirmed as final (#1,536)
+        - **Peers**: 7 connected nodes
+
+        Your node will catch up over time. Once `best` reaches `target`, you're fully synced.
 
 ### Useful Docker Commands
 

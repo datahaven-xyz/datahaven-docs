@@ -1,11 +1,16 @@
 <div class="termynal" data-termynal>
-    <span data-ty="input"><span class="file-path"></span> ./datahaven-node \
-  --provider \
-  --provider-type bsp \
-  --max-storage-capacity 10737418240 \
-  --jump-capacity=1073741824 \
-  --storage-layer rocks-db \
-  --storage-path ./data</span>
+    <span data-ty="input"><span class="file-path"></span> docker run -d \
+--platform=linux/amd64 \
+--name datahaven-bsp \
+--restart unless-stopped \
+-v "./preview-data":/data \
+datahaven-bsp:latest \
+    --provider \
+    --provider-type bsp \
+    --max-storage-capacity 32212254720 \
+    --jump-capacity 5368709120 \
+    --storage-layer rocks-db \
+    --storage-path /data</span>
     <span data-ty="input"><span class="file-path"></span>
     <span data-ty><pre>
 2025-11-17 14:29:41 DataHaven Node
@@ -21,7 +26,7 @@
 2025-11-17 14:29:42 Using default protocol ID "sup" because none is configured in the chain specs
 2025-11-17 14:29:42 🏷  Local node identity is: 12D3KooWSN4p5iCahCMArGe9ygorbJFCUGwKUk3iZ7XugCxQdjGP
 2025-11-17 14:29:42 Running libp2p network backend
-2025-11-17 14:29:42 Starting as a Storage Provider. Storage path: Some("./data"), Max storage capacity: Some(10737418240), Jump capacity: Some(1073741824), MSP charging period: None
+2025-11-17 14:29:42 Starting as a Storage Provider. Storage path: Some("/data"), Max storage capacity: Some(32212254720), Jump capacity: Some(5368709120), MSP charging period: None
 2025-11-17 14:29:42 💾 StorageHub's File Transfer Service starting up!
 2025-11-17 14:29:42 Emitting RetryBucketMoveDownload event to check for pending bucket downloads
 2025-11-17 14:29:42 No listener for emitted event.
