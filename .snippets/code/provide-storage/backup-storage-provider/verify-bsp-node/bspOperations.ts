@@ -73,7 +73,7 @@ export async function requestBspSignUp(
   multiaddresses: Binary[],
   capacity: bigint
 ) {
-  // Step 1: Request BSP sign up
+  // Request BSP sign up
   const requestTx = polkadotApi.tx.Providers.request_bsp_sign_up({
     capacity: capacity,
     multiaddresses: multiaddresses,
@@ -100,7 +100,7 @@ export async function requestBspSignUp(
 
 // --8<-- [start:confirm-bsp-sign-up]
 export async function confirmBspSignUp() {
-  // Step 2: Confirm the sign-up (after waiting for randomness)
+  // Confirm the sign-up (after waiting for randomness)
   const confirmTx = polkadotApi.tx.Providers.confirm_sign_up({
     provider_account: undefined, // Optional: omit to use signer's account
   });

@@ -32,16 +32,15 @@ The deposit is held (reserved) from your account when you start the BSP registra
 !!! note
     Your BSP account must be funded before BSP registration.
 
-
-This section walks you through the 2-step process of registering your BSP on-chain and verifying that it is eligible to participate in the DataHaven network using [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=ws://127.0.0.1:9946#){target=\_blank} along with your BSP node's `wsUrl`.
-
 ## Import BSP Account Into Wallet
 
-To proceed with verifying your BSP node, you must have your BSP account ready to sign transactions in your browser.
+To proceed with verifying your BSP node, you must have your BSP account funded and ready to sign transactions in your browser.
 
 1. Install in your browser the [Talisman](https://talisman.xyz/){target=\_blank} wallet if you haven't already.
 
-2. Import into your wallet of choice, the same ECDSA raw seed that you injected into your BSP node's keystore.
+2. Import into your wallet of choice, the same ECDSA raw seed that you injected into your BSP node's keystore in the [Run a BSP Node](/provide-storage/backup-storage-provider/run-a-bsp-node.md) guide.
+
+3. Fund your account with the required amount of MOCK tokens as defined in the [Deposit Requirements](#deposit-requirements) section.
 
 ## Request BSP Sign Up
 
@@ -62,13 +61,13 @@ Trigger the BSP sign-up flow from Polkadot.js Apps to submit the registration re
 
         ![Set custom wsUrl for BSP running on local machine](/images/provide-storage/verify-bsp-node/verify-bsp-node-1b.webp)
 
-2. Within the Developer section, go to the Extrinsics page, and select the `providers.requestBspSignUp` extrinsic. 
+2. Within the **Developer** section, go to the **Extrinsics** page, and select the **`providers.requestBspSignUp`** extrinsic. 
 
     Three parameters are required to execute this extrinsic:
 
-    - capacity
-    - multiaddresses
-    - paymentAccount
+   - **`capacity`**
+    - **`multiaddresses`**
+    - **`paymentAccount`**
 
     ![Select the `providers.requestBspSignUp` extrinsic on the Extrinsics page](/images/provide-storage/verify-bsp-node/verify-bsp-node-2.webp)
 
@@ -76,13 +75,13 @@ Trigger the BSP sign-up flow from Polkadot.js Apps to submit the registration re
 
     ![Requesting testnet funds from the faucet](/images/provide-storage/verify-bsp-node/verify-bsp-node-3.webp)
 
-4. Add your BSP node's multiaddress into the `multiaddresses` field. You can find it in the logs of your BSP node as shown in the [Run a BSP Node](/provide-storage/backup-storage-provider/run-a-bsp-node.md) guide.
+4. Add your BSP node's multiaddress into the **`multiaddresses`** field. You can find it in the logs of your BSP node as shown in the [Run a BSP Node](/provide-storage/backup-storage-provider/run-a-bsp-node.md) guide.
 
     ![Add multiaddress into `multiaddresses` field](/images/provide-storage/verify-bsp-node/verify-bsp-node-4a.webp)
 
     ??? interface "How can I find the multiaddress of my locally ran BSP node?"
 
-        In order to find the correct multiaddress, within the Developer section, go to the RPC calls page and submit the `system.localListenAddresses` RPC call. Out of the provided list, you should copy the multiaddress that doesn't contain neither `127.0.0.1` nor `::1`, but the one with the actual IP address such as `192.168.97.2`.
+        In order to find the correct multiaddress, within the **Developer** section, go to the **RPC calls** page and submit the **`system.localListenAddresses`** RPC call. Out of the provided list, you should copy the multiaddress that doesn't contain neither `127.0.0.1` nor `::1`, but the one with the actual IP address such as `192.168.97.2`.
 
         This will only work if you are using the WebSocket endpoint of your locally ran BSP node.
 
@@ -100,11 +99,11 @@ Trigger the BSP sign-up flow from Polkadot.js Apps to submit the registration re
 
 Confirm your BSP registration after the required waiting period has passed. You should only trigger the `confirmBspSignUp` method after a new epoch has begun. An epoch lasts 1 hour.
 
-1. Check if a new epoch has begun on Polkadot. js Apps' [Explorer page](https://polkadot.js.org/apps/explorer){target=\_blank}.
+1. Check if a new epoch has begun on Polkadot. js Apps' [**Explorer**](https://polkadot.js.org/apps/explorer){target=\_blank} page.
 
     ![Check epoch](/images/provide-storage/verify-bsp-node/verify-bsp-node-7.webp)
 
-2. Go to the Extrinsics page, and select the `providers.confirmSignUp` extrinsic. 
+2. Go to the **Extrinsics** page, and select the **`providers.confirmSignUp`** extrinsic. 
 
 
     ![Call `providers.confirmSignUp` extrinsic](/images/provide-storage/verify-bsp-node/verify-bsp-node-8.webp)

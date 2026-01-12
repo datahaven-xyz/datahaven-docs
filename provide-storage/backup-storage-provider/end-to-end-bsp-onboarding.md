@@ -137,7 +137,7 @@ Before running a BSP node, you will need to obtain the `datahaven-node` client b
     curl -LO https://github.com/datahaven-xyz/datahaven/releases/download/{{networks.testnet.client_version}}/datahaven-node
     ```
 
-3. Download the testnet chain specs and include them in the root of your project. Make sure the file is called `datahaven-testnet-raw-specs.json`. The specs you use dictate to which DataHaven network your BSP will connect and interact with.
+3. Download the testnet chain specs and save them to your project root as `datahaven-testnet-raw-specs.json`. The specs determine the DataHaven network your BSP uses.
 
     Either manually [download the testnet chain specs](/downloads/datahaven-testnet-raw-specs.json){target=\_blank} and use SCP to upload the specs to your server:
 
@@ -370,23 +370,28 @@ The `datahaven-node` binaries published in the DataHaven repository are precompi
 
 A collection of helpful Docker Compose commands you’ll use while developing or debugging your BSP node:
 
+- Run the container in the background.
 ```bash
-# Run the container in the background
 docker compose up -d
-
-# Stop and remove the container
+```
+- Stop and remove the container.
+```bash
 docker compose down
-
-# Check status and logs while the container is running
+```
+- Check status and logs while the container is running.
+```bash
 docker compose ps
-
-# Continuously tail logs in terminal
+```
+- Continuously tail logs in terminal.
+```bash
 docker compose logs -f
-
-# Continuously display logs in terminal and save them into a file
+```
+- Continuously display logs in terminal and save them into a file.
+```bash
 docker compose logs -f | tee bsp.log
-
-# Continuously stream and continuously save all logs into a file
+```
+- Continuously stream and continuously save all logs into a file.
+```bash
 docker compose logs -f > bsp.log
 ```
 
@@ -468,11 +473,13 @@ This section walks you through the 2-step process of registering your BSP on-cha
 
 ### Import BSP Account Into Wallet
 
-To proceed with verifying your BSP node, you must have your BSP account ready to sign transactions in your browser.
+To proceed with verifying your BSP node, you must have your BSP account funded and ready to sign transactions in your browser.
 
 1. Install in your browser the [Talisman](https://talisman.xyz/){target=\_blank} wallet if you haven't already.
 
-2. Import into your wallet of choice, the same ECDSA raw seed that you injected into your BSP node's keystore.
+2. Import into your wallet of choice, the same ECDSA raw seed that you injected into your BSP node's keystore in the [Run a BSP Node](/provide-storage/backup-storage-provider/run-a-bsp-node.md) guide.
+
+3. Fund your account with the required amount of MOCK tokens as defined in the [Deposit Requirements](#deposit-requirements) section.
 
 ### Request BSP Sign Up
 
@@ -482,13 +489,13 @@ Trigger the BSP sign-up flow from Polkadot.js Apps to submit the registration re
 
     ![Set custom wsUrl](/images/provide-storage/verify-bsp-node/verify-bsp-node-1a.webp)
 
-2. Within the Developer section, go to the Extrinsics page, and select the `providers.requestBspSignUp` extrinsic. 
+2. Within the **Developer** section, go to the **Extrinsics** page, and select the **`providers.requestBspSignUp`** extrinsic. 
 
     Three parameters are required to execute this extrinsic:
 
-    - capacity
-    - multiaddresses
-    - paymentAccount
+    - **`capacity`**
+    - **`multiaddresses`**
+    - **`paymentAccount`**
 
     ![Select the `providers.requestBspSignUp` extrinsic on the Extrinsics page](/images/provide-storage/verify-bsp-node/verify-bsp-node-2.webp)
 
@@ -496,7 +503,7 @@ Trigger the BSP sign-up flow from Polkadot.js Apps to submit the registration re
 
     ![Requesting testnet funds from the faucet](/images/provide-storage/verify-bsp-node/verify-bsp-node-3.webp)
 
-4. Add your BSP node's multiaddress into the `multiaddresses` field. You can find it in the logs of your BSP node as shown in the [Run a BSP Node](/provide-storage/backup-storage-provider/run-a-bsp-node.md) guide.
+4. Add your BSP node's multiaddress into the **`multiaddresses`** field. You can find it in the logs of your BSP node as shown in the [Run a BSP Node](/provide-storage/backup-storage-provider/run-a-bsp-node.md) guide.
 
     ![Add multiaddress into `multiaddresses` field](/images/provide-storage/verify-bsp-node/verify-bsp-node-4a.webp)
 
@@ -512,11 +519,11 @@ Trigger the BSP sign-up flow from Polkadot.js Apps to submit the registration re
 
 Confirm your BSP registration after the required waiting period has passed. You should only trigger the `confirmBspSignUp` method after a new epoch has begun. An epoch lasts 1 hour.
 
-1. Check if a new epoch has begun on Polkadot. js Apps' [Explorer page](https://polkadot.js.org/apps/explorer){target=\_blank}.
+1. Check if a new epoch has begun on Polkadot. js Apps' [**Explorer**](https://polkadot.js.org/apps/explorer){target=\_blank} page.
 
     ![Check epoch](/images/provide-storage/verify-bsp-node/verify-bsp-node-7.webp)
 
-2. Go to the Extrinsics page, and select the `providers.confirmSignUp` extrinsic. 
+2. Go to the **Extrinsics** page, and select the **`providers.confirmSignUp`** extrinsic. 
 
 
     ![Call `providers.confirmSignUp` extrinsic](/images/provide-storage/verify-bsp-node/verify-bsp-node-8.webp)

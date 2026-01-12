@@ -83,27 +83,6 @@ The following are some important considerations:
 - **Optimize for cloud**: Run BSPs on cloud VPS with dedicated storage volumes.
 - **Ensure network reliability**: Maintain stable network connectivity for timely proof submissions.
 
-### Deposit Requirements
-
-The formula for the deposit is as follows:
-
-`SpMinDeposit` + (`capacity_in_gib` * `DepositPerData`) + `buffer`
-
-- **`SpMinDeposit`**: Base deposit of 100 MOCK
-- **`capacity_in_gib`**: The set GiB capacity of your hardware
-- **`DepositPerData`**: 2 MOCK per GiB
-- **`buffer`**: An additional safety margin
-
-Examples:
-
-- **800 GiB capacity**: 100 + (800 × 2) = 1,700 MOCK required (1,800 MOCK recommended)
-- **1.6 TiB capacity**: 100 + (1,638 × 2) = 3,376 MOCK required (3,500+ MOCK recommended)
-
-The deposit is held (reserved) from your account when you start the BSP registration process and remains held while you operate as a BSP. The deposit is returned when you deregister as a BSP.
-
-!!! note
-    Your BSP account must be funded before BSP registration.
-
 ## Project Structure
 
 This is how the project structure will look like, once everything is set up.
@@ -149,7 +128,7 @@ Before running a BSP node, you will need to obtain the `datahaven-node` client b
     curl -LO https://github.com/datahaven-xyz/datahaven/releases/download/{{networks.testnet.client_version}}/datahaven-node
     ```
 
-3. Download the testnet chain specs and include them in the root of your project. Make sure the file is called `datahaven-testnet-raw-specs.json`. The specs you use dictate to which DataHaven network your BSP will connect and interact with.
+3. Download the testnet chain specs and save them to your project root as `datahaven-testnet-raw-specs.json`. The specs determine the DataHaven network your BSP uses.
 
     Either manually [download the testnet chain specs](/downloads/datahaven-testnet-raw-specs.json){target=\_blank} or download them via terminal:
 
@@ -408,25 +387,30 @@ The `datahaven-node` binaries published in the DataHaven repository are precompi
 
 A collection of helpful Docker Compose commands you’ll use while developing or debugging your BSP node:
 
-    ```bash
-    # run the container in the background
-    docker compose up -d
-
-    # stop and remove the container
-    docker compose down
-
-    # check status and logs while the container is running
-    docker compose ps
-
-    # continuously tail logs in terminal
-    docker compose logs -f
-
-    # continuously display logs in terminal and save them into a file
-    docker compose logs -f | tee bsp.log
-
-    # continuously stream and continuously save all logs into a file
-    docker compose logs -f > bsp.log
-    ```
+- Run the container in the background.
+```bash
+docker compose up -d
+```
+- Stop and remove the container.
+```bash
+docker compose down
+```
+- Check status and logs while the container is running.
+```bash
+docker compose ps
+```
+- Continuously tail logs in terminal.
+```bash
+docker compose logs -f
+```
+- Continuously display logs in terminal and save them into a file.
+```bash
+docker compose logs -f | tee bsp.log
+```
+- Continuously stream and continuously save all logs into a file.
+```bash
+docker compose logs -f > bsp.log
+```
 
 ## Inject the BSP Blockchain Service Key
 
