@@ -107,6 +107,19 @@ const handleError = (message) => {
   errorMessage.innerHTML = message;
 };
 
+// Reset all network buttons to their default state
+const resetNetworkButtons = () => {
+  Object.values(supportedNetworks).forEach((network) => {
+    const button = document.querySelector(
+      `.connect-network[data-value="${network.name}"]`
+    );
+    if (button) {
+      button.innerHTML = `Connect to ${network.chainName}`;
+      button.classList.remove('disabled-button');
+    }
+  });
+};
+
 /*
   Handles the logic for the Connect Wallet button in the top navigation.
   Shows modal and sets up .connect-network links inside the modal
@@ -117,42 +130,56 @@ const connectMetaMaskNav = document.querySelector('.connectMetaMask-nav');
 //   console.warn('MetaMask connect button not found in DOM');
 //   return;
 // }
+
+// Get modal lazily since it's created dynamically by networkModal.js after this script runs
+const getNetworkModal = () =>
+  document.querySelector('.network-modal-container');
+
+// Track whether event delegation has been set up
+let modalDelegationSetup = false;
+
+const setupModalDelegation = () => {
+  if (modalDelegationSetup) return;
+  const modal = getNetworkModal();
+  if (!modal) return;
+
+  modal.addEventListener('click', (ev) => {
+    const button = ev.target.closest('.connect-network');
+    if (button && !button.classList.contains('disabled-button')) {
+      ev.preventDefault();
+      connectNetwork(button.getAttribute('data-value'));
+      modal.style.display = 'none';
+    }
+  });
+  modalDelegationSetup = true;
+};
+
 connectMetaMaskNav.addEventListener('click', async (e) => {
   e.preventDefault();
 
-  const networkModalContainer = document.querySelector(
-    '.network-modal-container'
-  );
-
-  if (provider) {
-    networkModalContainer.style.display = 'block';
-    const { connectedDataHavenNetwork, connectedDataHavenNetworkButton } =
-      await getConnectedNetwork();
-    const accounts = await provider.request({ method: 'eth_accounts' });
-
-    if (connectedDataHavenNetwork && accounts.length > 0) {
-      await displayConnectedAccount(
-        connectedDataHavenNetwork,
-        connectedDataHavenNetworkButton
-      );
-    }
-  } else {
+  if (!provider) {
     const errorMessage = `It looks like you don't have any Ethereum-compatible wallets installed. Please install an Ethereum-compatible wallet, such as <a href="https://metamask.io/download.html" target="_blank" rel="noreferrer noopener">MetaMask</a>, and try again.`;
     handleError(errorMessage);
+    return;
   }
 
-  // Attach click handlers to .connect-network buttons in the modal
-  const dataHavenNetworkButtons = document.querySelectorAll('.connect-network');
-  if (dataHavenNetworkButtons) {
-    dataHavenNetworkButtons.forEach((button) => {
-      if (!button.classList.contains('disabled-button')) {
-        button.addEventListener('click', (ev) => {
-          ev.preventDefault();
-          connectNetwork(ev.target.getAttribute('data-value'));
-          networkModalContainer.style.display = 'none';
-        });
-      }
-    });
+  const networkModalContainer = getNetworkModal();
+  if (!networkModalContainer) {
+    console.warn('Network modal container not found');
+    return;
+  }
+
+  setupModalDelegation();
+  networkModalContainer.style.display = 'block';
+  const { connectedDataHavenNetwork, connectedDataHavenNetworkButton } =
+    await getConnectedNetwork();
+  const accounts = await provider.request({ method: 'eth_accounts' });
+
+  if (connectedDataHavenNetwork && accounts.length > 0) {
+    await displayConnectedAccount(
+      connectedDataHavenNetwork,
+      connectedDataHavenNetworkButton
+    );
   }
 });
 
@@ -187,8 +214,23 @@ connectMetaMaskBodyButtons.forEach((btn) => {
 });
 
 if (provider) {
-  provider.on('chainChanged', () => {
-    window.location.reload();
+  provider.on('chainChanged', async () => {
+    const { connectedDataHavenNetwork, connectedDataHavenNetworkButton } =
+      await getConnectedNetwork();
+
+    if (connectedDataHavenNetwork) {
+      const accounts = await provider.request({ method: 'eth_accounts' });
+      if (accounts.length > 0) {
+        resetNetworkButtons();
+        await displayConnectedAccount(
+          connectedDataHavenNetwork,
+          connectedDataHavenNetworkButton
+        );
+      }
+    } else {
+      // Switched to a non-DataHaven chain, reset buttons to default state
+      resetNetworkButtons();
+    }
   });
   provider.on('accountsChanged', async (accounts) => {
     if (accounts.length > 0) {
@@ -201,7 +243,18 @@ if (provider) {
         );
       }
     } else {
-      window.location.reload();
+      // Reset UI to disconnected state instead of reloading the page
+      resetNetworkButtons();
+
+      connectMetaMaskBodyButtons.forEach((btn) => {
+        btn.textContent = 'Connect MetaMask';
+        btn.classList.remove('disabled-button');
+      });
+
+      const modal = getNetworkModal();
+      if (modal) {
+        modal.style.display = 'none';
+      }
     }
   });
 }
