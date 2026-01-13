@@ -49,6 +49,7 @@ export async function createBucket(bucketName: string) {
   }
 
   // Wait for transaction receipt
+  // Don't proceed until receipt is confirmed on chain
   const txReceipt = await publicClient.waitForTransactionReceipt({
     hash: txHash,
   });

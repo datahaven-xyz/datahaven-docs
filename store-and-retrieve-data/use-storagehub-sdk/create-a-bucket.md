@@ -109,6 +109,9 @@ Bucket-related logic will live in a separate `bucketOperations.ts` file. To impl
 
 3. Add the following code, which uses the `getValueProps` helper from the previous section in `createBucket`:
 
+    !!! note
+        After creating a bucket, it is crucial to wait for the transaction receipt, as shown in the code below. If writing custom bucket-creation logic, make sure to include that step; otherwise, you will fetch bucket data before it is available.
+
     ```ts title="bucketOperations.ts"
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:imports'
 
@@ -181,6 +184,26 @@ The last step is to verify that the bucket was created successfully on-chain and
     ```
 
 And that’s it. You’ve successfully created a bucket and verified it has successfully been created on-chain.
+
+!!! warning
+    If attempting to upload a file right after creating a bucket, it's possible that DataHaven’s indexer may not have processed that block yet. Until the indexer catches up, the MSP backend can’t resolve the new bucket ID, so any upload attempt will fail. To avoid that race condition, you can add a small polling helper that waits for the indexer to acknowledge the bucket before continuing.
+
+    1. Add the following code in your `bucketOperations.ts` file:
+        
+        ```ts title="bucketOperations.ts"
+        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/bucketOperations.ts:wait-for-backend-bucket-ready'
+        ```
+
+    2. Update the `index.ts` file to trigger the helper method you just implemented:
+
+        ```ts title="index.ts"
+        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:wait-for-backend-bucket-ready'
+        ```
+
+        The response should look something like this:
+
+        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/output-01.html'
+
 
 ## Next Steps
 

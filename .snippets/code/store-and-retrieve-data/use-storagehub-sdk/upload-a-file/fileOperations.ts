@@ -94,6 +94,7 @@ export async function uploadFile(
   }
 
   // Wait for storage request transaction
+  // Don't proceed until receipt is confirmed on chain
   const receipt = await publicClient.waitForTransactionReceipt({
     hash: txHash,
   });

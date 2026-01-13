@@ -95,6 +95,10 @@ Add the following code to gather these values:
 
 Issue the storage request by adding the following code:
 
+!!! note
+    After issuing a storage request, it is crucial to wait for the transaction receipt, as shown in the code below. If writing custom storage-request-creation logic, make sure to include that step; otherwise, you will fetch storage request data before it is available.
+
+
 ```ts title="fileOperations.ts // **PLACEHOLDER FOR STEP 3: ISSUE STORAGE REQUEST**"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:issue-storage-request'
 ```
@@ -254,6 +258,38 @@ Now that you have completed `fileOperations.ts` and `index.ts`, the final output
     ```ts title="index.ts"
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/upload-a-file.ts'
     ```
+
+!!! warning
+    If attempting to access a file right after uploading it to DataHaven, it's possible that DataHaven’s indexer may not have processed that block yet. Until the indexer catches up, the MSP backend can’t resolve the new file's data. To avoid that race condition, you can add two small polling helpers that wait for the indexer to acknowledge the file before continuing.
+
+    The two mentioned polling helper methods are:
+
+    1. **`waitForMSPConfirmOnChain`**: Polls the DataHaven runtime until the MSP has confirmed the storage request on-chain. 
+    2. **`waitForBackendFileReady`**: Polls the MSP backend using `mspClient.files.getFileInfo(bucketId, fileKey)` until the file metadata becomes available. Even if the file is confirmed on-chain, the backend may not yet be aware of it.
+
+    Once both checks pass, you know the file is committed on-chain, and the MSP backend is ready to serve it, so a subsequent download call won’t randomly fail with a `404` while the system is still syncing.
+
+    1. Add the following code in your `fileOperations.ts` file:
+        
+        ```ts title="fileOperations.ts"
+        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/fileOperations.ts:wait-for-msp-confirm-on-chain'
+
+        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/fileOperations.ts:wait-for-backend-file-ready'
+        ```
+
+    2. Update the `index.ts` file to trigger the helper method you just implemented:
+
+        ```ts title="index.ts"
+        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:wait-for-msp-confirm-on-chain'
+
+        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:wait-for-backend-file-ready'
+        ```
+
+        The response should look something like this:
+
+        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/output-02.html'
+
+
 
 ## Next Steps
 
