@@ -40,4 +40,10 @@ networkModal.appendChild(closeNetworkModal);
 networkModal.appendChild(networkModalHeader);
 networkModal.appendChild(networkModalMessage);
 networkModalContainer.appendChild(networkModal);
-main.append(networkModalContainer);
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    main.append(networkModalContainer);
+  });
+} else {
+  main.append(networkModalContainer);
+}
