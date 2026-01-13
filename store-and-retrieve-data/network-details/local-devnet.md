@@ -67,7 +67,7 @@ Use the following base URL when interacting with an MSP through the StorageHub S
 
     </a>
 
--   <a href="/store-and-retrieve-data/spin-up-local-devnet.md" markdown>:material-arrow-right:
+-   <a href="/store-and-retrieve-data/spin-up-local-devnet/" markdown>:material-arrow-right:
 
     **Spin Up Local Devnet**
 
