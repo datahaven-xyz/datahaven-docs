@@ -42,9 +42,11 @@ const connectNetwork = async (network) => {
     // This line requests user accounts, which triggers a "connect" prompt if not already connected:
     await provider.request({ method: 'eth_requestAccounts' });
   } catch (e) {
+    // Log all errors for debugging, including expected user actions (4001, -32002)
+    console.error('MetaMask connectNetwork error:', e);
     // 4001: user rejected, -32002: request already pending
-    if (e.code !== 4001 && e.code !== -32002) {
-      handleError(e.message);
+    if (e && e.code !== 4001 && e.code !== -32002) {
+      handleError(e.message || String(e));
     }
   }
 };
