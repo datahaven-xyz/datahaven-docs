@@ -92,7 +92,7 @@ const displayConnectedAccount = async (connectedNetwork, networkButton) => {
     -4
   )}`;
   networkButton.innerHTML = `Connected to ${connectedNetwork.chainName}: ${shortenedAccount}`;
-  networkButton.className += ' disabled-button';
+  networkButton.classList.add('disabled-button');
 };
 
 // Displays an error message to the user
