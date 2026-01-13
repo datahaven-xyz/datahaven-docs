@@ -24,6 +24,7 @@ networkModalMessage.innerHTML = `
   </div>
 `;
 
+// TODO: Enable the following DataHaven mainnet button once the production 'datahaven' network is live and supported.
 //   <div class="md-typeset button-wrapper">
 //     <a href="#" class="md-button connect-network" data-value="datahaven">DataHaven</a>
 //   </div>
