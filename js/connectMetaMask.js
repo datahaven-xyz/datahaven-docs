@@ -72,7 +72,20 @@ const getConnectedNetwork = async () => {
 
 // Display the account that is connected and the DataHaven network the account is connected to
 const displayConnectedAccount = async (connectedNetwork, networkButton) => {
-  const accounts = await provider.request({ method: 'eth_requestAccounts' });
+  let accounts = await provider.request({ method: 'eth_accounts' });
+
+  // If no accounts are returned without prompting, optionally request them
+  if (!accounts || accounts.length === 0) {
+    try {
+      accounts = await provider.request({ method: 'eth_requestAccounts' });
+    } catch (e) {
+      // 4001: user rejected, -32002: request already pending
+      if (e.code !== 4001 && e.code !== -32002) {
+        handleError(e.message);
+      }
+      return;
+    }
+  }
   if (!accounts || accounts.length === 0) return;
 
   const shortenedAccount = `${accounts[0].slice(0, 6)}...${accounts[0].slice(
