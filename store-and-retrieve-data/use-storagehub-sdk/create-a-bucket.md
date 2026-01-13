@@ -1,6 +1,6 @@
 ---
 title: Create a Bucket
-description: Guide on how to create a new storage bucket with the StorageHub SDK.
+description: Guide on what storage buckets are in DataHaven, how to create them with the StorageHub SDK, and what edge cases to look out for.
 ---
 
 # Create a Bucket
@@ -203,7 +203,6 @@ And that’s it. You’ve successfully created a bucket and verified it has succ
         The response should look something like this:
 
         --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/output-01.html'
-
 
 ## Next Steps
 

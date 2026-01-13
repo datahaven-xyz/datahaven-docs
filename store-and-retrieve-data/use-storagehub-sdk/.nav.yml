@@ -2,6 +2,7 @@ nav:
  - 'Get Started': get-started.md
  - 'Create a Bucket': create-a-bucket.md
  - 'Authenticate with SIWE and JWT': authenticate-with-siwe-and-jwt.md
+ - 'File Manipulation': file-manipulation.md
  - 'Upload a File': upload-a-file.md
  - 'Retrieve Your Data': retrieve-your-data.md
  - 'End-to-End Storage Workflow': end-to-end-storage-workflow.md

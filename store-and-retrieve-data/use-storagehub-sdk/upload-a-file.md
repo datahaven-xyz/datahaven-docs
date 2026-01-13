@@ -289,8 +289,6 @@ Now that you have completed `fileOperations.ts` and `index.ts`, the final output
 
         --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/output-02.html'
 
-
-
 ## Next Steps
 
 <div class="grid cards" markdown>
