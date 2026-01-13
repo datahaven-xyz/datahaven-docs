@@ -33,7 +33,7 @@ const supportedNetworks = {
 const connectNetwork = async (network) => {
   try {
     const targetNetwork = { ...supportedNetworks[network] };
-    delete targetNetwork.name; // remove 'name' property if needed
+    delete targetNetwork.name; // 'name' property is used internally and needs to be removed for the request
 
     await provider.request({
       method: 'wallet_addEthereumChain',
@@ -55,7 +55,7 @@ const connectNetwork = async (network) => {
 const getConnectedNetwork = async () => {
   const chainId = await provider.request({ method: 'eth_chainId' });
   const connectedDataHavenNetwork = Object.values(supportedNetworks).find(
-    (network) => network.chainId === chainId
+    (network) => network.chainId.toLowerCase() === chainId.toLowerCase()
   );
   if (connectedDataHavenNetwork) {
     const connectedDataHavenNetworkButton = document.querySelector(
@@ -72,6 +72,10 @@ const getConnectedNetwork = async () => {
 
 // Display the account that is connected and the DataHaven network the account is connected to
 const displayConnectedAccount = async (connectedNetwork, networkButton) => {
+  if (!networkButton) {
+    return;
+  }
+
   let accounts = await provider.request({ method: 'eth_accounts' });
 
   // If no accounts are returned without prompting, optionally request them
@@ -109,8 +113,16 @@ const handleError = (message) => {
 */
 
 const connectMetaMaskNav = document.querySelector('.connectMetaMask-nav');
+// if (!connectMetaMaskNav) {
+//   console.warn('MetaMask connect button not found in DOM');
+//   return;
+// }
 connectMetaMaskNav.addEventListener('click', async (e) => {
   e.preventDefault();
+
+  const networkModalContainer = document.querySelector(
+    '.network-modal-container'
+  );
 
   if (provider) {
     networkModalContainer.style.display = 'block';
