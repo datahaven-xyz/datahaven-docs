@@ -71,7 +71,7 @@ Trigger the BSP sign-up flow from Polkadot.js Apps to submit the registration re
 
     ![Select the `providers.requestBspSignUp` extrinsic on the Extrinsics page](/images/provide-storage/verify-bsp-node/verify-bsp-node-2.webp)
 
-3. Set capacity based on your machine's capabilities and the [hardware requirements](/provide-storage/run-a-bsp-node/#hardware-requirements){target=\_blank} provided in the "Run a BSP Node" guide.
+3. Set capacity based on your machine's capabilities and the [hardware requirements](/provide-storage/backup-storage-provider/run-a-bsp-node/#hardware-requirements){target=\_blank} provided in the "Run a BSP Node" guide.
 
     ![Requesting testnet funds from the faucet](/images/provide-storage/verify-bsp-node/verify-bsp-node-3.webp)
 
