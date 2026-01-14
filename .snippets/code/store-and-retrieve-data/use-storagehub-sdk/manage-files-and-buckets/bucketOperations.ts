@@ -1,5 +1,17 @@
+// --8<-- [start:imports]
+import { Bucket } from '@storagehub-sdk/msp-client';
 import { storageHubClient, publicClient } from '../services/clientService.js';
+import { mspClient } from '../services/mspService.js';
+// --8<-- [end:imports]
 
+// --8<-- [start:get-buckets-msp]
+export async function getBucketsFromMSP(): Promise<Bucket[]> {
+  const buckets: Bucket[] = await mspClient.buckets.listBuckets();
+  return buckets;
+}
+// --8<-- [end:get-buckets-msp]
+
+// --8<-- [start:delete-bucket]
 export async function deleteBucket(bucketId: string): Promise<boolean> {
   const txHash: `0x${string}` | undefined = await storageHubClient.deleteBucket(
     bucketId as `0x${string}`
@@ -20,3 +32,4 @@ export async function deleteBucket(bucketId: string): Promise<boolean> {
 
   return true;
 }
+// --8<-- [end:delete-bucket]

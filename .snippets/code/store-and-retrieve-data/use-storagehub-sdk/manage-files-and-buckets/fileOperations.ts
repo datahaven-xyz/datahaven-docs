@@ -1,7 +1,18 @@
 import { storageHubClient, publicClient } from '../services/clientService.js';
 import { mspClient } from '../services/mspService.js';
 import { FileInfo } from '@storagehub-sdk/core';
+import { FileListResponse } from '@storagehub-sdk/msp-client';
 
+// --8<-- [start:get-bucket-files-msp]
+export async function getBucketFilesFromMSP(
+  bucketId: string
+): Promise<FileListResponse> {
+  const files: FileListResponse = await mspClient.buckets.getFiles(bucketId);
+  return files;
+}
+// --8<-- [end:get-bucket-files-msp]
+
+// --8<-- [start:request-file-deletion]
 export async function requestDeleteFile(
   bucketId: string,
   fileKey: string
@@ -34,3 +45,4 @@ export async function requestDeleteFile(
   );
   return true;
 }
+// --8<-- [end:request-file-deletion]
