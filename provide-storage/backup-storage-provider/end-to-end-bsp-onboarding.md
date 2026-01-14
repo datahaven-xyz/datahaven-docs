@@ -327,7 +327,7 @@ The `datahaven-node` binaries published in the DataHaven repository are precompi
 
     --8<-- 'code/provide-storage/backup-storage-provider/end-to-end-bsp-onboarding/output-04.html'
 
-   What these logs tell you:
+    What these logs tell you:
 
     -  Your node is running on the correct network with the identity derived from your node key.
         ```
