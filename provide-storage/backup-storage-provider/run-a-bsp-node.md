@@ -488,11 +488,11 @@ Finally, you have a running BSP node within an easily maintainable Docker contai
 
 <div class="grid cards" markdown>
 
--  <a href="/provide-storage/backup-storage-provider/verify-bsp-node/" markdown>:material-arrow-right: 
+-  <a href="/provide-storage/backup-storage-provider/verify-bsp-node-via-ui/" markdown>:material-arrow-right: 
 
-    **Verify BSP On-Chain**
+    **Verify BSP On-Chain via UI**
 
-    Follow this guide to verify your BSP on-chain and thus enable your BSP node to participate in replicating DataHaven's files.
+    Follow this guide to verify your BSP on-chain using the Polkadot.js Apps UI and thus enable your BSP node to participate in replicating DataHaven's files.
 
     </a>
 

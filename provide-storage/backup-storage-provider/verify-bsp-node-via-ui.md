@@ -99,7 +99,7 @@ Trigger the BSP sign-up flow from Polkadot.js Apps to submit the registration re
 
 Confirm your BSP registration after the required waiting period has passed. You should only trigger the `confirmBspSignUp` method after a new epoch has begun. An epoch lasts 1 hour.
 
-1. Check if a new epoch has begun on Polkadot. js Apps' [**Explorer**](https://polkadot.js.org/apps/explorer){target=\_blank} page.
+1. Check if a new epoch has begun on Polkadot. js Apps' [**Explorer**](https://polkadot.js.org/apps/#/explorer){target=\_blank} page.
 
     ![Check epoch](/images/provide-storage/verify-bsp-node/verify-bsp-node-7.webp)
 
