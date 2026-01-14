@@ -49,9 +49,9 @@ Set up the keyrings needed to sign BSP-related transactions and derive the corre
 
 2. Add the following code:
 
-```ts  title="bspService.ts"
---8<-- 'code/provide-storage/backup-storage-provider/verify-bsp-node/bspService.ts'
-```
+    ```ts  title="bspService.ts"
+    --8<-- 'code/provide-storage/backup-storage-provider/verify-bsp-node/bspService.ts'
+    ```
 
 !!! warning
     It is assumed that private keys are securely stored and managed in accordance with standard security practices.
