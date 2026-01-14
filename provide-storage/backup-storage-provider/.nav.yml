@@ -1,0 +1,9 @@
+nav:
+ - 'Get Started': get-started.md
+ - 'Run a BSP Node': run-a-bsp-node.md
+ - 'Verify BSP Node via API': verify-bsp-node-via-api.md
+ - 'Verify BSP Node via UI': verify-bsp-node-via-ui.md
+ - 'End-to-End BSP Onboarding': end-to-end-bsp-onboarding.md
+#  - 'Deregister BSP Node': deregister-bsp-node.md
+ - 'BSP CLI Flags': bsp-cli-flags.md
+ - 'BSP Troubleshooting': faqs-and-troubleshooting.md

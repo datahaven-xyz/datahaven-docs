@@ -1,0 +1,6 @@
+nav:
+ - 'Overview': index.md
+ # - 'Quickstart': quickstart.md
+ # - 'Main Storage Provider': main-storage-provider
+ - 'Backup Storage Provider': backup-storage-provider
+ - 'Known Issues': known-issues.md
