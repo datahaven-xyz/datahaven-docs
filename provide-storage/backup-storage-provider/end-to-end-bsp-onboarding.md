@@ -355,7 +355,7 @@ The `datahaven-node` binaries published in the DataHaven repository are precompi
         ```
 
     - Node started syncing with network.
-        ```
+        ```bash
         ⚙️ Syncing, target=#1021251 (7 peers), best: #1611, finalized #1536
         ⬇ 384.5kiB/s ⬆ 11.7kiB/s
         ```
