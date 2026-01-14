@@ -337,7 +337,7 @@ The `datahaven-node` binaries published in the DataHaven repository are precompi
         🏷 Local node identity is: 12D3KooWQ3fycKkf4X8qgoj4Kd6QSQEiWBD5tPhPPSkzK9KYVW95
         ```
     - Storage provider started.
-        ```
+        ```bash
         Starting as a Storage Provider.
         Storage path: Some("/data/storage"),
         Max storage capacity: Some(32212254720),
