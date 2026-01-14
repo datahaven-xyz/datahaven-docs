@@ -349,7 +349,7 @@ The `datahaven-node` binaries published in the DataHaven repository are precompi
 
         !!! note
             This is your node's multiaddress and you will use it as a param while verifying the BSP node on-chain later.
-        ```
+        ```bash
         🔍 Discovered new external address for our node:
         /ip4/37.187.93.17/tcp/30333/ws/p2p/12D3KooWQ3fycKkf4X8qgoj4Kd6QSQEiWBD5tPhPPSkzK9KYVW95
         ```
