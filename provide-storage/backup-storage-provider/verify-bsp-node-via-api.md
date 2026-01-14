@@ -9,7 +9,7 @@ This guide walks you through how to register your Backup Storage Provider (BSP) 
 
 ## Prerequisites
 
-- [A running BSP node](/provide-storage/backup-storage-provider/run-a-bsp-node.md){target=\_blank} with your BSP secret/raw seed and your BSP's multiaddress handy.
+- [A running BSP node](/provide-storage/backup-storage-provider/run-a-bsp-node){target=\_blank} with your BSP secret/raw seed and your BSP's multiaddress handy.
 --8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/prerequisites.md'
 
 ### Deposit Requirements
@@ -111,7 +111,7 @@ Trigger the BSP sign-up flow from your main script to submit the registration re
     // Add other script methods here
     ```
 
-    Check the [formula for the deposit](/provide-storage/backup-storage-provider/verify-bsp-node.md#deposit-requirements) to make sure you've prepared the right amount of funds.
+    Check the [formula for the deposit](/provide-storage/backup-storage-provider/verify-bsp-node#deposit-requirements) to make sure you've prepared the right amount of funds.
 
 ## Cancel BSP Sign Up If Needed
 

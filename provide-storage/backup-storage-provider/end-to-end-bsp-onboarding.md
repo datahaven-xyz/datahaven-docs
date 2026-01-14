@@ -305,7 +305,7 @@ The `datahaven-node` binaries published in the DataHaven repository are precompi
 
     Docker Compose makes the setup reproducible, easier to maintain, and safer for operators who shouldn’t need to remember every flag manually. It also ensures the node restarts automatically and mounts persistent storage correctly.
 
-    To better understand each of these flags, make sure to check out the [BSP CLI Flags](/provide-storage/backup-storage-provider/bsp-cli-flags.md) guide.
+    To better understand each of these flags, make sure to check out the [BSP CLI Flags](/provide-storage/backup-storage-provider/bsp-cli-flags) guide.
 
 8. Run the BSP:
 
@@ -477,7 +477,7 @@ To proceed with verifying your BSP node, you must have your BSP account funded a
 
 1. Install in your browser the [Talisman](https://talisman.xyz/){target=\_blank} wallet if you haven't already.
 
-2. Import into your wallet of choice, the same ECDSA raw seed that you injected into your BSP node's keystore in the [Run a BSP Node](/provide-storage/backup-storage-provider/run-a-bsp-node.md) guide.
+2. Import into your wallet of choice, the same ECDSA raw seed that you injected into your BSP node's keystore in the [Run a BSP Node](/provide-storage/backup-storage-provider/run-a-bsp-node) guide.
 
 3. Fund your account with the required amount of MOCK tokens as defined in the [Deposit Requirements](#deposit-requirements) section.
 
@@ -503,7 +503,7 @@ Trigger the BSP sign-up flow from Polkadot.js Apps to submit the registration re
 
     ![Requesting testnet funds from the faucet](/images/provide-storage/verify-bsp-node/verify-bsp-node-3.webp)
 
-4. Add your BSP node's multiaddress into the **`multiaddresses`** field. You can find it in the logs of your BSP node as shown in the [Run a BSP Node](/provide-storage/backup-storage-provider/run-a-bsp-node.md) guide.
+4. Add your BSP node's multiaddress into the **`multiaddresses`** field. You can find it in the logs of your BSP node as shown in the [Run a BSP Node](/provide-storage/backup-storage-provider/run-a-bsp-node) guide.
 
     ![Add multiaddress into `multiaddresses` field](/images/provide-storage/verify-bsp-node/verify-bsp-node-4a.webp)
 

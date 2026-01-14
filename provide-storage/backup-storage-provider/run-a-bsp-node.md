@@ -322,7 +322,7 @@ The `datahaven-node` binaries published in the DataHaven repository are precompi
 
     Docker Compose makes the setup reproducible, easier to maintain, and safer for operators who shouldn’t need to remember every flag manually. It also ensures the node restarts automatically and mounts persistent storage correctly.
 
-    To better understand each of these flags, make sure to check out the [BSP CLI Flags](/provide-storage/backup-storage-provider/bsp-cli-flags.md) guide.
+    To better understand each of these flags, make sure to check out the [BSP CLI Flags](/provide-storage/backup-storage-provider/bsp-cli-flags) guide.
 
 8. Run the BSP:
 

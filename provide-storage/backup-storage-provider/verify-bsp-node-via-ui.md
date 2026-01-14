@@ -9,7 +9,7 @@ This guide walks you through how to register your Backup Storage Provider (BSP) 
 
 ## Prerequisites
 
-- [A running BSP node](/provide-storage/backup-storage-provider/run-a-bsp-node.md){target=\_blank} with your BSP's secret/raw seed and your BSP's multiaddress handy.
+- [A running BSP node](/provide-storage/backup-storage-provider/run-a-bsp-node){target=\_blank} with your BSP's secret/raw seed and your BSP's multiaddress handy.
 
 ### Deposit Requirements
 
@@ -38,7 +38,7 @@ To proceed with verifying your BSP node, you must have your BSP account funded a
 
 1. Install in your browser the [Talisman](https://talisman.xyz/){target=\_blank} wallet if you haven't already.
 
-2. Import into your wallet of choice, the same ECDSA raw seed that you injected into your BSP node's keystore in the [Run a BSP Node](/provide-storage/backup-storage-provider/run-a-bsp-node.md) guide.
+2. Import into your wallet of choice, the same ECDSA raw seed that you injected into your BSP node's keystore in the [Run a BSP Node](/provide-storage/backup-storage-provider/run-a-bsp-node) guide.
 
 3. Fund your account with the required amount of MOCK tokens as defined in the [Deposit Requirements](#deposit-requirements) section.
 
@@ -57,7 +57,7 @@ Trigger the BSP sign-up flow from Polkadot.js Apps to submit the registration re
 
     === "Local Machine"
 
-        Set your custom `wsUrl` to be `ws://127.0.0.1:9946`. You should use the port number `9946` because that is the port number you should have defined in your `docker-compose.yml` file when going through the [Run a BSP Node](/provide-storage/backup-storage-provider/run-a-bsp-node.md) guide.
+        Set your custom `wsUrl` to be `ws://127.0.0.1:9946`. You should use the port number `9946` because that is the port number you should have defined in your `docker-compose.yml` file when going through the [Run a BSP Node](/provide-storage/backup-storage-provider/run-a-bsp-node) guide.
 
         ![Set custom wsUrl for BSP running on local machine](/images/provide-storage/verify-bsp-node/verify-bsp-node-1b.webp)
 
@@ -75,7 +75,7 @@ Trigger the BSP sign-up flow from Polkadot.js Apps to submit the registration re
 
     ![Requesting testnet funds from the faucet](/images/provide-storage/verify-bsp-node/verify-bsp-node-3.webp)
 
-4. Add your BSP node's multiaddress into the **`multiaddresses`** field. You can find it in the logs of your BSP node as shown in the [Run a BSP Node](/provide-storage/backup-storage-provider/run-a-bsp-node.md) guide.
+4. Add your BSP node's multiaddress into the **`multiaddresses`** field. You can find it in the logs of your BSP node as shown in the [Run a BSP Node](/provide-storage/backup-storage-provider/run-a-bsp-node) guide.
 
     ![Add multiaddress into `multiaddresses` field](/images/provide-storage/verify-bsp-node/verify-bsp-node-4a.webp)
 
