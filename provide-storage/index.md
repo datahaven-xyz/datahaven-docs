@@ -24,9 +24,7 @@ DataHaven depends on independent operators to keep replicas available and verifi
 !!! note
     BSP replication availability can change during testnet iterations. Check [Known Issues](/store-and-retrieve-data/known-issues/) for the latest status before onboarding capacity.
 
-## Hardware Guidelines (MSP and BSP)
-
-MSPs and BSPs use similar hardware profiles to keep replication and proof responses reliable.
+## Hardware Guidelines
 
 | Component | Baseline requirement |
 |:---------:|:--------------------|
