@@ -33,6 +33,7 @@ async function run() {
   // **PLACEHOLDER FOR STEP 1: CHECK MSP HEALTH**
   // **PLACEHOLDER FOR STEP 2: CREATE BUCKET**
   // **PLACEHOLDER FOR STEP 3: VERIFY BUCKET**
+  // **PLACEHOLDER FOR STEP 4: WAIT FOR BACKEND**
 
   // Disconnect the Polkadot API at the very end
   await polkadotApi.disconnect();
@@ -171,6 +172,60 @@ The last step is to verify that the bucket was created successfully on-chain and
 
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/output-03.html'
 
+??? code "View complete `bucketOperations.ts` file up until this point"
+
+    ```ts title="bucketOperations.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:imports'
+
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:create-bucket'
+
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:verify-bucket'
+    ```
+
+??? code "View complete `index.ts` file up until this point"
+
+    ```ts title="index.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:imports'
+
+    async function run() {
+    // For anything from @storagehub-sdk/core to work, initWasm() is required
+    // on top of the file
+    await initWasm();
+    
+    // --- Bucket creating logic ---
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:check-msp-health'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:create-bucket'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:verify-bucket'
+    
+    // **PLACEHOLDER FOR STEP 4: WAIT FOR BACKEND**
+
+    // Disconnect the Polkadot API at the very end
+    await polkadotApi.disconnect();
+    }
+    ```
+
+And that’s it. You’ve successfully created a bucket and verified it has successfully been created on-chain.
+
+## Wait for Backend Before Proceeding
+
+If attempting to upload a file right after creating a bucket, it's possible that DataHaven’s indexer may not have processed that block yet. Until the indexer catches up, the MSP backend can’t resolve the new bucket ID, so any upload attempt will fail. To avoid that race condition, you can add a small polling helper that waits for the indexer to acknowledge the bucket before continuing.
+
+1. Add the following code in your `bucketOperations.ts` file:
+        
+    ```ts title="bucketOperations.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:wait-bucket'
+    ```
+
+2. Update the `index.ts` file to trigger the helper method you just implemented:
+
+    ```ts title="index.ts // **PLACEHOLDER FOR STEP 4: WAIT BACKEND**"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:wait-bucket'
+    ```
+
+    The response should look something like this:
+
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/output-01.html'
+
 ??? code "View complete `bucketOperations.ts` file"
 
     ```ts title="bucketOperations.ts"
@@ -181,28 +236,7 @@ The last step is to verify that the bucket was created successfully on-chain and
 
     ```ts title="index.ts"
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts'
-    ```
-
-And that’s it. You’ve successfully created a bucket and verified it has successfully been created on-chain.
-
-!!! warning
-    If attempting to upload a file right after creating a bucket, it's possible that DataHaven’s indexer may not have processed that block yet. Until the indexer catches up, the MSP backend can’t resolve the new bucket ID, so any upload attempt will fail. To avoid that race condition, you can add a small polling helper that waits for the indexer to acknowledge the bucket before continuing.
-
-    1. Add the following code in your `bucketOperations.ts` file:
-        
-        ```ts title="bucketOperations.ts"
-        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/bucketOperations.ts:wait-for-backend-bucket-ready'
-        ```
-
-    2. Update the `index.ts` file to trigger the helper method you just implemented:
-
-        ```ts title="index.ts"
-        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:wait-for-backend-bucket-ready'
-        ```
-
-        The response should look something like this:
-
-        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/output-01.html'
+    ```    
 
 ## Next Steps
 

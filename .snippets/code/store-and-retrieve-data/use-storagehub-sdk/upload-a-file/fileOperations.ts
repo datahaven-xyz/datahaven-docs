@@ -16,8 +16,10 @@ import {
   getMspInfo,
   authenticateUser,
 } from '../services/mspService.js';
+import { PalletFileSystemStorageRequestMetadata } from '@polkadot/types/lookup';
 // --8<-- [end:imports]
 
+// --8<-- [start:upload-file-full]
 export async function uploadFile(
   bucketId: string,
   filePath: string,
@@ -171,3 +173,114 @@ export async function uploadFile(
 
   return { fileKey, uploadReceipt };
 }
+// --8<-- [end:upload-file-full]
+
+// --8<-- [start:wait-for-msp-confirm-on-chain]
+export async function waitForMSPConfirmOnChain(fileKey: string) {
+  const maxAttempts = 10; // Number of polling attempts
+  const delayMs = 2000; // Delay between attempts in milliseconds
+
+  for (let i = 0; i < maxAttempts; i++) {
+    console.log(
+      `Check storage request has been confirmed by the MSP on-chain, attempt ${
+        i + 1
+      } of ${maxAttempts}...`
+    );
+
+    // Query the runtime for the StorageRequest entry associated with this fileKey
+    const req = await polkadotApi.query.fileSystem.storageRequests(fileKey);
+
+    // StorageRequest removed from state before confirmation is an error
+    if (req.isNone) {
+      throw new Error(
+        `StorageRequest for ${fileKey} no longer exists on-chain.`
+      );
+    }
+
+    // Decode the on-chain metadata struct
+    const data: PalletFileSystemStorageRequestMetadata = req.unwrap();
+
+    // Extract the MSP confirmation tuple (mspId, bool)
+    const mspTuple = data.msp.isSome ? data.msp.unwrap() : null;
+
+    // The second value in the tuple is a SCALE Bool (codec), so convert using .isTrue
+    const mspConfirmed = mspTuple ? (mspTuple[1] as any).isTrue : false;
+
+    // If MSP has confirmed the storage request, we’re good to proceed
+    if (mspConfirmed) {
+      console.log('Storage request confirmed by MSP on-chain');
+      return;
+    }
+
+    // Wait before polling again
+    await new Promise((r) => setTimeout(r, delayMs));
+  }
+
+  // All attempts exhausted
+  throw new Error(
+    `FileKey ${fileKey} not ready for download after waiting ${
+      maxAttempts * delayMs
+    } ms`
+  );
+}
+// --8<-- [end:wait-for-msp-confirm-on-chain]
+
+// --8<-- [start:wait-for-backend-file-ready]
+export async function waitForBackendFileReady(
+  bucketId: string,
+  fileKey: string
+) {
+  // wait up to 12 minutes (144 attempts x 5 seconds)
+  // 11 minutes is the amount of time BSPs have to reach the required replication level
+  const maxAttempts = 144; // Number of polling attempts
+  const delayMs = 5000; // Delay between attempts in milliseconds
+
+  for (let i = 0; i < maxAttempts; i++) {
+    console.log(
+      `Checking for file in MSP backend, attempt ${i + 1} of ${maxAttempts}...`
+    );
+
+    try {
+      // Query MSP backend for the file metadata
+      const fileInfo = await mspClient.files.getFileInfo(bucketId, fileKey);
+
+      // File is fully ready — backend has indexed it and can serve it
+      if (fileInfo.status === 'ready') {
+        console.log('File found in MSP backend:', fileInfo);
+        return fileInfo;
+      }
+
+      // Failure statuses (irrecoverable for this upload lifecycle)
+      if (fileInfo.status === 'revoked') {
+        throw new Error('File upload was cancelled by user');
+      } else if (fileInfo.status === 'rejected') {
+        throw new Error('File upload was rejected by MSP');
+      } else if (fileInfo.status === 'expired') {
+        throw new Error(
+          'Storage request expired: the required number of BSP replicas was not achieved within the deadline'
+        );
+      }
+
+      // Otherwise still pending (indexer not done, MSP still syncing, etc.)
+      console.log(`File status is "${fileInfo.status}", waiting...`);
+    } catch (error: any) {
+      if (error?.status === 404 || error?.body?.error === 'Not found: Record') {
+        // Handle "not yet indexed" as a *non-fatal* condition
+        console.log(
+          'File not yet indexed in MSP backend (404 Not Found). Waiting before retry...'
+        );
+      } else {
+        // Any unexpected backend error should stop the workflow and surface to the caller
+        console.log('Unexpected error while fetching file from MSP:', error);
+        throw error;
+      }
+    }
+
+    // Wait before polling again
+    await new Promise((r) => setTimeout(r, delayMs));
+  }
+
+  // All attempts exhausted
+  throw new Error('Timed out waiting for MSP backend to mark file as ready');
+}
+// --8<-- [end:wait-for-backend-file-ready]
