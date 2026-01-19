@@ -12,7 +12,7 @@ DataHaven depends on independent operators to keep replicas available and verifi
 | Type | Role | Core responsibilities | Selection | Incentives & risks |
 |:----:|:-----------|:----------------------|:----------|:-------------------|
 | MSP | Primary provider for a bucket; the user's main point of contact for storing and retrieving files | Handles storing and retrieving files, anchors bucket roots on-chain, coordinates replication to BSPs | User-selected when creating a bucket | Earns storage fees; currently not polled or slashed, so reputation and market competition drive quality |
-| BSP | Backup provider that stores replicas and proves data availability to the network | Stores replicas, maintains a global commitment of stored file keys, responds to periodic proof challenges, serves recovery if an MSP fails | Assigned by the network for redundancy | Earns rewards for durable replicas; can be slashed for missing proofs or losing data |
+| BSP | Backup provider that stores replicas and proves data availability to the network | Stores replicas, maintains a global commitment of stored file keys, responds to periodic proof challenges, provides recovery if an MSP fails | Assigned by the network for redundancy | Earns rewards for durable replicas; can be slashed for missing proofs or losing data |
 
 ## What to Expect as a Storage Provider
 
