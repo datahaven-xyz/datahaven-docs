@@ -1,6 +1,6 @@
 ---
 title: File Manipulation
-description: Guide on file manipulation in DataHaven through the relationship between FileManager, fingerprint, fileKey and issuing a storage request.
+description: Guide on file manipulation in DataHaven through the relationship between File Manager, fingerprint, file key and issuing a storage request.
 ---
 
 # File Manipulation
