@@ -50,7 +50,7 @@ DataHaven depends on independent operators to keep replicas available and verifi
 
     </a>
 
--  <a href="/provide-storage/backup-storage-provider/end-to-end-bsp-onboarding/" markdown>:material-arrow-right:
+-   <a href="/provide-storage/backup-storage-provider/end-to-end-bsp-onboarding/" markdown>:material-arrow-right:
 
     **End-to-End BSP Onboarding**
 
