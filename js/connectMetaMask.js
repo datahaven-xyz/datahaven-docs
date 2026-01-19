@@ -126,10 +126,6 @@ const resetNetworkButtons = () => {
 */
 
 const connectMetaMaskNav = document.querySelector('.connectMetaMask-nav');
-// if (!connectMetaMaskNav) {
-//   console.warn('MetaMask connect button not found in DOM');
-//   return;
-// }
 
 // Get modal lazily since it's created dynamically by networkModal.js after this script runs
 const getNetworkModal = () =>
