@@ -5,7 +5,7 @@ description: Guide on file manipulation in DataHaven through the relationship be
 
 # File Manipulation
 
-The purpose of this guide is to help you create a mental model of what pieces of data you'll need to extract from the file you intend to upload to DataHaven and how to retrieve it from the network. In this guide, you'll learn how to initialize the FileManager from your file, create the fingerprint and fileKey, issue a storage request, and retrieve the data for that request.
+The purpose of this guide is to help you create a mental model of what pieces of data you'll need to extract from the file you intend to upload to DataHaven and how to retrieve it from the network. In this guide, you'll learn how to initialize the File Manager from your file, create the fingerprint and file key, issue a storage request, and retrieve the data for that request.
 
 ## Prerequisites
 
