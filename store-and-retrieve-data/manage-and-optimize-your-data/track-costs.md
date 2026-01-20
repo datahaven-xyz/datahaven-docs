@@ -41,7 +41,7 @@ await run();
 
 ## Authenticate
 
-Before any file operations, authenticate with the MSP. The `authenticateUser` helper signs a SIWE message and returns a session token that authorizes your uploads, updates, and deletions. Add the following code to use the `authenticateUser` helper method you've already implemented in `mspService.ts`:
+Before accessing payment stream information or balance data, authenticate with the MSP. The `authenticateUser` helper signs a SIWE message and returns a session token that authorizes your cost-tracking requests. Add the following code to use the `authenticateUser` helper method you've already implemented in `mspService.ts`:
 
 ```ts title='index.ts // **PLACEHOLDER FOR STEP 1: AUTHENTICATE**'
 --8<-- 'code/store-and-retrieve-data/manage-and-optimize-your-data/track-costs/track-costs.ts:authenticate'
