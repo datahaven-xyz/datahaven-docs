@@ -101,7 +101,7 @@ To fetch your buckets stored in a specific MSP, create a helper method called `g
 
 Update `index.ts` with the following code to trigger the `getBucketsFromMSP` helper method you just implemented:
 
-```ts title='index.ts  // **PLACEHOLDER FOR STEP 3: GET BUCKET FILES**'
+```ts title='index.ts  // **PLACEHOLDER FOR STEP 2: GET YOUR BUCKETS**'
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:get-buckets-msp'
 ```
 
@@ -147,7 +147,7 @@ To fetch your files from a specific bucket stored in a specific MSP, create a he
 2. Add the following code:
 
 ```ts title="fileOperations.ts"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/fileOperations.ts:import'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/fileOperations.ts:imports'
 
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/fileOperations.ts:get-bucket-files-msp'
 
@@ -158,7 +158,7 @@ To fetch your files from a specific bucket stored in a specific MSP, create a he
 
 Update `index.ts` with the following code to trigger the `getBucketFilesFromMSP` helper method you just implemented:
 
-```ts title='index.ts  // **PLACEHOLDER FOR STEP 3: GET BUCKET FILES**'
+```ts title='index.ts  // **PLACEHOLDER FOR STEP 3: GET YOUR BUCKET FILES**'
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:get-bucket-files-msp'
 ```
 
@@ -287,13 +287,13 @@ If you run the script with the bucket deletion code, the response should include
 
 ??? code "View complete `bucketOperations.ts`"
 
-    ```ts title="index.ts"
+    ```ts title="bucketOperations.ts"
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/bucketOperations.ts'
     ```
 
 ??? code "View complete `fileOperations.ts`"
 
-    ```ts title="index.ts"
+    ```ts title="fileOperations.ts"
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/fileOperations.ts'
     ```
 
