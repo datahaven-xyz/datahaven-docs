@@ -1,18 +1,18 @@
 ---
 title: Track Costs
-description: Lorem ipsum
+description: This guide shows how to fetch your payment stream data using the StorageHub SDK and how to use that data to calculate remaining storage time.
 ---
 
 # Track Costs
 
-Lorem ipsum
+This guide covers the process of fetching payment stream data via the StorageHub SDK as an authorized user and using that data to calculate how much longer the DataHaven network will continue storing your files, based on your current balance and costs.
 
 ## Prerequisites
 
 Before you begin, ensure you have the following:
 
 --8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/prerequisites.md'
-- [A file uploaded](/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/){target=\_blank} to DataHaven, along with the [file key](/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/#compute-the-file-key){target=\_blank}
+- [A file uploaded](/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/){target=\_blank} to DataHaven
 
 ## Initialize the Script Entry Point
 
@@ -44,19 +44,18 @@ await run();
 Before any file operations, authenticate with the MSP. The `authenticateUser` helper signs a SIWE message and returns a session token that authorizes your uploads, updates, and deletions. Add the following code to use the `authenticateUser` helper method you've already implemented in `mspService.ts`:
 
 ```ts title='index.ts // **PLACEHOLDER FOR STEP 1: AUTHENTICATE**'
---8<-- 'code/store-and-retrieve-data/manage-and-optimize-your-data/track-costs.ts:authenticate'
+--8<-- 'code/store-and-retrieve-data/manage-and-optimize-your-data/track-costs/track-costs.ts:authenticate'
 ```
 
 ??? code "View complete `index.ts` up until this point"
 
     ```ts title="index.ts"
-      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:imports'
+    --8<-- 'code/store-and-retrieve-data/manage-and-optimize-your-data/track-costs/track-costs.ts:imports'
 
       async function run() {
-      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:init-setup'
 
       // --- Cost tracking logic ---
-      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:authenticate'
+      --8<-- 'code/store-and-retrieve-data/manage-and-optimize-your-data/track-costs/track-costs.ts:authenticate'
       // **PLACEHOLDER FOR STEP 2: GET PAYMENT STREAMS**
       // **PLACEHOLDER FOR STEP 3: CALCULATE TIME REMAINING**
 
@@ -69,45 +68,113 @@ Before any file operations, authenticate with the MSP. The `authenticateUser` he
 
 ## Get Payment Streams
 
-Lorem
+For each created bucket and uploaded file a `costPerTick` is being billed to your account by the MSP and corresponding BSPs storing your data. A tick corresponds to one block on the DataHaven network. With a 6-second block time, one tick = 6 seconds. Storage costs are calculated and deducted on a per-tick basis. 
+
+To see what this recurring cost is for you specifically, in this section, you'll implement the `getPaymentStreams` helper method and then call it in your `index.ts` file.
+
+### Add Method to Get Payment Streams
+
+To implement the `getPaymentStreams` helper method, add the following code to the `mspService.ts` file:
+
+```ts title="mspService.ts"
+--8<-- 'code/store-and-retrieve-data/manage-and-optimize-your-data/track-costs/msp-service-with-get-payment-streams.ts:payment-streams'
+```
+
+### Call Get Payment Streams Helper Method
+
+Replace the placeholder `// **PLACEHOLDER FOR STEP 2: GET PAYMENT STREAMS**` with the following code:
+
+```ts title='index.ts // **PLACEHOLDER FOR STEP 2: GET PAYMENT STREAMS**'
+--8<-- 'code/store-and-retrieve-data/manage-and-optimize-your-data/track-costs/track-costs.ts:payment-streams'
+```
+
+??? code "View complete `index.ts` up until this point"
+
+    ```ts title="index.ts"
+    --8<-- 'code/store-and-retrieve-data/manage-and-optimize-your-data/track-costs/track-costs.ts:imports'
+
+      async function run() {
+
+      // --- Cost tracking logic ---
+      --8<-- 'code/store-and-retrieve-data/manage-and-optimize-your-data/track-costs/track-costs.ts:authenticate'
+      --8<-- 'code/store-and-retrieve-data/manage-and-optimize-your-data/track-costs/track-costs.ts:payment-streams'
+      // **PLACEHOLDER FOR STEP 3: CALCULATE TIME REMAINING**
+
+      // Disconnect the Polkadot API at the very end
+      await polkadotApi.disconnect();
+    }
+
+    await run();
+    ```
+
+If you run the script with the code above, the response should look something like this:
+
+--8<-- 'code/store-and-retrieve-data/manage-and-optimize-your-data/track-costs/output-01.html'
+
+## Calculate Remaining Time
+
+In this section, you'll learn how to utilize the balance of your account together the data gathered from all of your payment streams to calculate how much remaining time you have before your account runs out of funds due to the DataHaven network's recurring costs.
 
 !!! warning
     If your balance reaches zero, all buckets and files will be permanently deleted. Keep funds topped up to avoid losing data.
 
-### Add
+### Add Method to Calculate Remaining Time
 
-Lorem
+To implement the `calculateRemainingTime` helper method along with a few other methods to get your account's balance and format the remaining time in a human readable way, follow these steps:
 
+1. Create a new folder called `operations` within the `src` folder (at the same level as the `services` folder) like so:
 
+    ```bash
+    mkdir operations
+    ```
 
-### Call
+2. Create a new file within the `operations` folder called `costOperations.ts`.
 
-```ts title='index.ts // **PLACEHOLDER FOR STEP 2: GET PAYMENT STREAMS**'
---8<-- 'code/store-and-retrieve-data/manage-and-optimize-your-data/track-costs.ts:payment-streams'
-```
+3. Add the following code:
 
-If you run the script with the code above, the response should look something like this:
+    ```ts title='costOperations.ts'
+    --8<-- 'code/store-and-retrieve-data/manage-and-optimize-your-data/track-costs/costOperations.ts'
+    ```
 
-!!! note
-    A tick corresponds to one block on the DataHaven network. With a 6-second block time, one tick = 6 seconds. Storage costs are calculated and deducted on a per-tick basis.
+### Call Calculate Remaining Time Helper Method 
 
---8<-- 'code/store-and-retrieve-data/manage-and-optimize-your-data/track-costs/output-01.html'
-
-
-
-
-## Calculate Remaining Time
-
-Lorem
-
-### Add
-
-### Call
+Replace the placeholder `// **PLACEHOLDER FOR STEP 3: CALCULATE TIME REMAINING**` with the following code:
 
 ```ts title='index.ts // **PLACEHOLDER FOR STEP 3: CALCULATE TIME REMAINING**'
---8<-- 'code/store-and-retrieve-data/manage-and-optimize-your-data/track-costs.ts:calculate-time-remaining'
+--8<-- 'code/store-and-retrieve-data/manage-and-optimize-your-data/track-costs/track-costs.ts:calculate-time-remaining'
 ```
+
+??? code "View complete `index.ts`"
+
+    ```ts title="index.ts"
+    --8<-- 'code/store-and-retrieve-data/manage-and-optimize-your-data/track-costs/track-costs.ts:imports'
+
+      async function run() {
+
+      // --- Cost tracking logic ---
+      --8<-- 'code/store-and-retrieve-data/manage-and-optimize-your-data/track-costs/track-costs.ts:authenticate'
+      --8<-- 'code/store-and-retrieve-data/manage-and-optimize-your-data/track-costs/track-costs.ts:payment-streams'
+      --8<-- 'code/store-and-retrieve-data/manage-and-optimize-your-data/track-costs/track-costs.ts:calculate-time-remaining'
+
+      // Disconnect the Polkadot API at the very end
+      await polkadotApi.disconnect();
+    }
+
+    await run();
+    ```
 
 If you run the script with the code above, the response should look something like this:
 
 --8<-- 'code/store-and-retrieve-data/manage-and-optimize-your-data/track-costs/output-02.html'
+
+??? code "View complete `mspService.ts`"
+
+    ```ts title="mspService.ts"
+    --8<-- 'code/store-and-retrieve-data/manage-and-optimize-your-data/track-costs/msp-service-with-get-payment-streams.ts'
+    ```
+
+??? code "View complete `costOperations.ts`"
+
+    ```ts title="costOperations.ts"
+    --8<-- 'code/store-and-retrieve-data/manage-and-optimize-your-data/track-costs/costOperations.ts'
+    ```
