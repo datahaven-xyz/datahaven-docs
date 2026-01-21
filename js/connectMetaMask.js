@@ -1,0 +1,256 @@
+const provider = window.ethereum;
+const supportedNetworks = {
+  //   datahaven: {
+  //     name: 'datahaven',
+  //     chainId: '0xDA7A',
+  //     chainName: 'DataHaven',
+  //     rpcUrls: ['/'],
+  //     blockExplorerUrls: ['/'],
+  //     nativeCurrency: {
+  //       name: 'Have',
+  //       symbol: 'HAVE',
+  //       decimals: 18,
+  //     },
+  //   },
+  datahavenTestnet: {
+    name: 'datahavenTestnet',
+    chainId: '0xDA7B',
+    chainName: 'DataHaven Testnet',
+    rpcUrls: ['https://services.datahaven-testnet.network/testnet'],
+    blockExplorerUrls: ['http://testnet.dhscan.io/'],
+    nativeCurrency: {
+      name: 'Mock',
+      symbol: 'MOCK',
+      decimals: 18,
+    },
+  },
+};
+
+/*
+  Add or switch to the specified network, then request accounts
+  NOTE: This calls "eth_requestAccounts" at the end, which prompts for wallet connection
+ */
+const connectNetwork = async (network) => {
+  try {
+    const targetNetwork = { ...supportedNetworks[network] };
+    delete targetNetwork.name; // 'name' property is used internally and needs to be removed for the request
+
+    await provider.request({
+      method: 'wallet_addEthereumChain',
+      params: [targetNetwork],
+    });
+    // This line requests user accounts, which triggers a "connect" prompt if not already connected:
+    await provider.request({ method: 'eth_requestAccounts' });
+  } catch (e) {
+    // Log all errors for debugging, including expected user actions (4001, -32002)
+    console.error('MetaMask connectNetwork error:', e);
+    // 4001: user rejected, -32002: request already pending
+    if (e && e.code !== 4001 && e.code !== -32002) {
+      handleError(e.message || String(e));
+    }
+  }
+};
+
+// Get the network that the user is currently connected to
+const getConnectedNetwork = async () => {
+  const chainId = await provider.request({ method: 'eth_chainId' });
+  const connectedDataHavenNetwork = Object.values(supportedNetworks).find(
+    (network) => network.chainId.toLowerCase() === chainId.toLowerCase()
+  );
+  if (connectedDataHavenNetwork) {
+    const connectedDataHavenNetworkButton = document.querySelector(
+      `.connect-network[data-value="${connectedDataHavenNetwork.name}"]`
+    );
+    return { connectedDataHavenNetwork, connectedDataHavenNetworkButton };
+  } else {
+    return {
+      connectedDataHavenNetwork: null,
+      connectedDataHavenNetworkButton: null,
+    };
+  }
+};
+
+// Display the account that is connected and the DataHaven network the account is connected to
+const displayConnectedAccount = async (connectedNetwork, networkButton) => {
+  if (!networkButton) {
+    return;
+  }
+
+  let accounts = await provider.request({ method: 'eth_accounts' });
+
+  // If no accounts are returned without prompting, optionally request them
+  if (!accounts || accounts.length === 0) {
+    try {
+      accounts = await provider.request({ method: 'eth_requestAccounts' });
+    } catch (e) {
+      // 4001: user rejected, -32002: request already pending
+      if (e.code !== 4001 && e.code !== -32002) {
+        handleError(e.message);
+      }
+      return;
+    }
+  }
+  if (!accounts || accounts.length === 0) return;
+
+  const shortenedAccount = `${accounts[0].slice(0, 6)}...${accounts[0].slice(
+    -4
+  )}`;
+  networkButton.innerHTML = `Connected to ${connectedNetwork.chainName}: ${shortenedAccount}`;
+  networkButton.classList.add('disabled-button');
+};
+
+// Displays an error message to the user
+const handleError = (message) => {
+  const errorModalContainer = document.querySelector('.error-modal-container');
+  const errorMessage = document.querySelector('.error-message');
+  errorModalContainer.style.display = 'block';
+  errorMessage.innerHTML = message;
+};
+
+// Reset all network buttons to their default state
+const resetNetworkButtons = () => {
+  Object.values(supportedNetworks).forEach((network) => {
+    const button = document.querySelector(
+      `.connect-network[data-value="${network.name}"]`
+    );
+    if (button) {
+      button.innerHTML = `Connect to ${network.chainName}`;
+      button.classList.remove('disabled-button');
+    }
+  });
+};
+
+/*
+  Handles the logic for the Connect Wallet button in the top navigation.
+  Shows modal and sets up .connect-network links inside the modal
+*/
+
+const connectMetaMaskNav = document.querySelector('.connectMetaMask-nav');
+
+// Get modal lazily since it's created dynamically by networkModal.js after this script runs
+const getNetworkModal = () =>
+  document.querySelector('.network-modal-container');
+
+// Track whether event delegation has been set up
+let modalDelegationSetup = false;
+
+const setupModalDelegation = () => {
+  if (modalDelegationSetup) return;
+  const modal = getNetworkModal();
+  if (!modal) return;
+
+  modal.addEventListener('click', (ev) => {
+    const button = ev.target.closest('.connect-network');
+    if (button && !button.classList.contains('disabled-button')) {
+      ev.preventDefault();
+      connectNetwork(button.getAttribute('data-value'));
+      modal.style.display = 'none';
+    }
+  });
+  modalDelegationSetup = true;
+};
+
+connectMetaMaskNav.addEventListener('click', async (e) => {
+  e.preventDefault();
+
+  if (!provider) {
+    const errorMessage = `It looks like you don't have any Ethereum-compatible wallets installed. Please install an Ethereum-compatible wallet, such as <a href="https://metamask.io/download.html" target="_blank" rel="noreferrer noopener">MetaMask</a>, and try again.`;
+    handleError(errorMessage);
+    return;
+  }
+
+  const networkModalContainer = getNetworkModal();
+  if (!networkModalContainer) {
+    console.warn('Network modal container not found');
+    return;
+  }
+
+  setupModalDelegation();
+  networkModalContainer.style.display = 'block';
+  const { connectedDataHavenNetwork, connectedDataHavenNetworkButton } =
+    await getConnectedNetwork();
+  const accounts = await provider.request({ method: 'eth_accounts' });
+
+  if (connectedDataHavenNetwork && accounts.length > 0) {
+    await displayConnectedAccount(
+      connectedDataHavenNetwork,
+      connectedDataHavenNetworkButton
+    );
+  }
+});
+
+/*
+ Handles the logic for the buttons inside of content pages (i.e., the Connect MetaMask guide).
+ Directly connect to the network specified in 'value'
+ */
+const connectMetaMaskBodyButtons =
+  document.querySelectorAll('.connectMetaMask');
+connectMetaMaskBodyButtons.forEach((btn) => {
+  btn.addEventListener('click', async (e) => {
+    e.preventDefault();
+
+    if (!provider) {
+      handleError(
+        `No Ethereum-compatible wallet found. Please install MetaMask.`
+      );
+      return;
+    }
+
+    const network = btn.getAttribute('value');
+    if (!network || !supportedNetworks[network]) {
+      handleError(`The network "${network}" is not supported or not defined.`);
+      return;
+    }
+
+    await connectNetwork(network);
+    //Update the button to reflect the "connected" state
+    btn.textContent = 'Connected';
+    btn.classList.add('disabled-button');
+  });
+});
+
+if (provider) {
+  provider.on('chainChanged', async () => {
+    const { connectedDataHavenNetwork, connectedDataHavenNetworkButton } =
+      await getConnectedNetwork();
+
+    if (connectedDataHavenNetwork) {
+      const accounts = await provider.request({ method: 'eth_accounts' });
+      if (accounts.length > 0) {
+        resetNetworkButtons();
+        await displayConnectedAccount(
+          connectedDataHavenNetwork,
+          connectedDataHavenNetworkButton
+        );
+      }
+    } else {
+      // Switched to a non-DataHaven chain, reset buttons to default state
+      resetNetworkButtons();
+    }
+  });
+  provider.on('accountsChanged', async (accounts) => {
+    if (accounts.length > 0) {
+      const { connectedDataHavenNetwork, connectedDataHavenNetworkButton } =
+        await getConnectedNetwork();
+      if (connectedDataHavenNetwork) {
+        await displayConnectedAccount(
+          connectedDataHavenNetwork,
+          connectedDataHavenNetworkButton
+        );
+      }
+    } else {
+      // Reset UI to disconnected state instead of reloading the page
+      resetNetworkButtons();
+
+      connectMetaMaskBodyButtons.forEach((btn) => {
+        btn.textContent = 'Connect MetaMask';
+        btn.classList.remove('disabled-button');
+      });
+
+      const modal = getNetworkModal();
+      if (modal) {
+        modal.style.display = 'none';
+      }
+    }
+  });
+}
