@@ -65,13 +65,18 @@ const formatDuration = (totalSeconds: bigint): string => {
   }
 
   const days = totalSeconds / SECONDS_PER_DAY;
-  const hours = (totalSeconds % SECONDS_PER_DAY) / SECONDS_PER_HOUR;
+  const hoursWithinDay = (totalSeconds % SECONDS_PER_DAY) / SECONDS_PER_HOUR;
 
   if (days > 0n) {
-    return `${days} days, ${hours} hours`;
+    return `${days} days, ${hoursWithinDay} hours`;
   }
 
-  const minutes = totalSeconds / SECONDS_PER_MINUTE;
+  const hours = totalSeconds / SECONDS_PER_HOUR;
+  const minutes = (totalSeconds % SECONDS_PER_HOUR) / SECONDS_PER_MINUTE;
+
+  if (hours > 0n) {
+    return `${hours} hours, ${minutes} minutes`;
+  }
   return `${minutes} minutes`;
 };
 // --8<-- [end:format-duration]
