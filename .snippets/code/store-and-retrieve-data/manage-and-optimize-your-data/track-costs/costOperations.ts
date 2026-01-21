@@ -7,7 +7,7 @@ import {
 } from '@storagehub-sdk/msp-client';
 // --8<-- [end:imports]
 
-//--8<-- [start:calculate-time-remaining]
+// --8<-- [start:calculate-time-remaining]
 interface TimeRemaining {
   ticks: bigint;
   seconds: bigint;
@@ -47,7 +47,7 @@ const calculateTimeRemaining = (
     formatted: formatDuration(secondsRemaining),
   };
 };
-//--8<-- [end:calculate-time-remaining]
+// --8<-- [end:calculate-time-remaining]
 
 // --8<-- [start:format-duration]
 const formatDuration = (totalSeconds: bigint): string => {
