@@ -7,14 +7,14 @@ description: Orientation for operators who want to supply storage capacity to Da
 
 DataHaven depends on independent operators to keep replicas available and verifiable. This section is for teams that want to run storage nodes, starting with the Backup Storage Provider (BSP) role that backs up user data, answers proof challenges, and helps the network recover if a Main Storage Provider (MSP) goes offline.
 
-## Provider Roles at a Glance
+## Storage Provider Roles at a Glance
 
-| Role | How it's chosen | Core responsibilities | Incentives and risks |
-|:----:|:---------------:|:---------------------:|:--------------------:|
-| MSP | User-selected primary provider for a bucket | Handles uploads and reads, anchors bucket roots on-chain, coordinates replication to BSPs | Earns storage fees; currently not polled or slashed, so reputation and market competition drive quality |
-| BSP | Assigned by the network for redundancy | Stores replicas, maintains a global commitment of stored file keys, responds to periodic proof challenges, and serves recovery if an MSP fails | Earns rewards for durable replicas; can be slashed for missing proofs or losing data |
+| Type | Role | Core responsibilities | Selection | Incentives & risks |
+|:----:|:-----------|:----------------------|:----------|:-------------------|
+| MSP | Primary provider for a bucket; the user's main point of contact for storing and retrieving files | Handles storing and retrieving files, anchors bucket roots on-chain, coordinates replication to BSPs | User-selected when creating a bucket | Earns storage fees; currently not polled or slashed, so reputation and market competition drive quality |
+| BSP | Backup provider that stores replicas and proves data availability to the network | Stores replicas, maintains a global commitment of stored file keys, responds to periodic proof challenges, provides recovery if an MSP fails | Assigned by the network for redundancy | Earns rewards for durable replicas; can be slashed for missing proofs or losing data |
 
-## What to Expect as a Provider
+## What to Expect as a Storage Provider
 
 - **Register on DataHaven and bond BSP stake**: Use the BSP signup flow on the DataHaven chain to post collateral; EigenLayer registration applies to validators, not BSPs.
 - **Stay reachable for replication and proofs**: MSPs rely on BSPs to accept replication quickly; protocol challenges have deadlines.
@@ -24,9 +24,7 @@ DataHaven depends on independent operators to keep replicas available and verifi
 !!! note
     BSP replication availability can change during testnet iterations. Check [Known Issues](/store-and-retrieve-data/known-issues/) for the latest status before onboarding capacity.
 
-## Hardware Guidelines (MSP and BSP)
-
-MSPs and BSPs use similar hardware profiles to keep replication and proof responses reliable.
+## Hardware Guidelines
 
 | Component | Baseline requirement |
 |:---------:|:--------------------|
@@ -52,11 +50,11 @@ MSPs and BSPs use similar hardware profiles to keep replication and proof respon
 
     </a>
 
--   <a href="/how-it-works/data-and-provider-model/data-flow-and-lifecycle/" markdown>:material-arrow-right: 
+-   <a href="/provide-storage/backup-storage-provider/end-to-end-bsp-onboarding/" markdown>:material-arrow-right:
 
-    **Data Flow and Lifecycle**
+    **End-to-End BSP Onboarding**
 
-    End-to-end view of how uploads, replication, proofs, and recovery fit together.
+    This tutorial takes you step-by-step through spinning up a BSP and verifying it on-chain.
 
     </a>
 
