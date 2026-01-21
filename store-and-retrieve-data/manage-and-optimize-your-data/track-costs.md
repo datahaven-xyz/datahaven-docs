@@ -178,3 +178,25 @@ If you run the script with the code above, the response should look something li
     ```ts title="costOperations.ts"
     --8<-- 'code/store-and-retrieve-data/manage-and-optimize-your-data/track-costs/costOperations.ts'
     ```
+
+## Next Steps
+
+<div class="grid cards" markdown>
+
+-  <a href="/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets" markdown>:material-arrow-right: 
+    
+    **Manage Files and Buckets**
+
+    Learn how to manage your storage resources on DataHaven using the StorageHub SDK.
+
+    </a>
+
+-   <a href="/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/" markdown>:material-arrow-right:
+
+    **Build a Data Workflow End-to-End**
+
+    Learn step-by-step how to store a file on DataHaven and retrieve it from the network.
+
+    </a>
+
+</div>
