@@ -26,52 +26,36 @@ For the full prerequisites checklist, see the [Provide Storage Overview](/provid
 
 - **Infrastructure**: 8 cores @ 3.4 GHz, 32 GB RAM, 500 GB NVMe (chain), 1 TB+ NVMe/HDD (user data), 500 Mbit/s symmetric. Keep chain and user data on separate volumes; set `--max-storage-capacity` to ~80% of available disk.
 - **Access**: DataHaven testnet endpoints ([RPC/WSS and MSP service URLs](/store-and-retrieve-data/network-details/testnet/)), reachable hostname/ports, and solid time sync (NTP).
-- **Wallet and funds**: Operational keys plus [testnet tokens](https://apps.datahaven.xyz/testnet/faucet){target=_blank} for fees and collateral. Deposit is `SpMinDeposit` + (`capacity_in_gib` × `DepositPerData`) + buffer; for example, ~800 GiB needs about 1,700 MOCK (add headroom).
+- **Wallet and funds**: Operational keys plus [testnet tokens](https://apps.datahaven.xyz/testnet/faucet){target=\_blank} for fees and collateral. Deposit is `SpMinDeposit` + (`capacity_in_gib` × `DepositPerData`) + buffer; for example, ~800 GiB needs about 1,700 MOCK (add headroom).
 - **Ops hygiene**: Logs/metrics and alerts for replication latency, anchoring health, challenge deadlines, and disk utilization.
 
 ## BSP Path: Replicate, Commit, and Prove
 
 Here's an example of a "happy path" for a Backup Storage Provider:
 
-1. **Register and bond**: Start BSP signup on-chain with `request_bsp_sign_up`, then confirm with `confirm_sign_up` to post stake or collateral (BSPs do not register through EigenLayer). Deposit scales with capacity (see above), and the sign-up lock is `BspSignUpLockPeriod = 90 * DAYS`. Inject your BCSV service key into the node keystore before serving traffic.
-2. **Configure service**: Set testnet RPC/WSS endpoints, public host/ports for replication, and a realistic `--max-storage-capacity` (about 80% of available disk). Keep chain and user data on separate volumes.
-3. **Accept replication**: Validate chunk integrity from MSPs, persist data, and acknowledge completion. Update your BSP commitment after each accepted replica so the on-chain root matches your stored inventory.
-4. **Prove custody**: Subscribe to proof challenges and respond before deadlines; missed or invalid answers can be slashed. Watch logs/metrics for challenge success rate and replication backlog.
+1. **Spin up the node and capture signup params**: Follow [Run a BSP Node](/provide-storage/backup-storage-provider/run-a-bsp-node/) — the [Docker Compose example in the Configure Docker section](/provide-storage/backup-storage-provider/run-a-bsp-node/#configure-docker-for-the-bsp-node) is a good starting template — to launch with testnet RPC/WSS endpoints, public host/ports for replication, and a realistic `--max-storage-capacity` (about 80% of available disk). Keep chain and user data on separate volumes. Grab your node's multiaddress from the logs; both the multiaddress and max capacity are required for `request_bsp_sign_up`. Inject your BCSV service key into the node keystore before any on-chain actions.
+2. **Register and bond**: With the node running, start BSP signup on-chain with `request_bsp_sign_up` (supplying the multiaddress and capacity from step 1), then confirm with `confirm_sign_up` to post stake or collateral (BSPs do not register through EigenLayer). Deposit scales with capacity (see above), and the sign-up lock is `BspSignUpLockPeriod = 90 * DAYS`.
+3. **Accept replication (auto after signup confirmation)**: Once `confirm_sign_up` is finalized, the network assigns replicas to your running node. It will validate chunk integrity, persist data, and acknowledge completion; keep an eye on logs and metrics and ensure your commitment updates after each accepted replica so the on-chain root matches your stored inventory.
+4. **Prove custody (auto after signup confirmation)**: Proof challenges begin once you're registered and online. The node subscribes and responds automatically; watch deadlines, challenge success rate, and replication backlog since missed or invalid answers can be slashed.
 5. **Test recovery**: Periodically stream data to another node to mirror the path used during MSP failover.
 
 ## Next Steps
 
 <div class="grid cards" markdown>
 
--   <a href="/provide-storage/backup-storage-provider/get-started/" markdown>:material-arrow-right: 
+-   <a href="/provide-storage/backup-storage-provider/run-a-bsp-node/" markdown>:material-arrow-right: 
 
-    **Backup Storage Provider: Get Started**
+    **Run a BSP Node**
 
-    Responsibilities, operational flow, and readiness checklist before running a BSP.
+    Docker Compose template, required flags, and keystore injection to bring a BSP online.
 
     </a>
 
--   <a href="/provide-storage/" markdown>:material-arrow-right: 
+-   <a href="/provide-storage/backup-storage-provider/end-to-end-bsp-onboarding/" markdown>:material-arrow-right: 
     
-    **Provide Storage Overview**
+    **End-to-End BSP Onboarding**
 
-    Roles, hardware guidance, and what to expect before onboarding capacity.
-
-    </a>
-
--   <a href="/how-it-works/data-and-provider-model/buckets-files-and-merkle-proofs/" markdown>:material-arrow-right: 
-
-    **Buckets, Files, and Merkle Proofs**
-
-    How commitments, anchoring, and proof challenges work for both MSPs and BSPs.
-
-    </a>
-
--   <a href="/how-it-works/data-and-provider-model/data-flow-and-lifecycle/" markdown>:material-arrow-right: 
-
-    **Data Flow and Lifecycle**
-
-    End-to-end view of uploads, replication, proofs, and recovery across MSPs and BSPs.
+    Full tutorial from spinning up a node to registering on-chain and handling proofs.
 
     </a>
 
