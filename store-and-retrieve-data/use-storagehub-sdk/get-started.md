@@ -1,6 +1,7 @@
 ---
 title: Get Started with the StorageHub SDK
 description: Set up your development environment, install the StorageHub SDK, and prepare your project to start interacting with the DataHaven network.
+categories: Basics, Store Data, StorageHub SDK
 ---
 
 # Get Started with the StorageHub SDK

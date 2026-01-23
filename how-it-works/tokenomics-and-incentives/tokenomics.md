@@ -1,6 +1,7 @@
 ---
 title: Tokenomics 
 description: Explore DataHaven’s tokenomics to learn how the HAVE token powers storage, fees, staking, governance, and cross-chain functionality across the network.
+categories: Basics, Protocol
 ---
 
 # Tokenomics

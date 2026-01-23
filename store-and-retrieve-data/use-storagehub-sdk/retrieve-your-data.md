@@ -1,6 +1,7 @@
 ---
 title: Retrieve Your Data
 description: Learn how to use the StorageHub SDK to fetch a previously uploaded file from your chosen Main Storage Provider (MSP) using its deterministic file key.
+categories: Store Data, StorageHub SDK
 ---
 
 # Retrieve Your Data
