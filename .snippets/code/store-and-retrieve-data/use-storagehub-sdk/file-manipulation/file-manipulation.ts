@@ -1,4 +1,5 @@
 // --8<-- [start:imports]
+import '@storagehub/api-augment';
 import { FileManager, initWasm, ReplicationLevel } from '@storagehub-sdk/core';
 import {
   polkadotApi,
@@ -94,7 +95,7 @@ async function run() {
       mspId as `0x${string}`,
       peerIds,
       replicationLevel,
-      replicas
+      replicas,
     );
   console.log('issueStorageRequest() txHash:', txHash);
   if (!txHash) {
@@ -117,21 +118,20 @@ async function run() {
   const registry = new TypeRegistry();
   const owner = registry.createType(
     'AccountId20',
-    account.address
+    account.address,
   ) as AccountId20;
   const bucketIdH256 = registry.createType('H256', bucketId) as H256;
   const fileKey = await fileManager.computeFileKey(
     owner,
     bucketIdH256,
-    fileName
+    fileName,
   );
   // --8<-- [end:compute-file-key]
 
   // --8<-- [start:retrieve-storage-request-data]
   // Step 5: Retrieve Storage Request Data
-  const storageRequest = await polkadotApi.query.fileSystem.storageRequests(
-    fileKey
-  );
+  const storageRequest =
+    await polkadotApi.query.fileSystem.storageRequests(fileKey);
   if (!storageRequest.isSome) {
     throw new Error('Storage request not found on chain');
   }
