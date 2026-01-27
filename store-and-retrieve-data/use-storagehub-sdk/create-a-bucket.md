@@ -204,7 +204,7 @@ The last step is to verify that the bucket was created successfully on-chain and
     }
     ```
 
-And that’s it. You’ve successfully created a bucket and verified it has successfully been created on-chain.
+And that’s it. You’ve successfully created a bucket and verified it on-chain.
 
 ## Wait for Backend Before Proceeding
 
