@@ -113,7 +113,7 @@ If you run the script with the code above, the response should look something li
 
 ## Calculate Remaining Time
 
-In this section, you'll learn how to utilize the balance of your account together the data gathered from all of your payment streams to calculate how much remaining time you have before your account runs out of funds due to the DataHaven network's recurring costs.
+In this section, you'll learn how to use the balance of your account, along with data gathered from all of your payment streams, to calculate how much time remains before your account runs out of funds due to the DataHaven network's recurring costs.
 
 !!! warning
     If your balance reaches zero, all buckets and files will be permanently deleted. Keep funds topped up to avoid losing data.
