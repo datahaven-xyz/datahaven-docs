@@ -275,7 +275,7 @@ Now that you have completed `fileOperations.ts` and `index.ts`, the final output
 
 ## Wait for Backend Before Proceeding
 
-If attempting to access a file right after uploading it to DataHaven, it's possible that DataHaven’s indexer may not have processed that block yet. Until the indexer catches up, the MSP backend can’t resolve the new file's data. To avoid that race condition, you can add two small polling helpers that wait for the indexer to acknowledge the file before continuing.
+If attempting to access a file right after uploading it to DataHaven, it's possible that DataHaven’s indexer hasn't processed that block yet. Until the indexer catches up, the MSP backend can’t resolve the new file's data. To avoid that race condition, you can add two small polling helpers that wait for the indexer to acknowledge the file before continuing.
 
 The two mentioned polling helper methods are:
 
