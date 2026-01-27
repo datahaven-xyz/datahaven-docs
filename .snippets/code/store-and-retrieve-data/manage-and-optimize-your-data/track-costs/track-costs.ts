@@ -27,7 +27,7 @@ async function run() {
 
   // --8<-- [start:calculate-time-remaining]
   // Calculate time remaining based on balance and payment streams
-  const balance = await getBalance(address); // MOCK tokens
+  const balance = await getBalance(address); // MOCK tokens in wei
   const result = calculateTimeRemaining(balance, paymentStreams);
   console.log(`Time remaining: ${result.formatted}`);
   // --8<-- [end:calculate-time-remaining]
