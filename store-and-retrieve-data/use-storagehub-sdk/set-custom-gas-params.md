@@ -96,7 +96,7 @@ To create the `buildGasTxOpts` helper method, follow these steps:
 
 ## Update Create Bucket Method
 
-To update your existing `createBucket` helper method within your `bucketOperations.ts` file to include the `gasTxOpts` calculation, follows these steps:
+To update your existing `createBucket` helper method within your `bucketOperations.ts` file to include the `gasTxOpts` calculation, follow these steps:
 
 1. Add this line to your imports:
 
@@ -122,7 +122,7 @@ To update your existing `createBucket` helper method within your `bucketOperatio
 
 ??? code "View complete `bucketOperations.ts` file"
 
-    ```ts title="src/index.ts"
+    ```ts title="bucketOperations.ts"
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/set-custom-gas-fees/bucketOperations.ts'
     ```
 

@@ -1,5 +1,5 @@
 import { EvmWriteOptions } from '@storagehub-sdk/core';
-import { publicClient } from '../services/clientService';
+import { publicClient } from '../services/clientService.js';
 
 // Build custom gas transaction options
 export async function buildGasTxOpts(): Promise<EvmWriteOptions> {
