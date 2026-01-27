@@ -1,7 +1,7 @@
 import { EvmWriteOptions } from '@storagehub-sdk/core';
 import { publicClient } from '../services/clientService';
 
-// Build gas transaction options based on current network conditions
+// Build custom gas transaction options
 export async function buildGasTxOpts(): Promise<EvmWriteOptions> {
   const gas = BigInt('1500000');
 
@@ -15,6 +15,9 @@ export async function buildGasTxOpts(): Promise<EvmWriteOptions> {
   }
 
   const maxPriorityFeePerGas = BigInt('1500000000'); // 1.5 gwei
+
+  // maxFeePerGas = baseFeePerGas * safeMarginMultiplier + maxPriorityFeePerGas
+  // safeMarginMultiplier should be some value that protects you from fee spikes (e.g., 1.5x or 2x)
   const maxFeePerGas = baseFeePerGas * BigInt(2) + maxPriorityFeePerGas;
 
   return { gas, maxFeePerGas, maxPriorityFeePerGas };

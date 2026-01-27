@@ -1,11 +1,11 @@
 ---
-title: Set Custom Gas Fees
+title: Set Custom Gas Params
 description: This guide shows you how to set custom gas fees while calling methods via the StorageHub SDK in case the default gas amount isn't enough
 ---
 
 # Set Custom Gas Fees
 
-This guide shows how to calculate the correct gas amount in DataHaven at any given time. Since the gas amount is fixed by default within the StorageHub SDK, occasionally the cost of a transaction will exceed that default amount. This is why it is important to be able to calculate the correct amount and pass it as a param in a StorageHub method call. The guide uses `createBucket` as an example, but this same approach can be used for any SDK method that where an on-chain transaction takes place.
+This guide shows how to calculate and set custom gas params in DataHaven. The StorageHub SDK already dynamically computes the necessary gas params, but you can set custom values if needed. The `createBucket` method will be used as an example, but this same approach can be used for any SDK method where an on-chain transaction takes place.
 
 ## Prerequisites
 
@@ -37,13 +37,9 @@ In this code, the `createBucket` helper method from `bucketOperations.ts` is cal
 ...
 ```
 
-Through this method, an on-chain transaction is executed with a predefined gas amount set by the SDK. Sometimes this predefined gas amount is not enough and you can get a message like this:
+Through this method, an on-chain transaction is executed with a gas amount dynamically set by the SDK. To pass custom values, an extra `gasTxOpts` param, of type `EvmWriteOptions` (imported from `@storagehub-sdk/core`), can be passed at the end of the param list, like so:
 
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/set-custom-gas-fees/output-01.html'
-
-To pass a custom gas amount an extra `gasTxOpts` param of type `EvmWriteOptions` (imported from `@storagehub-sdk/core`) can be passed at the end, like so:
-
-```ts title="bucketOperations.ts // createBucketWithCustomGas()"
+```ts title="bucketOperations.ts // createBucket()"
 ...
 // Create bucket on chain
   const txHash: `0x${string}` | undefined = await storageHubClient.createBucket(
@@ -56,9 +52,37 @@ To pass a custom gas amount an extra `gasTxOpts` param of type `EvmWriteOptions`
 ...
 ```
 
-In the following section you will learn how to calculate the value of this extra parameter.
+The [`EvmWriteOptions`](https://github.com/Moonsong-Labs/storage-hub/blob/600d024b5627a6a9f9874a2d4c4c846de4e021e4/sdk/core/src/evm/types.ts#L58-L83){target=\_blank} type has the following structure:
 
-## Add Method to Calculate Gas Fees
+```ts
+type EvmWriteOptions = {
+  
+  // Explicit gas limit. If omitted, the SDK will estimate and multiply.
+  // It's computed with an estimation from the contract call and a multiplier.
+  gas?: bigint;
+  
+  // Multiplier applied over the SDK gas estimate when `gas` is not supplied.
+  // Defaults to 5.
+  gasMultiplier?: number;
+
+  // Deprecated - do not use - Legacy gas price (wei)
+  // StorageHub SDK is moving to EIP-1559 only. This field is ignored by the SDK.
+  // Use `maxFeePerGas` and `maxPriorityFeePerGas` instead.
+  gasPrice?: bigint;
+  
+  // EIP-1559: max fee per gas (wei). Use with `maxPriorityFeePerGas`.
+  // maxFeePerGas = baseFeePerGas * safeMarginMultiplier + maxPriorityFeePerGas
+  maxFeePerGas?: bigint;
+  
+  // EIP-1559: max priority fee per gas (wei).
+  // The tip paid to validators and should be increased under network congestion.
+  maxPriorityFeePerGas?: bigint;
+};
+```
+
+In the following section you will learn how to set and calculate these gas values within the `EvmWriteOptions` type.
+
+## Add Method to Set Gas Fees
 
 To create the `buildGasTxOpts` helper method, follow these steps:
 
@@ -83,6 +107,7 @@ To update your existing `createBucket` helper method within your `bucketOperatio
 2. Trigger the `buildGasTxOpts` method right before calling the SDK's `storageHubClient.createBucket` method and the `gasTxOpts` param at the end of the param list, like so:
 
     ```ts title="bucketOperations.ts"
+    ...
     const gasTxOpts = await buildGasTxOpts();
     // Create bucket on chain
     const txHash: `0x${string}` | undefined = await storageHubClient.createBucket(
@@ -92,6 +117,7 @@ To update your existing `createBucket` helper method within your `bucketOperatio
       valuePropId,
       gasTxOpts
     );
+    ...
     ```
 
 ??? code "View complete `bucketOperations.ts` file"
