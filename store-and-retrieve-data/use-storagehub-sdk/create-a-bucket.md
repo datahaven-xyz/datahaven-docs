@@ -208,7 +208,7 @@ And that’s it. You’ve successfully created a bucket and verified it on-chain
 
 ## Wait for Backend Before Proceeding
 
-If attempting to upload a file right after creating a bucket, it's possible that DataHaven’s indexer may not have processed that block yet. Until the indexer catches up, the MSP backend can’t resolve the new bucket ID, so any upload attempt will fail. To avoid that race condition, you can add a small polling helper that waits for the indexer to acknowledge the bucket before continuing.
+If you attempt to upload a file right after creating a bucket, it's possible that DataHaven’s indexer hasn't processed that block yet. Until the indexer catches up, the MSP backend can’t resolve the new bucket ID, so any upload attempt will fail. To avoid that race condition, you can add a small polling helper that waits for the indexer to acknowledge the bucket before continuing.
 
 1. Add the following code in your `bucketOperations.ts` file:
         
