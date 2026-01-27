@@ -32,7 +32,8 @@ async function run() {
   // **PLACEHOLDER FOR STEP 3: GET YOUR BUCKET FILES**
   // --- Data deleting logic ---
   // **PLACEHOLDER FOR STEP 4: REQUEST FILE DELETION**
-  // **PLACEHOLDER FOR STEP 5: DELETE A BUCKET**
+  // **PLACEHOLDER FOR STEP 5: WAIT FOR BACKEND TO RETURN EMPTY BUCKET**
+  // **PLACEHOLDER FOR STEP 6: DELETE A BUCKET**
 
   // Disconnect the Polkadot API at the very end
   await polkadotApi.disconnect();
@@ -64,7 +65,8 @@ Before any file operations, authenticate with the MSP. The `authenticateUser` he
       // **PLACEHOLDER FOR STEP 3: GET YOUR BUCKET FILES**
       // --- Data deleting logic ---
       // **PLACEHOLDER FOR STEP 4: REQUEST FILE DELETION**
-      // **PLACEHOLDER FOR STEP 5: DELETE A BUCKET**
+      // **PLACEHOLDER FOR STEP 5: WAIT FOR BACKEND TO RETURN EMPTY BUCKET**
+      // **PLACEHOLDER FOR STEP 6: DELETE A BUCKET**
 
       // Disconnect the Polkadot API at the very end
       await polkadotApi.disconnect();
@@ -122,7 +124,8 @@ Update `index.ts` with the following code to trigger the `getBucketsFromMSP` hel
       // **PLACEHOLDER FOR STEP 3: GET YOUR BUCKET FILES**
       // --- Data deleting logic ---
       // **PLACEHOLDER FOR STEP 4: REQUEST FILE DELETION**
-      // **PLACEHOLDER FOR STEP 5: DELETE A BUCKET**
+      // **PLACEHOLDER FOR STEP 5: WAIT FOR BACKEND TO RETURN EMPTY BUCKET**
+      // **PLACEHOLDER FOR STEP 6: DELETE A BUCKET**
 
       // Disconnect the Polkadot API at the very end
       await polkadotApi.disconnect();
@@ -180,7 +183,8 @@ Update `index.ts` with the following code to trigger the `getBucketFilesFromMSP`
 
       // --- Data deleting logic ---
       // **PLACEHOLDER FOR STEP 4: REQUEST FILE DELETION**
-      // **PLACEHOLDER FOR STEP 5: DELETE A BUCKET**
+      // **PLACEHOLDER FOR STEP 5: WAIT FOR BACKEND TO RETURN EMPTY BUCKET**
+      // **PLACEHOLDER FOR STEP 6: DELETE A BUCKET**
 
       // Disconnect the Polkadot API at the very end
       await polkadotApi.disconnect();
@@ -192,7 +196,6 @@ Update `index.ts` with the following code to trigger the `getBucketFilesFromMSP`
 If you run the script with the code above, the response should look like this:
 
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/output-02.html'
-
 
 ## Request File Deletion
 
@@ -236,7 +239,8 @@ Update `index.ts` with the following code to trigger the `requestDeleteFile` hel
 
       --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:request-file-deletion'
 
-      // **PLACEHOLDER FOR STEP 5: DELETE A BUCKET**
+      // **PLACEHOLDER FOR STEP 5: WAIT FOR BACKEND TO RETURN EMPTY BUCKET**
+      // **PLACEHOLDER FOR STEP 6: DELETE A BUCKET**
 
       // Disconnect the Polkadot API at the very end
       await polkadotApi.disconnect();
@@ -251,6 +255,70 @@ Update `index.ts` with the following code to trigger the `requestDeleteFile` hel
 If you run the script with the code above, the full response should look like this:
 
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/output-03.html'
+
+## Wait for Backend to Return Empty Bucket
+
+Right after your file's deletion is requested, your script will immediately try to delete the bucket your file was in. At this point, the file might not have been deleted yet, or if it has been deleted, DataHaven’s indexer may not have processed that block yet. Until the indexer catches up, the MSP backend won't show up to date data, so any bucket deletion attempt will fail.
+To avoid that race condition, you’ll add a small polling helper that waits for the indexer to acknowledge your bucket is empty before continuing.
+
+1. Add the following code in your `bucketOperations.ts` file:
+    
+    ```ts title="bucketOperations.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/bucketOperations.ts:wait-for-backend-bucket-empty'
+    ```
+
+??? code "View complete `bucketOperations.ts` up until this point"
+
+    ```ts title="bucketOperations.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/bucketOperations.ts:imports'
+
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/bucketOperations.ts:get-buckets-msp'
+
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/bucketOperations.ts:wait-for-backend-bucket-empty'
+
+    // Add other helper methods here
+    ```
+
+2. Update the `index.ts` file to trigger the helper method you just implemented:
+
+    ```ts title="index.ts // **PLACEHOLDER FOR STEP 5: WAIT FOR BACKEND TO RETURN EMPTY BUCKET**"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:wait-for-backend-bucket-empty'
+    ```
+
+    The response should look something like this:
+
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/output-04.html'
+
+??? code "View complete `index.ts` up until this point"
+
+    ```ts title="index.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:imports'
+
+    async function run() {
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:init-setup'
+
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:authenticate'
+
+      // --- Data fetching logic ---
+
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:get-buckets-msp'
+
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:get-bucket-files-msp'
+
+      // --- Data deleting logic ---
+
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:request-file-deletion'
+
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:wait-for-backend-bucket-empty'
+
+      // **PLACEHOLDER FOR STEP 6: DELETE A BUCKET**
+
+      // Disconnect the Polkadot API at the very end
+      await polkadotApi.disconnect();
+    }
+
+    await run();
+    ```
 
 ## Delete a Bucket
 
@@ -271,13 +339,13 @@ Create a new file within the `operations` folder called `bucketOperations.ts` an
 
 Update `index.ts` with the following code to trigger the  `deleteBucket` helper method you just implemented:
 
-```ts title="index.ts  // **PLACEHOLDER FOR STEP 5: DELETE BUCKET**"
+```ts title="index.ts  // **PLACEHOLDER FOR STEP 6: DELETE BUCKET**"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:delete-bucket'
 ```
 
 If you run the script with the bucket deletion code, the response should include:
 
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/output-04.html'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/output-05.html'
 
 ??? code "View complete `index.ts`"
 

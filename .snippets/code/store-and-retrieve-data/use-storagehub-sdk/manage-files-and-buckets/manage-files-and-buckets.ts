@@ -10,6 +10,7 @@ import {
 import {
   deleteBucket,
   getBucketsFromMSP,
+  waitForBackendBucketEmpty,
 } from './operations/bucketOperations.js';
 // --8<-- [end:imports]
 
@@ -45,13 +46,18 @@ async function run() {
   // Request file deletion
   const isDeletionRequestSuccessful = await requestDeleteFile(
     bucketId,
-    fileKey
+    fileKey,
   );
   console.log(
     'File deletion request submitted successfully:',
-    isDeletionRequestSuccessful
+    isDeletionRequestSuccessful,
   );
   // --8<-- [end:request-file-deletion]
+
+  // --8<-- [start:wait-for-backend-bucket-empty]
+  // Wait for backend to process deletion and verify bucket is empty
+  await waitForBackendBucketEmpty(bucketId);
+  // --8<-- [end:wait-for-backend-bucket-empty]
 
   // --8<-- [start:delete-bucket]
   // Delete bucket
