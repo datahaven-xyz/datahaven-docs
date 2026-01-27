@@ -104,7 +104,7 @@ To update your existing `createBucket` helper method within your `bucketOperatio
     import { buildGasTxOpts } from './txOperations.js';
     ```
 
-2. Trigger the `buildGasTxOpts` method right before calling the SDK's `storageHubClient.createBucket` method and the `gasTxOpts` param at the end of the param list, like so:
+2. Trigger the `buildGasTxOpts` method right before calling the SDK's `storageHubClient.createBucket` method and add the `gasTxOpts` param at the end of the param list, like so:
 
     ```ts title="bucketOperations.ts"
     ...
