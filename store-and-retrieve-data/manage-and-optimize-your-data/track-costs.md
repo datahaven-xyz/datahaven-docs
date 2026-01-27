@@ -68,7 +68,7 @@ Before accessing payment stream information or balance data, authenticate with t
 
 ## Get Payment Streams
 
-For each created bucket and uploaded file a `costPerTick` is being billed to your account by the MSP and corresponding BSPs storing your data. A tick corresponds to one block on the DataHaven network. With a 6-second block time, one tick = 6 seconds. Storage costs are calculated and deducted on a per-tick basis. 
+For each created bucket and uploaded file, the MSP and corresponding BSPs storing your data bill your account a `costPerTick`. A tick corresponds to one block on the DataHaven network. With a 6-second block time, one tick = 6 seconds. Storage costs are calculated and deducted on a per-tick basis. 
 
 To see what this recurring cost is for you specifically, in this section, you'll implement the `getPaymentStreams` helper method and then call it in your `index.ts` file.
 
