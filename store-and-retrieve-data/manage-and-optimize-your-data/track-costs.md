@@ -183,7 +183,7 @@ If you run the script with the code above, the response should look something li
 
 <div class="grid cards" markdown>
 
--  <a href="/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets" markdown>:material-arrow-right: 
+-  <a href="/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/" markdown>:material-arrow-right: 
     
     **Manage Files and Buckets**
 
