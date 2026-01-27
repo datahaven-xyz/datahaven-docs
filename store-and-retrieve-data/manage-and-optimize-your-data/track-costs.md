@@ -122,7 +122,7 @@ In this section, you'll learn how to use the balance of your account, along with
 
 To implement the `calculateRemainingTime` helper method along with a few other methods to get your account's balance and format the remaining time in a human-readable way, follow these steps:
 
-1. Create a new folder called `operations` within the `src` folder (at the same level as the `services` folder) like so:
+1. Create a new folder called `operations` within the `src` folder (at the same level as the `services` folder), like so:
 
     ```bash
     mkdir operations
