@@ -5,7 +5,7 @@ description: This guide shows you how to set custom gas fees while calling metho
 
 # Set Custom Gas Fees
 
-This guide shows how to calculate and set custom gas params in DataHaven. The StorageHub SDK already dynamically computes the necessary gas params, but you can set custom values if needed. The `createBucket` method will be used as an example, but this same approach can be used for any SDK method where an on-chain transaction takes place.
+This guide shows how to calculate and set custom gas params in DataHaven. The StorageHub SDK already dynamically computes the necessary gas params, but you can set custom values if needed. The `createBucket` method will be used as an example, but the same approach applies to any SDK method that involves an on-chain transaction.
 
 ## Prerequisites
 
