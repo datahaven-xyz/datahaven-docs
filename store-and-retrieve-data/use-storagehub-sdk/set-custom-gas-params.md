@@ -3,7 +3,7 @@ title: Set Custom Gas Params
 description: This guide shows you how to set custom gas fees while calling methods via the StorageHub SDK in case the default gas amount isn't enough
 ---
 
-# Set Custom Gas Fees
+# Set Custom Gas Params
 
 This guide shows how to calculate and set custom gas params in DataHaven. The StorageHub SDK already dynamically computes the necessary gas params, but you can set custom values if needed. The `createBucket` method will be used as an example, but the same approach applies to any SDK method that involves an on-chain transaction.
 
@@ -20,7 +20,7 @@ Create an `index.ts` file if you haven't already. Its `run` method will orchestr
 Add the following code to your `index.ts` file:
 
 ```ts title="index.ts"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/set-custom-gas-fees/set-custom-gas-fees.ts'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/set-custom-gas-params/set-custom-gas-params.ts'
 ```
 
 In this code, the `createBucket` helper method from `bucketOperations.ts` is called. Once all params are ready within this method, the SDK's `storageHubClient.createBucket` method is called:
@@ -91,7 +91,7 @@ To create the `buildGasTxOpts` helper method, follow these steps:
 2. Add the following code:
 
     ```ts title="txOperations.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/set-custom-gas-fees/txOperations.ts'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/set-custom-gas-params/txOperations.ts'
     ```
 
 ## Update Create Bucket Method
@@ -123,7 +123,7 @@ To update your existing `createBucket` helper method within your `bucketOperatio
 ??? code "View complete `bucketOperations.ts` file"
 
     ```ts title="bucketOperations.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/set-custom-gas-fees/bucketOperations.ts'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/set-custom-gas-params/bucketOperations.ts'
     ```
 
 
