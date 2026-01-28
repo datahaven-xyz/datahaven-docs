@@ -5,6 +5,7 @@ import { polkadotApi } from './services/clientService.js';
 import {
   createBucket,
   verifyBucketCreation,
+  waitForBackendBucketReady,
 } from './operations/bucketOperations.js';
 import { HealthStatus } from '@storagehub-sdk/msp-client';
 import { mspClient } from './services/mspService.js';
@@ -36,6 +37,11 @@ async function run() {
   const bucketData = await verifyBucketCreation(bucketId);
   console.log('Bucket data:', bucketData);
   // --8<-- [end:verify-bucket]
+
+  // --8<-- [start:wait-bucket]
+  // Wait until indexer/backend knows about the bucket
+  await waitForBackendBucketReady(bucketId);
+  // --8<-- [end:wait-bucket]
 
   // Disconnect the Polkadot API at the very end
   await polkadotApi.disconnect();

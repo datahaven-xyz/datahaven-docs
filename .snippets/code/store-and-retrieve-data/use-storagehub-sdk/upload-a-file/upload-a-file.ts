@@ -2,7 +2,11 @@
 import '@storagehub/api-augment';
 import { initWasm } from '@storagehub-sdk/core';
 import { polkadotApi } from './services/clientService.js';
-import { uploadFile } from './operations/fileOperations.js';
+import {
+  uploadFile,
+  waitForBackendFileReady,
+  waitForMSPConfirmOnChain,
+} from './operations/fileOperations.js';
 // --8<-- [end:imports]
 
 async function run() {
@@ -31,6 +35,17 @@ async function run() {
   console.log(`File uploaded: ${fileKey}`);
   console.log(`Status: ${uploadReceipt.status}`);
   // --8<-- [end:upload-file]
+
+  // --8<-- [start:wait-file-placeholder]
+  // Wait until indexer/backend knows about the file
+  // Add wait logic here before proceeding
+  // --8<-- [end:wait-file-placeholder]
+
+  // --8<-- [start:wait-file]
+  // Wait until indexer/backend knows about the file
+  await waitForMSPConfirmOnChain(fileKey.toHex());
+  await waitForBackendFileReady(bucketId, fileKey.toHex());
+  // --8<-- [end:wait-file]
 
   // Disconnect the Polkadot API at the very end
   await polkadotApi.disconnect();
