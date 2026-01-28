@@ -86,7 +86,7 @@ In the following section, you will learn how to set and calculate these gas valu
 
 To create the `buildGasTxOpts` helper method, follow these steps:
 
-1. Create a `txOperations.ts` file, within the `operations` folder.
+1. Create a `txOperations.ts` file within the `operations` folder.
 
 2. Add the following code:
 
