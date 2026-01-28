@@ -1,6 +1,6 @@
 // --8<-- [start:imports]
 import { formatEther } from 'viem';
-import { publicClient } from '../services/clientService';
+import { publicClient } from '../services/clientService.js';
 import {
   PaymentStreamInfo,
   PaymentStreamsResponse,
