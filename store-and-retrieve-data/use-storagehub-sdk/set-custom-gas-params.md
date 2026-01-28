@@ -15,7 +15,7 @@ This guide shows how to calculate and set custom gas params in DataHaven. The St
 
 ## Initialize the Script
 
-Create an `index.ts` file if you haven't already. Its `run` method will orchestrate all the logic in this guide. By now, your services folder (including the MSP and client helper services) should already be created along with the operations folder containing bucket operations helper methods, which means you should already have the `createBucket` helper method implemented. If not, see the [Get Started](/store-and-retrieve-data/use-storagehub-sdk/get-started/) guide and the [Create a bucket](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/){target=\_blank} guide.
+Create an `index.ts` file if you haven't already. Its `run` method will orchestrate all the logic in this guide. By now, your services folder (including the MSP and client helper services) should already be created, along with the operations folder containing bucket operations helper methods, which means you should already have the `createBucket` helper method implemented. If not, see the [Get Started](/store-and-retrieve-data/use-storagehub-sdk/get-started/) guide and the [Create a bucket](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/){target=\_blank} guide.
 
 Add the following code to your `index.ts` file:
 
