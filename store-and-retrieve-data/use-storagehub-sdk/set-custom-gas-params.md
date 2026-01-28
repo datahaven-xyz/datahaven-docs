@@ -11,7 +11,7 @@ This guide shows how to calculate and set custom gas params in DataHaven. The St
 
 --8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/prerequisites.md'
 
-- Implemented `createBucket` helper method from [Create a bucket](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/){target=\_blank} guide
+- Implemented the `createBucket` helper method from the [Create a Bucket](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/){target=\_blank} guide
 
 ## Initialize the Script
 
