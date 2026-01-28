@@ -80,7 +80,7 @@ type EvmWriteOptions = {
 };
 ```
 
-In the following section you will learn how to set and calculate these gas values within the `EvmWriteOptions` type.
+In the following section, you will learn how to set and calculate these gas values within the `EvmWriteOptions` type.
 
 ## Add Method to Set Gas Fees
 
