@@ -1,6 +1,7 @@
 ---
 title: End-to-End BSP Onboarding
 description: This step-by-step tutorial follows the full process to spin up your own BSP node and how to register to the DataHaven network.
+categories: Storage Providers, BSP
 ---
 
 # End-to-End BSP Onboarding

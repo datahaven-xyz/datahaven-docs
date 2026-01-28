@@ -1,6 +1,7 @@
 ---
 title: EigenLayer AVS and Shared Security Model
 description: DataHaven is an AVS secured by EigenLayer restaking, inheriting Ethereum's economic security to enable trust-minimized decentralized storage.
+categories: Basics, Protocol
 ---
 
 # EigenLayer AVS and Shared Security Model

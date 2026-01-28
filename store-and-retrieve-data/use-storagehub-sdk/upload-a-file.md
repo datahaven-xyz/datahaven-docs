@@ -1,6 +1,7 @@
 ---
 title: Upload a File
 description: This guide shows you how to make a storage request, check its on-chain state, and upload your file. Turn your local file into a registered asset on DataHaven.
+categories: Store Data, StorageHub SDK
 ---
 
 # Upload a File

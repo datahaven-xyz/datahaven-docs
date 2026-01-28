@@ -1,6 +1,7 @@
 ---
 title: Create a Bucket
 description: Guide on how to create a new storage bucket with the StorageHub SDK.
+categories: Store Data, StorageHub SDK
 ---
 
 # Create a Bucket

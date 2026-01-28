@@ -1,6 +1,7 @@
 ---
 title: How DataHaven Works
 description: Get a high-level look at how DataHaven users, providers, and on-chain proofs work together to provide a secure, interoperable, trust-minimized storage layer.
+categories: Basics, Protocol
 ---
 
 # Overview

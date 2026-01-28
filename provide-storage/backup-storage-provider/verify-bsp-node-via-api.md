@@ -1,6 +1,7 @@
 ---
 title: Verify BSP Node
 description: Guide on how to register your BSP node on-chain via Polkadot API and start contributing to the DataHaven network.
+categories: Storage Providers, BSP
 ---
 
 # Verify BSP Node via API

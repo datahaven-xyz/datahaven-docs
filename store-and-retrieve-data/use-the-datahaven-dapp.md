@@ -1,6 +1,7 @@
 ---
 title: Use the DataHaven dApp
 description: Use the DataHaven web dApp to create buckets, upload files, and download data on the DataHaven testnet without writing code.
+categories: Basics, Store Data
 ---
 
 # Use the DataHaven dApp

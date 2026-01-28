@@ -1,6 +1,7 @@
 ---
 title: Data Flow and Lifecycle
 description: A step-by-step overview of how data moves through DataHaven's provider model—from upload to retrieval and beyond.
+categories: Basics
 ---
 
 # Data Flow and Lifecycle
