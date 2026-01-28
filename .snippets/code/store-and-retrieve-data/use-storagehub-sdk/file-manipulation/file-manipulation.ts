@@ -9,7 +9,7 @@ import {
 } from './services/clientService';
 import { statSync, createReadStream } from 'fs';
 import { Readable } from 'stream';
-import { getMspInfo } from './services/mspService';
+import { getMspInfo } from './services/mspService.js';
 import { TypeRegistry } from '@polkadot/types';
 import { AccountId20, H256 } from '@polkadot/types/interfaces';
 // --8<-- [end:imports]
