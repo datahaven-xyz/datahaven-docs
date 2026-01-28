@@ -6,7 +6,7 @@ import {
   storageHubClient,
   publicClient,
   account,
-} from './services/clientService';
+} from './services/clientService.js';
 import { statSync, createReadStream } from 'fs';
 import { Readable } from 'stream';
 import { getMspInfo } from './services/mspService.js';
