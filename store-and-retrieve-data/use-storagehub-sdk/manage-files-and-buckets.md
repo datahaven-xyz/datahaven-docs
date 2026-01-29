@@ -258,7 +258,7 @@ If you run the script with the code above, the full response should look like th
 
 ## Wait for Backend to Return Empty Bucket
 
-Right after your file's deletion is requested, your script will immediately try to delete the bucket your file was in. At this point, the file might not have been deleted yet, or if it has been deleted, DataHaven’s indexer may not have processed that block yet. Until the indexer catches up, the MSP backend won't show up to date data, so any bucket deletion attempt will fail.
+Right after your file's deletion is requested, your script will immediately try to delete the bucket your file was in. At this point, the file might not have been deleted, or if it has been, DataHaven’s indexer may not have processed that block yet. Until the indexer catches up, the MSP backend won't show up-to-date data, so any bucket deletion attempt will fail.
 To avoid that race condition, you’ll add a small polling helper that waits for the indexer to acknowledge your bucket is empty before continuing.
 
 1. Add the following code in your `bucketOperations.ts` file:
