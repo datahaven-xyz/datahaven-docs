@@ -11,7 +11,7 @@ DataHaven can be run locally as a self-contained development network that mirror
 
 Before you begin, ensure you have the following:
 
-- macOS or Linux operating system (Ubuntu 22.04 LTS recommended for Linux)
+- macOS or Linux operating system (Ubuntu 24.04 LTS recommended for Linux)
 - [Docker](https://www.docker.com/){target=\_blank} installed and running
 
     ??? interface "Instructions if running macOS Tahoe (v26 or higher)"
