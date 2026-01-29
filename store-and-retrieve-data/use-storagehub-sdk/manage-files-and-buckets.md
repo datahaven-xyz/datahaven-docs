@@ -199,7 +199,7 @@ If you run the script with the code above, the response should look like this:
 
 ## Request File Deletion
 
-To request file deletion, create a helper method called `requestDeleteFile` in your `fileOperations.ts` file and then update the `index.ts` file accordingly, in order to execute that logic. First, fetch the file’s metadata from the MSP and then submit a deletion request using the StorageHub SDK.
+To request file deletion, create a helper method called `requestDeleteFile` in your `fileOperations.ts` file and then update the `index.ts` file accordingly, to execute that logic. First, fetch the file’s metadata from the MSP and then submit a deletion request using the StorageHub SDK.
 
 It’s important to note that files are not removed instantly. When a deletion request succeeds, the file is marked for deletion on-chain, but both the MSP and all BSPs storing it still have it in their Merkle Patricia Forests until they pass the mandatory storage proof challenge. After that, the runtime automatically updates the Merkle Patricia Forest roots to remove the file.
 
