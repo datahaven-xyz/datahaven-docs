@@ -95,6 +95,10 @@ Add the following code to gather these values:
 
 Issue the storage request by adding the following code:
 
+!!! note
+    After issuing a storage request, it is crucial to wait for the transaction receipt, as shown in the code below. If writing custom storage-request-creation logic, make sure to include that step; otherwise, you will fetch storage request data before it is available.
+
+
 ```ts title="fileOperations.ts // **PLACEHOLDER FOR STEP 3: ISSUE STORAGE REQUEST**"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:issue-storage-request'
 ```
@@ -120,11 +124,11 @@ Upon a successful storage request, the output will look something like this:
       --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:issue-storage-request'
 
       // VERIFY STORAGE REQUEST ON-CHAIN
-      // **PLACEHOLDER FOR STEP 4: COMPUTE FILE KEY **
-      // **PLACEHOLDER FOR STEP 5: RETRIEVE STORAGE REQUEST DATA **
+      // **PLACEHOLDER FOR STEP 4: COMPUTE FILE KEY**
+      // **PLACEHOLDER FOR STEP 5: RETRIEVE STORAGE REQUEST DATA**
       // **PLACEHOLDER FOR STEP 6: READ STORAGE REQUEST DATA**
       // UPLOAD FILE
-      // **PLACEHOLDER FOR STEP 7: AUTHENTICATE **
+      // **PLACEHOLDER FOR STEP 7: AUTHENTICATE**
       // **PLACEHOLDER FOR STEP 8: UPLOAD FILE TO MSP **
 
       return { fileKey, uploadReceipt };
@@ -185,8 +189,8 @@ Upon successful storage request verification, you'll see a message like:
       --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:read-storage-request'
       
       // UPLOAD FILE
-      // **PLACEHOLDER FOR STEP 7: AUTHENTICATE **
-      // **PLACEHOLDER FOR STEP 8: UPLOAD FILE TO MSP **
+      // **PLACEHOLDER FOR STEP 7: AUTHENTICATE**
+      // **PLACEHOLDER FOR STEP 8: UPLOAD FILE TO MSP**
 
       return { fileKey, uploadReceipt };
     }
@@ -221,10 +225,12 @@ Upon a successful file upload, the transaction receipt will look like this:
 
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/output-03.html'
 
-??? code "View complete `fileOperations.ts`"
+??? code "View `fileOperations.ts` up until this point"
 
     ```ts title="fileOperations.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:imports'
+
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:upload-file-full'
     ```
 
 ## Call the Upload File Helper Method
@@ -236,7 +242,25 @@ The `index.ts` snippet below also imports `fileOperations.ts`, which you've crea
 Add the following code to your `index.ts` file:
 
 ```ts title="index.ts"
-  --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/upload-a-file.ts'
+  --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/upload-a-file.ts:imports'
+
+  async function run() {
+    // For anything from @storagehub-sdk/core to work, initWasm() is required
+    // on top of the file
+    await initWasm();
+
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/upload-a-file.ts:init-setup'
+
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/upload-a-file.ts:upload-file'
+
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/upload-a-file.ts:wait-file-placeholder'
+
+    // Disconnect the Polkadot API at the very end
+    await polkadotApi.disconnect();
+}
+
+run();
+
 ```
 
 Run the script:
@@ -249,10 +273,63 @@ Now that you have completed `fileOperations.ts` and `index.ts`, the final output
 
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/output-04.html'
 
+## Wait for Backend Before Proceeding
+
+If attempting to access a file right after uploading it to DataHaven, it's possible that DataHaven’s indexer hasn't processed that block yet. Until the indexer catches up, the MSP backend can’t resolve the new file's data. To avoid that race condition, you can add two small polling helpers that wait for the indexer to acknowledge the file before continuing.
+
+The two mentioned polling helper methods are:
+
+1. **`waitForMSPConfirmOnChain`**: Polls the DataHaven runtime until the MSP has confirmed the storage request on-chain. 
+2. **`waitForBackendFileReady`**: Polls the MSP backend using `mspClient.files.getFileInfo(bucketId, fileKey)` until the file metadata becomes available. Even if the file is confirmed on-chain, the backend may not yet be aware of it.
+
+Once both checks pass, you know the file is committed on-chain, and the MSP backend is ready to serve it, so a subsequent download call won’t randomly fail with a `404` while the system is still syncing.
+
+1. Add the following code in your `fileOperations.ts` file:
+        
+    ```ts title="fileOperations.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:wait-for-msp-confirm-on-chain'
+
+     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:wait-for-backend-file-ready'
+    ```
+
+2. Update the `index.ts` file to trigger the helper method you just implemented:
+
+    ```ts title="index.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/upload-a-file.ts:wait-file'
+    ```
+
+    The response should look something like this:
+
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/output-02.html'
+
+
 ??? code "View complete `index.ts`"
 
     ```ts title="index.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/upload-a-file.ts'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/upload-a-file.ts:imports'
+
+    async function run() {
+        // For anything from @storagehub-sdk/core to work, initWasm() is required
+        // on top of the file
+        await initWasm();
+
+        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/upload-a-file.ts:init-setup'
+
+        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/upload-a-file.ts:upload-file'
+
+        --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/upload-a-file.ts:wait-file'
+
+        // Disconnect the Polkadot API at the very end
+        await polkadotApi.disconnect();
+    }
+
+    run();
+    ```
+
+??? code "View complete `fileOperations.ts`"
+
+    ```ts title="fileOperations.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts'
     ```
 
 ## Next Steps
