@@ -322,7 +322,7 @@ To avoid that race condition, you’ll add a small polling helper that waits for
 
 ## Delete a Bucket
 
-To delete a bucket, create a helper method called `deleteBucket` in your `bucketOperations.ts` file and then update the `index.ts` file accordingly, in order to execute that logic.
+To delete a bucket, create a helper method called `deleteBucket` in your `bucketOperations.ts` file and then update the `index.ts` file accordingly, to execute that logic.
 
 !!! note
     A bucket can only be deleted if all its files have already been deleted. Use the `mspClient.buckets.getFiles()` method by passing a `bucketId` as a parameter to check all the files currently stored in that bucket.
