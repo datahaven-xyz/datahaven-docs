@@ -157,7 +157,7 @@ To fetch your files from a specific bucket stored in a specific MSP, create a he
 // Add other helper methods here
 ```
 
-### Call the Get Bucket Files From MSP Helper Method
+### Call the Get Bucket Files from MSP Helper Method
 
 Update `index.ts` with the following code to trigger the `getBucketFilesFromMSP` helper method you just implemented:
 
