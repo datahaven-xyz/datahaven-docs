@@ -15,7 +15,7 @@ This guide walks you through creating your first bucket programmatically using t
 
 ## Initialize the Script Entry Point
 
-First, create an `index.ts` file if you haven't already. Its `run` method will orchestrate all the logic in this guide, and you’ll replace the labelled placeholders with real code step by step. By now, your services folder (including the MSP and client helper services) should already be created. If not, see the [Get Started](/store-and-retrieve-data/use-storagehub-sdk/get-started/) guide.
+Create an `index.ts` file if you haven't already. Its `run` method will orchestrate all the logic in this guide, and you’ll replace the labelled placeholders with real code step by step. By now, your services folder (including the MSP and client helper services) should already be created. If not, see the [Get Started](/store-and-retrieve-data/use-storagehub-sdk/get-started/) guide.
 
 The `index.ts` snippet below also imports `bucketOperations.ts`, which is not in your project yet—that's expected, as you'll create it later in this guide.
 
