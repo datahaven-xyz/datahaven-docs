@@ -77,7 +77,7 @@ Before any file operations, authenticate with the MSP. The `authenticateUser` he
 
 ## Get Buckets From MSP
 
-To fetch your buckets stored in a specific MSP, create a helper method called `getBucketsFromMSP` in a separate `bucketOperations.ts` file and then update the `index.ts` file accordingly, in order to execute that logic.
+To fetch your buckets stored in a specific MSP, create a helper method called `getBucketsFromMSP` in a separate `bucketOperations.ts` file and then update the `index.ts` file accordingly, to execute that logic.
 
 ### Add Method to Get Buckets From MSP
 
