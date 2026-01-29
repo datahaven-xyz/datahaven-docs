@@ -141,7 +141,7 @@ If you run the script with the code above, the full response should look like th
 
 ## Get Bucket Files From MSP
 
-To fetch your files from a specific bucket stored in a specific MSP, create a helper method called `getBucketFilesFromMSP` in a separate `fileOperations.ts` file and then update the `index.ts` file accordingly, in order to execute that logic.
+To fetch your files from a specific bucket stored in a specific MSP, create a helper method called `getBucketFilesFromMSP` in a separate `fileOperations.ts` file and then update the `index.ts` file accordingly, to execute that logic.
 
 ### Add Method to Get Bucket Files From MSP
 
