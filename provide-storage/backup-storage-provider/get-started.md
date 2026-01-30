@@ -1,6 +1,7 @@
 ---
 title: Get Started as a Backup Storage Provider
 description: Walk through the responsibilities, onboarding flow, and reliability expectations before running a Backup Storage Provider on DataHaven.
+categories: Basics, Storage Providers, BSP
 ---
 
 # Get Started as a Backup Storage Provider

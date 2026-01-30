@@ -1,6 +1,7 @@
 ---
 title: FAQs and Troubleshooting
 description: Conversational style StorageHub SDK-related FAQs and their answers. Includes bucket management, security best practices, and the role of EigenLayer.
+categories: FAQ, Troubleshooting, StorageHub SDK
 ---
 
 # StorageHub SDK FAQs

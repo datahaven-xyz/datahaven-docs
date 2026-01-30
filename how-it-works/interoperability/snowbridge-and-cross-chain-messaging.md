@@ -1,6 +1,7 @@
 ---
 title: Snowbridge and Cross-Chain Messaging
 description: DataHaven is a sovereign Layer 1 blockchain built for interoperability. Snowbridge facilitates its direct communication with Ethereum and other ecosystems.
+categories: Basics, Protocol
 ---
 
 # Snowbridge and Cross-Chain Messaging

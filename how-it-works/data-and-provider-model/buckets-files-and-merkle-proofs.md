@@ -1,6 +1,7 @@
 ---
 title: Buckets, Files, and Merkle Proofs
 description: High-level overview of the DataHaven system, explaining how buckets and files structure your data and how Merkle proofs ensure cryptographic data integrity.
+categories: Basics
 ---
 
 # Buckets, Files, and Merkle Proofs

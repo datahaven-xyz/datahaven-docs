@@ -1,6 +1,7 @@
 ---
 title: BSP FAQs and Troubleshooting
 description: Conversational style BSP-related FAQs and their answers. Includes most common pitfalls, best practices, and proof submission monitoring.
+categories: Storage Providers, BSP, FAQ, Troubleshooting
 ---
 
 # BSP FAQs and Troubleshooting

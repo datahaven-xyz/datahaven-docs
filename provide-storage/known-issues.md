@@ -1,6 +1,7 @@
 ---
 title: Known Issues
 description: This page lists the major known issues affecting DataHaven MSP and BSP nodes. It’s updated regularly as issues are identified or resolved.
+categories: Troubleshooting, Storage Providers
 ---
 
 # Known Issues

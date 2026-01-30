@@ -1,6 +1,7 @@
 ---
 title: BSP CLI Flags
 description: Configuration flags for running a Backup Storage Provider node, covering capacity limits, task execution, proof handling, and operational tuning.
+categories: Storage Providers, BSP, Reference
 ---
 
 # BSP CLI Flags

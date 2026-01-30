@@ -1,6 +1,7 @@
 ---
 title: Spin Up Local Devnet
 description: Set up a local DataHaven development network to test storage operations, deploy contracts, and interact with the StorageHub SDK in a self-contained environment.
+categories: Network, StorageHub SDK
 ---
 
 # Spin Up Local Devnet

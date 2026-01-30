@@ -1,6 +1,7 @@
 ---
 title: Create a Bucket
 description: Guide on what storage buckets are in DataHaven, how to create them with the StorageHub SDK, and what edge cases to look out for.
+categories: Store Data, StorageHub SDK
 ---
 
 # Create a Bucket

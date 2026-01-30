@@ -1,6 +1,7 @@
 ---
 title: Testnet
 description: Configuration details, block explorers, faucets, and MSP endpoints you need to connect your tools and start building on the DataHaven testnet.
+categories: Basics, Network
 ---
 
 # Testnet

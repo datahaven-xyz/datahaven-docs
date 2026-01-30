@@ -1,6 +1,7 @@
 ---
 title: Authenticate with SIWE and JWT
 description: This guide shows you how to use Sign-In with Ethereum (SIWE) and JSON Web Tokens (JWT) for secure authentication via the StorageHub SDK.
+categories: Store Data, StorageHub SDK
 ---
 
 # Authenticate with SIWE and JWT
