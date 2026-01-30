@@ -1,6 +1,6 @@
 ---
 title: Create a Bucket
-description: Guide on how to create a new storage bucket with the StorageHub SDK.
+description: Guide on what storage buckets are in DataHaven, how to create them with the StorageHub SDK, and what edge cases to look out for.
 categories: Store Data, StorageHub SDK
 ---
 
@@ -16,7 +16,7 @@ This guide walks you through creating your first bucket programmatically using t
 
 ## Initialize the Script Entry Point
 
-First, create an `index.ts` file if you haven't already. Its `run` method will orchestrate all the logic in this guide, and you’ll replace the labelled placeholders with real code step by step. By now, your services folder (including the MSP and client helper services) should already be created. If not, see the [Get Started](/store-and-retrieve-data/use-storagehub-sdk/get-started/) guide.
+Create an `index.ts` file if you haven't already. Its `run` method will orchestrate all the logic in this guide, and you’ll replace the labelled placeholders with real code step by step. By now, your services folder (including the MSP and client helper services) should already be created. If not, see the [Get Started](/store-and-retrieve-data/use-storagehub-sdk/get-started/) guide.
 
 The `index.ts` snippet below also imports `bucketOperations.ts`, which is not in your project yet—that's expected, as you'll create it later in this guide.
 
@@ -34,6 +34,7 @@ async function run() {
   // **PLACEHOLDER FOR STEP 1: CHECK MSP HEALTH**
   // **PLACEHOLDER FOR STEP 2: CREATE BUCKET**
   // **PLACEHOLDER FOR STEP 3: VERIFY BUCKET**
+  // **PLACEHOLDER FOR STEP 4: WAIT FOR BACKEND**
 
   // Disconnect the Polkadot API at the very end
   await polkadotApi.disconnect();
@@ -110,6 +111,9 @@ Bucket-related logic will live in a separate `bucketOperations.ts` file. To impl
 
 3. Add the following code, which uses the `getValueProps` helper from the previous section in `createBucket`:
 
+    !!! note
+        After creating a bucket, it is crucial to wait for the transaction receipt, as shown in the code below. If writing custom bucket-creation logic, make sure to include that step; otherwise, you will fetch bucket data before it is available.
+
     ```ts title="bucketOperations.ts"
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:imports'
 
@@ -169,6 +173,60 @@ The last step is to verify that the bucket was created successfully on-chain and
 
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/output-03.html'
 
+??? code "View complete `bucketOperations.ts` file up until this point"
+
+    ```ts title="bucketOperations.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:imports'
+
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:create-bucket'
+
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:verify-bucket'
+    ```
+
+??? code "View complete `index.ts` file up until this point"
+
+    ```ts title="index.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:imports'
+
+    async function run() {
+    // For anything from @storagehub-sdk/core to work, initWasm() is required
+    // on top of the file
+    await initWasm();
+    
+    // --- Bucket creating logic ---
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:check-msp-health'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:create-bucket'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:verify-bucket'
+    
+    // **PLACEHOLDER FOR STEP 4: WAIT FOR BACKEND**
+
+    // Disconnect the Polkadot API at the very end
+    await polkadotApi.disconnect();
+    }
+    ```
+
+And that’s it. You’ve successfully created a bucket and verified it on-chain.
+
+## Wait for Backend Before Proceeding
+
+If you attempt to upload a file right after creating a bucket, it's possible that DataHaven’s indexer hasn't processed that block yet. Until the indexer catches up, the MSP backend can’t resolve the new bucket ID, so any upload attempt will fail. To avoid that race condition, you can add a small polling helper that waits for the indexer to acknowledge the bucket before continuing.
+
+1. Add the following code in your `bucketOperations.ts` file:
+        
+    ```ts title="bucketOperations.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:wait-bucket'
+    ```
+
+2. Update the `index.ts` file to trigger the helper method you just implemented:
+
+    ```ts title="index.ts // **PLACEHOLDER FOR STEP 4: WAIT BACKEND**"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:wait-bucket'
+    ```
+
+    The response should look something like this:
+
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/output-01.html'
+
 ??? code "View complete `bucketOperations.ts` file"
 
     ```ts title="bucketOperations.ts"
@@ -179,9 +237,7 @@ The last step is to verify that the bucket was created successfully on-chain and
 
     ```ts title="index.ts"
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts'
-    ```
-
-And that’s it. You’ve successfully created a bucket and verified it has successfully been created on-chain.
+    ```    
 
 ## Next Steps
 
