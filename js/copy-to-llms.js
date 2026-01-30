@@ -534,6 +534,10 @@
   }
 
   function initialize() {
+    // Don't show the llm dropdown on 404 pages    
+    if (document.querySelector('h1.not-found')) {
+      return; 
+    }
     addSectionCopyButtons();
   }
 
