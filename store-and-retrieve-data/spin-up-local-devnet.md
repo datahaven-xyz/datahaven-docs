@@ -11,7 +11,7 @@ DataHaven can be run locally as a self-contained development network that mirror
 
 Before you begin, ensure you have the following:
 
-- macOS or Linux operating system
+- macOS or Linux operating system (Ubuntu 24.04 LTS recommended for Linux)
 - [Docker](https://www.docker.com/){target=\_blank} installed and running
 
     ??? interface "Instructions if running macOS Tahoe (v26 or higher)"
@@ -29,7 +29,7 @@ Before you begin, ensure you have the following:
 - [Node.js ≥ 24](https://nodejs.org/en/download){target=\_blank} installed. LTS version recommended
 - [pnpm](https://pnpm.io/){target=\_blank} installed for package management
 - [Rust ≥ 1.86](https://rust-lang.org/tools/install/){target=\_blank} installed
-- [PostgreSQL](https://www.postgresql.org/download/){target=\_blank} installed 
+- [PostgreSQL 16](https://www.postgresql.org/download/){target=\_blank} installed
 - [Diesel CLI](https://diesel.rs/guides/getting-started#installing-diesel-cli){target=\_blank} installed for database management
  
     ??? interface "Diesel CLI installation instructions"
