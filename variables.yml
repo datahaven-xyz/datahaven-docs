@@ -11,6 +11,6 @@ networks:
     chain_id: 55931
     website_faucet_amount: 500 MOCK tokens
     file_size_limit: 5 MB
-    client_version: v0.11.0
+    client_version: v0.20.0
   mainnet:
     chain_id: 55930
