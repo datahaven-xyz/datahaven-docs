@@ -1,6 +1,7 @@
 ---
 title: Track Costs
 description: This guide shows how to fetch your payment stream data using the StorageHub SDK and how to use that data to calculate remaining storage time.
+categories: StorageHub SDK, Store Data
 ---
 
 # Track Costs

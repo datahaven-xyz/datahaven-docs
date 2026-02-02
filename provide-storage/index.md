@@ -1,6 +1,7 @@
 ---
 title: Provide Storage
 description: Orientation for operators who want to supply storage capacity to DataHaven, with an emphasis on the backup role that safeguards redundancy and proofs.
+categories: Storage Providers, BSP
 ---
 
 # Provide Storage Overview
