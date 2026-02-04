@@ -24,7 +24,7 @@ The `index.ts` snippet below also imports `costOperations.ts`, which is not in y
 Add the following code to your `index.ts` file:
 
 ```ts title="index.ts"
---8<-- 'code/store-and-retrieve-data/manage-and-optimize-your-data/track-costs.ts:imports'
+--8<-- 'code/store-and-retrieve-data/manage-and-optimize-your-data/track-costs/track-costs.ts:imports'
 
 async function run() {
 
