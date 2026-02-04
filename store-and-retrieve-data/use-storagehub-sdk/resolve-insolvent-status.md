@@ -19,6 +19,8 @@ This guide shows how to ....
 - - get payment streams
 ***mspService.ts - getPaymentStreams method - import from track costs guide
 - - extract providerIds
+- - calculate outstanding debt total in advance
+- - compare outstanding debt total with current balance
 - - pay outstanding debt
 - - clear insolv flag
 - - wait for cooldown to pass
