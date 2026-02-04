@@ -1,6 +1,7 @@
 ---
 title: End-to-End Storage Workflow
 description: This step-by-step tutorial follows the full DataHaven storage workflow to store and retrieve data from the network using StorageHub SDK.
+categories: Store Data, StorageHub SDK
 ---
 
 # End-to-End Storage Workflow
@@ -324,8 +325,6 @@ Once both checks pass, you know the file is committed on-chain, and the MSP back
 2. Update the `index.ts` file to trigger the helper method you just implemented:
 
     ```ts title="index.ts // **PLACEHOLDER FOR STEP 6: WAIT FOR BACKEND TO HAVE FILE**"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:wait-for-msp-confirm-on-chain'
-
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:wait-for-backend-file-ready'
     ```
 

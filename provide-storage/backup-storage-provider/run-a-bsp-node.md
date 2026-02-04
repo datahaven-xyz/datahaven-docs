@@ -1,6 +1,7 @@
 ---
 title: Run a BSP Node
 description: Guide on how to set up, configure, and spin up a Backup Storage Provider (BSP) node on the DataHaven network using Docker.
+categories: Storage Providers, BSP
 ---
 
 # Run a BSP Node
