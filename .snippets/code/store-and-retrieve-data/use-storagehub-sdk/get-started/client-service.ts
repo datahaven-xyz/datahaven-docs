@@ -9,13 +9,16 @@ import {
   PublicClient,
 } from 'viem';
 import { StorageHubClient } from '@storagehub-sdk/core';
-import { ApiPromise, WsProvider } from '@polkadot/api';
+import { ApiPromise, WsProvider, Keyring } from '@polkadot/api';
 import { types } from '@storagehub/types-bundle';
 // --8<-- [end:imports]
-
 // --8<-- [start:initial-clients-setup]
 const account = privateKeyToAccount('INSERT_PRIVATE_KEY' as `0x${string}`);
 const address = account.address;
+
+// Create substrate signer from secret URI
+const walletKeyring = new Keyring({ type: 'ethereum' });
+const signer = walletKeyring.addFromUri('INSERT_PRIVATE_KEY');
 
 const NETWORKS = {
   devnet: {
@@ -79,6 +82,7 @@ const polkadotApi: ApiPromise = await ApiPromise.create({
 export {
   account,
   address,
+  signer,
   publicClient,
   walletClient,
   storageHubClient,

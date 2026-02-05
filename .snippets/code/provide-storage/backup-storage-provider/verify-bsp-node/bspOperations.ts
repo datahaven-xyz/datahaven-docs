@@ -15,7 +15,7 @@ import { polkadotApiBsp } from '../services/bspService.js';
 // --8<-- [start:fund-bsp-address]
 export async function fundBspAddress(
   bspAddress: `0x${string}`,
-  amount: bigint
+  amount: bigint,
 ) {
   console.log('Recipient:', bspAddress);
   console.log('Amount (raw):', amount.toString());
@@ -39,7 +39,7 @@ export async function fundBspAddress(
 export async function checkBspBalance(bspAddress: `0x${string}`) {
   // Query balance
   const balance = formatEther(
-    await publicClient.getBalance({ address: bspAddress })
+    await publicClient.getBalance({ address: bspAddress }),
   );
 
   console.log(`BSP EVM Address: ${bspAddress}`);
@@ -71,7 +71,7 @@ export async function getMultiaddresses() {
 export async function requestBspSignUp(
   bspAddress: string,
   multiaddresses: Binary[],
-  capacity: bigint
+  capacity: bigint,
 ) {
   // Request BSP sign up
   const requestTx = polkadotApi.tx.Providers.request_bsp_sign_up({
@@ -85,12 +85,26 @@ export async function requestBspSignUp(
     requestTx
       .signAndSend(bspSubstrateSigner, ({ status, dispatchError }) => {
         console.log('BSP sign-up requested. Waiting for finalization...');
-        if (dispatchError) {
-          reject(dispatchError);
-        }
         if (status.isFinalized) {
-          console.log('Request finalized! Deposit has been reserved.');
-          resolve();
+          if (dispatchError) {
+            if (dispatchError.isModule) {
+              // for module errors, we have the section and the name
+              const decoded = polkadotApi.registry.findMetaError(
+                dispatchError.asModule,
+              );
+              reject(
+                new Error(
+                  `${decoded.section}.${decoded.method}: ${decoded.docs.join(' ')}`,
+                ),
+              );
+            } else {
+              // Other, CannotLookup, BadOrigin, no extra info
+              reject(new Error(dispatchError.toString()));
+            }
+          } else {
+            console.log('Request finalized! Deposit has been reserved.');
+            resolve();
+          }
         }
       })
       .catch(reject);
@@ -109,12 +123,26 @@ export async function confirmBspSignUp() {
     confirmTx
       .signAndSend(bspSubstrateSigner, ({ status, dispatchError }) => {
         console.log('Confirming BSP registration...');
-        if (dispatchError) {
-          reject(dispatchError);
-        }
         if (status.isFinalized) {
-          console.log('BSP registration confirmed and active!');
-          resolve();
+          if (dispatchError) {
+            if (dispatchError.isModule) {
+              // for module errors, we have the section and the name
+              const decoded = polkadotApi.registry.findMetaError(
+                dispatchError.asModule,
+              );
+              reject(
+                new Error(
+                  `${decoded.section}.${decoded.method}: ${decoded.docs.join(' ')}`,
+                ),
+              );
+            } else {
+              // Other, CannotLookup, BadOrigin, no extra info
+              reject(new Error(dispatchError.toString()));
+            }
+          } else {
+            console.log('BSP registration confirmed and active!');
+            resolve();
+          }
         }
       })
       .catch(reject);
@@ -131,12 +159,26 @@ export async function cancelBspSignUp() {
     cancelTx
       .signAndSend(bspSubstrateSigner, ({ status, dispatchError }) => {
         console.log('Cancelling BSP registration...');
-        if (dispatchError) {
-          reject(dispatchError);
-        }
         if (status.isFinalized) {
-          console.log('BSP registration cancelled.');
-          resolve();
+          if (dispatchError) {
+            if (dispatchError.isModule) {
+              // for module errors, we have the section and the name
+              const decoded = polkadotApi.registry.findMetaError(
+                dispatchError.asModule,
+              );
+              reject(
+                new Error(
+                  `${decoded.section}.${decoded.method}: ${decoded.docs.join(' ')}`,
+                ),
+              );
+            } else {
+              // Other, CannotLookup, BadOrigin, no extra info
+              reject(new Error(dispatchError.toString()));
+            }
+          } else {
+            console.log('BSP registration cancelled.');
+            resolve();
+          }
         }
       })
       .catch(reject);
