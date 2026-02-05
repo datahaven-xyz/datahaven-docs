@@ -48,9 +48,10 @@ async function run() {
   // **PLACEHOLDER FOR STEP 1: CHECK INSOLVENT STATUS**
   // **PLACEHOLDER FOR STEP 2: AUTHENTICATE**
   // **PLACEHOLDER FOR STEP 3: GET PAYMENT STREAMS**
-  // **PLACEHOLDER FOR STEP 4: PAY OUTSTANDING DEBT**
-  // **PLACEHOLDER FOR STEP 5: CLEAR INSOLVENT FLAG**
-  // **PLACEHOLDER FOR STEP 6: VERIFY RESOLUTION**
+  // **PLACEHOLDER FOR STEP 4: CALCULATE OUTSTANDING DEBT**
+  // **PLACEHOLDER FOR STEP 5: PAY OUTSTANDING DEBT**
+  // **PLACEHOLDER FOR STEP 6: CLEAR INSOLVENT FLAG**
+  // **PLACEHOLDER FOR STEP 7: VERIFY RESOLUTION**
 
   // Disconnect the Polkadot API at the very end
   await polkadotApi.disconnect();
@@ -105,9 +106,10 @@ Replace the placeholder `// **PLACEHOLDER FOR STEP 1: CHECK INSOLVENT STATUS**` 
 
       // **PLACEHOLDER FOR STEP 2: AUTHENTICATE**
       // **PLACEHOLDER FOR STEP 3: GET PAYMENT STREAMS**
-      // **PLACEHOLDER FOR STEP 4: PAY OUTSTANDING DEBT**
-      // **PLACEHOLDER FOR STEP 5: CLEAR INSOLVENT FLAG**
-      // **PLACEHOLDER FOR STEP 6: VERIFY RESOLUTION**
+      // **PLACEHOLDER FOR STEP 4: CALCULATE OUTSTANDING DEBT**
+      // **PLACEHOLDER FOR STEP 5: PAY OUTSTANDING DEBT**
+      // **PLACEHOLDER FOR STEP 6: CLEAR INSOLVENT FLAG**
+      // **PLACEHOLDER FOR STEP 7: VERIFY RESOLUTION**
 
       // Disconnect the Polkadot API at the very end
       await polkadotApi.disconnect();
@@ -136,10 +138,12 @@ Before accessing payment stream information, authenticate with the MSP. The `aut
       // --- Insolvency resolution logic ---
       --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:check-insolvent-status'
       --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:authenticate'
+
       // **PLACEHOLDER FOR STEP 3: GET PAYMENT STREAMS**
-      // **PLACEHOLDER FOR STEP 4: PAY OUTSTANDING DEBT**
-      // **PLACEHOLDER FOR STEP 5: CLEAR INSOLVENT FLAG**
-      // **PLACEHOLDER FOR STEP 6: VERIFY RESOLUTION**
+      // **PLACEHOLDER FOR STEP 4: CALCULATE OUTSTANDING DEBT**
+      // **PLACEHOLDER FOR STEP 5: PAY OUTSTANDING DEBT**
+      // **PLACEHOLDER FOR STEP 6: CLEAR INSOLVENT FLAG**
+      // **PLACEHOLDER FOR STEP 7: VERIFY RESOLUTION**
 
       // Disconnect the Polkadot API at the very end
       await polkadotApi.disconnect();
@@ -177,9 +181,72 @@ To pay off your outstanding debt, you need to know which providers you owe money
       --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:check-insolvent-status'
       --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:authenticate'
       --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:payment-streams'
-      // **PLACEHOLDER FOR STEP 4: PAY OUTSTANDING DEBT**
-      // **PLACEHOLDER FOR STEP 5: CLEAR INSOLVENT FLAG**
-      // **PLACEHOLDER FOR STEP 6: VERIFY RESOLUTION**
+
+      // **PLACEHOLDER FOR STEP 4: CALCULATE OUTSTANDING DEBT**
+      // **PLACEHOLDER FOR STEP 5: PAY OUTSTANDING DEBT**
+      // **PLACEHOLDER FOR STEP 6: CLEAR INSOLVENT FLAG**
+      // **PLACEHOLDER FOR STEP 7: VERIFY RESOLUTION**
+
+      // Disconnect the Polkadot API at the very end
+      await polkadotApi.disconnect();
+    }
+
+    run();
+    ```
+
+## Calculate Outstanding Debt
+
+Before paying your debt, it's important to calculate the total amount owed and verify you have sufficient funds. Technically, you don't have to do calculate your debt since the network will automatically withdraw the exact owed amount from your account when you call the `payOutstandingDebt` extrinsic, but then you wouldn't know how much you were about to pay. The `calculateTotalOutstandingDebt` helper method returns two types of debt:
+
+- **Total Raw debt** - The total amount accumulated based on storage rates
+- **Total Effective debt** - The actual amount you owe, capped by your deposit for each payment stream (essentially the sum of each payment stream's `min(userDeposit, userDebt)`)
+
+### Add Methods to Get Balance and Calculate Debt
+
+Add the following methods to your `costOperations.ts` file:
+
+```ts title="costOperations.ts"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/costOperations.ts:get-balance'
+
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/costOperations.ts:calculate-total-outstanding-debt'
+```
+
+Make sure to update your exports:
+
+```ts title="costOperations.ts"
+export {
+  getBalance,
+  isInsolvent,
+  calculateTotalOutstandingDebt,
+};
+```
+
+### Call the Calculate Outstanding Debt Helper Method
+
+Replace the placeholder `// **PLACEHOLDER FOR STEP 4: CALCULATE OUTSTANDING DEBT**` with the following code:
+
+```ts title='index.ts // **PLACEHOLDER FOR STEP 4: CALCULATE OUTSTANDING DEBT**'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:calculate-debt'
+```
+
+??? code "View complete `index.ts` up until this point"
+
+    ```ts title="index.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:imports'
+
+    async function run() {
+      // Initialize WASM
+      await initWasm();
+
+      // --- Insolvency resolution logic ---
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:check-insolvent-status'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:authenticate'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:payment-streams'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:calculate-debt'
+
+      // **PLACEHOLDER FOR STEP 5: PAY OUTSTANDING DEBT**
+      // **PLACEHOLDER FOR STEP 6: CLEAR INSOLVENT FLAG**
+      // **PLACEHOLDER FOR STEP 7: VERIFY RESOLUTION**
 
       // Disconnect the Polkadot API at the very end
       await polkadotApi.disconnect();
@@ -190,24 +257,13 @@ To pay off your outstanding debt, you need to know which providers you owe money
 
 ## Pay Outstanding Debt
 
-Before paying your debt, it's important to calculate the total amount owed and verify you have sufficient funds. The network tracks two types of debt:
+Now that you've calculated the outstanding debt and verified you have sufficient funds, you can pay the debt to all providers.
 
-- **Raw debt** - The total amount accumulated based on storage rates
-- **Effective debt** - The actual amount you owe, capped by your deposit for each payment stream
+### Add Method to Pay Outstanding Debt
 
-### Add Methods to Calculate and Pay Debt
-
-Add the following methods to your `costOperations.ts` file:
-
-!!! note
-    You can have multiple active payment streams coming from the same provider, which will result in multiple payment streams having the same provider id. In this step you will extract 
-
+Add the following method to your `costOperations.ts` file:
 
 ```ts title="costOperations.ts"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/costOperations.ts:get-balance'
-
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/costOperations.ts:calculate-total-outstanding-debt'
-
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/costOperations.ts:pay-outstanding-debt'
 ```
 
@@ -222,11 +278,14 @@ export {
 };
 ```
 
-### Call Pay Outstanding Debt
+### Call the Pay Outstanding Debt Helper Method
 
-Replace the placeholder `// **PLACEHOLDER FOR STEP 4: PAY OUTSTANDING DEBT**` with the following code:
+Replace the placeholder `// **PLACEHOLDER FOR STEP 5: PAY OUTSTANDING DEBT**` with the following code:
 
-```ts title='index.ts // **PLACEHOLDER FOR STEP 4: PAY OUTSTANDING DEBT**'
+!!! note
+    When you fetch your active payment streams, there is a chance some of them will be from the same provider which results in those payment streams having the same provider ID. You'll need to extract the unique provider IDs from your payment streams before paying, because the `payOutstandingDebt` extrinsic expects as a param an array of unique provider IDs. 
+
+```ts title='index.ts // **PLACEHOLDER FOR STEP 5: PAY OUTSTANDING DEBT**'
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:pay-outstanding-debt'
 ```
 
@@ -243,9 +302,11 @@ Replace the placeholder `// **PLACEHOLDER FOR STEP 4: PAY OUTSTANDING DEBT**` wi
       --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:check-insolvent-status'
       --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:authenticate'
       --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:payment-streams'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:calculate-debt'
       --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:pay-outstanding-debt'
-      // **PLACEHOLDER FOR STEP 5: CLEAR INSOLVENT FLAG**
-      // **PLACEHOLDER FOR STEP 6: VERIFY RESOLUTION**
+
+      // **PLACEHOLDER FOR STEP 6: CLEAR INSOLVENT FLAG**
+      // **PLACEHOLDER FOR STEP 7: VERIFY RESOLUTION**
 
       // Disconnect the Polkadot API at the very end
       await polkadotApi.disconnect();
@@ -278,11 +339,11 @@ export {
 };
 ```
 
-### Call Clear Insolvent Flag
+### Call the Clear Insolvent Flag Helper Method
 
-Replace the placeholder `// **PLACEHOLDER FOR STEP 5: CLEAR INSOLVENT FLAG**` with the following code:
+Replace the placeholder `// **PLACEHOLDER FOR STEP 6: CLEAR INSOLVENT FLAG**` with the following code:
 
-```ts title='index.ts // **PLACEHOLDER FOR STEP 5: CLEAR INSOLVENT FLAG**'
+```ts title='index.ts // **PLACEHOLDER FOR STEP 6: CLEAR INSOLVENT FLAG**'
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:clear-insolvent-flag'
 ```
 
@@ -299,9 +360,11 @@ Replace the placeholder `// **PLACEHOLDER FOR STEP 5: CLEAR INSOLVENT FLAG**` wi
       --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:check-insolvent-status'
       --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:authenticate'
       --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:payment-streams'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:calculate-debt'
       --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:pay-outstanding-debt'
       --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:clear-insolvent-flag'
-      // **PLACEHOLDER FOR STEP 6: VERIFY RESOLUTION**
+
+      // **PLACEHOLDER FOR STEP 7: VERIFY RESOLUTION**
 
       // Disconnect the Polkadot API at the very end
       await polkadotApi.disconnect();
@@ -314,9 +377,9 @@ Replace the placeholder `// **PLACEHOLDER FOR STEP 5: CLEAR INSOLVENT FLAG**` wi
 
 After clearing the insolvent flag, verify that your account status has been updated.
 
-Replace the placeholder `// **PLACEHOLDER FOR STEP 6: VERIFY RESOLUTION**` with the following code:
+Replace the placeholder `// **PLACEHOLDER FOR STEP 7: VERIFY RESOLUTION**` with the following code:
 
-```ts title='index.ts // **PLACEHOLDER FOR STEP 6: VERIFY RESOLUTION**'
+```ts title='index.ts // **PLACEHOLDER FOR STEP 7: VERIFY RESOLUTION**'
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:recheck-insolvent-status'
 ```
 
