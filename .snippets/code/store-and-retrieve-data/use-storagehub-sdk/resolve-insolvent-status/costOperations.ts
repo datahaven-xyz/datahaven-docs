@@ -21,6 +21,7 @@ const isInsolvent = async (address: string) => {
     `User ${address} without funds response:`,
     userWithoutFundsResponse.toHuman(),
   );
+  // If the userWithoutFundsResponse is null, it means the user is not insolvent
   const isInsolvent = userWithoutFundsResponse.isSome;
   return isInsolvent;
 };

@@ -1,31 +1,358 @@
 ---
 title: Resolve Insolvent Status
-description: This guide shows you how to ...
+description: This guide shows you how to check if your account has been flagged as insolvent and how to pay your outstanding debt to clearing your insolvent flag.
 ---
 
 # Resolve Insolvent Status
 
-This guide shows how to ....
+If your account balance runs out while you have active payment streams, the DataHaven network will flag your account as insolvent. This guide covers the process of checking your insolvent status, paying off any outstanding debt, and clearing the insolvent flag to restore your account's ability to store files in the network. This guide will cover both the API approach and the UI approach.
 
 ## Prerequisites
 
+Before you begin, ensure you have the following:
+
 --8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/prerequisites.md'
+- [A file uploaded](/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/){target=\_blank} to DataHaven
+- Your account has been flagged as insolvent (or you want to proactively check your status)
+- Sufficient funds in your account to pay any outstanding debt
 
-##
+## Understanding Insolvency
 
-- check if insolvent
-- if yes 
-- - auth
-- - get payment streams
-***mspService.ts - getPaymentStreams method - import from track costs guide
-- - extract providerIds
-- - calculate outstanding debt total in advance
-- - compare outstanding debt total with current balance
-- - pay outstanding debt
-- - clear insolv flag
-- - wait for cooldown to pass
-***user without funds cooldown - 100 blocks - after clear_insolvent_flag has been triggered.
+When your account balance reaches zero while payment streams are active, the network marks your account as insolvent. While in this state:
+
+- Your data remains stored but is at risk of deletion
+- You cannot create new buckets or upload new files
+
+To resolve insolvency, you must:
+
+1. Pay your outstanding debt to all providers
+2. Manually clear the insolvent flag
+3. Wait for the cooldown period of 100 blocks to pass
+
+## Initialize the Script Entry Point
+
+First, create an `index.ts` file if you haven't already. Its `run` method will orchestrate all the logic in this guide, and you'll replace the labelled placeholders with real code step by step. By now, your services folder (including the MSP and client helper services) should already be created. If not, see the [Get Started](/store-and-retrieve-data/use-storagehub-sdk/get-started/) guide.
+
+The `index.ts` snippet below also imports `costOperations.ts`, which you'll create later in this guide.
+
+Add the following code to your `index.ts` file:
+
+```ts title="index.ts"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:imports'
+
+async function run() {
+  // Initialize WASM
+  await initWasm();
+
+  // --- Insolvency resolution logic ---
+  // **PLACEHOLDER FOR STEP 1: CHECK INSOLVENT STATUS**
+  // **PLACEHOLDER FOR STEP 2: AUTHENTICATE**
+  // **PLACEHOLDER FOR STEP 3: GET PAYMENT STREAMS**
+  // **PLACEHOLDER FOR STEP 4: PAY OUTSTANDING DEBT**
+  // **PLACEHOLDER FOR STEP 5: CLEAR INSOLVENT FLAG**
+  // **PLACEHOLDER FOR STEP 6: VERIFY RESOLUTION**
+
+  // Disconnect the Polkadot API at the very end
+  await polkadotApi.disconnect();
+}
+
+run();
+```
+
+## Check Insolvent Status
+
+Before attempting any recovery actions, first check whether your account is actually flagged as insolvent on the network.
+
+### Add Method to Check Insolvent Status
+
+1. Create a new folder called `operations` within the `src` folder (at the same level as the `services` folder) if you haven't already:
+
+    ```bash
+    mkdir operations
+    ```
+
+2. Create a new file within the `operations` folder called `costOperations.ts` and add the following code:
+
+    ```ts title="costOperations.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/costOperations.ts:imports'
+
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/costOperations.ts:is-insolvent'
+
+    // Add other helper methods
+
+    export { isInsolvent };
+    ```
+
+### Call the Check Insolvent Status Helper Method
+
+Replace the placeholder `// **PLACEHOLDER FOR STEP 1: CHECK INSOLVENT STATUS**` with the following code:
+
+```ts title='index.ts // **PLACEHOLDER FOR STEP 1: CHECK INSOLVENT STATUS**'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:check-insolvent-status'
+```
+
+??? code "View complete `index.ts` up until this point"
+
+    ```ts title="index.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:imports'
+
+    async function run() {
+      // Initialize WASM
+      await initWasm();
+
+      // --- Insolvency resolution logic ---
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:check-insolvent-status'
+
+      // **PLACEHOLDER FOR STEP 2: AUTHENTICATE**
+      // **PLACEHOLDER FOR STEP 3: GET PAYMENT STREAMS**
+      // **PLACEHOLDER FOR STEP 4: PAY OUTSTANDING DEBT**
+      // **PLACEHOLDER FOR STEP 5: CLEAR INSOLVENT FLAG**
+      // **PLACEHOLDER FOR STEP 6: VERIFY RESOLUTION**
+
+      // Disconnect the Polkadot API at the very end
+      await polkadotApi.disconnect();
+    }
+
+    run();
+    ```
+
+## Authenticate
+
+Before accessing payment stream information, authenticate with the MSP. The `authenticateUser` helper signs a SIWE message and returns a session token that authorizes your requests. Add the following code to use the `authenticateUser` helper method you've already implemented in `mspService.ts`:
+
+```ts title='index.ts // **PLACEHOLDER FOR STEP 2: AUTHENTICATE**'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:authenticate'
+```
+
+??? code "View complete `index.ts` up until this point"
+
+    ```ts title="index.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:imports'
+
+    async function run() {
+      // Initialize WASM
+      await initWasm();
+
+      // --- Insolvency resolution logic ---
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:check-insolvent-status'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:authenticate'
+      // **PLACEHOLDER FOR STEP 3: GET PAYMENT STREAMS**
+      // **PLACEHOLDER FOR STEP 4: PAY OUTSTANDING DEBT**
+      // **PLACEHOLDER FOR STEP 5: CLEAR INSOLVENT FLAG**
+      // **PLACEHOLDER FOR STEP 6: VERIFY RESOLUTION**
+
+      // Disconnect the Polkadot API at the very end
+      await polkadotApi.disconnect();
+    }
+
+    run();
+    ```
+
+## Get Payment Streams
+
+To pay off your outstanding debt, you need to know which providers you owe money to. This information comes from your payment streams. 
+
+1. If you haven't already implemented the `getPaymentStreams` method from the [Track Costs](/store-and-retrieve-data/manage-and-optimize-your-data/track-costs/){target=\_blank} guide, add the following code to your `mspService.ts` file:
+
+    ```ts title="mspService.ts"
+    --8<-- 'code/store-and-retrieve-data/manage-and-optimize-your-data/track-costs/msp-service-with-get-payment-streams.ts:payment-streams'
+    ```
+
+2. Replace the placeholder `// **PLACEHOLDER FOR STEP 3: GET PAYMENT STREAMS**` with the following code:
+
+    ```ts title='index.ts // **PLACEHOLDER FOR STEP 3: GET PAYMENT STREAMS**'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:payment-streams'
+    ```
+
+??? code "View complete `index.ts` up until this point"
+
+    ```ts title="index.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:imports'
+
+    async function run() {
+      // Initialize WASM
+      await initWasm();
+
+      // --- Insolvency resolution logic ---
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:check-insolvent-status'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:authenticate'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:payment-streams'
+      // **PLACEHOLDER FOR STEP 4: PAY OUTSTANDING DEBT**
+      // **PLACEHOLDER FOR STEP 5: CLEAR INSOLVENT FLAG**
+      // **PLACEHOLDER FOR STEP 6: VERIFY RESOLUTION**
+
+      // Disconnect the Polkadot API at the very end
+      await polkadotApi.disconnect();
+    }
+
+    run();
+    ```
+
+## Pay Outstanding Debt
+
+Before paying your debt, it's important to calculate the total amount owed and verify you have sufficient funds. The network tracks two types of debt:
+
+- **Raw debt** - The total amount accumulated based on storage rates
+- **Effective debt** - The actual amount you owe, capped by your deposit for each payment stream
+
+### Add Methods to Calculate and Pay Debt
+
+Add the following methods to your `costOperations.ts` file:
+
+!!! note
+    You can have multiple active payment streams coming from the same provider, which will result in multiple payment streams having the same provider id. In this step you will extract 
 
 
+```ts title="costOperations.ts"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/costOperations.ts:get-balance'
 
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/costOperations.ts:calculate-total-outstanding-debt'
 
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/costOperations.ts:pay-outstanding-debt'
+```
+
+Make sure to update your exports:
+
+```ts title="costOperations.ts"
+export {
+  getBalance,
+  isInsolvent,
+  calculateTotalOutstandingDebt,
+  payOutstandingDebt,
+};
+```
+
+### Call Pay Outstanding Debt
+
+Replace the placeholder `// **PLACEHOLDER FOR STEP 4: PAY OUTSTANDING DEBT**` with the following code:
+
+```ts title='index.ts // **PLACEHOLDER FOR STEP 4: PAY OUTSTANDING DEBT**'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:pay-outstanding-debt'
+```
+
+??? code "View complete `index.ts` up until this point"
+
+    ```ts title="index.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:imports'
+
+    async function run() {
+      // Initialize WASM
+      await initWasm();
+
+      // --- Insolvency resolution logic ---
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:check-insolvent-status'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:authenticate'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:payment-streams'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:pay-outstanding-debt'
+      // **PLACEHOLDER FOR STEP 5: CLEAR INSOLVENT FLAG**
+      // **PLACEHOLDER FOR STEP 6: VERIFY RESOLUTION**
+
+      // Disconnect the Polkadot API at the very end
+      await polkadotApi.disconnect();
+    }
+
+    run();
+    ```
+
+## Clear Insolvent Flag
+
+After paying all outstanding debt, you must explicitly clear the insolvent flag from your account. This signals to the network that you've resolved your debt and wish to restore normal account functionality.
+
+### Add Method to Clear Insolvent Flag
+
+Add the following method to your `costOperations.ts` file:
+
+```ts title="costOperations.ts"
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/costOperations.ts:clear-insolvent-flag'
+```
+
+Update your exports to include the new method:
+
+```ts title="costOperations.ts"
+export {
+  getBalance,
+  isInsolvent,
+  calculateTotalOutstandingDebt,
+  payOutstandingDebt,
+  clearInsolventFlag,
+};
+```
+
+### Call Clear Insolvent Flag
+
+Replace the placeholder `// **PLACEHOLDER FOR STEP 5: CLEAR INSOLVENT FLAG**` with the following code:
+
+```ts title='index.ts // **PLACEHOLDER FOR STEP 5: CLEAR INSOLVENT FLAG**'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:clear-insolvent-flag'
+```
+
+??? code "View complete `index.ts` up until this point"
+
+    ```ts title="index.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:imports'
+
+    async function run() {
+      // Initialize WASM
+      await initWasm();
+
+      // --- Insolvency resolution logic ---
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:check-insolvent-status'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:authenticate'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:payment-streams'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:pay-outstanding-debt'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:clear-insolvent-flag'
+      // **PLACEHOLDER FOR STEP 6: VERIFY RESOLUTION**
+
+      // Disconnect the Polkadot API at the very end
+      await polkadotApi.disconnect();
+    }
+
+    run();
+    ```
+
+## Verify Resolution
+
+After clearing the insolvent flag, verify that your account status has been updated.
+
+Replace the placeholder `// **PLACEHOLDER FOR STEP 6: VERIFY RESOLUTION**` with the following code:
+
+```ts title='index.ts // **PLACEHOLDER FOR STEP 6: VERIFY RESOLUTION**'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:recheck-insolvent-status'
+```
+
+!!! note "Cooldown Period"
+    After successfully clearing the insolvent flag, a cooldown period of 100 blocks (~10 minutes) applies before you can resume normal operations like creating buckets or uploading files.
+
+??? code "View complete `index.ts`"
+
+    ```ts title="index.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts'
+    ```
+
+??? code "View complete `costOperations.ts`"
+
+    ```ts title="costOperations.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/costOperations.ts'
+    ```
+
+## Next Steps
+
+<div class="grid cards" markdown>
+
+-  <a href="/store-and-retrieve-data/manage-and-optimize-your-data/track-costs/" markdown>:material-arrow-right:
+
+    **Track Costs**
+
+    Learn how to monitor your storage costs and calculate remaining time before your balance runs out.
+
+    </a>
+
+-   <a href="/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/" markdown>:material-arrow-right:
+
+    **Manage Files and Buckets**
+
+    Learn how to manage your storage resources on DataHaven using the StorageHub SDK.
+
+    </a>
+
+</div>

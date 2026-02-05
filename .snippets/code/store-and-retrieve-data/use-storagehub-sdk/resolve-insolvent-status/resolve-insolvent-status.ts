@@ -22,6 +22,7 @@ async function run() {
   // Check if insolvent
   const insolventStatus = await isInsolvent(address);
   console.log(`Insolvent status for ${address}:`, insolventStatus);
+  // If not insolvent, exit early
   if (!insolventStatus) {
     console.log('Not insolvent, no action needed.');
     await polkadotApi.disconnect();
@@ -38,25 +39,16 @@ async function run() {
   // --8<-- [start:payment-streams]
   // Get payment streams from MSP
   const paymentStreams = await getPaymentStreams();
-  console.log('Payment Streams:', paymentStreams);
-
-  // Extract unique provider IDs
-  const providerIds = [
-    ...new Set(
-      paymentStreams.streams.map(
-        (stream: PaymentStreamInfo) => stream.provider,
-      ),
-    ),
-  ];
-  console.log('Provider IDs:', providerIds);
+  console.log('Unique Payment Streams:', paymentStreams);
   // --8<-- [end:payment-streams]
 
-  // --8<-- [start:pay-outstanding-debt]
+  // --8<-- [start:calculate-debt]
+  // Log current balance
   const balance = await getBalance(address); // MOCK token in wei
   console.log(
     `Current balance: ${balance} (wei), ${Number(formatEther(balance))} (MOCK)`,
   );
-  // Calculate total outstanding debt
+  // Calculate total and effective outstanding debt
   const { totalRawDebt, totalEffectiveDebt } =
     await calculateTotalOutstandingDebt(address, paymentStreams);
   // Log debts
@@ -66,13 +58,24 @@ async function run() {
   console.log(
     `Total Effective Debt: ${totalEffectiveDebt} (wei), ${Number(formatEther(totalEffectiveDebt))} (MOCK)`,
   );
-
+  // Check if balance is sufficient to cover effective debt
   if (balance < totalEffectiveDebt) {
     console.log('Insufficient balance to pay outstanding debt.');
     await polkadotApi.disconnect();
     return;
   }
+  // --8<-- [end:calculate-debt]
 
+  // --8<-- [start:pay-outstanding-debt]
+  // Extract unique provider IDs
+  const providerIds = [
+    ...new Set(
+      paymentStreams.streams.map(
+        (stream: PaymentStreamInfo) => stream.provider,
+      ),
+    ),
+  ];
+  console.log('Provider IDs:', providerIds);
   // Pay outstanding debt
   await payOutstandingDebt(providerIds);
   // --8<-- [end:pay-outstanding-debt]
