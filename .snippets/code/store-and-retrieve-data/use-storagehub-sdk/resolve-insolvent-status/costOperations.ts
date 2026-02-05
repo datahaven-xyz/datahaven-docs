@@ -118,7 +118,7 @@ const payOutstandingDebt = async (providerIds: string[]) => {
         if (status.isFinalized) {
           if (dispatchError) {
             if (dispatchError.isModule) {
-              // for module errors, we have the section and the name
+              // get details of the error
               const decoded = polkadotApi.registry.findMetaError(
                 dispatchError.asModule,
               );
@@ -154,7 +154,7 @@ const clearInsolventFlag = async () => {
         if (status.isFinalized) {
           if (dispatchError) {
             if (dispatchError.isModule) {
-              // for module errors, we have the section and the name
+              // get details of the error
               const decoded = polkadotApi.registry.findMetaError(
                 dispatchError.asModule,
               );

@@ -118,6 +118,10 @@ Replace the placeholder `// **PLACEHOLDER FOR STEP 1: CHECK INSOLVENT STATUS**` 
     run();
     ```
 
+If you run the script with the code above, the response should look something like this:
+
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/output-01.html'
+
 ## Authenticate
 
 Before accessing payment stream information, authenticate with the MSP. The `authenticateUser` helper signs a SIWE message and returns a session token that authorizes your requests. Add the following code to use the `authenticateUser` helper method you've already implemented in `mspService.ts`:
@@ -194,6 +198,10 @@ To pay off your outstanding debt, you need to know which providers you owe money
     run();
     ```
 
+If you run the script with the code above, the response should look something like this:
+
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/output-02.html'
+
 ## Calculate Outstanding Debt
 
 Before paying your debt, it's important to calculate the total amount owed and verify you have sufficient funds. Technically, you don't have to do calculate your debt since the network will automatically withdraw the exact owed amount from your account when you call the `payOutstandingDebt` extrinsic, but then you wouldn't know how much you were about to pay. The `calculateTotalOutstandingDebt` helper method returns two types of debt:
@@ -255,6 +263,10 @@ Replace the placeholder `// **PLACEHOLDER FOR STEP 4: CALCULATE OUTSTANDING DEBT
     run();
     ```
 
+If you run the script with the code above, the response should look something like this:
+
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/output-03.html'
+
 ## Pay Outstanding Debt
 
 Now that you've calculated the outstanding debt and verified you have sufficient funds, you can pay the debt to all providers.
@@ -315,6 +327,10 @@ Replace the placeholder `// **PLACEHOLDER FOR STEP 5: PAY OUTSTANDING DEBT**` wi
     run();
     ```
 
+If you run the script with the code above, the response should look something like this:
+
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/output-04.html'
+
 ## Clear Insolvent Flag
 
 After paying all outstanding debt, you must explicitly clear the insolvent flag from your account. This signals to the network that you've resolved your debt and wish to restore normal account functionality.
@@ -373,6 +389,10 @@ Replace the placeholder `// **PLACEHOLDER FOR STEP 6: CLEAR INSOLVENT FLAG**` wi
     run();
     ```
 
+If you run the script with the code above, the response should look something like this:
+
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/output-05.html'
+
 ## Verify Resolution
 
 After clearing the insolvent flag, verify that your account status has been updated.
@@ -382,6 +402,10 @@ Replace the placeholder `// **PLACEHOLDER FOR STEP 7: VERIFY RESOLUTION**` with 
 ```ts title='index.ts // **PLACEHOLDER FOR STEP 7: VERIFY RESOLUTION**'
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/resolve-insolvent-status.ts:recheck-insolvent-status'
 ```
+
+If you run the script with the code above, the response should look something like this:
+
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status/output-06.html'
 
 !!! note "Cooldown Period"
     After successfully clearing the insolvent flag, a cooldown period of 100 blocks (~10 minutes) applies before you can resume normal operations like creating buckets or uploading files.
