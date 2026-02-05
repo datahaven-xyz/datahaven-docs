@@ -8,6 +8,7 @@ nav:
  - 'End-to-End Storage Workflow': end-to-end-storage-workflow.md
  - 'Manage Files and Buckets': manage-files-and-buckets.md
  - 'Set Custom Gas Params': set-custom-gas-params.md
- - 'Resolve Insolvent Status': resolve-insolvent-status.md
+ - 'Resolve Insolvent Status via API': resolve-insolvent-status-via-api.md
+ - 'Resolve Insolvent Status via UI': resolve-insolvent-status-via-ui.md
  - 'FAQs & Troubleshooting': faqs-and-troubleshooting.md
  
