@@ -18,7 +18,7 @@ Before you begin, ensure you have the following:
 
 ## Understanding Insolvency
 
-Insolvency in DataHaven is a two-phase process. When your account balance can no longer cover a provider's charge, that provider marks you as "out of funds." However, you are not yet globally insolvent at this point. You become officially insolvent only when a provider attempts to charge you a second time and you still cannot pay. This means the effective grace period before insolvency depends on how frequently providers charge, specifically `max(NewStreamDeposit, provider_charge_cadence)`.
+Insolvency in DataHaven is a two-phase process. When your account balance can no longer cover a provider's charge, that provider marks you as "out of funds." However, you are not yet globally insolvent at this point. You become officially insolvent only when a provider attempts to charge you a second time and you still cannot pay. This means the effective grace period before insolvency depends on how frequently providers charge and what is the minimum providers will charge for.
 
 Once you are flagged as globally insolvent:
 
