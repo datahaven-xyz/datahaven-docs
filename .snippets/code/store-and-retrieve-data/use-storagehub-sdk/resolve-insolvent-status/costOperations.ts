@@ -1,5 +1,5 @@
 // --8<-- [start:imports]
-import { polkadotApi, publicClient } from '../services/clientService';
+import { polkadotApi, publicClient } from '../services/clientService.js';
 import { PaymentStreamsResponse } from '@storagehub-sdk/msp-client';
 import { signer } from '../services/clientService.js';
 // --8<-- [end:imports]
