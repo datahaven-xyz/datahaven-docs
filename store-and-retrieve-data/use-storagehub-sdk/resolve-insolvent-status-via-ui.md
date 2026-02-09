@@ -18,16 +18,27 @@ Before you begin, ensure you have the following:
 
 ## Understanding Insolvency
 
-When your account balance reaches zero while payment streams are active, the network marks your account as insolvent. While in this state:
+Insolvency in DataHaven is a two-phase process. When your account balance can no longer cover a provider's charge, that provider marks you as "out of funds." However, you are not yet globally insolvent at this point. You become officially insolvent only when a provider attempts to charge you a second time and you still cannot pay. This means the effective grace period before insolvency depends on how frequently providers charge, specifically `max(NewStreamDeposit, provider_charge_cadence)`.
 
-- Your data remains stored but is at risk of deletion
-- You cannot create new buckets or upload new files
+Once you are flagged as globally insolvent:
+
+- Providers that detect your insolvency will automatically stop storing your files and settle debts from your deposits.
+- You cannot create new buckets or upload new files.
+- You cannot create new storage requests until the flag is cleared and the cooldown period passes.
+
+### Provider Auto-Cleanup vs Manual Recovery
+
+During normal operation, providers will automatically detect that you've become insolvent, stop storing your files, and charge their owed debt from your deposits. When this happens, all your payment streams are cleaned up without any action on your part.
+
+However, if a provider is offline or otherwise unable to process your insolvency (for example, if one of your providers went down and never detected your status change), the automatic cleanup won't fully complete. In this scenario, the `payOutstandingDebt` extrinsic acts as a failsafe, allowing you to manually release the locked funds from those unresolved payment streams and settle the debt yourself, rather than waiting indefinitely for an unreliable provider.
+
+### Resolution Steps
 
 To resolve insolvency, you must:
 
-1. Pay your outstanding debt to all providers.
+1. Pay your outstanding debt to providers (only needed if providers haven't already cleaned up your payment streams automatically).
 2. Manually clear the insolvent flag.
-3. Wait for the cooldown period of 100 blocks to pass.
+3. Wait for the cooldown period of 100 blocks (~10 minutes) to pass before resuming normal operations.
 
 ## Connect to Polkadot.js Apps
 
@@ -53,7 +64,7 @@ Before attempting any recovery actions, first check whether your account is actu
 
 ## Pay Outstanding Debt
 
-To resolve insolvency, you first need to pay the outstanding debt owed to your storage providers.
+If all of your providers are online and have already automatically cleaned up your files and settled debts from your deposits, this step may not be necessary. However, if any provider was offline or failed to process your insolvency, you'll need to manually pay the outstanding debt to release the locked funds from those unresolved payment streams. Calling `payOutstandingDebt` also prevents further debt from accumulating while you wait for providers to react.
 
 1. Within the **Developer** section, go to the **Extrinsics** page.
 
@@ -83,7 +94,7 @@ To resolve insolvency, you first need to pay the outstanding debt owed to your s
 
 ## Clear Insolvent Flag
 
-After paying all outstanding debt, you must explicitly clear the insolvent flag from your account. This signals to the network that you've resolved your debt and wish to restore normal account functionality.
+After paying all outstanding debt, you must explicitly clear the insolvent flag from your account. This signals to the network that you've resolved your debt and wish to restore normal account functionality. Once the flag is cleared and the cooldown period passes, you can continue to operate with new storage requests.
 
 1. On the **Extrinsics** page, select the **`paymentStreams`** pallet and the **`clearInsolventFlag`** extrinsic.
 
