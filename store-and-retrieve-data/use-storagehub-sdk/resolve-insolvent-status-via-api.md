@@ -5,7 +5,7 @@ description: This guide shows you how to check if your account has been flagged 
 
 # Resolve Insolvent Status via API
 
-If your account balance runs out while you have active payment streams, the DataHaven network will flag your account as insolvent. This guide covers the process of checking your insolvent status, paying off any outstanding debt, and clearing the insolvent flag to restore your account's ability to store files in the network. This guide will cover the Polkadot API approach while the [Resolve Insolvent Status via UI](/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status-via-ui.md) guide covers the approach through the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} UI.
+If your account balance runs out while you have active payment streams, the DataHaven network will flag your account as insolvent. This guide covers the process of checking your insolvent status, paying off any outstanding debt, and clearing the insolvent flag to restore your account's ability to store files in the network. This guide will cover the Polkadot API approach while the [Resolve Insolvent Status via UI](/store-and-retrieve-data/use-storagehub-sdk/resolve-insolvent-status-via-ui) guide covers the approach through the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} UI.
 
 ## Prerequisites
 
