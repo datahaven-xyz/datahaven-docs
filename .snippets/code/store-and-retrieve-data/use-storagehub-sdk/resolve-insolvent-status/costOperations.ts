@@ -13,7 +13,7 @@ const getBalance = async (address: `0x${string}`): Promise<bigint> => {
 // --8<-- [end:get-balance]
 
 // --8<-- [start:is-insolvent]
-const isInsolvent = async (address: string) => {
+const isInsolvent = async (address: `0x${string}`) => {
   // Query if user is labelled as insolvent by the network
   const userWithoutFundsResponse =
     await polkadotApi.query.paymentStreams.usersWithoutFunds(address);
@@ -29,7 +29,7 @@ const isInsolvent = async (address: string) => {
 
 // --8<-- [start:calculate-total-outstanding-debt]
 const calculateTotalOutstandingDebt = async (
-  address: string,
+  address: `0x${string}`,
   paymentStreams: PaymentStreamsResponse,
 ) => {
   const seen = new Set<string>();
@@ -118,7 +118,7 @@ const payOutstandingDebt = async (providerIds: string[]) => {
         if (status.isFinalized) {
           if (dispatchError) {
             if (dispatchError.isModule) {
-              // get details of the error
+              // Get details of the error
               const decoded = polkadotApi.registry.findMetaError(
                 dispatchError.asModule,
               );
@@ -154,7 +154,7 @@ const clearInsolventFlag = async () => {
         if (status.isFinalized) {
           if (dispatchError) {
             if (dispatchError.isModule) {
-              // get details of the error
+              // Get details of the error
               const decoded = polkadotApi.registry.findMetaError(
                 dispatchError.asModule,
               );
