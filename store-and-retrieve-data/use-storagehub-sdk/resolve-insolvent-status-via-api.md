@@ -22,9 +22,9 @@ Insolvency in DataHaven is a two-phase process. When your account balance can no
 
 Once you are flagged as globally insolvent:
 
-- Providers that detect your insolvency will automatically stop storing your files and settle debts from your deposits
-- You cannot create new buckets or upload new files
-- You cannot create new storage requests until the flag is cleared and the cooldown period passes
+- Providers that detect your insolvency will automatically stop storing your files and settle debts from your deposits.
+- You cannot create new buckets or upload new files.
+- You cannot create new storage requests until the flag is cleared and the cooldown period passes.
 
 ### Provider Auto-Cleanup vs Manual Recovery
 
@@ -36,9 +36,9 @@ However, if a provider is offline or otherwise unable to process your insolvency
 
 To resolve insolvency, you must:
 
-1. Pay your outstanding debt to providers (only needed if providers haven't already cleaned up your payment streams automatically)
-2. Manually clear the insolvent flag
-3. Wait for the cooldown period of 100 blocks (~10 minutes) to pass before resuming normal operations
+1. Pay your outstanding debt to providers (only needed if providers haven't already cleaned up your payment streams automatically).
+2. Manually clear the insolvent flag.
+3. Wait for the cooldown period of 100 blocks (~10 minutes) to pass before resuming normal operations.
 
 ## Initialize the Script Entry Point
 
@@ -280,9 +280,9 @@ If you run the script with the code above, the response should look something li
 
 ## Pay Outstanding Debt
 
-If all of your providers are online and have already automatically cleaned up your files and settled debts from your deposits, this step may not be necessary. However, if any provider was offline or failed to process your insolvency, you'll need to manually pay the outstanding debt to release the locked funds from those unresolved payment streams. Calling `payOutstandingDebt` also prevents further debt from accumulating while you wait for providers to react.
-
 Now that you've calculated the outstanding debt and verified you have sufficient funds, you can pay the debt to all providers.
+
+If all of your providers are online and have already automatically cleaned up your files and settled debts from your deposits, this step may not be necessary. However, if any provider was offline or failed to process your insolvency, you'll need to manually pay the outstanding debt to release the locked funds from those unresolved payment streams. Calling `payOutstandingDebt` also prevents further debt from accumulating while you wait for providers to react.
 
 ### Add Method to Pay Outstanding Debt
 
