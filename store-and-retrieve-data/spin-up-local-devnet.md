@@ -55,6 +55,8 @@ Before you begin, ensure you have the following:
             cargo install diesel_cli --no-default-features --features postgres
             ```
 
+- (Optional) [jq](https://jqlang.github.io/jq/download/){target=\_blank} installed; a command-line JSON processor for formatting chain state queries and API responses
+
 ## Clone the StorageHub Repository
 
 Start by cloning the official StorageHub repository, which contains all the scripts and Docker configurations required to spin up your local DataHaven devnet.
