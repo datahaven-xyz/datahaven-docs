@@ -1,6 +1,7 @@
 ---
 title: Run a BSP Node
 description: Guide on how to set up, configure, and spin up a Backup Storage Provider (BSP) node on the DataHaven network using Docker.
+categories: Storage Providers, BSP
 ---
 
 # Run a BSP Node
@@ -308,7 +309,7 @@ The `datahaven-node` binaries published in the DataHaven repository are precompi
           - "--bsp-move-bucket-task"
           - "--bsp-move-bucket-grace-period=300"
           - "--bsp-charge-fees-task"
-          - "--bsp-charge-fees-min-debt=1000000000000000000"
+          - "--bsp-charge-fees-min-debt=20000000000000"
           - "--bsp-submit-proof-task"
           - "--bsp-submit-proof-max-attempts=3"
           - "--port=30333"

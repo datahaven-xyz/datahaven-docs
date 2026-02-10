@@ -1,6 +1,7 @@
 ---
 title: Known Issues
 description: This page lists the major known issues affecting the DataHaven StorageHub SDK. It’s updated regularly as issues are identified or resolved.
+categories: Store Data, StorageHub SDK, Troubleshooting
 ---
 
 # Known Issues

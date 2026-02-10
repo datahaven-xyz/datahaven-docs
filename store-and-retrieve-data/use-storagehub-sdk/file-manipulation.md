@@ -1,6 +1,7 @@
 ---
 title: File Manipulation
 description: Guide on file manipulation in DataHaven through the relationship between File Manager, fingerprint, file key and issuing a storage request.
+categories: StorageHub SDK, Store Data
 ---
 
 # File Manipulation

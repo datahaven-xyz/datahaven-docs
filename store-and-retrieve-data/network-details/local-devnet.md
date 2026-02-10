@@ -1,6 +1,7 @@
 ---
 title: Local Devnet
 description: Configuration details, pre-funded accounts, and MSP endpoints that help you set up your environment and start developing on the DataHaven local devnet.
+categories: Basics, Network
 ---
 
 # Local Devnet

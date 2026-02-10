@@ -1,6 +1,7 @@
 ---
 title: Track Costs
 description: This guide shows how to fetch your payment stream data using the StorageHub SDK and how to use that data to calculate remaining storage time.
+categories: StorageHub SDK, Store Data
 ---
 
 # Track Costs
@@ -23,7 +24,7 @@ The `index.ts` snippet below also imports `costOperations.ts`, which is not in y
 Add the following code to your `index.ts` file:
 
 ```ts title="index.ts"
---8<-- 'code/store-and-retrieve-data/manage-and-optimize-your-data/track-costs.ts:imports'
+--8<-- 'code/store-and-retrieve-data/manage-and-optimize-your-data/track-costs/track-costs.ts:imports'
 
 async function run() {
 

@@ -1,6 +1,7 @@
 ---
 title: End-to-End BSP Onboarding
 description: This step-by-step tutorial follows the full process to spin up your own BSP node and how to register to the DataHaven network.
+categories: Storage Providers, BSP
 ---
 
 # End-to-End BSP Onboarding
@@ -291,7 +292,7 @@ The `datahaven-node` binaries published in the DataHaven repository are precompi
           - "--bsp-move-bucket-task"
           - "--bsp-move-bucket-grace-period=300"
           - "--bsp-charge-fees-task"
-          - "--bsp-charge-fees-min-debt=1000000000000000000"
+          - "--bsp-charge-fees-min-debt=20000000000000"
           - "--bsp-submit-proof-task"
           - "--bsp-submit-proof-max-attempts=3"
           - "--port=30333"
