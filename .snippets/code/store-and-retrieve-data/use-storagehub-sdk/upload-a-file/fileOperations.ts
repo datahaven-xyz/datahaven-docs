@@ -23,7 +23,7 @@ import { PalletFileSystemStorageRequestMetadata } from '@polkadot/types/lookup';
 export async function uploadFile(
   bucketId: string,
   filePath: string,
-  fileName: string
+  fileName: string,
 ) {
   //   ISSUE STORAGE REQUEST
 
@@ -88,7 +88,7 @@ export async function uploadFile(
       mspId as `0x${string}`,
       peerIds,
       replicationLevel,
-      replicas
+      replicas,
     );
   console.log('issueStorageRequest() txHash:', txHash);
   if (!txHash) {
@@ -113,21 +113,20 @@ export async function uploadFile(
   const registry = new TypeRegistry();
   const owner = registry.createType(
     'AccountId20',
-    account.address
+    account.address,
   ) as AccountId20;
   const bucketIdH256 = registry.createType('H256', bucketId) as H256;
   const fileKey = await fileManager.computeFileKey(
     owner,
     bucketIdH256,
-    fileName
+    fileName,
   );
   // --8<-- [end:compute-file-key]
 
   // --8<-- [start:verify-storage-request]
   // Verify storage request on chain
-  const storageRequest = await polkadotApi.query.fileSystem.storageRequests(
-    fileKey
-  );
+  const storageRequest =
+    await polkadotApi.query.fileSystem.storageRequests(fileKey);
   if (!storageRequest.isSome) {
     throw new Error('Storage request not found on chain');
   }
@@ -139,11 +138,11 @@ export async function uploadFile(
   console.log('Storage request data:', storageRequestData);
   console.log(
     'Storage request bucketId matches initial bucketId:',
-    storageRequestData.bucketId === bucketId
+    storageRequestData.bucketId === bucketId,
   );
   console.log(
     'Storage request fingerprint matches initial fingerprint: ',
-    storageRequestData.fingerprint === fingerprint.toString()
+    storageRequestData.fingerprint === fingerprint.toString(),
   );
   // --8<-- [end:read-storage-request]
 
@@ -162,7 +161,7 @@ export async function uploadFile(
     fileKey.toHex(),
     await fileManager.getFileBlob(),
     address,
-    fileName
+    fileName,
   );
   console.log('File upload receipt:', uploadReceipt);
 
@@ -177,14 +176,12 @@ export async function uploadFile(
 
 // --8<-- [start:wait-for-msp-confirm-on-chain]
 export async function waitForMSPConfirmOnChain(fileKey: string) {
-  const maxAttempts = 10; // Number of polling attempts
+  const maxAttempts = 20; // Number of polling attempts
   const delayMs = 2000; // Delay between attempts in milliseconds
 
   for (let i = 0; i < maxAttempts; i++) {
     console.log(
-      `Check storage request has been confirmed by the MSP on-chain, attempt ${
-        i + 1
-      } of ${maxAttempts}...`
+      `Check if storage request has been confirmed by the MSP on-chain, attempt ${i + 1} of ${maxAttempts}...`,
     );
 
     // Query the runtime for the StorageRequest entry associated with this fileKey
@@ -193,18 +190,18 @@ export async function waitForMSPConfirmOnChain(fileKey: string) {
     // StorageRequest removed from state before confirmation is an error
     if (req.isNone) {
       throw new Error(
-        `StorageRequest for ${fileKey} no longer exists on-chain.`
+        `StorageRequest for ${fileKey} no longer exists on-chain.`,
       );
     }
-
     // Decode the on-chain metadata struct
     const data: PalletFileSystemStorageRequestMetadata = req.unwrap();
 
-    // Extract the MSP confirmation tuple (mspId, bool)
-    const mspTuple = data.msp.isSome ? data.msp.unwrap() : null;
+    // Check MSP status
+    const mspStatus = data.mspStatus;
+    console.log(`MSP confirmation status: ${mspStatus.type}`);
 
-    // The second value in the tuple is a SCALE Bool (codec), so convert using .isTrue
-    const mspConfirmed = mspTuple ? (mspTuple[1] as any).isTrue : false;
+    const mspConfirmed =
+      mspStatus.isAcceptedNewFile || mspStatus.isAcceptedExistingFile;
 
     // If MSP has confirmed the storage request, we’re good to proceed
     if (mspConfirmed) {
@@ -215,12 +212,9 @@ export async function waitForMSPConfirmOnChain(fileKey: string) {
     // Wait before polling again
     await new Promise((r) => setTimeout(r, delayMs));
   }
-
   // All attempts exhausted
   throw new Error(
-    `FileKey ${fileKey} not ready for download after waiting ${
-      maxAttempts * delayMs
-    } ms`
+    `FileKey ${fileKey} not ready for download after waiting ${maxAttempts * delayMs} ms`,
   );
 }
 // --8<-- [end:wait-for-msp-confirm-on-chain]
@@ -228,7 +222,7 @@ export async function waitForMSPConfirmOnChain(fileKey: string) {
 // --8<-- [start:wait-for-backend-file-ready]
 export async function waitForBackendFileReady(
   bucketId: string,
-  fileKey: string
+  fileKey: string,
 ) {
   // wait up to 12 minutes (144 attempts x 5 seconds)
   // 11 minutes is the amount of time BSPs have to reach the required replication level
@@ -237,7 +231,7 @@ export async function waitForBackendFileReady(
 
   for (let i = 0; i < maxAttempts; i++) {
     console.log(
-      `Checking for file in MSP backend, attempt ${i + 1} of ${maxAttempts}...`
+      `Checking for file in MSP backend, attempt ${i + 1} of ${maxAttempts}...`,
     );
 
     try {
@@ -257,7 +251,7 @@ export async function waitForBackendFileReady(
         throw new Error('File upload was rejected by MSP');
       } else if (fileInfo.status === 'expired') {
         throw new Error(
-          'Storage request expired: the required number of BSP replicas was not achieved within the deadline'
+          'Storage request expired: the required number of BSP replicas was not achieved within the deadline',
         );
       }
 
@@ -267,7 +261,7 @@ export async function waitForBackendFileReady(
       if (error?.status === 404 || error?.body?.error === 'Not found: Record') {
         // Handle "not yet indexed" as a *non-fatal* condition
         console.log(
-          'File not yet indexed in MSP backend (404 Not Found). Waiting before retry...'
+          'File not yet indexed in MSP backend (404 Not Found). Waiting before retry...',
         );
       } else {
         // Any unexpected backend error should stop the workflow and surface to the caller
