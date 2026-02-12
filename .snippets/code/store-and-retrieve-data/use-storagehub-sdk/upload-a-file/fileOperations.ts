@@ -213,9 +213,7 @@ export async function waitForMSPConfirmOnChain(fileKey: string) {
     await new Promise((r) => setTimeout(r, delayMs));
   }
   // All attempts exhausted
-  throw new Error(
-    `FileKey ${fileKey} not ready for download after waiting ${maxAttempts * delayMs} ms`,
-  );
+  throw new Error('Timed out waiting for MSP confirmation on-chain');
 }
 // --8<-- [end:wait-for-msp-confirm-on-chain]
 
