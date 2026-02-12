@@ -34,25 +34,23 @@ const calculateTotalOutstandingDebt = async (
 ) => {
   const seen = new Set<string>();
 
-  // Get current price index
-  const currentPriceIndex =
-    await polkadotApi.query.paymentStreams.accumulatedPriceIndex();
-  // Get latest block
-  const currentHeader = await polkadotApi.rpc.chain.getHeader();
-  const currentTick = currentHeader.number;
+  // Current tick from proofs dealer — used for MSPs (privileged providers)
+  const currentTick = await polkadotApi.call.proofsDealerApi.getCurrentTick();
 
   let totalRawDebt = 0n;
   let totalEffectiveDebt = 0n;
 
-  // For each unique provider id, query the on-chain storage to get the amount owed
   for (const { provider, providerType } of paymentStreams.streams) {
     if (seen.has(provider)) continue;
     seen.add(provider);
 
-    // Depending on provider type, query respective storage map
-    // For BSPs, we calculate debt based on the dynamic rate payment stream formula
-    // For MSPs, we calculate debt based on the fixed rate payment stream formula
     if (providerType === 'bsp') {
+      // BSPs use per-provider LastChargeableInfo (updated on proof submission)
+      const lastChargeableInfo =
+        await polkadotApi.query.paymentStreams.lastChargeableInfo(provider);
+
+      if (!lastChargeableInfo) continue;
+
       const stream =
         await polkadotApi.query.paymentStreams.dynamicRatePaymentStreams(
           provider,
@@ -61,16 +59,12 @@ const calculateTotalOutstandingDebt = async (
       if (stream.isSome) {
         const dynamicRatePaymentStream = stream.unwrap();
 
-        // Raw debt for BSP payment stream is calculated as:
-        // (current price index - price index when last charged) * amount provided / 2^30
-        // Price index is per giga-unit (2^30 bytes = 1 GB); divide to scale by actual amount
         const rawDebt =
-          ((currentPriceIndex.toBigInt() -
+          ((lastChargeableInfo.priceIndex.toBigInt() -
             dynamicRatePaymentStream.priceIndexWhenLastCharged.toBigInt()) *
             dynamicRatePaymentStream.amountProvided.toBigInt()) /
           2n ** 30n;
 
-        // Effective debt is capped by user deposit
         const effectiveDebt =
           rawDebt < dynamicRatePaymentStream.userDeposit.toBigInt()
             ? rawDebt
@@ -79,6 +73,7 @@ const calculateTotalOutstandingDebt = async (
         totalEffectiveDebt += effectiveDebt;
       }
     } else if (providerType === 'msp') {
+      // MSPs are privileged providers — they can charge up to the current tick
       const stream =
         await polkadotApi.query.paymentStreams.fixedRatePaymentStreams(
           provider,
@@ -86,12 +81,12 @@ const calculateTotalOutstandingDebt = async (
         );
       if (stream.isSome) {
         const fixedRatePaymentStream = stream.unwrap();
-        // Raw debt for MSP payment stream is calculated as (current tick - last charged tick) * rate
+
         const rawDebt =
           (currentTick.toBigInt() -
             fixedRatePaymentStream.lastChargedTick.toBigInt()) *
           fixedRatePaymentStream.rate.toBigInt();
-        // Effective debt is capped by user deposit
+
         const effectiveDebt =
           rawDebt < fixedRatePaymentStream.userDeposit.toBigInt()
             ? rawDebt
