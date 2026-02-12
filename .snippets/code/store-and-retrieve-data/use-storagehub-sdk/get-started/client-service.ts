@@ -11,12 +11,14 @@ import {
 import { StorageHubClient } from '@storagehub-sdk/core';
 import { ApiPromise, WsProvider, Keyring } from '@polkadot/api';
 import { types } from '@storagehub/types-bundle';
+import { cryptoWaitReady } from '@polkadot/util-crypto';
 // --8<-- [end:imports]
 // --8<-- [start:initial-clients-setup]
 const account = privateKeyToAccount('INSERT_PRIVATE_KEY' as `0x${string}`);
 const address = account.address;
 
 // Create substrate signer from secret URI
+await cryptoWaitReady();
 const walletKeyring = new Keyring({ type: 'ethereum' });
 const signer = walletKeyring.addFromUri('INSERT_PRIVATE_KEY');
 
