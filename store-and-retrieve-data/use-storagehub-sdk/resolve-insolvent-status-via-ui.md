@@ -2,7 +2,6 @@
 title: Resolve Insolvent Status via UI
 description: This guide shows you how to check if your account has been flagged as insolvent, pay your debt, and clear your insolvent flag via the Polkadot.js Apps UI.
 categories: Store Data, StorageHub SDK, Troubleshooting
-
 ---
 
 # Resolve Insolvent Status via UI
