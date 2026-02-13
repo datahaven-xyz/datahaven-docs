@@ -23,9 +23,11 @@ export const NETWORKS = {
   },
 };
 
+export const NETWORK = NETWORKS.testnet; // Change this to switch between devnet and testnet
+
 export const chain: Chain = defineChain({
-  id: NETWORKS.testnet.id,
-  name: NETWORKS.testnet.name,
-  nativeCurrency: NETWORKS.testnet.nativeCurrency,
-  rpcUrls: { default: { http: [NETWORKS.testnet.rpcUrl] } },
+  id: NETWORK.id,
+  name: NETWORK.name,
+  nativeCurrency: NETWORK.nativeCurrency,
+  rpcUrls: { default: { http: [NETWORK.rpcUrl] } },
 });

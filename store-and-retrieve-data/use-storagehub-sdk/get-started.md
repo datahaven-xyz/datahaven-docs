@@ -94,19 +94,19 @@ Follow the steps in this section to set up the clients needed to work with the S
 === "pnpm"
 
     ```bash { .break-spaces }
-    pnpm add @storagehub/types-bundle @polkadot/api @polkadot/types @storagehub/api-augment viem
+    pnpm add @storagehub/types-bundle @polkadot/api @polkadot/types @polkadot/util-crypto @storagehub/api-augment viem
     ```
 
 === "yarn"
 
     ```bash { .break-spaces }
-    yarn add @storagehub/types-bundle @polkadot/api @polkadot/types @storagehub/api-augment viem
+    yarn add @storagehub/types-bundle @polkadot/api @polkadot/types @polkadot/util-crypto @storagehub/api-augment viem
     ```
 
 === "npm"
 
     ```bash { .break-spaces }
-    npm install @storagehub/types-bundle @polkadot/api @polkadot/types @storagehub/api-augment viem
+    npm install @storagehub/types-bundle @polkadot/api @polkadot/types @polkadot/util-crypto @storagehub/api-augment viem
     ```
 
 ??? interface "Why do I need these dependencies?"
@@ -115,12 +115,15 @@ Follow the steps in this section to set up the clients needed to work with the S
 
     - **[`@polkadot/api`](https://www.npmjs.com/package/@polkadot/api){target=_blank}:** The core JavaScript library used to talk to any Substrate-based blockchain, which in our case is DataHaven.
 
+    - **[`@polkadot/types`](https://www.npmjs.com/package/@polkadot/types){target=_blank}:** Provides type definitions and codecs for encoding/decoding Substrate data structures.
+
+    - **[`@polkadot/util-crypto`](https://www.npmjs.com/package/@polkadot/util-crypto){target=_blank}:** Cryptographic utilities for key generation, signing, and hashing operations. Used for wallet management and transaction signing.
+
     - **[`@storagehub/api-augment`](https://www.npmjs.com/package/@storagehub/api-augment){target=_blank}:** Extends `@polkadot/api` with DataHaven's custom pallets and RPC methods. You will import it in your `index.ts` file where your main script logic will be executed.
 
     - **[`viem`](https://www.npmjs.com/package/viem){target=_blank}:** Lightweight library for building Ethereum-compatible applications.
 
 ### Set Up Networks
-
 
 1. In the folder where your `index.ts` (or main code file) is located, create a new folder called `config`:
 
@@ -129,6 +132,10 @@ Follow the steps in this section to set up the clients needed to work with the S
     ```
 
 2. Create a `networks.ts` file.
+
+    ```sh
+    touch networks.ts
+    ```
 
 3. Add the following code:
 
@@ -151,6 +158,10 @@ You'll need to set up the necessary clients to connect to the DataHaven network,
 
 2. Create a `clientService.ts` file.
 
+    ```sh
+    touch clientService.ts
+    ```
+
 3. Add the following code:
 
     ```ts title="clientService.ts"
@@ -159,13 +170,6 @@ You'll need to set up the necessary clients to connect to the DataHaven network,
 
     !!! warning
         It is assumed that private keys are securely stored and managed in accordance with standard security practices.
-
-    With the above code in place, you now have the following:
-
-    - **`walletClient`**: Used for signing and broadcasting transactions using the derived private key.
-    - **`publicClient`**: Used for reading general public data from the chain, such as checking transaction receipts or block status.
-    - **`storageHubClient`**: Used for interacting with the StorageHub network APIs, including creating buckets, issuing storage requests, uploading or deleting files, and managing storage proofs.
-    - **`polkadotApi`**: Used for reading code chain logic and state data from the underlying DataHaven Substrate node.
 
     With the above code in place, you now have the following:
 
@@ -192,6 +196,10 @@ You'll need to set up the necessary clients to connect to the DataHaven network,
 To interact with DataHaven's Main Storage Provider (MSP) services, you need to establish a connection using the `MspClient` from the StorageHub SDK. This involves configuring the HTTP client, setting up session management for authenticated requests, and initializing the MSP client itself.
 
 1. Create a `mspService.ts` file within your `services` folder.
+
+    ```sh
+    touch mspService.ts
+    ```
 
 2. Add the following code:
 

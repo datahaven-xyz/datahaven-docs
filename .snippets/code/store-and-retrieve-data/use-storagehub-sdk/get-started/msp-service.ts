@@ -7,12 +7,12 @@ import {
 } from '@storagehub-sdk/msp-client';
 import { HttpClientConfig } from '@storagehub-sdk/core';
 import { address, walletClient } from './clientService.js';
-import { NETWORKS } from '../config/networks.js';
+import { NETWORK } from '../config/networks.js';
 // --8<-- [end:imports]
 
 // --8<-- [start:connect-msp-client]
 // Configure the HTTP client to point to the MSP backend
-const httpCfg: HttpClientConfig = { baseUrl: NETWORKS.testnet.mspUrl };
+const httpCfg: HttpClientConfig = { baseUrl: NETWORK.mspUrl };
 
 // Initialize a session token for authenticated requests (updated after authentication
 // through SIWE)
