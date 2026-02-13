@@ -11,6 +11,7 @@ This guide walks you through how to register your Backup Storage Provider (BSP) 
 ## Prerequisites
 
 - [A running BSP node](/provide-storage/backup-storage-provider/run-a-bsp-node){target=\_blank} with your BSP's secret/raw seed and your BSP's multiaddress handy.
+- A browser wallet (such as [Talisman](https://talisman.xyz/){target=\_blank}) with your account imported
 
 ### Deposit Requirements
 
