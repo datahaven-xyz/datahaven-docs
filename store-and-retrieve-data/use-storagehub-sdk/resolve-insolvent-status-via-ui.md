@@ -68,7 +68,7 @@ If all of your providers are online and have already automatically cleaned up yo
 
     ![Add unique provider IDs](/images/store-and-retrieve-data/resolve-insolvent-status/resolve-insolvent-status-5.webp)
 
-5. Click **Submit Transaction** and sign the transaction with your wallet.
+6. Click **Submit Transaction** and sign the transaction with your wallet.
 
     ![Submit payOutstandingDebt transaction](/images/store-and-retrieve-data/resolve-insolvent-status/resolve-insolvent-status-6.webp)
 
