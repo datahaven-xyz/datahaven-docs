@@ -94,19 +94,19 @@ Follow the steps in this section to set up the clients needed to work with the S
 === "pnpm"
 
     ```bash { .break-spaces }
-    pnpm add @storagehub/types-bundle @polkadot/api @polkadot/types @storagehub/api-augment viem
+    pnpm add @storagehub/types-bundle @polkadot/api @polkadot/types @polkadot/util-crypto @storagehub/api-augment viem
     ```
 
 === "yarn"
 
     ```bash { .break-spaces }
-    yarn add @storagehub/types-bundle @polkadot/api @polkadot/types @storagehub/api-augment viem
+    yarn add @storagehub/types-bundle @polkadot/api @polkadot/types @polkadot/util-crypto @storagehub/api-augment viem
     ```
 
 === "npm"
 
     ```bash { .break-spaces }
-    npm install @storagehub/types-bundle @polkadot/api @polkadot/types @storagehub/api-augment viem
+    npm install @storagehub/types-bundle @polkadot/api @polkadot/types @polkadot/util-crypto @storagehub/api-augment viem
     ```
 
 ??? interface "Why do I need these dependencies?"
@@ -115,9 +115,36 @@ Follow the steps in this section to set up the clients needed to work with the S
 
     - **[`@polkadot/api`](https://www.npmjs.com/package/@polkadot/api){target=_blank}:** The core JavaScript library used to talk to any Substrate-based blockchain, which in our case is DataHaven.
 
+    - **[`@polkadot/types`](https://www.npmjs.com/package/@polkadot/types){target=_blank}:** Provides type definitions and codecs for encoding/decoding Substrate data structures.
+
+    - **[`@polkadot/util-crypto`](https://www.npmjs.com/package/@polkadot/util-crypto){target=_blank}:** Cryptographic utilities for key generation, signing, and hashing operations. Used for wallet management and transaction signing.
+
     - **[`@storagehub/api-augment`](https://www.npmjs.com/package/@storagehub/api-augment){target=_blank}:** Extends `@polkadot/api` with DataHaven's custom pallets and RPC methods. You will import it in your `index.ts` file where your main script logic will be executed.
 
     - **[`viem`](https://www.npmjs.com/package/viem){target=_blank}:** Lightweight library for building Ethereum-compatible applications.
+
+### Set Up Networks
+
+1. In the folder where your `index.ts` (or main code file) is located, create a new folder called `config`:
+
+    ```shell
+    mkdir config && cd config
+    ```
+
+2. Create a `networks.ts` file.
+
+    ```sh
+    touch networks.ts
+    ```
+
+3. Add the following code:
+
+    !!! note
+        The code in the following sections uses DataHaven testnet configuration values, which include the chain ID RPC URL, WSS URL, MSP URL, and token metadata. If you’re running a local devnet, make sure to select the configuration parameters within the `NETWORKS` constant that are relevant for local devnet. You can also find all the relevant local devnet values in the [Local Devnet](/store-and-retrieve-data/network-details/local-devnet/) page.
+
+    ```ts title="networks.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/get-started/networks.ts'
+    ```
 
 ### Set Up Client Service
 
@@ -131,10 +158,11 @@ You'll need to set up the necessary clients to connect to the DataHaven network,
 
 2. Create a `clientService.ts` file.
 
-3. Add the following code:
+    ```sh
+    touch clientService.ts
+    ```
 
-    !!! note
-        The code below uses DataHaven testnet configuration values, which include the chain ID RPC URL, WSS URL, MSP URL, and token metadata. If you’re running a local devnet, make sure to replace these with your local configuration parameters. You can find all the relevant local devnet values in the [Local Devnet](/store-and-retrieve-data/network-details/local-devnet/) page.
+3. Add the following code:
 
     ```ts title="clientService.ts"
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/get-started/client-service.ts'
@@ -145,16 +173,33 @@ You'll need to set up the necessary clients to connect to the DataHaven network,
 
     With the above code in place, you now have the following:
 
-    - **`walletClient`**: Used for signing and broadcasting transactions using the derived private key.
-    - **`publicClient`**: Used for reading general public data from the chain, such as checking transaction receipts or block status.
-    - **`storageHubClient`**: Used for interacting with the StorageHub network APIs, including creating buckets, issuing storage requests, uploading or deleting files, and managing storage proofs.
-    - **`polkadotApi`**: Used for reading code chain logic and state data from the underlying DataHaven Substrate node.
+    - EVM path:
+        - **`account`**: The viem account object derived from your private key. Used internally by `walletClient` for signing EVM transactions.
+        - **`address`**: Your Ethereum-style address (e.g., `0x...`). Useful for displaying your identity or filtering events.
+        - **`walletClient`**: Used for signing and broadcasting EVM transactions using your private key.
+        - **`publicClient`**: Used for reading general public data from the chain, such as checking transaction receipts or block status.
+        - **`storageHubClient`**: A higher-level SDK client that wraps EVM precompile interactions. Use this for common storage operations like creating buckets, issuing storage requests, uploading/deleting files, and managing payment streams, without writing raw Solidity calls.
+
+    - Native Substrate path:
+        - **`signer`**: A Polkadot.js Keyring signer required for signing native Substrate extrinsics (transactions) that don't go through the EVM layer (such as [BSP verification](/provide-storage/backup-storage-provider/verify-bsp-node-via-api){target=\_blank}).
+        - **`polkadotApi`**: Used for reading on-chain state (storage requests, pallets, MSP file confirmations) from the underlying DataHaven Substrate runtime and for submitting native Substrate transactions when direct access to Substrate features is needed.
+
+    When to use which:
+
+    - **For most storage operations** (upload, download, delete, buckets), use `storageHubClient`—it handles the EVM precompiles for you.
+    - **For reading Substrate-specific state** (e.g., provider reputation, forest roots, bucket metadata not exposed via EVM), use `polkadotApi`.
+    - **For low-level EVM contract interactions** or custom precompile calls, use `walletClient` + `publicClient` directly.
+    - **For native Substrate extrinsics** (if you need features not yet bridged to EVM), use `polkadotApi` + `signer`.
 
 ### Set Up MSP Service
 
 To interact with DataHaven's Main Storage Provider (MSP) services, you need to establish a connection using the `MspClient` from the StorageHub SDK. This involves configuring the HTTP client, setting up session management for authenticated requests, and initializing the MSP client itself.
 
 1. Create a `mspService.ts` file within your `services` folder.
+
+    ```sh
+    touch mspService.ts
+    ```
 
 2. Add the following code:
 
