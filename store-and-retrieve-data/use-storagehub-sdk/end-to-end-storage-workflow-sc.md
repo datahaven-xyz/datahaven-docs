@@ -1,14 +1,14 @@
 ---
 title: End-to-End Storage Workflow
-description: This step-by-step tutorial follows the full DataHaven storage workflow to store and retrieve data from the network using StorageHub SDK.
-categories: Store Data, StorageHub SDK
+description: This step-by-step tutorial follows the full DataHaven storage workflow to store and retrieve data from the network using the StorageHub SDK and the FileSystem Precompile.
+categories: Store Data, StorageHub SDK, Smart Contract
 toggle:
   group: end-to-end
-  variant: sdk
-  label: SDK
+  variant: sc
+  label: SC
 ---
 
-# End-to-End Storage Workflow
+# End-to-End Storage Workflow via Smart Contracts
 
 This tutorial will cover the end-to-end process of creating a bucket, uploading a file, and retrieving it, in a step-by-step format.
 
@@ -17,10 +17,11 @@ This tutorial will cover the end-to-end process of creating a bucket, uploading 
 --8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/prerequisites.md'
 
 - A file to upload to DataHaven (any file type is accepted; the current testnet file size limit is {{ networks.testnet.file_size_limit }}).
+- [The FileSystem Precompile's ABI](/store-and-retrieve-data/use-storagehub-sdk/get-started/#set-up-the-smart-contract-path-optional) handy
 
 ## Project Structure
 
-This project organizes scripts, client setup, and different types of operations for easy development and deployment. 
+This project organizes scripts, client setup, and different types of operations for easy development and deployment.
 
 The following sections will build on the already established helper methods from the `services` folder, so it's important to start here with already properly configured clients (as mentioned in the [Prerequisites](#prerequisites) section).
 
@@ -29,6 +30,8 @@ datahaven-project/
 ├── package.json
 ├── tsconfig.json
 └── src/
+    ├── abis/
+    │   └── FileSystemABI.json
     ├── files/
     │   └── helloworld.txt
     ├── operations/
@@ -43,7 +46,7 @@ datahaven-project/
 ## Initialize the Script Entry Point
 
 
-First, create an `index.ts` file if you haven't already. Its `run` method will orchestrate all the logic in this guide, and you’ll replace the labelled placeholders with real code step by step. By now, your services folder (including the MSP and client helper services) should already be created. If not, see the [Get Started](/store-and-retrieve-data/use-storagehub-sdk/get-started/) guide.
+First, create an `index.ts` file if you haven't already. Its `run` method will orchestrate all the logic in this guide, and you'll replace the labelled placeholders with real code step by step. By now, your services folder (including the MSP and client helper services) should already be created. If not, see the [Get Started](/store-and-retrieve-data/use-storagehub-sdk/get-started/) guide.
 
 The `index.ts` snippet below also imports `bucketOperations.ts` and `fileOperations.ts`, which are not in your project yet—that's expected, as you'll create them later in this guide. All their imports are included right away so feel free to comment out the imports you don't need until you get to the step that implements that logic.
 
@@ -56,7 +59,7 @@ async function run() {
   // For anything from @storagehub-sdk/core to work, initWasm() is required
   // on top of the file
   await initWasm();
-  
+
   // --- End-to-end storage flow ---
   // **PLACEHOLDER FOR STEP 1: CHECK MSP HEALTH**
   // **PLACEHOLDER FOR STEP 2: CREATE BUCKET**
@@ -96,11 +99,11 @@ Since you are already connected to the MSP client, check its health status befor
 
 ## Create a Bucket
 
-Buckets group your files under a specific Main Storage Provider (MSP) and value proposition that describes what the storage fees under that MSP are going to look like. 
+Buckets group your files under a specific Main Storage Provider (MSP) and value proposition that describes what the storage fees under that MSP are going to look like.
 
-In the following code, you will pull the MSP’s details/value proposition to prepare for bucket creation. Then you will derive the bucket ID, confirm it doesn’t exist already, submit a `createBucket` transaction, wait for confirmation, and finally query the chain to verify that the new bucket’s MSP and owner address match the account address that you are using. 
+In the following code, you will pull the MSP's details/value proposition to prepare for bucket creation. Then you will derive the bucket ID, confirm it doesn't exist already, submit a `createBucket` transaction, wait for confirmation, and finally query the chain to verify that the new bucket's MSP and owner address match the account address that you are using.
 
-To do all this, you are going to: 
+To do all this, you are going to:
 
 1. Create a `getValueProps` helper method within `mspService.ts`.
 2. Create a `createBucket` helper method within `bucketOperations.ts`.
@@ -137,19 +140,19 @@ Go through the in-depth instructions as follows:
 5. Add the following code:
 
     ```ts title="src/operations/bucketOperations.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/bucketOperations.ts:imports'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow-sc/bucketOperations.ts:imports'
 
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/bucketOperations.ts:create-bucket'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow-sc/bucketOperations.ts:create-bucket'
     ```
 
-    The `createBucket` helper handles the full lifecycle of a bucket-creation transaction:  
+    The `createBucket` helper handles the full lifecycle of a bucket-creation transaction:
 
-    - It fetches the MSP ID and selects a value prop (required to create a bucket).  
-    - It derives a deterministic bucket ID from your wallet address and chosen bucket name.  
-    - Before sending any on-chain transaction, it checks whether the bucket already exists to prevent accidental overwrites.  
+    - It fetches the MSP ID and selects a value prop (required to create a bucket).
+    - It derives a deterministic bucket ID from your wallet address and chosen bucket name.
+    - Before sending any on-chain transaction, it checks whether the bucket already exists to prevent accidental overwrites.
 
-    Once the check passes, the `createBucket` extrinsic is called via the StorageHub client, returning the `bucketId` and `txReceipt`. 
-    
+    Once the check passes, the `createBucket` function is called directly on the FileSystem Precompile via `walletClient.writeContract`, returning the `bucketId` and `txReceipt`.
+
 6. Now that you've extracted all the bucket-creation logic into its own method, update the `index.ts` file.
 
     Replace the placeholder `// **PLACEHOLDER FOR STEP 2: CREATE BUCKET**` with the following code:
@@ -165,12 +168,12 @@ Go through the in-depth instructions as follows:
 
 ## Check if Bucket is On-Chain
 
-The last step is to verify that the bucket was created successfully on-chain and to confirm its stored data. Just like with the `createBucket` method you can extract all the bucket verification logic into its own `verifyBucketCreation` method. 
+The last step is to verify that the bucket was created successfully on-chain and to confirm its stored data. Just like with the `createBucket` method you can extract all the bucket verification logic into its own `verifyBucketCreation` method.
 
 1. Add the following code in your `bucketOperations.ts` file:
-    
+
     ```ts title="bucketOperations.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/bucketOperations.ts:verify-bucket'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow-sc/bucketOperations.ts:verify-bucket'
     ```
 
 2. Update the `index.ts` file to trigger the helper method you just implemented:
@@ -192,7 +195,7 @@ The last step is to verify that the bucket was created successfully on-chain and
       // For anything from @storagehub-sdk/core to work, initWasm() is required
       // on top of the file
       await initWasm();
-    
+
       // --- End-to-end storage flow ---
       --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:check-msp-health'
       --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:create-bucket'
@@ -211,17 +214,17 @@ The last step is to verify that the bucket was created successfully on-chain and
     await run();
     ```
 
-You’ve successfully created a bucket and verified it on-chain.
+You've successfully created a bucket and verified it on-chain.
 
 ## Wait for Backend to Have Bucket
 
-Right after a bucket is created, your script will immediately try to upload a file. At this point, the bucket exists on-chain, but DataHaven’s indexer may not have processed the block yet. Until the indexer catches up, the MSP backend can’t resolve the new bucket ID, so any upload attempt will fail.
-To avoid that race condition, you’ll add a small polling helper that waits for the indexer to acknowledge the bucket before continuing.
+Right after a bucket is created, your script will immediately try to upload a file. At this point, the bucket exists on-chain, but DataHaven's indexer may not have processed the block yet. Until the indexer catches up, the MSP backend can't resolve the new bucket ID, so any upload attempt will fail.
+To avoid that race condition, you'll add a small polling helper that waits for the indexer to acknowledge the bucket before continuing.
 
 1. Add the following code in your `bucketOperations.ts` file:
-    
+
     ```ts title="bucketOperations.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/bucketOperations.ts:wait-for-backend-bucket-ready'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow-sc/bucketOperations.ts:wait-for-backend-bucket-ready'
     ```
 
 2. Update the `index.ts` file to trigger the helper method you just implemented:
@@ -237,16 +240,16 @@ To avoid that race condition, you’ll add a small polling helper that waits for
 ??? code "View complete `bucketOperations.ts`"
 
     ```ts title="src/operations/bucketOperations.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/bucketOperations.ts'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow-sc/bucketOperations.ts'
     ```
 
 ## Upload a File
 
-Ensure your file is ready to upload. In this demonstration, a `.txt` file named `helloworld.txt` is stored in the `files` folder as an example, i.e., `/src/files`. 
+Ensure your file is ready to upload. In this demonstration, a `.txt` file named `helloworld.txt` is stored in the `files` folder as an example, i.e., `/src/files`.
 
-In this section you will learn how to upload a file to DataHaven by following a three-step flow: 
+In this section you will learn how to upload a file to DataHaven by following a three-step flow:
 
-1. **Issue a Storage Request**: Register your intent to store a file in your bucket and set its replication policy. Initialize `FileManager`, compute the file’s fingerprint, fetch MSP info (and extract peer IDs), choose a replication level and replica count, then call `issueStorageRequest`.
+1. **Issue a Storage Request**: Register your intent to store a file in your bucket and set its replication policy. Initialize `FileManager`, compute the file's fingerprint, fetch MSP info (and extract peer IDs), choose a replication level and replica count, then call `issueStorageRequest`.
 2. **Verify If Storage Request Is On-Chain**: Derive the deterministic file key, query on-chain state, and confirm the request exists and matches your local fingerprint and bucket.
 3. **Upload a File**: Send the file bytes to the MSP, linked to your storage request. Confirm that the upload receipt indicates a successful upload.
 
@@ -257,7 +260,7 @@ All three of these steps will be handled within the `uploadFile` helper method a
 Create a new file within the `operations` folder called `fileOperations.ts` and add the following code:
 
 ```ts title="operations/fileOperations.ts"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/fileOperations.ts:imports'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow-sc/fileOperations.ts:imports'
 
 // Add helper methods here
 
@@ -266,7 +269,7 @@ Create a new file within the `operations` folder called `fileOperations.ts` and 
 To implement the `uploadFile` helper method, add the following code to the `fileOperations.ts` file:
 
 ```ts title="operations/fileOperations.ts // Add helper methods here"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/fileOperations.ts:upload-file-helper'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow-sc/fileOperations.ts:upload-file-helper'
 ```
 
 ### Call the Upload File Helper Method
@@ -290,7 +293,7 @@ After a successful file upload the logs should look something like:
       // For anything from @storagehub-sdk/core to work, initWasm() is required
       // on top of the file
       await initWasm();
-    
+
       // --- End-to-end storage flow ---
       --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:check-msp-health'
       --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:create-bucket'
@@ -313,17 +316,17 @@ After a successful file upload the logs should look something like:
 
 In this step, you wire in two small helper methods:
 
-1. **`waitForMSPConfirmOnChain`**: Polls the DataHaven runtime until the MSP has confirmed the storage request on-chain. 
+1. **`waitForMSPConfirmOnChain`**: Polls the DataHaven runtime until the MSP has confirmed the storage request on-chain.
 2. **`waitForBackendFileReady`**: Polls the MSP backend using `mspClient.files.getFileInfo(bucketId, fileKey)` until the file metadata becomes available. Even if the file is confirmed on-chain, the backend may not yet be aware of it.
 
-Once both checks pass, you know the file is committed on-chain, and the MSP backend is ready to serve it, so the subsequent download call won’t randomly fail with a `404` while the system is still syncing.
+Once both checks pass, you know the file is committed on-chain, and the MSP backend is ready to serve it, so the subsequent download call won't randomly fail with a `404` while the system is still syncing.
 
 1. Add the following code in your `fileOperations.ts` file:
-    
-    ```ts title="fileOperations.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/fileOperations.ts:wait-for-msp-confirm-on-chain'
 
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/fileOperations.ts:wait-for-backend-file-ready'
+    ```ts title="fileOperations.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow-sc/fileOperations.ts:wait-for-msp-confirm-on-chain'
+
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow-sc/fileOperations.ts:wait-for-backend-file-ready'
     ```
 
 2. Update the `index.ts` file to trigger the helper method you just implemented:
@@ -345,7 +348,7 @@ Once both checks pass, you know the file is committed on-chain, and the MSP back
           // For anything from @storagehub-sdk/core to work, initWasm() is required
           // on top of the file
           await initWasm();
-        
+
           // --- End-to-end storage flow ---
           --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:check-msp-health'
           --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:create-bucket'
@@ -376,7 +379,7 @@ To do this, create the `downloadFile` helper method as part of the `fileOperatio
 To create the `downloadFile` helper method, add the following code:
 
 ```ts title="src/operations/fileOperations.ts"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/fileOperations.ts:download-file'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow-sc/fileOperations.ts:download-file'
 ```
 
 ### Call the Download File Helper Method
@@ -396,7 +399,7 @@ Replace the placeholder `// **PLACEHOLDER FOR STEP 7: DOWNLOAD FILE**` with the 
       // For anything from @storagehub-sdk/core to work, initWasm() is required
       // on top of the file
       await initWasm();
-    
+
       // --- End-to-end storage flow ---
       --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:check-msp-health'
       --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:create-bucket'
@@ -428,7 +431,7 @@ Verify that the downloaded file exactly matches the file you've uploaded.
 Implement the `verifyDownload` helper method logic to your `fileOperations.ts` file, by adding the following code:
 
 ```ts title="src/operations/fileOperations.ts"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/fileOperations.ts:verify-download'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow-sc/fileOperations.ts:verify-download'
 ```
 
 ### Call the Verify Download Helper Method
@@ -455,13 +458,13 @@ The code containing the complete series of steps from creating a bucket to retri
 ??? code "View complete `src/operations/fileOperations.ts`"
 
     ```ts title="src/operations/fileOperations.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/fileOperations.ts'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow-sc/fileOperations.ts'
     ```
 
 ??? code "View complete `src/operations/bucketOperations.ts`"
 
     ```ts title="src/operations/bucketOperations.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/bucketOperations.ts'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow-sc/bucketOperations.ts'
     ```
 
 ### Notes on Data Safety
@@ -472,8 +475,8 @@ Uploading a file does not guarantee network-wide replication. Files are consider
 
 <div class="grid cards" markdown>
 
--  <a href="/how-it-works/data-and-provider-model/data-flow-and-lifecycle/" markdown>:material-arrow-right: 
-    
+-  <a href="/how-it-works/data-and-provider-model/data-flow-and-lifecycle/" markdown>:material-arrow-right:
+
     **Data Flow and Lifecycle**
 
     End-to-end overview of how data moves through the DataHaven network.
