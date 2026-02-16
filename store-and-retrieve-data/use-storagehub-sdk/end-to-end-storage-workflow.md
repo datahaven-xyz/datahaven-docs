@@ -30,6 +30,8 @@ datahaven-project/
 ├── package.json
 ├── tsconfig.json
 └── src/
+    ├── config/
+    │   └── networks.ts
     ├── files/
     │   └── helloworld.txt
     ├── operations/
