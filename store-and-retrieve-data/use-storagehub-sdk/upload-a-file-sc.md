@@ -1,18 +1,18 @@
 ---
 title: Upload a File
-description: This guide shows you how to make a storage request, check its on-chain state, and upload your file. Turn your local file into a registered asset on DataHaven.
-categories: Store Data, StorageHub SDK
+description: This guide shows you how to make a storage request, check its on-chain state, and upload your file using the StorageHub SDK and the FileSystem Precompile. Turn your local file into a registered asset on DataHaven.
+categories: Store Data, StorageHub SDK, Smart Contract
 toggle:
   group: upload
-  variant: sdk
-  label: SDK
+  variant: sc
+  label: SC
 ---
 
-# Upload a File
+# Upload a File via Smart Contracts
 
 This guide covers the full path from a local file to a registered asset inside a bucket on DataHaven. This path can be divided into three major steps:
 
-1. **Issue a Storage Request**: Register your intent to store a file in your bucket and set its replication policy. Initialize `FileManager`, compute the file’s fingerprint, fetch MSP info (and extract peer IDs), choose a replication level and replica count, then call `issueStorageRequest`.
+1. **Issue a Storage Request**: Register your intent to store a file in your bucket and set its replication policy. Initialize `FileManager`, compute the file's fingerprint, fetch MSP info (and extract peer IDs), choose a replication level and replica count, then call `issueStorageRequest`.
 2. **Verify If Storage Request Is On-Chain**: Derive the deterministic file key, query on-chain state, and confirm the request exists and matches your local fingerprint and bucket.
 3. **Upload a File**: Send the file bytes to the MSP, linked to your storage request. Confirm that the upload receipt indicates a successful upload.
 
@@ -24,6 +24,7 @@ These steps form the core workflow for any application that places data into Dat
 
 - [A bucket created](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/){target=\_blank} with the ID handy
 - A file to upload to DataHaven (any file type is accepted; the current testnet file size limit is {{ networks.testnet.file_size_limit }}).
+- [The FileSystem Precompile's ABI](/store-and-retrieve-data/use-storagehub-sdk/get-started/#set-up-the-smart-contract-path-optional) handy
 
 ## Add Method to Upload File
 
@@ -40,7 +41,7 @@ Because of the `uploadFile` method's complexity, you will be adding pieces of it
 3. Add the following code:
 
     ```ts title="fileOperations.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:imports'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file-sc/fileOperations.ts:imports'
 
     export async function uploadFile(
       bucketId: string,
@@ -67,14 +68,14 @@ Because of the `uploadFile` method's complexity, you will be adding pieces of it
 
 A storage request is the instruction that tells DataHaven—through your chosen Main Storage Provider (MSP)—to persist a specific file in a bucket with the redundancy policy you select.
 
-In this section of the guide, you’ll go from a local file to a confirmed on-chain transaction. You'll initialize a File Manager, derive the file’s fingerprint, fetch MSP details (including peer IDs), choose a replication level, and issue the storage request. When the transaction is finalized, you’ll have a transaction hash and an on-chain record of the request you can verify in the next section of this guide.
+In this section of the guide, you'll go from a local file to a confirmed on-chain transaction. You'll initialize a File Manager, derive the file's fingerprint, fetch MSP details (including peer IDs), choose a replication level, and issue the storage request. When the transaction is finalized, you'll have a transaction hash and an on-chain record of the request you can verify in the next section of this guide.
 
 ### Initialize File Manager
 
 To initialize the File Manager, add the following code to your `fileOperations.ts` file:
 
 ```ts title="fileOperations.ts // **PLACEHOLDER FOR STEP 1: INITIALIZE FILE MANAGER**"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:initialize-file-manager'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file-sc/fileOperations.ts:initialize-file-manager'
 ```
 
 ### Define Storage Request Parameters
@@ -84,7 +85,7 @@ To issue a storage request, you need to prepare the following:
 - `fingerprint` of your file (from `FileManager`)
 - `fileSize` in `BigInt` format
 - `mspId` of the target MSP
-- `peerId` extracted from the MSP’s multiaddresses
+- `peerId` extracted from the MSP's multiaddresses
 - `replicationLevel` that defines how redundancy is applied
 - `replicas` indicating how many copies to request
 - `bucketId` created earlier (already passed as a parameter in `uploadFile` method)
@@ -93,7 +94,7 @@ To issue a storage request, you need to prepare the following:
 Add the following code to gather these values:
 
 ```ts title="fileOperations.ts // **PLACEHOLDER FOR STEP 2: CREATE FINGERPRINT**"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:define-storage-request-parameters'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file-sc/fileOperations.ts:define-storage-request-parameters'
 ```
 
 ### Issue Storage Request
@@ -105,7 +106,7 @@ Issue the storage request by adding the following code:
 
 
 ```ts title="fileOperations.ts // **PLACEHOLDER FOR STEP 3: ISSUE STORAGE REQUEST**"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:issue-storage-request'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file-sc/fileOperations.ts:issue-storage-request'
 ```
 
 Upon a successful storage request, the output will look something like this:
@@ -115,7 +116,7 @@ Upon a successful storage request, the output will look something like this:
 ??? code "View complete `fileOperations.ts` up until this point"
 
     ```ts title="fileOperations.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:imports'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file-sc/fileOperations.ts:imports'
 
     export async function uploadFile(
       bucketId: string,
@@ -124,9 +125,9 @@ Upon a successful storage request, the output will look something like this:
     ) {
 
       // ISSUE STORAGE REQUEST
-      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:initialize-file-manager'
-      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:define-storage-request-parameters'
-      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:issue-storage-request'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file-sc/fileOperations.ts:initialize-file-manager'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file-sc/fileOperations.ts:define-storage-request-parameters'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file-sc/fileOperations.ts:issue-storage-request'
 
       // VERIFY STORAGE REQUEST ON-CHAIN
       // **PLACEHOLDER FOR STEP 4: COMPUTE FILE KEY**
@@ -149,7 +150,7 @@ Use this section of the guide to confirm that a file's storage request has been 
 To compute the deterministic file key, derive it from the owner (`AccountId20`), bucket ID, and file name:
 
 ```ts title="fileOperations.ts // **PLACEHOLDER FOR STEP 4: COMPUTE THE FILE KEY**"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:compute-file-key'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file-sc/fileOperations.ts:compute-file-key'
 ```
 
 ### Retrieve Storage Request Data
@@ -157,7 +158,7 @@ To compute the deterministic file key, derive it from the owner (`AccountId20`),
 To retrieve storage request data, query `fileSystem.storageRequests` and pass in the computed file key:
 
 ```ts title="fileOperations.ts // **PLACEHOLDER FOR STEP 5: RETRIEVE STORAGE REQUEST DATA**"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:verify-storage-request'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file-sc/fileOperations.ts:verify-storage-request'
 ```
 
 ### Read Storage Request Data
@@ -165,7 +166,7 @@ To retrieve storage request data, query `fileSystem.storageRequests` and pass in
 To read storage request data, it first must be unwrapped as follows:
 
 ```ts title="fileOperations.ts // **PLACEHOLDER FOR STEP 6: READ STORAGE REQUEST DATA**"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:read-storage-request'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file-sc/fileOperations.ts:read-storage-request'
 ```
 
 Upon successful storage request verification, you'll see a message like:
@@ -175,7 +176,7 @@ Upon successful storage request verification, you'll see a message like:
 ??? code "View complete `fileOperations.ts` up until now"
 
     ```ts title="fileOperations.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:imports'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file-sc/fileOperations.ts:imports'
 
     export async function uploadFile(
       bucketId: string,
@@ -184,15 +185,15 @@ Upon successful storage request verification, you'll see a message like:
     ) {
 
       // ISSUE STORAGE REQUEST
-      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:initialize-file-manager'
-      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:define-storage-request-parameters'
-      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:issue-storage-request'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file-sc/fileOperations.ts:initialize-file-manager'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file-sc/fileOperations.ts:define-storage-request-parameters'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file-sc/fileOperations.ts:issue-storage-request'
 
       // VERIFY STORAGE REQUEST ON-CHAIN
-      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:compute-file-key'
-      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:verify-storage-request'
-      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:read-storage-request'
-      
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file-sc/fileOperations.ts:compute-file-key'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file-sc/fileOperations.ts:verify-storage-request'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file-sc/fileOperations.ts:read-storage-request'
+
       // UPLOAD FILE
       // **PLACEHOLDER FOR STEP 7: AUTHENTICATE**
       // **PLACEHOLDER FOR STEP 8: UPLOAD FILE TO MSP**
@@ -212,7 +213,7 @@ This section walks you through preparing your local file for upload and confirmi
 Before any file operations, authenticate with the MSP. The `authenticateUser` helper signs a SIWE message and returns a session token that authorizes your uploads, updates, and deletions. Add the following code to use the `authenticateUser` helper method you've already implemented in `mspService.ts`:
 
 ```ts title="fileOperations.ts // **PLACEHOLDER FOR STEP 7: AUTHENTICATE**"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:authenticate'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file-sc/fileOperations.ts:authenticate'
 ```
 
 ### Upload File to MSP
@@ -220,7 +221,7 @@ Before any file operations, authenticate with the MSP. The `authenticateUser` he
 Add the following code to trigger the file upload to the connected MSP and to verify if it was successful:
 
 ```ts title="fileOperations.ts // **PLACEHOLDER FOR STEP 8: UPLOAD FILE TO MSP**"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:upload-file'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file-sc/fileOperations.ts:upload-file'
 ```
 
 !!! note
@@ -233,16 +234,16 @@ Upon a successful file upload, the transaction receipt will look like this:
 ??? code "View `fileOperations.ts` up until this point"
 
     ```ts title="fileOperations.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:imports'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file-sc/fileOperations.ts:imports'
 
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:upload-file-full'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file-sc/fileOperations.ts:upload-file-full'
     ```
 
 ## Call the Upload File Helper Method
 
-Create an `index.ts` file if you haven't already. Its `run` method will orchestrate all the logic in this guide. By now, your services folder (including the MSP and client helper services) should already be created. If not, see the [Get Started](/store-and-retrieve-data/use-storagehub-sdk/get-started/) guide.  
+Create an `index.ts` file if you haven't already. Its `run` method will orchestrate all the logic in this guide. By now, your services folder (including the MSP and client helper services) should already be created. If not, see the [Get Started](/store-and-retrieve-data/use-storagehub-sdk/get-started/) guide.
 
-The `index.ts` snippet below also imports `fileOperations.ts`, which you've created already through the previous sections in this guide.  
+The `index.ts` snippet below also imports `fileOperations.ts`, which you've created already through the previous sections in this guide.
 
 Add the following code to your `index.ts` file:
 
@@ -280,21 +281,21 @@ Now that you have completed `fileOperations.ts` and `index.ts`, the final output
 
 ## Wait for Backend Before Proceeding
 
-If attempting to access a file right after uploading it to DataHaven, it's possible that DataHaven’s indexer hasn't processed that block yet. Until the indexer catches up, the MSP backend can’t resolve the new file's data. To avoid that race condition, you can add two small polling helpers that wait for the indexer to acknowledge the file before continuing.
+If attempting to access a file right after uploading it to DataHaven, it's possible that DataHaven's indexer hasn't processed that block yet. Until the indexer catches up, the MSP backend can't resolve the new file's data. To avoid that race condition, you can add two small polling helpers that wait for the indexer to acknowledge the file before continuing.
 
 The two mentioned polling helper methods are:
 
-1. **`waitForMSPConfirmOnChain`**: Polls the DataHaven runtime until the MSP has confirmed the storage request on-chain. 
+1. **`waitForMSPConfirmOnChain`**: Polls the DataHaven runtime until the MSP has confirmed the storage request on-chain.
 2. **`waitForBackendFileReady`**: Polls the MSP backend using `mspClient.files.getFileInfo(bucketId, fileKey)` until the file metadata becomes available. Even if the file is confirmed on-chain, the backend may not yet be aware of it.
 
-Once both checks pass, you know the file is committed on-chain, and the MSP backend is ready to serve it, so a subsequent download call won’t randomly fail with a `404` while the system is still syncing.
+Once both checks pass, you know the file is committed on-chain, and the MSP backend is ready to serve it, so a subsequent download call won't randomly fail with a `404` while the system is still syncing.
 
 1. Add the following code in your `fileOperations.ts` file:
-        
-    ```ts title="fileOperations.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:wait-for-msp-confirm-on-chain'
 
-     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:wait-for-backend-file-ready'
+    ```ts title="fileOperations.ts"
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file-sc/fileOperations.ts:wait-for-msp-confirm-on-chain'
+
+     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file-sc/fileOperations.ts:wait-for-backend-file-ready'
     ```
 
 2. Update the `index.ts` file to trigger the helper method you just implemented:
@@ -334,15 +335,15 @@ Once both checks pass, you know the file is committed on-chain, and the MSP back
 ??? code "View complete `fileOperations.ts`"
 
     ```ts title="fileOperations.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file-sc/fileOperations.ts'
     ```
 
 ## Next Steps
 
 <div class="grid cards" markdown>
 
--  <a href="/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/" markdown>:material-arrow-right: 
-    
+-  <a href="/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/" markdown>:material-arrow-right:
+
     **Retrieve Your Data**
 
     Once your file is successfully uploaded, retrieve it from the Main Storage Provider (MSP) using the StorageHub SDK and save it locally.
