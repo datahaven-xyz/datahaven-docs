@@ -4,6 +4,7 @@ description: Guide on how to use the StorageHub SDK to remove your file from the
 categories: Store Data, StorageHub SDK
 toggle:
   group: manage
+  canonical: true
   variant: sdk
   label: SDK
 ---

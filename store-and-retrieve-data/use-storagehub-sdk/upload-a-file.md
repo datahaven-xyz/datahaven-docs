@@ -4,6 +4,7 @@ description: This guide shows you how to make a storage request, check its on-ch
 categories: Store Data, StorageHub SDK
 toggle:
   group: upload
+  canonical: true
   variant: sdk
   label: SDK
 ---

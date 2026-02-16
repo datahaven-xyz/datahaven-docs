@@ -4,6 +4,7 @@ description: Guide on file manipulation in DataHaven through the relationship be
 categories: StorageHub SDK, Store Data
 toggle:
   group: file-manipulation
+  canonical: true
   variant: sdk
   label: SDK
 ---
