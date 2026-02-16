@@ -7,6 +7,8 @@ nav:
  - 'Retrieve Your Data': retrieve-your-data.md
  - 'End-to-End Storage Workflow': end-to-end-storage-workflow.md
  - 'Manage Files and Buckets': manage-files-and-buckets.md
+ - 'Update Bucket Privacy': update-bucket-privacy.md
+ - 'Revoke a Storage Request': revoke-storage-request.md
  - 'Set Custom Gas Params': set-custom-gas-params.md
  - 'FAQs & Troubleshooting': faqs-and-troubleshooting.md
  
