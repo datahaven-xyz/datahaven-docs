@@ -1,10 +1,9 @@
 ---
 title: Update Bucket Privacy
 description: Learn how to toggle a bucket's privacy setting on DataHaven by calling the FileSystem Precompile's updateBucketPrivacy function directly.
-categories: Store Data, Smart Contract
+categories: Store Data, StorageHub SDK, Smart Contract
 toggle:
   group: update-bucket-privacy
-  canonical: true
   variant: sc
   label: SC
 ---

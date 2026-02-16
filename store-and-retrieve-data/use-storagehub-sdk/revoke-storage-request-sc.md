@@ -1,10 +1,9 @@
 ---
 title: Revoke a Storage Request
 description: Learn how to cancel a pending storage request on DataHaven by calling the FileSystem Precompile's revokeStorageRequest function directly.
-categories: Store Data, Smart Contract
+categories: Store Data, StorageHub SDK, Smart Contract
 toggle:
   group: revoke-sq
-  canonical: true
   variant: sc
   label: SC
 ---
