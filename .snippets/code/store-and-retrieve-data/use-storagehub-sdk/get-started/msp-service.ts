@@ -7,32 +7,12 @@ import {
 } from '@storagehub-sdk/msp-client';
 import { HttpClientConfig } from '@storagehub-sdk/core';
 import { address, walletClient } from './clientService.js';
+import { NETWORK } from '../config/networks.js';
 // --8<-- [end:imports]
-
-// --8<-- [start:initial-setup]
-const NETWORKS = {
-  devnet: {
-    id: 181222,
-    name: 'DataHaven Local Devnet',
-    rpcUrl: 'http://127.0.0.1:9666',
-    wsUrl: 'wss://127.0.0.1:9666',
-    mspUrl: 'http://127.0.0.1:8080/',
-    nativeCurrency: { name: 'StorageHub', symbol: 'SH', decimals: 18 },
-  },
-  testnet: {
-    id: 55931,
-    name: 'DataHaven Testnet',
-    rpcUrl: 'https://services.datahaven-testnet.network/testnet',
-    wsUrl: 'wss://services.datahaven-testnet.network/testnet',
-    mspUrl: 'https://deo-dh-backend.testnet.datahaven-infra.network/',
-    nativeCurrency: { name: 'Mock', symbol: 'MOCK', decimals: 18 },
-  },
-};
-// --8<-- [end:initial-setup]
 
 // --8<-- [start:connect-msp-client]
 // Configure the HTTP client to point to the MSP backend
-const httpCfg: HttpClientConfig = { baseUrl: NETWORKS.testnet.mspUrl };
+const httpCfg: HttpClientConfig = { baseUrl: NETWORK.mspUrl };
 
 // Initialize a session token for authenticated requests (updated after authentication
 // through SIWE)
