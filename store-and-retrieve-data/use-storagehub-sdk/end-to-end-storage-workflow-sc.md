@@ -32,6 +32,8 @@ datahaven-project/
 └── src/
     ├── abis/
     │   └── FileSystemABI.json
+    ├── config/
+    │   └── networks.ts
     ├── files/
     │   └── helloworld.txt
     ├── operations/

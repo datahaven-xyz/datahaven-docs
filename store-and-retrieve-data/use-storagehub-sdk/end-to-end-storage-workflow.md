@@ -4,6 +4,7 @@ description: This step-by-step tutorial follows the full DataHaven storage workf
 categories: Store Data, StorageHub SDK
 toggle:
   group: end-to-end
+  canonical: true
   variant: sdk
   label: SDK
 ---
@@ -29,6 +30,8 @@ datahaven-project/
 ├── package.json
 ├── tsconfig.json
 └── src/
+    ├── config/
+    │   └── networks.ts
     ├── files/
     │   └── helloworld.txt
     ├── operations/

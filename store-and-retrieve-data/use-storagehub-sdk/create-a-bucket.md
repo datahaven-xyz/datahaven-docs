@@ -4,6 +4,7 @@ description: Guide on what storage buckets are in DataHaven, how to create them 
 categories: Store Data, StorageHub SDK
 toggle:
   group: bucket
+  canonical: true
   variant: sdk
   label: SDK
 ---
