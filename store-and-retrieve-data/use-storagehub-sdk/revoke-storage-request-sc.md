@@ -2,6 +2,11 @@
 title: Revoke a Storage Request
 description: Learn how to cancel a pending storage request on DataHaven by calling the FileSystem Precompile's revokeStorageRequest function directly.
 categories: Store Data, Smart Contract
+toggle:
+  group: revoke-sq
+  canonical: true
+  variant: sc
+  label: SC
 ---
 
 # Revoke a Storage Request
@@ -17,7 +22,8 @@ This is useful if you submitted a request by mistake, need to change the file or
 - [A bucket created](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/){target=\_blank} with the ID handy
 - A file to use for issuing a storage request (any file type is accepted; the current testnet file size limit is {{ networks.testnet.file_size_limit }})
 - Familiarity with [issuing storage requests](/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/){target=\_blank}
-- The [`FileSystemABI.json`](https://github.com/Moonsong-Labs/storage-hub/blob/main/precompiles/pallet-file-system/FileSystem.sol#L7){target=\_blank} file placed in an `abis/` folder in your project root (e.g., `src/abis/FileSystemABI.json`). You can obtain the ABI by compiling the Solidity interface or extracting it from the precompile repository
+- [The FileSystem Precompile's ABI](/store-and-retrieve-data/use-storagehub-sdk/get-started/#set-up-the-smart-contract-path-optional) handy
+
 
 ## Initialize the Script Entry Point
 

@@ -2,6 +2,11 @@
 title: Update Bucket Privacy
 description: Learn how to toggle a bucket's privacy setting on DataHaven by calling the FileSystem Precompile's updateBucketPrivacy function directly.
 categories: Store Data, Smart Contract
+toggle:
+  group: update-bucket-privacy
+  canonical: true
+  variant: sc
+  label: SC
 ---
 
 # Update Bucket Privacy
@@ -13,7 +18,7 @@ Every bucket on DataHaven is created with a privacy flag that controls whether i
 --8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/prerequisites.md'
 
 - [A bucket created](/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/){target=\_blank} with the ID handy
-- The [`FileSystemABI.json`](https://github.com/Moonsong-Labs/storage-hub/blob/main/precompiles/pallet-file-system/FileSystem.sol#L7){target=\_blank} file placed in an `abis/` folder in your project root (e.g., `src/abis/FileSystemABI.json`). You can obtain the ABI by compiling the Solidity interface or extracting it from the precompile repository
+- [The FileSystem Precompile's ABI](/store-and-retrieve-data/use-storagehub-sdk/get-started/#set-up-the-smart-contract-path-optional) handy
 
 ## Initialize the Script Entry Point
 
