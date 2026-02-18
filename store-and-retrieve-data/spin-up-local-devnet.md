@@ -27,6 +27,22 @@ Before you begin, ensure you have the following:
 
         The output should be `orbstack`.
 
+        !!! warning "Set `DOCKER_HOST` if you previously had Docker Desktop installed"
+
+        If Docker Desktop was installed before OrbStack, both socket files may still exist on your system. The `docker` CLI respects the active context (`orbstack`), so commands like `docker ps` work fine. However, some Node.js libraries (e.g., `dockerode`) bypass the context system and may resolve to Docker Desktop's socket (`~/.docker/run/docker.sock`) instead causing "No such container" errors even though your containers are running.
+
+        1. To fix this, explicitly set the socket in your shell profile (`~/.zshrc` or `~/.bashrc`):
+
+            ```bash
+            export DOCKER_HOST=unix://$HOME/.orbstack/run/docker.sock
+            ```
+
+        2. Reload your shell:
+            
+            ```bash
+            source ~/.zshrc
+            ```
+
 - [Node.js ≥ 24](https://nodejs.org/en/download){target=\_blank} installed. LTS version recommended
 - [pnpm](https://pnpm.io/){target=\_blank} installed for package management
 - [Rust ≥ 1.86](https://rust-lang.org/tools/install/){target=\_blank} installed
@@ -92,6 +108,10 @@ With everything set up, start your local DataHaven devnet using the preconfigure
 ```bash
 pnpm docker:start:solochain-evm:initialised
 ```
+
+Upon successful execution, a response like this should be returned:
+
+--8<-- 'code/store-and-retrieve-data/spin-up-local-devnet/output-01.html'
 
 Now you're ready to start building and testing with the StorageHub SDK against your local DataHaven devnet. You can use this setup to issue storage requests, create buckets, upload files, and more. The relevant local devnet configuration parameters (including Chain ID, RPC URL, WS URL, and MSP URL) can be found in the [Local Devnet](/store-and-retrieve-data/network-details/local-devnet/) page.
 
