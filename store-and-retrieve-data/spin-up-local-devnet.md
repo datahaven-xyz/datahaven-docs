@@ -29,7 +29,7 @@ Before you begin, ensure you have the following:
 
         !!! warning "Set `DOCKER_HOST` if you previously had Docker Desktop installed"
 
-        If Docker Desktop was installed before OrbStack, both socket files may still exist on your system. The `docker` CLI respects the active context (`orbstack`), so commands like `docker ps` work fine. However, some Node.js libraries (e.g., `dockerode`) bypass the context system and may resolve to Docker Desktop's socket (`~/.docker/run/docker.sock`) instead causing "No such container" errors even though your containers are running.
+        If Docker Desktop was installed before OrbStack, both socket files may still exist on your system. The `docker` CLI respects the active context (`orbstack`), so commands like `docker ps` work fine. However, some Node.js libraries (e.g., `dockerode`) bypass the context system and may resolve to Docker Desktop's socket (`~/.docker/run/docker.sock`) instead, which causes "No such container" errors even though your containers are running.
 
         1. To fix this, explicitly set the socket in your shell profile (`~/.zshrc` or `~/.bashrc`):
 
@@ -37,10 +37,13 @@ Before you begin, ensure you have the following:
             export DOCKER_HOST=unix://$HOME/.orbstack/run/docker.sock
             ```
 
-        2. Reload your shell:
+        2. Reload your shell (or source the profile you edited):
             
             ```bash
-            source ~/.zshrc
+            # Either restart your terminal or run one of the following,
+            # depending on which file you updated:
+            source ~/.zshrc   # if you edited ~/.zshrc
+            source ~/.bashrc  # if you edited ~/.bashrc
             ```
 
 - [Node.js ≥ 24](https://nodejs.org/en/download){target=\_blank} installed. LTS version recommended
