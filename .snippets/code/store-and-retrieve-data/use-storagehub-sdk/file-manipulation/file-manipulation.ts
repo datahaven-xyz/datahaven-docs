@@ -51,7 +51,7 @@ async function run() {
   console.log(`Fingerprint: ${fingerprint.toHex()}`);
 
   const fileSizeBigInt = BigInt(fileManager.getFileSize());
-  console.log(`File size: ${fileSize} bytes`);
+  console.log(`File size: ${fileSizeBigInt} bytes`);
 
   // Get MSP details
 

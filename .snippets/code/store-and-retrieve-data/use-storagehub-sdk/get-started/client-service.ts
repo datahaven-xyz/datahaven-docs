@@ -10,7 +10,6 @@ import {
 import { StorageHubClient } from '@storagehub-sdk/core';
 import { ApiPromise, WsProvider, Keyring } from '@polkadot/api';
 import { types } from '@storagehub/types-bundle';
-import { Keyring } from '@polkadot/api';
 import { cryptoWaitReady } from '@polkadot/util-crypto';
 import { NETWORK, chain } from '../config/networks.js';
 // --8<-- [end:imports]

@@ -40,7 +40,8 @@ async function run() {
   // Get bucket files from MSP
   const files = await getBucketFilesFromMSP(bucketId);
   console.log(`Files in bucket with ID ${bucketId}:`);
-  console.log(JSON.stringify(files, null, 2)); // --8<-- [end:get-bucket-files-msp]
+  console.log(JSON.stringify(files, null, 2));
+  // --8<-- [end:get-bucket-files-msp]
 
   // --8<-- [start:request-file-deletion]
   // Request file deletion
