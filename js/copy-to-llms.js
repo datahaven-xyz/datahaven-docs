@@ -13,9 +13,15 @@
   if (typeof window === 'undefined') {
     return;
   }
-  function buildSlugFromPath(pathname) {
+  function buildSlugFromPath(pathname, toggleFilename) {
     const route = (pathname || '').replace(/^\/+|\/+$/g, '');
-    return route.split('/').filter(Boolean).join('-');
+    const segments = route.split('/').filter(Boolean);
+    if (toggleFilename) {
+      // For toggle variants, replace the last path segment with the toggle filename
+      segments.pop();
+      segments.push(toggleFilename);
+    }
+    return segments.join('-');
   }
 
   function getScopeUrl() {
@@ -322,19 +328,9 @@
     return { container, copyButton, dropdownButton, dropdownMenu };
   }
 
-  // Mount UI next to the first H1 (skip if already rendered or on the home page).
-  function addSectionCopyButtons() {
-    const slug = getPageSlug();
-    const isHomePage = !slug || slug === 'index';
-    if (isHomePage) {
-      return;
-    }
-
-    if (document.querySelector('.copy-to-llm-split-container')) {
-      return;
-    }
-
-    const mainTitle = document.querySelector('.md-content h1');
+  // Mount UI next to an H1 element. Called once per H1 (once for non-toggle
+  // pages, once per variant for toggle pages).
+  function addSectionCopyButtons(mainTitle, toggleFilename) {
     if (mainTitle) {
       const wrapper = document.createElement('div');
       wrapper.className = 'h1-copy-wrapper';
@@ -399,9 +395,12 @@
         }
 
         let copySucceeded = false;
-        const slug = getPageSlug();
+        const slug = buildSlugFromPath(
+          stripBasePath(window.location.pathname),
+          toggleFilename
+        );
 
-        const { text } = await fetchMarkdown(slug);
+        const { text, status } = await fetchMarkdown(slug);
 
         if (text) {
           copySucceeded = await copyToClipboard(
@@ -409,6 +408,12 @@
             copyButton,
             'markdown_content'
           );
+        }
+
+        if (!text) {
+          if (status === 404) {
+            showToast(NO_MARKDOWN_MESSAGE);
+          }
         }
 
         if (!text || !copySucceeded) {
@@ -461,7 +466,10 @@
         }
 
         const action = item.dataset.action;
-        const slug = getPageSlug();
+        const slug = buildSlugFromPath(
+          stripBasePath(window.location.pathname),
+          toggleFilename
+        );
 
         // Each dropdown option maps to one of the shared helpers or a new-tab prompt.
         switch (action) {
@@ -534,11 +542,47 @@
   }
 
   function initialize() {
-    // Don't show the llm dropdown on 404 pages    
+    // Don't show the llm dropdown on 404 pages
     if (document.querySelector('h1.not-found')) {
-      return; 
+      return;
     }
-    addSectionCopyButtons();
+
+    const slug = getPageSlug();
+    const isHomePage = !slug || slug === 'index';
+    if (isHomePage) {
+      return;
+    }
+
+    const toggleContainers = document.querySelectorAll('.toggle-container');
+
+    // No toggles → single page, attach one copy widget
+    if (toggleContainers.length === 0) {
+      const title = document.querySelector('.md-content h1');
+      if (title) {
+        addSectionCopyButtons(title, null);
+      }
+      return;
+    }
+
+    // Toggle pages → attach a copy widget to each variant's H1
+    toggleContainers.forEach((container) => {
+      const headerVariants = container.querySelectorAll(
+        '.toggle-header > span[data-variant]'
+      );
+
+      headerVariants.forEach((headerSpan) => {
+        const h1 = headerSpan.querySelector('h1');
+        if (!h1) return;
+
+        const variant = headerSpan.dataset.variant;
+        const button = container.querySelector(
+          `.toggle-btn[data-variant="${variant}"]`
+        );
+
+        const toggleFilename = button?.dataset.filename || null;
+        addSectionCopyButtons(h1, toggleFilename);
+      });
+    });
   }
 
   if (document.readyState === 'loading') {

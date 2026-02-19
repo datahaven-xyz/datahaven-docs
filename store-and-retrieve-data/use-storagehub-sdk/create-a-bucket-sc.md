@@ -1,23 +1,23 @@
 ---
 title: Create a Bucket
-description: Guide on what storage buckets are in DataHaven, how to create them with the StorageHub SDK, and what edge cases to look out for.
-categories: Store Data, StorageHub SDK
+description: Guide on what storage buckets are in DataHaven, how to create them using the StorageHub SDK and the FileSystem Precompile, and what edge cases to look out for.
+categories: Store Data, StorageHub SDK, Smart Contract
 toggle:
   group: bucket
-  canonical: true
-  variant: sdk
-  label: SDK
+  variant: sc
+  label: SC
 ---
 
-# Create a Bucket
+# Create a Bucket via Smart Contracts
 
 Buckets are logical containers (folders) that group your files under a Main Storage Provider (MSP). Each bucket is tied to a specific MSP and value proposition, which together define where your data will be stored and at what price. Before you can issue storage requests or upload files to DataHaven, you must first create a bucket.
 
-This guide walks you through creating your first bucket programmatically using the StorageHub SDK — from connecting to an MSP and initializing the SDK to deriving a bucket ID, creating the bucket on-chain, and verifying its data.
+This guide walks you through creating your first bucket programmatically using the StorageHub SDK and the FileSystem Precompile — from connecting to an MSP and setting up the ABI to deriving a bucket ID, creating the bucket on-chain, and verifying its data.
 
 ## Prerequisites
 
 --8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/prerequisites.md'
+- [The FileSystem Precompile's ABI](/store-and-retrieve-data/use-storagehub-sdk/get-started/#set-up-the-smart-contract-path-optional) handy
 
 ## Initialize the Script Entry Point
 
@@ -120,9 +120,9 @@ Bucket-related logic will live in a separate `bucketOperations.ts` file. To impl
         After creating a bucket, it is crucial to wait for the transaction receipt, as shown in the code below. If writing custom bucket-creation logic, make sure to include that step; otherwise, you will fetch bucket data before it is available.
 
     ```ts title="bucketOperations.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:imports'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket-sc/bucketOperations.ts:imports'
 
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:create-bucket'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket-sc/bucketOperations.ts:create-bucket'
     ```
 
     The `createBucket` helper handles the full lifecycle of a bucket-creation transaction:  
@@ -131,7 +131,7 @@ Bucket-related logic will live in a separate `bucketOperations.ts` file. To impl
     - It derives a deterministic bucket ID from your wallet address and chosen bucket name.  
     - Before sending any on-chain transaction, it checks whether the bucket already exists to prevent accidental overwrites.  
 
-    Once the check passes, the `createBucket` extrinsic is called via the StorageHub client, returning the `bucketId` and `txReceipt`.  
+    Once the check passes, the `createBucket` function is called directly on the FileSystem Precompile via `walletClient.writeContract`, returning the `bucketId` and `txReceipt`.  
 
 ### Call the Create Bucket Helper Method
 
@@ -165,7 +165,7 @@ The last step is to verify that the bucket was created successfully on-chain and
 1. Add the following code in your `bucketOperations.ts` file:
     
     ```ts title="bucketOperations.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:verify-bucket'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket-sc/bucketOperations.ts:verify-bucket'
     ```
 
 2. Update the `index.ts` file to trigger the helper method you just implemented:
@@ -181,11 +181,11 @@ The last step is to verify that the bucket was created successfully on-chain and
 ??? code "View complete `bucketOperations.ts` file up until this point"
 
     ```ts title="bucketOperations.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:imports'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket-sc/bucketOperations.ts:imports'
 
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:create-bucket'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket-sc/bucketOperations.ts:create-bucket'
 
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:verify-bucket'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket-sc/bucketOperations.ts:verify-bucket'
     ```
 
 ??? code "View complete `index.ts` file up until this point"
@@ -219,7 +219,7 @@ If you attempt to upload a file right after creating a bucket, it's possible tha
 1. Add the following code in your `bucketOperations.ts` file:
         
     ```ts title="bucketOperations.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:wait-bucket'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket-sc/bucketOperations.ts:wait-bucket'
     ```
 
 2. Update the `index.ts` file to trigger the helper method you just implemented:
@@ -235,7 +235,7 @@ If you attempt to upload a file right after creating a bucket, it's possible tha
 ??? code "View complete `bucketOperations.ts` file"
 
     ```ts title="bucketOperations.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket-sc/bucketOperations.ts'
     ```
 
 ??? code "View complete `index.ts` file"
