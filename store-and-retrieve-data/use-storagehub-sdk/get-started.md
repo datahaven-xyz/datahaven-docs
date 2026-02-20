@@ -113,7 +113,7 @@ Follow the steps in this section to set up the clients needed to work with the S
 
     - **[`@storagehub/types-bundle`](https://www.npmjs.com/package/@storagehub/types-bundle){target=_blank}:** Describes DataHaven's custom on-chain types.
 
-    - **[`@polkadot/api`](https://www.npmjs.com/package/@polkadot/api){target=_blank}:** The core JavaScript library used to talk to any Substrate-based blockchain, which in our case is DataHaven.
+    - **[`@polkadot/api`](https://www.npmjs.com/package/@polkadot/api){target=_blank}:** The core JavaScript library used to talk to any Substrate-based blockchain, which in this case is DataHaven.
 
     - **[`@polkadot/types`](https://www.npmjs.com/package/@polkadot/types){target=_blank}:** Provides type definitions and codecs for encoding/decoding Substrate data structures.
 
@@ -148,7 +148,7 @@ Follow the steps in this section to set up the clients needed to work with the S
 
 ### Set Up Client Service
 
-You'll need to set up the necessary clients to connect to the DataHaven network, which runs on a dual-protocol architecture (Substrate for core logic and EVM for compatibility).
+You need to set up the necessary clients to connect to the DataHaven network, which runs on a dual-protocol architecture (Substrate for core logic and EVM for compatibility).
 
 1. In the folder where your `index.ts` (or main code file) is located, create a new folder called `services`:
 
@@ -171,7 +171,7 @@ You'll need to set up the necessary clients to connect to the DataHaven network,
     !!! warning
         It is assumed that private keys are securely stored and managed in accordance with standard security practices.
 
-    With the above code in place, you now have the following:
+    With the code in place, you now have the following:
 
     - EVM path:
         - **`account`**: The viem account object derived from your private key. Used internally by `walletClient` for signing EVM transactions.
@@ -210,7 +210,7 @@ To interact with DataHaven's Main Storage Provider (MSP) services, you need to e
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/get-started/msp-service.ts'
     ```
 
-    With the above code in place, you now have the following:
+    With the code in place, you now have the following:
 
     - **`mspClient`**: Used for interacting with a Main Storage Provider (MSP) backend — allowing you to authenticate via SIWE, retrieve MSP information and health status, and perform storage-related actions through REST-like endpoints.
     - **`getMspInfo`**: Fetches general MSP metadata such as its unique ID, version, and available endpoints.

@@ -10,7 +10,7 @@ toggle:
 
 # Manage Files and Buckets via Smart Contracts
 
-This guide explains how to manage your storage resources on DataHaven using the StorageHub SDK and the FileSystem Precompile. You will learn how to fetch all the buckets you have stored within a specific MSP, fetch all the files within a specific bucket in a specific MSP, check the number of pending file deletion requests, request the removal of a file from the network, and delete buckets. It's important to periodically review and clean up unused data to avoid unnecessary costs, as buckets and files incur ongoing storage fees.
+This guide explains how to manage your storage resources on DataHaven using the StorageHub SDK and the FileSystem Precompile. You will learn how to fetch all the buckets you have stored within a specific MSP, fetch all the files within a specific bucket in a specific MSP, check the number of pending file deletion requests, request the removal of a file from the network, and delete buckets. It is important to periodically review and clean up unused data to avoid unnecessary costs, as buckets and files incur ongoing storage fees.
 
 ## Prerequisites
 
@@ -117,7 +117,7 @@ Update `index.ts` with the following code to trigger the `getBucketsFromMSP` hel
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:get-buckets-msp'
 ```
 
-If you run the script with the code above, the full response should look like this:
+If you run the script with the code, the full response should look like this:
 
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/output-01.html'
 
@@ -142,13 +142,13 @@ To fetch your files from a specific bucket stored in a specific MSP, create a he
 
 ### Call the Get Bucket Files from MSP Helper Method
 
-Update `index.ts` with the following code to trigger the `getBucketFilesFromMSP` helper method you just implemented:
+Update `index.ts` with the following code to trigger the helper method you just implemented:
 
 ```ts title='index.ts  // **PLACEHOLDER FOR STEP 3: GET YOUR BUCKET FILES**'
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:get-bucket-files-msp'
 ```
 
-If you run the script with the code above, the response should look like this:
+If you run the script with the code, the response should look like this:
 
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/output-02.html'
 
@@ -192,7 +192,7 @@ Add the following code:
 
 ### Call the Request File Deletion Helper Method
 
-Update `index.ts` with the following code to trigger the `requestDeleteFile` helper method you just implemented:
+Update `index.ts` with the following code to trigger the helper method you just implemented:
 
 ```ts title='index.ts  // **PLACEHOLDER FOR STEP 5: REQUEST FILE DELETION**'
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:request-file-deletion'
@@ -201,7 +201,7 @@ Update `index.ts` with the following code to trigger the `requestDeleteFile` hel
 !!! note
     After a file is uploaded to a Main Storage Provider (MSP), the network allows a 10-minute window for Backup Storage Providers (BSPs) to replicate the file to the required count. Within this time window, the deletion of a file cannot be requested. If the replication target is not met within this window, the request transitions to `expired` even though the upload to the MSP succeeded.
 
-If you run the script with the code above, the full response should look like this:
+If you run the script with the code, the full response should look like this:
 
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/output-03.html'
 
@@ -245,7 +245,7 @@ To avoid that race condition, you'll add a small polling helper that waits for t
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:wait-for-backend-bucket-empty'
     ```
 
-    The response should look something like this:
+    The response should look similar to this:
 
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/output-04.html'
 
@@ -258,7 +258,7 @@ To delete a bucket, create a helper method called `deleteBucket` in your `bucket
 
 ### Add Method to Delete Bucket
 
-Create a new file within the `operations` folder called `bucketOperations.ts` and add the following code:
+Add the following code to your `bucketOperations.ts` file:
 
 ```ts title="bucketOperations.ts"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets-sc/bucketOperations.ts:delete-bucket'
@@ -266,7 +266,7 @@ Create a new file within the `operations` folder called `bucketOperations.ts` an
 
 ### Call the Delete Bucket Helper Method
 
-Update `index.ts` with the following code to trigger the  `deleteBucket` helper method you just implemented:
+Update `index.ts` with the following code to trigger the helper method you just implemented:
 
 ```ts title="index.ts  // **PLACEHOLDER FOR STEP 8: DELETE BUCKET**"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:delete-bucket'
