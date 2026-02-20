@@ -1,6 +1,6 @@
 ---
 title: End-to-End Storage Workflow
-description: This step-by-step tutorial follows the full DataHaven storage workflow to store and retrieve data from the network using the StorageHub SDK and the FileSystem Precompile.
+description: Follow the full DataHaven storage workflow to store and retrieve data using the StorageHub SDK and the FileSystem Precompile.
 categories: Store Data, StorageHub SDK, Smart Contract
 toggle:
   group: end-to-end
@@ -184,7 +184,7 @@ The last step is to verify that the bucket was created successfully on-chain and
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:verify-bucket'
     ```
 
-    The response should look something like this:
+    The response should look similar to this:
 
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/output-03.html'
 
@@ -220,8 +220,8 @@ You've successfully created a bucket and verified it on-chain.
 
 ## Wait for Backend to Have Bucket
 
-Right after a bucket is created, your script will immediately try to upload a file. At this point, the bucket exists on-chain, but DataHaven's indexer may not have processed the block yet. Until the indexer catches up, the MSP backend can't resolve the new bucket ID, so any upload attempt will fail.
-To avoid that race condition, you'll add a small polling helper that waits for the indexer to acknowledge the bucket before continuing.
+Right after a bucket is created, your script will immediately try to upload a file. At this point, the bucket exists on-chain, but DataHaven's indexer may not have processed the block yet. Until the indexer catches up, the MSP backend cannot resolve the new bucket ID, so any upload attempt will fail.
+To avoid that race condition, add a small polling helper that waits for the indexer to acknowledge the bucket before continuing.
 
 1. Add the following code in your `bucketOperations.ts` file:
 
@@ -235,7 +235,7 @@ To avoid that race condition, you'll add a small polling helper that waits for t
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:wait-for-backend-bucket-ready'
     ```
 
-    The response should look something like this:
+    The response should look similar to this:
 
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/output-01.html'
 
@@ -316,12 +316,12 @@ After a successful file upload the logs should look something like:
 
 ## Wait for Backend to Have File
 
-In this step, you wire in two small helper methods:
+In this step, wire in two small helper methods:
 
 1. **`waitForMSPConfirmOnChain`**: Polls the DataHaven runtime until the MSP has confirmed the storage request on-chain.
 2. **`waitForBackendFileReady`**: Polls the MSP backend using `mspClient.files.getFileInfo(bucketId, fileKey)` until the file metadata becomes available. Even if the file is confirmed on-chain, the backend may not yet be aware of it.
 
-Once both checks pass, you know the file is committed on-chain, and the MSP backend is ready to serve it, so the subsequent download call won't randomly fail with a `404` while the system is still syncing.
+Once both checks pass, you know the file is committed on-chain, and the MSP backend is ready to serve it, so the subsequent download call will not randomly fail with a `404` while the system is still syncing.
 
 1. Add the following code in your `fileOperations.ts` file:
 
@@ -337,7 +337,7 @@ Once both checks pass, you know the file is committed on-chain, and the MSP back
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/end-to-end-storage-workflow.ts:wait-for-backend-file-ready'
     ```
 
-    The response should look something like this:
+    The response should look similar to this:
 
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/output-02.html'
 
@@ -371,9 +371,9 @@ Once both checks pass, you know the file is committed on-chain, and the MSP back
 
 ## Download and Save File
 
-In this step, you'll fetch your file from the DataHaven network via the MSP, and you'll save it locally on your machine.
+In this step, fetch your file from the DataHaven network via the MSP and save it locally on your machine.
 
-To do this, create the `downloadFile` helper method as part of the `fileOperations.ts` file. After that, you will update the `index.ts` file accordingly to trigger this new logic.
+To do this, create the `downloadFile` helper method as part of the `fileOperations.ts` file. After that, update the `index.ts` file accordingly to trigger this new logic.
 
 
 ### Add Method to Download File
