@@ -142,7 +142,7 @@ To fetch your files from a specific bucket stored in a specific MSP, create a he
 
 ### Call the Get Bucket Files from MSP Helper Method
 
-Update `index.ts` with the following code to trigger the helper method you just implemented:
+Update `index.ts` with the following code to trigger the `getBucketFilesFromMSP` helper method you just implemented:
 
 ```ts title='index.ts  // **PLACEHOLDER FOR STEP 3: GET YOUR BUCKET FILES**'
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:get-bucket-files-msp'
