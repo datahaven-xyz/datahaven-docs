@@ -266,7 +266,7 @@ Add the following code to your `bucketOperations.ts` file:
 
 ### Call the Delete Bucket Helper Method
 
-Update `index.ts` with the following code to trigger the helper method you just implemented:
+Update `index.ts` with the following code to trigger the `deleteBucket` helper method you just implemented:
 
 ```ts title="index.ts  // **PLACEHOLDER FOR STEP 8: DELETE BUCKET**"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:delete-bucket'
