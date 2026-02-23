@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Determine canonical variant
     const canonicalButton = Array.from(buttons).find(
-      (b) => b.dataset.canonical === 'true'
+      (b) => b.dataset.canonical === 'true',
     );
     const canonicalVariant = canonicalButton
       ? canonicalButton.dataset.variant
@@ -51,13 +51,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Assign normalized IDs
     // -----------------------------
     const setHeaderId = (header, text, variant) => {
-      const baseId = text.trim()
+      const baseId = text
+        .trim()
         .toLowerCase()
         .replace(/\s+/g, '-')
         .replace(/[^\w\-]/g, '');
-      
+
       const isCanonical = variant === canonicalVariant;
-      const fullId = isCanonical ? baseId : `${variant}-${baseId}`
+      const fullId = isCanonical ? baseId : `${variant}-${baseId}`;
       header.id = fullId;
 
       const link = header.querySelector('a, .headerlink');
@@ -86,10 +87,10 @@ document.addEventListener('DOMContentLoaded', () => {
     h1Headers.forEach((span) => {
       const variant = span.dataset.variant;
       if (!variant) return;
-      
+
       const h1 = span.querySelector('h1');
       if (!h1) return;
-      
+
       setHeaderId(h1, h1.textContent, variant);
     });
 
@@ -97,12 +98,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // TOC injection
     // -----------------------------
     const originalCanonicalTOC = document.querySelector(
-      'nav.md-nav.md-nav--secondary'
+      'nav.md-nav.md-nav--secondary',
     )?.outerHTML;
 
     function swapTOC(variant) {
       const allSidebars = document.querySelectorAll(
-        'nav.md-nav.md-nav--secondary'
+        'nav.md-nav.md-nav--secondary',
       );
 
       if (!allSidebars.length) {
@@ -126,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       const panel = container.querySelector(
-        `.toggle-panel[data-variant="${variant}"]`
+        `.toggle-panel[data-variant="${variant}"]`,
       );
       if (!panel || !panel.dataset.tocHtml) return;
 
@@ -147,13 +148,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // -----------------------------
     function getInitialVariant() {
       const hash = window.location.hash.slice(1);
-      
+
       // Check if hash is a variant name directly
       const isValidVariant = [...buttons].some(
-        (b) => b.dataset.variant === hash
+        (b) => b.dataset.variant === hash,
       );
       if (isValidVariant) return hash;
-      
+
       // Check if hash is a section ID that starts with a variant prefix
       for (const button of buttons) {
         const variant = button.dataset.variant;
@@ -161,7 +162,6 @@ document.addEventListener('DOMContentLoaded', () => {
           return variant;
         }
       }
-      
       // Default to canonical
       return canonicalVariant;
     }
@@ -173,13 +173,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Update all UI based on state
       buttons.forEach((b) =>
-        b.classList.toggle('active', b.dataset.variant === variant)
+        b.classList.toggle('active', b.dataset.variant === variant),
       );
       panels.forEach((p) =>
-        p.classList.toggle('active', p.dataset.variant === variant)
+        p.classList.toggle('active', p.dataset.variant === variant),
       );
       h1Headers.forEach((h) =>
-        h.classList.toggle('active', h.dataset.variant === variant)
+        h.classList.toggle('active', h.dataset.variant === variant),
       );
 
       swapTOC(variant);
@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
     containerStates.set(container, {
       setState,
       getInitialVariant,
-      canonicalVariant
+      canonicalVariant,
     });
 
     // -----------------------------
@@ -220,28 +220,30 @@ document.addEventListener('DOMContentLoaded', () => {
   // -----------------------------
   window.addEventListener('hashchange', () => {
     // Re-check all containers to see if variant should change
-    containerStates.forEach(({ setState, getInitialVariant, canonicalVariant }, container) => {
-      const newVariant = getInitialVariant();
+    containerStates.forEach(
+      ({ setState, getInitialVariant, canonicalVariant }, container) => {
+        const newVariant = getInitialVariant();
 
-      // Get the current active button to determine current state
-      const activeBtn = container.querySelector('.toggle-btn.active');
-      const currentVariant = activeBtn?.dataset.variant || canonicalVariant;
+        // Get the current active button to determine current state
+        const activeBtn = container.querySelector('.toggle-btn.active');
+        const currentVariant = activeBtn?.dataset.variant || canonicalVariant;
 
-      // Only update if variant actually changed, preserve the section hash
-      if (newVariant !== currentVariant) {
-        setState(newVariant, false);
-        
-        // After state updates, manually scroll to the hash target
-        const hash = window.location.hash.slice(1);
-        if (hash) {
-          requestAnimationFrame(() => {
-            const target = document.getElementById(hash);
-            if (target) {
-              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-          });
+        // Only update if variant actually changed, preserve the section hash
+        if (newVariant !== currentVariant) {
+          setState(newVariant, false);
+
+          // After state updates, manually scroll to the hash target
+          const hash = window.location.hash.slice(1);
+          if (hash) {
+            requestAnimationFrame(() => {
+              const target = document.getElementById(hash);
+              if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+            });
+          }
         }
-      }
-    });
+      },
+    );
   });
 });

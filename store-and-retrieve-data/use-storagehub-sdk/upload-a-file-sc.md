@@ -163,7 +163,7 @@ To retrieve storage request data, query `fileSystem.storageRequests` and pass in
 
 ### Read Storage Request Data
 
-To read storage request data, it first must be unwrapped as follows:
+To read storage request data, it must first be unwrapped as follows:
 
 ```ts title="fileOperations.ts // **PLACEHOLDER FOR STEP 6: READ STORAGE REQUEST DATA**"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file-sc/fileOperations.ts:read-storage-request'
@@ -225,7 +225,7 @@ Add the following code to trigger the file upload to the connected MSP and to ve
 ```
 
 !!! note
-    To check your currently active payment streams (amount of fees you are being billed) within a certain MSP use the `mspClient.info.getPaymentStreams` method. Make sure you are authenticated prior to triggering this function.
+    To check your active payment streams (amount of fees you are being billed) within a certain MSP use the `mspClient.info.getPaymentStreams` method. Make sure you are authenticated prior to triggering this function.
 
 Upon a successful file upload, the transaction receipt will look like this:
 
@@ -275,7 +275,7 @@ Run the script:
 ts-node index.ts
 ```
 
-Now that you have completed `fileOperations.ts` and `index.ts`, the final output when running the `index.ts` script should be:
+After completing `fileOperations.ts` and `index.ts`, the final output when running the `index.ts` script should be:
 
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/output-04.html'
 
@@ -350,11 +350,11 @@ Once both checks pass, you know the file is committed on-chain, and the MSP back
 
     </a>
 
--   <a href="/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/" markdown>:material-arrow-right:
+-   <a href="/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow-sc/" markdown>:material-arrow-right:
 
-    **Build a Data Workflow End-to-End**
+    **Build a Data Workflow End-to-End via Smart Contracts**
 
-    Learn step-by-step how to store a file on DataHaven and retrieve it from the network.
+    Learn step-by-step how to store a file on DataHaven via smart contracts and retrieve it from the network.
 
     </a>
 

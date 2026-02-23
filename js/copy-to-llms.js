@@ -118,8 +118,8 @@
             {
               event_category: 'engagement',
             },
-            gaData
-          )
+            gaData,
+          ),
         );
       } catch (error) {
         console.error('Error tracking analytics event:', error);
@@ -258,7 +258,7 @@
     copyButton.title = 'Copy entire page to LLM';
     copyButton.setAttribute(
       'aria-label',
-      'Copy entire page content to clipboard for LLM usage'
+      'Copy entire page content to clipboard for LLM usage',
     );
     copyButton.setAttribute('role', 'button');
     copyButton.innerHTML = `
@@ -351,10 +351,10 @@
 
       dropdownMenu.addEventListener('keydown', (e) => {
         const items = Array.from(
-          dropdownMenu.querySelectorAll('.copy-to-llm-dropdown-item')
+          dropdownMenu.querySelectorAll('.copy-to-llm-dropdown-item'),
         );
         const currentIndex = items.findIndex(
-          (item) => item === document.activeElement
+          (item) => item === document.activeElement,
         );
         switch (e.key) {
           case 'ArrowDown':
@@ -397,7 +397,7 @@
         let copySucceeded = false;
         const slug = buildSlugFromPath(
           stripBasePath(window.location.pathname),
-          toggleFilename
+          toggleFilename,
         );
 
         const { text, status } = await fetchMarkdown(slug);
@@ -406,7 +406,7 @@
           copySucceeded = await copyToClipboard(
             text,
             copyButton,
-            'markdown_content'
+            'markdown_content',
           );
         }
 
@@ -450,7 +450,7 @@
         resetChevron(dropdownButton);
         if (isOpen) {
           const firstItem = dropdownMenu.querySelector(
-            '.copy-to-llm-dropdown-item'
+            '.copy-to-llm-dropdown-item',
           );
           if (firstItem) {
             firstItem.focus();
@@ -468,7 +468,7 @@
         const action = item.dataset.action;
         const slug = buildSlugFromPath(
           stripBasePath(window.location.pathname),
-          toggleFilename
+          toggleFilename,
         );
 
         // Each dropdown option maps to one of the shared helpers or a new-tab prompt.
@@ -505,7 +505,7 @@
             const mdUrl = getMarkdownUrl(slug);
             const prompt = `Read ${mdUrl} so I can ask questions about it.`;
             const claudeUrl = `https://claude.ai/new?q=${encodeURIComponent(
-              prompt
+              prompt,
             )}`;
             window.open(claudeUrl, '_blank', 'noopener', 'noreferrer');
             break;
@@ -567,7 +567,7 @@
     // Toggle pages → attach a copy widget to each variant's H1
     toggleContainers.forEach((container) => {
       const headerVariants = container.querySelectorAll(
-        '.toggle-header > span[data-variant]'
+        '.toggle-header > span[data-variant]',
       );
 
       headerVariants.forEach((headerSpan) => {
@@ -576,7 +576,7 @@
 
         const variant = headerSpan.dataset.variant;
         const button = container.querySelector(
-          `.toggle-btn[data-variant="${variant}"]`
+          `.toggle-btn[data-variant="${variant}"]`,
         );
 
         const toggleFilename = button?.dataset.filename || null;

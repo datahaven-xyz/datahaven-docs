@@ -1,5 +1,5 @@
 ---
-title: Set Custom Gas Params
+title: Set Custom Gas Params via SDK
 description: This guide shows you how to set custom gas fees while calling methods via the StorageHub SDK in case the default gas amount isn't enough.
 categories: StorageHub SDK, Store Data
 ---

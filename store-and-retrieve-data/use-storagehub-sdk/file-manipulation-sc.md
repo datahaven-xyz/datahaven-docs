@@ -10,7 +10,7 @@ toggle:
 
 # File Manipulation via Smart Contracts
 
-The purpose of this guide is to help you create a mental model of what pieces of data you'll need to extract from the file you intend to upload to DataHaven and how to retrieve it from the network. In this guide, you'll learn how to initialize the File Manager from your file, create the fingerprint and file key, issue a storage request, and retrieve the data for that request.
+The purpose of this guide is to help you create a mental model of what pieces of data you need to extract from the file you intend to upload to DataHaven and how to retrieve it from the network. In this guide, you learn how to initialize the File Manager from your file, create the fingerprint and file key, issue a storage request, and retrieve the data for that request.
 
 ## Prerequisites
 
@@ -112,7 +112,7 @@ To retrieve storage request data, query `fileSystem.storageRequests` and pass in
 
 ## Read Storage Request Data
 
-To read storage request data, it first must be unwrapped as follows:
+To read storage request data, it must first be unwrapped as follows:
 
 ```ts title="index.ts // **PLACEHOLDER FOR STEP 6: READ STORAGE REQUEST DATA**"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file-sc/fileOperations.ts:read-storage-request'
@@ -134,19 +134,19 @@ Now you've successfully learned how to manipulate the file you intend to upload 
 
 <div class="grid cards" markdown>
 
--   <a href="/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/" markdown>:material-arrow-right:
+-   <a href="/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets-sc/" markdown>:material-arrow-right:
 
-    **Manage Files and Buckets**
+    **Manage Files and Buckets via Smart Contracts**
 
-    Learn how to get file info, request file removal from the network, and how to delete buckets.
+    Learn how to get file info, request file removal from the network, and how to delete buckets via smart contracts.
 
     </a>
 
--  <a href="/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/" markdown>:material-arrow-right:
+-  <a href="/store-and-retrieve-data/use-storagehub-sdk/upload-a-file-sc/" markdown>:material-arrow-right: 
+    
+    **Upload a File via Smart Contracts**
 
-    **Upload a File**
-
-    Once your storage request is confirmed, use the StorageHub SDK to upload a file to the network.
+    Learn how to issue storage requests via smart contracts and upload files to the network.
 
     </a>
 
