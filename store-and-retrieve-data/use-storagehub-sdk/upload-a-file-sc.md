@@ -1,11 +1,11 @@
 ---
-title: Upload a File
+title: Upload a File via Smart Contracts
 description: This guide shows you how to make a storage request, check its on-chain state, and upload your file using the StorageHub SDK and the FileSystem Precompile. Turn your local file into a registered asset on DataHaven.
 categories: Store Data, StorageHub SDK, Smart Contract
 toggle:
   group: upload
   variant: sc
-  label: SC
+  label: Smart Contract
 ---
 
 # Upload a File via Smart Contracts

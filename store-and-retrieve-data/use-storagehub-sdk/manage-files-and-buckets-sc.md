@@ -1,11 +1,11 @@
 ---
-title: Manage Files and Buckets
+title: Manage Files and Buckets via Smart Contracts
 description: Guide on how to use the StorageHub SDK and the FileSystem Precompile to remove your file from the network and how to delete your bucket.
 categories: Store Data, StorageHub SDK, Smart Contract
 toggle:
   group: manage
   variant: sc
-  label: SC
+  label: Smart Contract
 ---
 
 # Manage Files and Buckets via Smart Contracts

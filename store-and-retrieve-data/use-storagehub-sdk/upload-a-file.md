@@ -9,7 +9,7 @@ toggle:
   label: SDK
 ---
 
-# Upload a File
+# Upload a File via SDK
 
 This guide covers the full path from a local file to a registered asset inside a bucket on DataHaven. This path can be divided into three major steps:
 
