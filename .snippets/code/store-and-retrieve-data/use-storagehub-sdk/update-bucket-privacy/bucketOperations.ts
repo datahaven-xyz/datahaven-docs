@@ -1,5 +1,4 @@
 // --8<-- [start:imports]
-import { Bucket, FileListResponse } from '@storagehub-sdk/msp-client';
 import {
   account,
   address,
@@ -8,8 +7,7 @@ import {
   polkadotApi,
   chain,
 } from '../services/clientService.js';
-import { getMspInfo, getValueProps, mspClient } from '../services/mspService.js';
-import { toHex } from 'viem';
+import { getMspInfo } from '../services/mspService.js';
 import fileSystemAbi from '../abis/FileSystemABI.json' with { type: 'json' };
 import { NETWORK } from '../config/networks.js';
 // --8<-- [end:imports]
@@ -17,7 +15,7 @@ import { NETWORK } from '../config/networks.js';
 // --8<-- [start:update-bucket-privacy]
 export async function updateBucketPrivacy(
   bucketId: string,
-  isPrivate: boolean
+  isPrivate: boolean,
 ): Promise<boolean> {
   // Update bucket privacy on chain by calling the FileSystem precompile directly
   const txHash = await walletClient.writeContract({
@@ -30,9 +28,7 @@ export async function updateBucketPrivacy(
   });
   console.log('updateBucketPrivacy() txHash:', txHash);
   if (!txHash) {
-    throw new Error(
-      'updateBucketPrivacy() did not return a transaction hash'
-    );
+    throw new Error('updateBucketPrivacy() did not return a transaction hash');
   }
 
   // Wait for transaction receipt
@@ -45,7 +41,7 @@ export async function updateBucketPrivacy(
   }
 
   console.log(
-    `Bucket ${bucketId} privacy updated to ${isPrivate ? 'private' : 'public'}`
+    `Bucket ${bucketId} privacy updated to ${isPrivate ? 'private' : 'public'}`,
   );
   return true;
 }
@@ -65,10 +61,10 @@ export async function verifyBucketCreation(bucketId: string) {
   const bucketData = bucket.unwrap().toHuman();
   console.log(
     'Bucket userId matches initial bucket owner address',
-    bucketData.userId === address
+    bucketData.userId === address,
   );
   console.log(
-    `Bucket MSPId matches initial MSPId: ${bucketData.mspId === mspId}`
+    `Bucket MSPId matches initial MSPId: ${bucketData.mspId === mspId}`,
   );
   return bucketData;
 }

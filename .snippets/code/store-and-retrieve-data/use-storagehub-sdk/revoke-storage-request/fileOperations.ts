@@ -1,7 +1,6 @@
 // --8<-- [start:imports]
 import {
   walletClient,
-  address,
   publicClient,
   account,
   chain,
@@ -11,9 +10,7 @@ import { NETWORK } from '../config/networks.js';
 // --8<-- [end:imports]
 
 // --8<-- [start:revoke-storage-request]
-export async function revokeStorageRequest(
-  fileKey: string
-): Promise<boolean> {
+export async function revokeStorageRequest(fileKey: string): Promise<boolean> {
   // Revoke a pending storage request by calling the FileSystem precompile directly
   const txHash = await walletClient.writeContract({
     account,
@@ -25,9 +22,7 @@ export async function revokeStorageRequest(
   });
   console.log('revokeStorageRequest() txHash:', txHash);
   if (!txHash) {
-    throw new Error(
-      'revokeStorageRequest() did not return a transaction hash'
-    );
+    throw new Error('revokeStorageRequest() did not return a transaction hash');
   }
 
   // Wait for transaction receipt
@@ -39,9 +34,7 @@ export async function revokeStorageRequest(
     throw new Error(`Storage request revocation failed: ${txHash}`);
   }
 
-  console.log(
-    `Storage request for file key ${fileKey} revoked successfully`
-  );
+  console.log(`Storage request for file key ${fileKey} revoked successfully`);
   return true;
 }
 // --8<-- [end:revoke-storage-request]

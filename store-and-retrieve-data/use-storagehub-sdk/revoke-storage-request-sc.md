@@ -2,17 +2,16 @@
 title: Revoke a Storage Request
 description: Learn how to cancel a pending storage request on DataHaven by calling the FileSystem Precompile's revokeStorageRequest function directly.
 categories: Store Data, StorageHub SDK, Smart Contract
-toggle:
-  group: revoke-sq
-  variant: sc
-  label: SC
 ---
 
-# Revoke a Storage Request
+# Revoke a Storage Request via Smart Contracts
 
 After issuing a storage request, you may need to cancel it before the MSP fully confirms or replicates the file. This guide shows you how to revoke a pending storage request by calling the `revokeStorageRequest` function on the [FileSystem Precompile](https://github.com/Moonsong-Labs/storage-hub/blob/main/precompiles/pallet-file-system/FileSystem.sol#L7){target=\_blank} directly via `walletClient.writeContract`.
 
 This is useful if you submitted a request by mistake, need to change the file or bucket, or want to cancel before incurring storage fees.
+
+!!! note "SDK support not yet available"
+    The `revokeStorageRequest` operation is not currently available through the StorageHub SDK. In this guide, to revoke a pending storage request, the FileSystem Precompile is called directly, instead of using the `storageHubClient`.
 
 ## Prerequisites
 
@@ -139,19 +138,19 @@ If the revocation was successful, the output should confirm the request was remo
 
 <div class="grid cards" markdown>
 
--  <a href="/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/" markdown>:material-arrow-right:
+-   <a href="/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets-sc/" markdown>:material-arrow-right:
 
-    **Upload a File**
+    **Manage Files and Buckets via Smart Contracts**
 
-    Once your storage request is confirmed, use the StorageHub SDK to upload a file to the network.
+    Learn how to get file info, request file removal from the network, and how to delete buckets via smart contracts.
 
     </a>
 
--   <a href="/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/" markdown>:material-arrow-right:
+-  <a href="/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow-sc/" markdown>:material-arrow-right:
 
-    **Manage Files and Buckets**
+    **Build a Data Workflow End-to-End via Smart Contracts**
 
-    Learn how to get file info, request file removal from the network, and how to delete buckets.
+    Learn step-by-step how to store a file on DataHaven via smart contracts and retrieve it from the network.
 
     </a>
 

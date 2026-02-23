@@ -86,13 +86,13 @@ async function run() {
   const registry = new TypeRegistry();
   const owner = registry.createType(
     'AccountId20',
-    account.address
+    account.address,
   ) as AccountId20;
   const bucketIdH256 = registry.createType('H256', bucketId) as H256;
   const fileKey = await fileManager.computeFileKey(
     owner,
     bucketIdH256,
-    fileName
+    fileName,
   );
   console.log(`Computed file key: ${fileKey.toHex()}`);
   // --8<-- [end:compute-file-key]
@@ -102,13 +102,9 @@ async function run() {
   const storageRequest =
     await polkadotApi.query.fileSystem.storageRequests(fileKey);
   if (!storageRequest.isSome) {
-    throw new Error(
-      'Storage request not found on chain — nothing to revoke'
-    );
+    throw new Error('Storage request not found on chain — nothing to revoke');
   }
-  console.log(
-    'Storage request confirmed on chain — proceeding to revoke\n'
-  );
+  console.log('Storage request confirmed on chain — proceeding to revoke\n');
   // --8<-- [end:verify-request-exists]
 
   // --8<-- [start:revoke-request]
@@ -122,11 +118,11 @@ async function run() {
     await polkadotApi.query.fileSystem.storageRequests(fileKey);
   if (storageRequestAfter.isNone) {
     console.log(
-      'Storage request successfully removed from chain after revocation'
+      'Storage request successfully removed from chain after revocation',
     );
   } else {
-    console.log(
-      'WARNING: Storage request still exists on chain after revocation'
+    throw new Error(
+      'Storage request revocation failed — request still exists on chain',
     );
   }
   // --8<-- [end:verify-revoked]

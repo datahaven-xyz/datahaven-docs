@@ -2,15 +2,15 @@
 title: Update Bucket Privacy
 description: Learn how to toggle a bucket's privacy setting on DataHaven by calling the FileSystem Precompile's updateBucketPrivacy function directly.
 categories: Store Data, StorageHub SDK, Smart Contract
-toggle:
-  group: update-bucket-privacy
-  variant: sc
-  label: SC
 ---
 
-# Update Bucket Privacy
+# Update Bucket Privacy via Smart Contracts
 
 Every bucket on DataHaven is created with a privacy flag that controls whether its contents are publicly visible or access-restricted. This guide shows you how to change that flag after the bucket already exists by calling the `updateBucketPrivacy` function on the [FileSystem Precompile](https://github.com/Moonsong-Labs/storage-hub/blob/main/precompiles/pallet-file-system/FileSystem.sol#L7){target=\_blank} directly via `walletClient.writeContract`.
+
+!!! note "SDK support not yet available"
+    The `updateBucketPrivacy` operation is not currently available through the StorageHub SDK. In this guide, to update a bucket's privacy, the FileSystem Precompile is called directly, instead of using the `storageHubClient`.
+
 
 ## Prerequisites
 
@@ -98,19 +98,19 @@ Upon successful verification, the bucket data should now show `private: true`:
 
 <div class="grid cards" markdown>
 
--   <a href="/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/" markdown>:material-arrow-right:
+-   <a href="/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets-sc/" markdown>:material-arrow-right:
 
-    **Manage Files and Buckets**
+    **Manage Files and Buckets via Smart Contracts**
 
-    Learn how to get file info, request file removal from the network, and how to delete buckets.
+    Learn how to get file info, request file removal from the network, and how to delete buckets via smart contracts.
 
     </a>
 
--  <a href="/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/" markdown>:material-arrow-right:
+-  <a href="/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow-sc/" markdown>:material-arrow-right:
 
-    **Build a Data Workflow End-to-End**
+    **Build a Data Workflow End-to-End via Smart Contracts**
 
-    Learn step-by-step how to store a file on DataHaven and retrieve it from the network.
+    Learn step-by-step how to store a file on DataHaven via smart contracts and retrieve it from the network.
 
     </a>
 

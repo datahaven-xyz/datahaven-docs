@@ -350,11 +350,11 @@ Once both checks pass, you know the file is committed on-chain, and the MSP back
 
     </a>
 
--   <a href="/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/" markdown>:material-arrow-right:
+-   <a href="/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow-sc/" markdown>:material-arrow-right:
 
-    **Build a Data Workflow End-to-End**
+    **Build a Data Workflow End-to-End via Smart Contracts**
 
-    Learn step-by-step how to store a file on DataHaven and retrieve it from the network.
+    Learn step-by-step how to store a file on DataHaven via smart contracts and retrieve it from the network.
 
     </a>
 
