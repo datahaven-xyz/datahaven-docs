@@ -1,6 +1,6 @@
 ---
 title: Create a Bucket
-description: Guide on what storage buckets are in DataHaven, how to create them using the StorageHub SDK and the FileSystem Precompile, and what edge cases to look out for.
+description: Learn what storage buckets are in DataHaven and how to create them using the StorageHub SDK and the FileSystem Precompile.
 categories: Store Data, StorageHub SDK, Smart Contract
 toggle:
   group: bucket
@@ -117,7 +117,7 @@ Bucket-related logic will live in a separate `bucketOperations.ts` file. To impl
 3. Add the following code, which uses the `getValueProps` helper from the previous section in `createBucket`:
 
     !!! note
-        After creating a bucket, it is crucial to wait for the transaction receipt, as shown in the code below. If writing custom bucket-creation logic, make sure to include that step; otherwise, you will fetch bucket data before it is available.
+        After creating a bucket, it is crucial to wait for the transaction receipt, as shown in the following code. If writing custom bucket-creation logic, make sure to include that step; otherwise, you will fetch bucket data before it is available.
 
     ```ts title="bucketOperations.ts"
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket-sc/bucketOperations.ts:imports'
@@ -153,7 +153,7 @@ Now that you've extracted all the bucket creation logic into its own method, you
     ts-node index.ts
     ```
 
-    The response should look something like this:
+    The response should look similar to this:
 
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/output-02.html'
 
@@ -174,7 +174,7 @@ The last step is to verify that the bucket was created successfully on-chain and
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:verify-bucket'
     ```
 
-    The response should look something like this:
+    The response should look similar to this:
 
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/output-03.html'
 
@@ -228,7 +228,7 @@ If you attempt to upload a file right after creating a bucket, it's possible tha
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:wait-bucket'
     ```
 
-    The response should look something like this:
+    The response should look similar to this:
 
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/output-01.html'
 

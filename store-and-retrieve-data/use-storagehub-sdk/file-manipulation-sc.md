@@ -1,6 +1,6 @@
 ---
 title: File Manipulation
-description: Guide on file manipulation in DataHaven through the relationship between File Manager, fingerprint, file key and issuing a storage request using the StorageHub SDK and the FileSystem Precompile.
+description: Learn about file manipulation in DataHaven, including File Manager, fingerprint, file key, and storage requests via the StorageHub SDK.
 categories: StorageHub SDK, Store Data, Smart Contract
 toggle:
   group: file-manipulation
@@ -10,7 +10,7 @@ toggle:
 
 # File Manipulation via Smart Contracts
 
-The purpose of this guide is to help you create a mental model of what pieces of data you'll need to extract from the file you intend to upload to DataHaven and how to retrieve it from the network. In this guide, you'll learn how to initialize the File Manager from your file, create the fingerprint and file key, issue a storage request, and retrieve the data for that request.
+The purpose of this guide is to help you create a mental model of what pieces of data you need to extract from the file you intend to upload to DataHaven and how to retrieve it from the network. In this guide, you learn how to initialize the File Manager from your file, create the fingerprint and file key, issue a storage request, and retrieve the data for that request.
 
 ## Prerequisites
 
@@ -112,7 +112,7 @@ To retrieve storage request data, query `fileSystem.storageRequests` and pass in
 
 ## Read Storage Request Data
 
-To read storage request data, it first must be unwrapped as follows:
+To read storage request data, it must first be unwrapped as follows:
 
 ```ts title="index.ts // **PLACEHOLDER FOR STEP 6: READ STORAGE REQUEST DATA**"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file-sc/fileOperations.ts:read-storage-request'
