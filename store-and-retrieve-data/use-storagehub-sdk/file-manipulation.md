@@ -1,5 +1,5 @@
 ---
-title: File Manipulation
+title: File Manipulation via SDK
 description: Guide on file manipulation in DataHaven through the relationship between File Manager, fingerprint, file key and issuing a storage request.
 categories: StorageHub SDK, Store Data
 toggle:
@@ -9,7 +9,7 @@ toggle:
   label: SDK
 ---
 
-# File Manipulation via SDK
+# File Manipulation
 
 The purpose of this guide is to help you create a mental model of what pieces of data you'll need to extract from the file you intend to upload to DataHaven and how to retrieve it from the network. In this guide, you'll learn how to initialize the File Manager from your file, create the fingerprint and file key, issue a storage request, and retrieve the data for that request.
 

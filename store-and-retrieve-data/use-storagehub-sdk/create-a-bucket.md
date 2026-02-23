@@ -1,5 +1,5 @@
 ---
-title: Create a Bucket
+title: Create a Bucket via SDK
 description: Guide on what storage buckets are in DataHaven, how to create them with the StorageHub SDK, and what edge cases to look out for.
 categories: Store Data, StorageHub SDK
 toggle:
@@ -9,7 +9,7 @@ toggle:
   label: SDK
 ---
 
-# Create a Bucket via SDK
+# Create a Bucket
 
 Buckets are logical containers (folders) that group your files under a Main Storage Provider (MSP). Each bucket is tied to a specific MSP and value proposition, which together define where your data will be stored and at what price. Before you can issue storage requests or upload files to DataHaven, you must first create a bucket.
 

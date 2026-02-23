@@ -134,19 +134,19 @@ Now you've successfully learned how to manipulate the file you intend to upload 
 
 <div class="grid cards" markdown>
 
--   <a href="/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/" markdown>:material-arrow-right:
+-   <a href="/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets-sc/" markdown>:material-arrow-right:
 
-    **Manage Files and Buckets**
+    **Manage Files and Buckets via Smart Contracts**
 
-    Learn how to get file info, request file removal from the network, and how to delete buckets.
+    Learn how to get file info, request file removal from the network, and how to delete buckets via smart contracts.
 
     </a>
 
--  <a href="/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/" markdown>:material-arrow-right:
+-  <a href="/store-and-retrieve-data/use-storagehub-sdk/upload-a-file-sc/" markdown>:material-arrow-right: 
+    
+    **Upload a File via Smart Contracts**
 
-    **Upload a File**
-
-    Once your storage request is confirmed, use the StorageHub SDK to upload a file to the network.
+    Learn how to issue storage requests via smart contracts and upload files to the network.
 
     </a>
 

@@ -1,5 +1,5 @@
 ---
-title: End-to-End Storage Workflow
+title: End-to-End Storage Workflow via SDK
 description: This step-by-step tutorial follows the full DataHaven storage workflow to store and retrieve data from the network using StorageHub SDK.
 categories: Store Data, StorageHub SDK
 toggle:
@@ -9,7 +9,7 @@ toggle:
   label: SDK
 ---
 
-# End-to-End Storage Workflow via SDK
+# End-to-End Storage Workflow
 
 This tutorial will cover the end-to-end process of creating a bucket, uploading a file, and retrieving it, in a step-by-step format.
 

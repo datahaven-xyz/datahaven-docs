@@ -248,19 +248,19 @@ If you attempt to upload a file right after creating a bucket, it's possible tha
 
 <div class="grid cards" markdown>
 
--  <a href="/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/" markdown>:material-arrow-right: 
+-  <a href="/store-and-retrieve-data/use-storagehub-sdk/upload-a-file-sc/" markdown>:material-arrow-right: 
     
-    **Upload a File**
+    **Upload a File via Smart Contracts**
 
-    Once your storage request is confirmed, use the StorageHub SDK to upload a file to the network.
+    Learn how to issue storage requests via smart contracts and upload files to the network.
 
     </a>
 
--   <a href="/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/" markdown>:material-arrow-right:
+-   <a href="/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow-sc/" markdown>:material-arrow-right:
 
-    **Build a Data Workflow End-to-End**
+    **Build a Data Workflow End-to-End via Smart Contracts**
 
-    Learn step-by-step how to store a file on DataHaven and retrieve it from the network.
+    Learn step-by-step how to store a file on DataHaven via smart contracts and retrieve it from the network.
 
     </a>
 

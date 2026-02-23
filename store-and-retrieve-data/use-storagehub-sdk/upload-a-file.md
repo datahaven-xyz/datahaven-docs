@@ -1,5 +1,5 @@
 ---
-title: Upload a File
+title: Upload a File via SDK
 description: This guide shows you how to make a storage request, check its on-chain state, and upload your file. Turn your local file into a registered asset on DataHaven.
 categories: Store Data, StorageHub SDK
 toggle:
@@ -9,7 +9,7 @@ toggle:
   label: SDK
 ---
 
-# Upload a File via SDK
+# Upload a File
 
 This guide covers the full path from a local file to a registered asset inside a bucket on DataHaven. This path can be divided into three major steps:
 
