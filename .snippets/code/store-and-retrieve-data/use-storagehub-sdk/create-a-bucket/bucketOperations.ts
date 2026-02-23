@@ -24,14 +24,13 @@ export async function createBucket(bucketName: string) {
   // Derive bucket ID
   const bucketId = (await storageHubClient.deriveBucketId(
     address,
-    bucketName
+    bucketName,
   )) as string;
   console.log(`Derived bucket ID: ${bucketId}`);
 
   // Check that the bucket doesn't exist yet
-  const bucketBeforeCreation = await polkadotApi.query.providers.buckets(
-    bucketId
-  );
+  const bucketBeforeCreation =
+    await polkadotApi.query.providers.buckets(bucketId);
   console.log('Bucket before creation is empty', bucketBeforeCreation.isEmpty);
   if (!bucketBeforeCreation.isEmpty) {
     throw new Error(`Bucket already exists: ${bucketId}`);
@@ -44,7 +43,7 @@ export async function createBucket(bucketName: string) {
     mspId as `0x${string}`,
     bucketName,
     isPrivate,
-    valuePropId
+    valuePropId,
   );
 
   console.log('createBucket() txHash:', txHash);
@@ -78,10 +77,10 @@ export async function verifyBucketCreation(bucketId: string) {
   const bucketData = bucket.unwrap().toHuman();
   console.log(
     'Bucket userId matches initial bucket owner address',
-    bucketData.userId === address
+    bucketData.userId === address,
   );
   console.log(
-    `Bucket MSPId matches initial MSPId: ${bucketData.mspId === mspId}`
+    `Bucket MSPId matches initial MSPId: ${bucketData.mspId === mspId}`,
   );
   return bucketData;
 }
@@ -97,7 +96,7 @@ export async function waitForBackendBucketReady(bucketId: string) {
     console.log(
       `Checking for bucket in MSP backend, attempt ${
         i + 1
-      } of ${maxAttempts}...`
+      } of ${maxAttempts}...`,
     );
     try {
       // Query the MSP backend for the bucket metadata.
@@ -111,7 +110,7 @@ export async function waitForBackendBucketReady(bucketId: string) {
       }
     } catch (error: any) {
       // Backend hasn’t indexed the bucket yet
-      if (error.status === 404 || error.body.error === 'Not found: Record') {
+      if (error?.status === 404 || error?.body?.error === 'Not found: Record') {
         console.log(`Bucket not found in MSP backend yet (404).`);
       } else {
         // Any other error is unexpected and should fail the entire workflow

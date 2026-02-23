@@ -265,8 +265,10 @@ import fileSystemAbi from '../abis/FileSystemABI.json' with { type: 'json' };
 And use it with viem to call precompile functions directly:
 
 ```ts
-import { NETWORK } from '../config/networks.js';
-import { publicClient, walletClient, account } from '../services/clientService.js';
+import { toHex } from 'viem';
+import { chain, NETWORK } from './config/networks.js';
+import { publicClient, walletClient, account, address } from './services/clientService.js';
+import fileSystemAbi from './abis/FileSystemABI.json' with { type: 'json' };
 
 // Read (no transaction)
 const bucketId = await publicClient.readContract({
@@ -283,7 +285,12 @@ const txHash = await walletClient.writeContract({
   abi: fileSystemAbi,
   chain,
   functionName: 'createBucket',
-  args: [mspId, toHex('my-bucket'), false, valuePropId],
+  args: [
+    '0x0000000000000000000000000000000000000000000000000000000000000001',
+    toHex('my-bucket'),
+    false,
+    '0x628a23c7aa64902e13f63ffdd0725e07723745f84cabda048d901020d200da1e',
+  ],
 });
 ```
 

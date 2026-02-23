@@ -30,7 +30,7 @@ export async function waitForBackendBucketEmpty(bucketId: string) {
           `Attempt ${i + 1}/${maxAttempts}`,
       );
     } catch (error: any) {
-      if (error.status === 404 || error.body.error === 'Not found: Record') {
+      if (error?.status === 404 || error?.body?.error === 'Not found: Record') {
         console.log(`Bucket not found in MSP backend (404).`);
         throw new Error(`Bucket ${bucketId} not found in MSP backend`);
       } else {
