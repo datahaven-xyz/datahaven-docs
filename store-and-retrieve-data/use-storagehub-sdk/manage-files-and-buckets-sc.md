@@ -192,7 +192,7 @@ Add the following code:
 
 ### Call the Request File Deletion Helper Method
 
-Update `index.ts` with the following code to trigger the helper method you just implemented:
+Update `index.ts` with the following code to trigger the `requestDeleteFile` helper method you just implemented:
 
 ```ts title='index.ts  // **PLACEHOLDER FOR STEP 5: REQUEST FILE DELETION**'
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:request-file-deletion'
