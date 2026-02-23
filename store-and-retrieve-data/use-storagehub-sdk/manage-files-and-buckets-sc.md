@@ -1,11 +1,11 @@
 ---
-title: Manage Files and Buckets
+title: Manage Files and Buckets via Smart Contracts
 description: Guide on how to use the StorageHub SDK and the FileSystem Precompile to remove your file from the network and how to delete your bucket.
 categories: Store Data, StorageHub SDK, Smart Contract
 toggle:
   group: manage
   variant: sc
-  label: SC
+  label: Smart Contract
 ---
 
 # Manage Files and Buckets via Smart Contracts
@@ -258,7 +258,7 @@ To delete a bucket, create a helper method called `deleteBucket` in your `bucket
 
 ### Add Method to Delete Bucket
 
-Add the following code to your `bucketOperations.ts` file:
+In your existing `bucketOperations.ts` file, add the following code:
 
 ```ts title="bucketOperations.ts"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets-sc/bucketOperations.ts:delete-bucket'

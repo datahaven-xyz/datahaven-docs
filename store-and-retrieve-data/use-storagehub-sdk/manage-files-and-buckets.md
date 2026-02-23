@@ -9,7 +9,7 @@ toggle:
   label: SDK
 ---
 
-# Manage Files and Buckets
+# Manage Files and Buckets via SDK
 
 This guide explains how to manage your storage resources on DataHaven using the StorageHub SDK. You will learn how to fetch all the buckets you have stored within a specific MSP, fetch all the files within a specific bucket in a specific MSP, request the removal of a file from the network, and delete buckets. It's important to periodically review and clean up unused data to avoid unnecessary costs, as buckets and files incur ongoing storage fees.
 

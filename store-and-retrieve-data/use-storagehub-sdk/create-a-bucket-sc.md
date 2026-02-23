@@ -1,11 +1,11 @@
 ---
-title: Create a Bucket
+title: Create a Bucket via Smart Contracts
 description: Learn what storage buckets are in DataHaven and how to create them using the StorageHub SDK and the FileSystem Precompile.
 categories: Store Data, StorageHub SDK, Smart Contract
 toggle:
   group: bucket
   variant: sc
-  label: SC
+  label: Smart Contract
 ---
 
 # Create a Bucket via Smart Contracts

@@ -16,7 +16,7 @@ import { NETWORK } from '../config/networks.js';
 
 // --8<-- [start:get-bucket-files-msp]
 export async function getBucketFilesFromMSP(
-  bucketId: string
+  bucketId: string,
 ): Promise<FileListResponse> {
   const files: FileListResponse = await mspClient.buckets.getFiles(bucketId);
   return files;
@@ -26,12 +26,12 @@ export async function getBucketFilesFromMSP(
 // --8<-- [start:request-file-deletion]
 export async function requestDeleteFile(
   bucketId: string,
-  fileKey: string
+  fileKey: string,
 ): Promise<boolean> {
   // Get file info before deletion
   const fileInfo: FileInfo = await mspClient.files.getFileInfo(
     bucketId,
-    fileKey
+    fileKey,
   );
   console.log('File info:', fileInfo);
 
@@ -75,7 +75,7 @@ export async function requestDeleteFile(
   const receiptRequestDeleteFile = await publicClient.waitForTransactionReceipt(
     {
       hash: txHashRequestDeleteFile,
-    }
+    },
   );
   console.log('requestDeleteFile() txReceipt:', receiptRequestDeleteFile);
   if (receiptRequestDeleteFile.status !== 'success') {
@@ -83,7 +83,7 @@ export async function requestDeleteFile(
   }
 
   console.log(
-    `File with key ${fileKey} deleted successfully from bucket ${bucketId}`
+    `File with key ${fileKey} deleted successfully from bucket ${bucketId}`,
   );
   return true;
 }
@@ -91,18 +91,20 @@ export async function requestDeleteFile(
 
 // --8<-- [start:get-pending-file-deletion-requests-count]
 export async function getPendingFileDeletionRequestsCount(
-  user?: `0x${string}`
+  user?: `0x${string}`,
 ): Promise<number> {
   // Query the number of pending file deletion requests for a user
   // Defaults to the current account address if no user is provided
   const targetAddress = user ?? address;
 
-  const count = (await publicClient.readContract({
-    address: NETWORK.filesystemContractAddress,
-    abi: fileSystemAbi,
-    functionName: 'getPendingFileDeletionRequestsCount',
-    args: [targetAddress],
-  })) as number;
+  const count = Number(
+    await publicClient.readContract({
+      address: NETWORK.filesystemContractAddress,
+      abi: fileSystemAbi,
+      functionName: 'getPendingFileDeletionRequestsCount',
+      args: [targetAddress],
+    }),
+  );
   console.log(`Pending file deletion requests for ${targetAddress}: ${count}`);
 
   return count;

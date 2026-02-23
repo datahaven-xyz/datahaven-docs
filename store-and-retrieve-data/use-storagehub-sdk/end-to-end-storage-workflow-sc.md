@@ -1,11 +1,11 @@
 ---
-title: End-to-End Storage Workflow
-description: Follow the full DataHaven storage workflow to store and retrieve data using the StorageHub SDK and the FileSystem Precompile.
+title: End-to-End Storage Workflow via Smart Contracts
+description: This step-by-step tutorial follows the full DataHaven storage workflow to store and retrieve data from the network using the StorageHub SDK and the FileSystem Precompile.
 categories: Store Data, StorageHub SDK, Smart Contract
 toggle:
   group: end-to-end
   variant: sc
-  label: SC
+  label: Smart Contract
 ---
 
 # End-to-End Storage Workflow via Smart Contracts

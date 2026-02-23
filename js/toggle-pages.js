@@ -162,7 +162,6 @@ document.addEventListener('DOMContentLoaded', () => {
           return variant;
         }
       }
-
       // Default to canonical
       return canonicalVariant;
     }

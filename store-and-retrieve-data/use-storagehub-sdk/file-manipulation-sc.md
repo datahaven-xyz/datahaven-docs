@@ -1,11 +1,11 @@
 ---
-title: File Manipulation
-description: Learn about file manipulation in DataHaven, including File Manager, fingerprint, file key, and storage requests via the StorageHub SDK.
+title: File Manipulation via Smart Contracts
+description: Guide on file manipulation in DataHaven through the relationship between File Manager, fingerprint, file key and issuing a storage request using the StorageHub SDK and the FileSystem Precompile.
 categories: StorageHub SDK, Store Data, Smart Contract
 toggle:
   group: file-manipulation
   variant: sc
-  label: SC
+  label: Smart Contract
 ---
 
 # File Manipulation via Smart Contracts

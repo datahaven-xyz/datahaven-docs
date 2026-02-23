@@ -119,7 +119,7 @@ export async function waitForBackendBucketReady(bucketId: string) {
       }
     } catch (error: any) {
       // Backend hasn’t indexed the bucket yet
-      if (error.status === 404 || error.body.error === 'Not found: Record') {
+      if (error?.status === 404 || error?.body?.error === 'Not found: Record') {
         console.log(`Bucket not found in MSP backend yet (404).`);
       } else {
         // Any other error is unexpected and should fail the entire workflow
