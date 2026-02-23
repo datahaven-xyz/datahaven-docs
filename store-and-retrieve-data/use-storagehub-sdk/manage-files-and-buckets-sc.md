@@ -258,7 +258,7 @@ To delete a bucket, create a helper method called `deleteBucket` in your `bucket
 
 ### Add Method to Delete Bucket
 
-Create a new file within the `operations` folder called `bucketOperations.ts` and add the following code:
+In your existing `bucketOperations.ts` file, add the following code:
 
 ```ts title="bucketOperations.ts"
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets-sc/bucketOperations.ts:delete-bucket'
