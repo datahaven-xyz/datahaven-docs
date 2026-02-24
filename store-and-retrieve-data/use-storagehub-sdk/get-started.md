@@ -217,9 +217,33 @@ To interact with DataHaven's Main Storage Provider (MSP) services, you need to e
     - **`getMspHealth`**: Checks the operational health of the MSP and reports whether it’s running normally or facing issues.
     - **`authenticateUser`**: Authenticates your wallet with the MSP via Sign-In With Ethereum (SIWE), creates a session token, and returns your user profile.
 
+## Demo Dapps
+
+To see the StorageHub SDK in action, check out the following open-source demo applications. Both are publicly available and can serve as practical references for building your own dapps on DataHaven.
+
+<div class="grid cards" markdown>
+
+-   :material-file: **File Storage Demo Dapp**
+
+    ---
+
+    A full-featured demo dapp that showcases the core StorageHub SDK workflow, including connecting a wallet, creating buckets, uploading files, and retrieving data from the network.
+
+    [:octicons-arrow-right-24: Live Demo](https://demosdk.datahaven.xyz){target=\_blank} · [:octicons-mark-github-24: Source Code](https://github.com/papermoonio/datahaven-demo-dapp){target=\_blank}
+
+-   :material-image-multiple: **Mortal NFT Demo Dapp**
+
+    ---
+
+    A demo dapp that demonstrates how to use DataHaven as the storage layer for NFT metadata and assets. It walks through minting NFTs with on-chain metadata backed by decentralized storage.
+
+    [:octicons-arrow-right-24: Live Demo](https://demonft.datahaven.xyz){target=\_blank} · [:octicons-mark-github-24: Source Code](https://github.com/papermoonio/datahaven-nft-demo-dapp){target=\_blank}
+
+</div>
+
 ## Next Steps
 
-Now that you have the StorageHub SDK packages installed and all the necessary clients set up, you are ready to start building with DataHaven. 
+Now that you have the StorageHub SDK packages installed and all the necessary clients set up, you are ready to start building with DataHaven.
 
 <div class="grid cards" markdown>
 
