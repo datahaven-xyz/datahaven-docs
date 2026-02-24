@@ -5,7 +5,7 @@ categories: StorageHub SDK, Store Data, Smart Contract
 toggle:
   group: file-manipulation
   variant: sc
-  label: Smart Contract
+  label: Smart Contracts
 ---
 
 # File Manipulation via Smart Contracts

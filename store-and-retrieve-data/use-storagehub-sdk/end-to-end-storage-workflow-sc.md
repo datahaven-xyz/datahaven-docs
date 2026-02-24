@@ -5,7 +5,7 @@ categories: Store Data, StorageHub SDK, Smart Contract
 toggle:
   group: end-to-end
   variant: sc
-  label: Smart Contract
+  label: Smart Contracts
 ---
 
 # End-to-End Storage Workflow via Smart Contracts

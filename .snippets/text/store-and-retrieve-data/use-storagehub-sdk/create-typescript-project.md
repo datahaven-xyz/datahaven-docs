@@ -58,6 +58,7 @@
                 "moduleResolution": "NodeNext",
                 "esModuleInterop": true,
                 "strict": true,
+                "resolveJsonModule": true,
                 "skipLibCheck": true,
                 "outDir": "dist",
                 "declaration": true,

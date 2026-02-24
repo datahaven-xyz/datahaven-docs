@@ -5,7 +5,7 @@ categories: Store Data, StorageHub SDK, Smart Contract
 toggle:
   group: upload
   variant: sc
-  label: Smart Contract
+  label: Smart Contracts
 ---
 
 # Upload a File via Smart Contracts

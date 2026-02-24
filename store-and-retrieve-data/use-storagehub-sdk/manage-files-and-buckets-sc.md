@@ -5,7 +5,7 @@ categories: Store Data, StorageHub SDK, Smart Contract
 toggle:
   group: manage
   variant: sc
-  label: Smart Contract
+  label: Smart Contracts
 ---
 
 # Manage Files and Buckets via Smart Contracts
@@ -27,10 +27,10 @@ The `index.ts` snippet below also imports `bucketOperations.ts` and `fileOperati
 Add the following code to your `index.ts` file:
 
 ```ts title="index.ts"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:imports'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets-sc/manage-files-and-buckets.ts:imports'
 
 async function run() {
-  --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:init-setup'
+  --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets-sc/manage-files-and-buckets.ts:init-setup'
 
   // **PLACEHOLDER FOR STEP 1: AUTHENTICATE**
   // --- Data fetching logic ---
@@ -55,18 +55,18 @@ await run();
 Before any file operations, authenticate with the MSP. The `authenticateUser` helper signs a SIWE message and returns a session token that authorizes your uploads, updates, and deletions. Add the following code to use the `authenticateUser` helper method you've already implemented in `mspService.ts`:
 
 ```ts title='index.ts // **PLACEHOLDER FOR STEP 1: AUTHENTICATE**'
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:authenticate'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets-sc/manage-files-and-buckets.ts:authenticate'
 ```
 
 ??? code "View complete `index.ts` up until this point"
 
     ```ts title="index.ts"
-      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:imports'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets-sc/manage-files-and-buckets.ts:imports'
 
       async function run() {
-      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:init-setup'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets-sc/manage-files-and-buckets.ts:init-setup'
 
-      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:authenticate'
+      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets-sc/manage-files-and-buckets.ts:authenticate'
 
       // --- Data fetching logic ---
       // **PLACEHOLDER FOR STEP 2: GET YOUR BUCKETS**
@@ -114,7 +114,7 @@ To fetch your buckets stored in a specific MSP, create a helper method called `g
 Update `index.ts` with the following code to trigger the `getBucketsFromMSP` helper method you just implemented:
 
 ```ts title='index.ts  // **PLACEHOLDER FOR STEP 2: GET YOUR BUCKETS**'
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:get-buckets-msp'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets-sc/manage-files-and-buckets.ts:get-buckets-msp'
 ```
 
 If you run the script with the code, the full response should look like this:
@@ -145,7 +145,7 @@ To fetch your files from a specific bucket stored in a specific MSP, create a he
 Update `index.ts` with the following code to trigger the `getBucketFilesFromMSP` helper method you just implemented:
 
 ```ts title='index.ts  // **PLACEHOLDER FOR STEP 3: GET YOUR BUCKET FILES**'
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:get-bucket-files-msp'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets-sc/manage-files-and-buckets.ts:get-bucket-files-msp'
 ```
 
 If you run the script with the code, the response should look like this:
@@ -169,9 +169,7 @@ Add the following code to your `fileOperations.ts` file:
 Update `index.ts` with the following code to check the pending deletion count before requesting a deletion:
 
 ```ts title='index.ts  // **PLACEHOLDER FOR STEP 4: CHECK PENDING DELETION COUNT (BEFORE)**'
-// Check pending file deletion requests before deletion
-const pendingBefore = await getPendingFileDeletionRequestsCount();
-console.log(`Pending file deletion requests before: ${pendingBefore}`);
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets-sc/manage-files-and-buckets.ts:check-pending-before'
 ```
 
 ## Request File Deletion
@@ -195,7 +193,7 @@ Add the following code:
 Update `index.ts` with the following code to trigger the `requestDeleteFile` helper method you just implemented:
 
 ```ts title='index.ts  // **PLACEHOLDER FOR STEP 5: REQUEST FILE DELETION**'
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:request-file-deletion'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets-sc/manage-files-and-buckets.ts:request-file-deletion'
 ```
 
 !!! note
@@ -210,10 +208,7 @@ If you run the script with the code, the full response should look like this:
 After requesting the file deletion, check the pending deletion count again to confirm the request was registered. The count should have incremented by one.
 
 ```ts title='index.ts  // **PLACEHOLDER FOR STEP 6: CHECK PENDING DELETION COUNT (AFTER)**'
-// Check pending file deletion requests after deletion
-const pendingAfter = await getPendingFileDeletionRequestsCount();
-console.log(`Pending file deletion requests after: ${pendingAfter}`);
-console.log(`New pending deletions: ${Number(pendingAfter) - Number(pendingBefore)}`);
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets-sc/manage-files-and-buckets.ts:check-pending-after'
 ```
 
 ## Wait for Backend to Return Empty Bucket
@@ -242,7 +237,7 @@ To avoid that race condition, you'll add a small polling helper that waits for t
 2. Update the `index.ts` file to trigger the helper method you just implemented:
 
     ```ts title="index.ts // **PLACEHOLDER FOR STEP 7: WAIT FOR BACKEND TO RETURN EMPTY BUCKET**"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:wait-for-backend-bucket-empty'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets-sc/manage-files-and-buckets.ts:wait-for-backend-bucket-empty'
     ```
 
     The response should look similar to this:
@@ -269,7 +264,7 @@ In your existing `bucketOperations.ts` file, add the following code:
 Update `index.ts` with the following code to trigger the `deleteBucket` helper method you just implemented:
 
 ```ts title="index.ts  // **PLACEHOLDER FOR STEP 8: DELETE BUCKET**"
---8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts:delete-bucket'
+--8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets-sc/manage-files-and-buckets.ts:delete-bucket'
 ```
 
 If you run the script with the bucket deletion code, the response should include:
@@ -279,7 +274,7 @@ If you run the script with the bucket deletion code, the response should include
 ??? code "View complete `index.ts`"
 
     ```ts title="index.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/manage-files-and-buckets.ts'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets-sc/manage-files-and-buckets.ts'
     ```
 
 ??? code "View complete `bucketOperations.ts`"

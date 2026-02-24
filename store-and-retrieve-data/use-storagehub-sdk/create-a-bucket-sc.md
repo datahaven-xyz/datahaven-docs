@@ -5,7 +5,7 @@ categories: Store Data, StorageHub SDK, Smart Contract
 toggle:
   group: bucket
   variant: sc
-  label: Smart Contract
+  label: Smart Contracts
 ---
 
 # Create a Bucket via Smart Contracts
