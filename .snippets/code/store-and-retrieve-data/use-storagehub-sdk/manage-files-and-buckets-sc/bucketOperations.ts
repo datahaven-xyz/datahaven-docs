@@ -1,7 +1,15 @@
 // --8<-- [start:imports]
 import { Bucket, FileListResponse } from '@storagehub-sdk/msp-client';
-import { storageHubClient, publicClient } from '../services/clientService.js';
+import {
+  walletClient,
+  address,
+  publicClient,
+  account,
+  chain,
+} from '../services/clientService.js';
 import { mspClient } from '../services/mspService.js';
+import fileSystemAbi from '../abis/FileSystemABI.json' with { type: 'json' };
+import { NETWORK } from '../config/networks.js';
 // --8<-- [end:imports]
 
 // --8<-- [start:get-buckets-msp]
@@ -46,9 +54,15 @@ export async function waitForBackendBucketEmpty(bucketId: string) {
 
 // --8<-- [start:delete-bucket]
 export async function deleteBucket(bucketId: string): Promise<boolean> {
-  const txHash: `0x${string}` | undefined = await storageHubClient.deleteBucket(
-    bucketId as `0x${string}`,
-  );
+  // Delete bucket on chain by calling the FileSystem precompile directly
+  const txHash = await walletClient.writeContract({
+    account,
+    address: NETWORK.filesystemContractAddress,
+    abi: fileSystemAbi,
+    functionName: 'deleteBucket',
+    args: [bucketId as `0x${string}`],
+    chain: chain,
+  });
   console.log('deleteBucket() txHash:', txHash);
   if (!txHash) {
     throw new Error('deleteBucket() did not return a transaction hash');

@@ -1,15 +1,20 @@
 // --8<-- [start:imports]
 import {
-  storageHubClient,
+  account,
   address,
   publicClient,
+  walletClient,
   polkadotApi,
+  chain,
 } from '../services/clientService.js';
 import {
   getMspInfo,
   getValueProps,
   mspClient,
 } from '../services/mspService.js';
+import { toHex } from 'viem';
+import fileSystemAbi from '../abis/FileSystemABI.json' with { type: 'json' };
+import { NETWORK } from '../config/networks.js';
 // --8<-- [end:imports]
 
 // --8<-- [start:create-bucket]
@@ -21,11 +26,13 @@ export async function createBucket(bucketName: string) {
   const valuePropId = await getValueProps();
   console.log(`Value Prop ID: ${valuePropId}`);
 
-  // Derive bucket ID
-  const bucketId = (await storageHubClient.deriveBucketId(
-    address,
-    bucketName,
-  )) as string;
+  // Derive bucket ID by calling the FileSystem precompile directly
+  const bucketId = (await publicClient.readContract({
+    address: NETWORK.filesystemContractAddress,
+    abi: fileSystemAbi,
+    functionName: 'deriveBucketId',
+    args: [address, toHex(bucketName)],
+  })) as string;
   console.log(`Derived bucket ID: ${bucketId}`);
 
   // Check that the bucket doesn't exist yet
@@ -38,13 +45,15 @@ export async function createBucket(bucketName: string) {
 
   const isPrivate = false;
 
-  // Create bucket on chain
-  const txHash: `0x${string}` | undefined = await storageHubClient.createBucket(
-    mspId as `0x${string}`,
-    bucketName,
-    isPrivate,
-    valuePropId,
-  );
+  // Create bucket on chain by calling the FileSystem precompile directly
+  const txHash = await walletClient.writeContract({
+    account,
+    address: NETWORK.filesystemContractAddress,
+    abi: fileSystemAbi,
+    functionName: 'createBucket',
+    args: [mspId as `0x${string}`, toHex(bucketName), isPrivate, valuePropId],
+    chain: chain,
+  });
 
   console.log('createBucket() txHash:', txHash);
   if (!txHash) {
@@ -69,6 +78,7 @@ export async function verifyBucketCreation(bucketId: string) {
   const { mspId } = await getMspInfo();
 
   const bucket = await polkadotApi.query.providers.buckets(bucketId);
+
   if (bucket.isEmpty) {
     throw new Error('Bucket not found on chain after creation');
   }
@@ -85,7 +95,8 @@ export async function verifyBucketCreation(bucketId: string) {
 }
 // --8<-- [end:verify-bucket]
 
-// --8<-- [start:wait-for-backend-bucket-ready]
+// --8<-- [start:wait-bucket]
+// Wait until the backend/indexer has indexed the newly created bucket
 export async function waitForBackendBucketReady(bucketId: string) {
   const maxAttempts = 10; // Number of polling attempts
   const delayMs = 2000; // Delay between attempts in milliseconds
@@ -122,4 +133,4 @@ export async function waitForBackendBucketReady(bucketId: string) {
   // All attempts exhausted
   throw new Error(`Bucket ${bucketId} not found in MSP backend after waiting`);
 }
-// --8<-- [end:wait-for-backend-bucket-ready]
+// --8<-- [end:wait-bucket]

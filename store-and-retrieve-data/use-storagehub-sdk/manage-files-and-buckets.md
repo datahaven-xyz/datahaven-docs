@@ -1,7 +1,12 @@
 ---
-title: Manage Files and Buckets
+title: Manage Files and Buckets via SDK
 description: Guide on how to use the StorageHub SDK to remove your file from the network and how to delete your bucket.
 categories: Store Data, StorageHub SDK
+toggle:
+  group: manage
+  canonical: true
+  variant: sdk
+  label: SDK
 ---
 
 # Manage Files and Buckets

@@ -1,0 +1,427 @@
+[
+    {
+        "type": "function",
+        "name": "createAndAssociateCollectionWithBucket",
+        "inputs": [
+            {
+                "name": "bucketId",
+                "type": "bytes32",
+                "internalType": "bytes32"
+            }
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "function",
+        "name": "createBucket",
+        "inputs": [
+            {
+                "name": "mspId",
+                "type": "bytes32",
+                "internalType": "bytes32"
+            },
+            {
+                "name": "name",
+                "type": "bytes",
+                "internalType": "bytes"
+            },
+            {
+                "name": "_private",
+                "type": "bool",
+                "internalType": "bool"
+            },
+            {
+                "name": "valuePropId",
+                "type": "bytes32",
+                "internalType": "bytes32"
+            }
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "function",
+        "name": "deleteBucket",
+        "inputs": [
+            {
+                "name": "bucketId",
+                "type": "bytes32",
+                "internalType": "bytes32"
+            }
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "function",
+        "name": "deriveBucketId",
+        "inputs": [
+            {
+                "name": "owner",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "name",
+                "type": "bytes",
+                "internalType": "bytes"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "bucketId",
+                "type": "bytes32",
+                "internalType": "bytes32"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "getPendingFileDeletionRequestsCount",
+        "inputs": [
+            {
+                "name": "user",
+                "type": "address",
+                "internalType": "address"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "count",
+                "type": "uint32",
+                "internalType": "uint32"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "issueStorageRequest",
+        "inputs": [
+            {
+                "name": "bucketId",
+                "type": "bytes32",
+                "internalType": "bytes32"
+            },
+            {
+                "name": "location",
+                "type": "bytes",
+                "internalType": "bytes"
+            },
+            {
+                "name": "fingerprint",
+                "type": "bytes32",
+                "internalType": "bytes32"
+            },
+            {
+                "name": "size",
+                "type": "uint64",
+                "internalType": "uint64"
+            },
+            {
+                "name": "mspId",
+                "type": "bytes32",
+                "internalType": "bytes32"
+            },
+            {
+                "name": "peerIds",
+                "type": "bytes[]",
+                "internalType": "bytes[]"
+            },
+            {
+                "name": "replicationTarget",
+                "type": "uint8",
+                "internalType": "enum FileSystem.ReplicationTarget"
+            },
+            {
+                "name": "customReplicationTarget",
+                "type": "uint32",
+                "internalType": "uint32"
+            }
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "function",
+        "name": "requestDeleteFile",
+        "inputs": [
+            {
+                "name": "signedIntention",
+                "type": "tuple",
+                "internalType": "struct FileSystem.FileOperationIntention",
+                "components": [
+                    {
+                        "name": "fileKey",
+                        "type": "bytes32",
+                        "internalType": "bytes32"
+                    },
+                    {
+                        "name": "operation",
+                        "type": "uint8",
+                        "internalType": "enum FileSystem.FileOperation"
+                    }
+                ]
+            },
+            {
+                "name": "signature",
+                "type": "bytes",
+                "internalType": "bytes"
+            },
+            {
+                "name": "bucketId",
+                "type": "bytes32",
+                "internalType": "bytes32"
+            },
+            {
+                "name": "location",
+                "type": "bytes",
+                "internalType": "bytes"
+            },
+            {
+                "name": "size",
+                "type": "uint64",
+                "internalType": "uint64"
+            },
+            {
+                "name": "fingerprint",
+                "type": "bytes32",
+                "internalType": "bytes32"
+            }
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "function",
+        "name": "requestMoveBucket",
+        "inputs": [
+            {
+                "name": "bucketId",
+                "type": "bytes32",
+                "internalType": "bytes32"
+            },
+            {
+                "name": "newMspId",
+                "type": "bytes32",
+                "internalType": "bytes32"
+            },
+            {
+                "name": "newValuePropId",
+                "type": "bytes32",
+                "internalType": "bytes32"
+            }
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "function",
+        "name": "revokeStorageRequest",
+        "inputs": [
+            {
+                "name": "fileKey",
+                "type": "bytes32",
+                "internalType": "bytes32"
+            }
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "function",
+        "name": "updateBucketPrivacy",
+        "inputs": [
+            {
+                "name": "bucketId",
+                "type": "bytes32",
+                "internalType": "bytes32"
+            },
+            {
+                "name": "_private",
+                "type": "bool",
+                "internalType": "bool"
+            }
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "event",
+        "name": "BucketCreated",
+        "inputs": [
+            {
+                "name": "who",
+                "type": "address",
+                "indexed": true,
+                "internalType": "address"
+            },
+            {
+                "name": "bucketId",
+                "type": "bytes32",
+                "indexed": true,
+                "internalType": "bytes32"
+            },
+            {
+                "name": "mspId",
+                "type": "bytes32",
+                "indexed": true,
+                "internalType": "bytes32"
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "BucketDeleted",
+        "inputs": [
+            {
+                "name": "who",
+                "type": "address",
+                "indexed": true,
+                "internalType": "address"
+            },
+            {
+                "name": "bucketId",
+                "type": "bytes32",
+                "indexed": true,
+                "internalType": "bytes32"
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "BucketMoveRequested",
+        "inputs": [
+            {
+                "name": "who",
+                "type": "address",
+                "indexed": true,
+                "internalType": "address"
+            },
+            {
+                "name": "bucketId",
+                "type": "bytes32",
+                "indexed": true,
+                "internalType": "bytes32"
+            },
+            {
+                "name": "newMspId",
+                "type": "bytes32",
+                "indexed": true,
+                "internalType": "bytes32"
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "BucketPrivacyUpdated",
+        "inputs": [
+            {
+                "name": "who",
+                "type": "address",
+                "indexed": true,
+                "internalType": "address"
+            },
+            {
+                "name": "bucketId",
+                "type": "bytes32",
+                "indexed": true,
+                "internalType": "bytes32"
+            },
+            {
+                "name": "_private",
+                "type": "bool",
+                "indexed": false,
+                "internalType": "bool"
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "CollectionCreated",
+        "inputs": [
+            {
+                "name": "who",
+                "type": "address",
+                "indexed": true,
+                "internalType": "address"
+            },
+            {
+                "name": "bucketId",
+                "type": "bytes32",
+                "indexed": true,
+                "internalType": "bytes32"
+            },
+            {
+                "name": "collectionId",
+                "type": "bytes32",
+                "indexed": true,
+                "internalType": "bytes32"
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "FileDeletionRequested",
+        "inputs": [
+            {
+                "name": "fileKey",
+                "type": "bytes32",
+                "indexed": true,
+                "internalType": "bytes32"
+            },
+            {
+                "name": "owner",
+                "type": "address",
+                "indexed": true,
+                "internalType": "address"
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "StorageRequestIssued",
+        "inputs": [
+            {
+                "name": "who",
+                "type": "address",
+                "indexed": true,
+                "internalType": "address"
+            },
+            {
+                "name": "fileKey",
+                "type": "bytes32",
+                "indexed": true,
+                "internalType": "bytes32"
+            },
+            {
+                "name": "bucketId",
+                "type": "bytes32",
+                "indexed": true,
+                "internalType": "bytes32"
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "StorageRequestRevoked",
+        "inputs": [
+            {
+                "name": "fileKey",
+                "type": "bytes32",
+                "indexed": true,
+                "internalType": "bytes32"
+            }
+        ],
+        "anonymous": false
+    }
+]
