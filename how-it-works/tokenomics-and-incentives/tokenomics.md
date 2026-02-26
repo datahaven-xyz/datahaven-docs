@@ -39,4 +39,4 @@ The native token will be bridgeable using standardized cross-chain infrastructur
 
 ## Token Supply and Distribution
 
-The HAVE token genesis supply is 10 billion tokens issued on the DataHaven network. For for a detailed look at allocation, vesting, and inflation information, visit the [Tokenomics](https://datahaven.xyz/tokenomics/){target=\_blank} section of the DataHaven website.
+The HAVE token genesis supply is 10 billion tokens issued on the DataHaven network. For a detailed look at allocation, vesting, and inflation information, visit the [Tokenomics](https://datahaven.xyz/tokenomics/){target=\_blank} section of the DataHaven website.
