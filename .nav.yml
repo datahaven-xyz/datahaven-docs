@@ -1,5 +1,6 @@
 nav:
  - 'Home': index.md
+ - 'AI Resources': ai-resources.md
  - 'Store and Retrieve Data': store-and-retrieve-data
  - 'Provide Storage': provide-storage
  - 'How It Works': how-it-works
