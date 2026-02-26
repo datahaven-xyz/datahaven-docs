@@ -1,23 +1,23 @@
 ---
-title: Create a Bucket via SDK
-description: Guide on what storage buckets are in DataHaven, how to create them with the StorageHub SDK, and what edge cases to look out for.
-categories: Store Data, StorageHub SDK
+title: Create a Bucket via Smart Contracts
+description: Learn what storage buckets are in DataHaven and how to create them using the StorageHub SDK and the FileSystem Precompile.
+categories: Store Data, StorageHub SDK, Smart Contract
 toggle:
   group: bucket
-  canonical: true
-  variant: sdk
-  label: SDK
+  variant: sc
+  label: Smart Contracts
 ---
 
-# Create a Bucket
+# Create a Bucket via Smart Contracts
 
 Buckets are logical containers (folders) that group your files under a Main Storage Provider (MSP). Each bucket is tied to a specific MSP and value proposition, which together define where your data will be stored and at what price. Before you can issue storage requests or upload files to DataHaven, you must first create a bucket.
 
-This guide walks you through creating your first bucket programmatically using the StorageHub SDK — from connecting to an MSP and initializing the SDK to deriving a bucket ID, creating the bucket on-chain, and verifying its data.
+This guide walks you through creating your first bucket programmatically using the StorageHub SDK and the FileSystem Precompile — from connecting to an MSP and setting up the ABI to deriving a bucket ID, creating the bucket on-chain, and verifying its data.
 
 ## Prerequisites
 
 --8<-- 'text/store-and-retrieve-data/use-storagehub-sdk/prerequisites.md'
+- [The FileSystem Precompile's ABI](/store-and-retrieve-data/use-storagehub-sdk/get-started/#set-up-the-smart-contract-path-optional) handy
 
 ## Initialize the Script Entry Point
 
@@ -117,12 +117,12 @@ Bucket-related logic will live in a separate `bucketOperations.ts` file. To impl
 3. Add the following code, which uses the `getValueProps` helper from the previous section in `createBucket`:
 
     !!! note
-        After creating a bucket, it is crucial to wait for the transaction receipt, as shown in the code below. If writing custom bucket-creation logic, make sure to include that step; otherwise, you will fetch bucket data before it is available.
+        After creating a bucket, it is crucial to wait for the transaction receipt, as shown in the following code. If writing custom bucket-creation logic, make sure to include that step; otherwise, you will fetch bucket data before it is available.
 
     ```ts title="bucketOperations.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:imports'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket-sc/bucketOperations.ts:imports'
 
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:create-bucket'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket-sc/bucketOperations.ts:create-bucket'
     ```
 
     The `createBucket` helper handles the full lifecycle of a bucket-creation transaction:  
@@ -131,7 +131,7 @@ Bucket-related logic will live in a separate `bucketOperations.ts` file. To impl
     - It derives a deterministic bucket ID from your wallet address and chosen bucket name.  
     - Before sending any on-chain transaction, it checks whether the bucket already exists to prevent accidental overwrites.  
 
-    Once the check passes, the `createBucket` extrinsic is called via the StorageHub client, returning the `bucketId` and `txReceipt`.  
+    Once the check passes, the `createBucket` function is called directly on the FileSystem Precompile via `walletClient.writeContract`, returning the `bucketId` and `txReceipt`.  
 
 ### Call the Create Bucket Helper Method
 
@@ -153,7 +153,7 @@ Now that you've extracted all the bucket creation logic into its own method, you
     ts-node index.ts
     ```
 
-    The response should look something like this:
+    The response should look similar to this:
 
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/output-02.html'
 
@@ -165,7 +165,7 @@ The last step is to verify that the bucket was created successfully on-chain and
 1. Add the following code in your `bucketOperations.ts` file:
     
     ```ts title="bucketOperations.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:verify-bucket'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket-sc/bucketOperations.ts:verify-bucket'
     ```
 
 2. Update the `index.ts` file to trigger the helper method you just implemented:
@@ -174,18 +174,18 @@ The last step is to verify that the bucket was created successfully on-chain and
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:verify-bucket'
     ```
 
-    The response should look something like this:
+    The response should look similar to this:
 
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/output-03.html'
 
 ??? code "View complete `bucketOperations.ts` file up until this point"
 
     ```ts title="bucketOperations.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:imports'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket-sc/bucketOperations.ts:imports'
 
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:create-bucket'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket-sc/bucketOperations.ts:create-bucket'
 
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:verify-bucket'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket-sc/bucketOperations.ts:verify-bucket'
     ```
 
 ??? code "View complete `index.ts` file up until this point"
@@ -219,7 +219,7 @@ If you attempt to upload a file right after creating a bucket, it's possible tha
 1. Add the following code in your `bucketOperations.ts` file:
         
     ```ts title="bucketOperations.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts:wait-bucket'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket-sc/bucketOperations.ts:wait-bucket'
     ```
 
 2. Update the `index.ts` file to trigger the helper method you just implemented:
@@ -228,14 +228,14 @@ If you attempt to upload a file right after creating a bucket, it's possible tha
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/create-a-bucket.ts:wait-bucket'
     ```
 
-    The response should look something like this:
+    The response should look similar to this:
 
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/output-01.html'
 
 ??? code "View complete `bucketOperations.ts` file"
 
     ```ts title="bucketOperations.ts"
-    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/bucketOperations.ts'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket-sc/bucketOperations.ts'
     ```
 
 ??? code "View complete `index.ts` file"
@@ -248,19 +248,19 @@ If you attempt to upload a file right after creating a bucket, it's possible tha
 
 <div class="grid cards" markdown>
 
--  <a href="/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/" markdown>:material-arrow-right: 
+-  <a href="/store-and-retrieve-data/use-storagehub-sdk/upload-a-file-sc/" markdown>:material-arrow-right: 
     
-    **Upload a File**
+    **Upload a File via Smart Contracts**
 
-    Once your storage request is confirmed, use the StorageHub SDK to upload a file to the network.
+    Learn how to issue storage requests via smart contracts and upload files to the network.
 
     </a>
 
--   <a href="/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/" markdown>:material-arrow-right:
+-   <a href="/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow-sc/" markdown>:material-arrow-right:
 
-    **Build a Data Workflow End-to-End**
+    **Build a Data Workflow End-to-End via Smart Contracts**
 
-    Learn step-by-step how to store a file on DataHaven and retrieve it from the network.
+    Learn step-by-step how to store a file on DataHaven via smart contracts and retrieve it from the network.
 
     </a>
 

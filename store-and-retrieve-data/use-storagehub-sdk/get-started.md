@@ -113,7 +113,7 @@ Follow the steps in this section to set up the clients needed to work with the S
 
     - **[`@storagehub/types-bundle`](https://www.npmjs.com/package/@storagehub/types-bundle){target=_blank}:** Describes DataHaven's custom on-chain types.
 
-    - **[`@polkadot/api`](https://www.npmjs.com/package/@polkadot/api){target=_blank}:** The core JavaScript library used to talk to any Substrate-based blockchain, which in our case is DataHaven.
+    - **[`@polkadot/api`](https://www.npmjs.com/package/@polkadot/api){target=_blank}:** The core JavaScript library used to talk to any Substrate-based blockchain, which in this case is DataHaven.
 
     - **[`@polkadot/types`](https://www.npmjs.com/package/@polkadot/types){target=_blank}:** Provides type definitions and codecs for encoding/decoding Substrate data structures.
 
@@ -148,7 +148,7 @@ Follow the steps in this section to set up the clients needed to work with the S
 
 ### Set Up Client Service
 
-You'll need to set up the necessary clients to connect to the DataHaven network, which runs on a dual-protocol architecture (Substrate for core logic and EVM for compatibility).
+You need to set up the necessary clients to connect to the DataHaven network, which runs on a dual-protocol architecture (Substrate for core logic and EVM for compatibility).
 
 1. In the folder where your `index.ts` (or main code file) is located, create a new folder called `services`:
 
@@ -171,7 +171,7 @@ You'll need to set up the necessary clients to connect to the DataHaven network,
     !!! warning
         It is assumed that private keys are securely stored and managed in accordance with standard security practices.
 
-    With the above code in place, you now have the following:
+    With the code in place, you now have the following:
 
     - EVM path:
         - **`account`**: The viem account object derived from your private key. Used internally by `walletClient` for signing EVM transactions.
@@ -210,12 +210,91 @@ To interact with DataHaven's Main Storage Provider (MSP) services, you need to e
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/get-started/msp-service.ts'
     ```
 
-    With the above code in place, you now have the following:
+    With the code in place, you now have the following:
 
     - **`mspClient`**: Used for interacting with a Main Storage Provider (MSP) backend — allowing you to authenticate via SIWE, retrieve MSP information and health status, and perform storage-related actions through REST-like endpoints.
     - **`getMspInfo`**: Fetches general MSP metadata such as its unique ID, version, and available endpoints.
     - **`getMspHealth`**: Checks the operational health of the MSP and reports whether it’s running normally or facing issues.
     - **`authenticateUser`**: Authenticates your wallet with the MSP via Sign-In With Ethereum (SIWE), creates a session token, and returns your user profile.
+
+## Set Up the Smart Contract Path (Optional)
+
+The guides in this section offer two approaches for interacting with DataHaven's on-chain storage logic:
+
+- **SDK**: Uses the `StorageHubClient` from `@storagehub-sdk/core`, which wraps precompile calls behind convenient methods like `storageHubClient.createBucket(...)`. This is the recommended path for most developers.
+- **SC (Smart Contract)**: Calls the [FileSystem Precompile](https://github.com/Moonsong-Labs/storage-hub/blob/main/precompiles/pallet-file-system/FileSystem.sol#L7){target=\_blank} directly using viem's `readContract` and `writeContract` with the raw ABI. This gives you full control over the transaction parameters and is useful for custom integrations or when you need access to precompile functions not yet exposed by the SDK.
+
+Guides that support both approaches have an **SDK / SC toggle** at the top of the page, letting you switch between them.
+
+### What Is a Precompile?
+
+A precompile is a smart contract deployed at a fixed address that bridges EVM calls into the underlying Substrate runtime. Instead of writing Solidity contracts from scratch, you call the precompile's functions through standard EVM tooling (like viem), and the chain routes those calls to the native storage pallets. 
+
+The FileSystem Precompile handles operations like creating buckets, issuing storage requests, and deleting files. More precompiles will become available as the network evolves.
+
+You already have the precompile addresses configured in your `networks.ts` file under the `filesystemContractAddress` field for both testnet (`0x...0404`) and local devnet (`0x...0064`).
+
+### Download the FileSystem ABI
+
+To call the precompile directly, you need its ABI. Create an `abis` folder in your project and download the ABI file:
+
+```bash
+mkdir abis
+```
+
+Download the [`FileSystemABI.json`](/downloads/abis/FileSystemABI.json){: download } file and place it in the `abis` folder. Your project structure should look like this:
+
+```text
+your-project/
+├── abis/
+│   └── FileSystemABI.json
+├── config/
+│   └── networks.ts
+├── services/
+│   ├── clientService.ts
+│   └── mspService.ts
+└── index.ts
+```
+
+In the SC guides, you'll import the ABI like this:
+
+```ts
+import fileSystemAbi from '../abis/FileSystemABI.json' with { type: 'json' };
+```
+
+And use it with viem to call precompile functions directly:
+
+```ts
+import { toHex } from 'viem';
+import { chain, NETWORK } from './config/networks.js';
+import { publicClient, walletClient, account, address } from './services/clientService.js';
+import fileSystemAbi from './abis/FileSystemABI.json' with { type: 'json' };
+
+// Read (no transaction)
+const bucketId = await publicClient.readContract({
+  address: NETWORK.filesystemContractAddress,
+  abi: fileSystemAbi,
+  functionName: 'deriveBucketId',
+  args: [address, toHex('my-bucket')],
+});
+
+// Write (submits a transaction)
+const txHash = await walletClient.writeContract({
+  account,
+  address: NETWORK.filesystemContractAddress,
+  abi: fileSystemAbi,
+  chain,
+  functionName: 'createBucket',
+  args: [
+    '0x0000000000000000000000000000000000000000000000000000000000000001',
+    toHex('my-bucket'),
+    false,
+    '0x628a23c7aa64902e13f63ffdd0725e07723745f84cabda048d901020d200da1e',
+  ],
+});
+```
+
+With both the SDK and the ABI in place, you're ready to follow either path in the guides that follow.
 
 ## Demo Dapps
 
