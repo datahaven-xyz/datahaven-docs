@@ -477,9 +477,9 @@ Uploading a file does not guarantee network-wide replication. Files are consider
 
 -  <a href="https://github.com/papermoonio/datahaven-demo-dapp" target="_blank" markdown>:material-arrow-right:
 
-    **File Storage Demo Dapp**
+    **File Storage Demo DApp**
 
-    Explore a complete working demo dapp that puts the StorageHub SDK into practice. Check out the source code to see how it all fits together.
+    Explore a complete working demo dApp that puts the StorageHub SDK into practice. Check out the source code to see how it all fits together.
 
     </a>
 
