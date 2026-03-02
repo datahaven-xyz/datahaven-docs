@@ -98,7 +98,7 @@ Upon successful verification, the bucket data should now show `private: true`:
 
 <div class="grid cards" markdown>
 
--   <a href="/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets-sc/" markdown>:material-arrow-right:
+-   <a href="/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/#sc" markdown>:material-arrow-right:
 
     **Manage Files and Buckets via Smart Contracts**
 
@@ -106,7 +106,7 @@ Upon successful verification, the bucket data should now show `private: true`:
 
     </a>
 
--  <a href="/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow-sc/" markdown>:material-arrow-right:
+-  <a href="/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/#sc" markdown>:material-arrow-right:
 
     **Build a Data Workflow End-to-End via Smart Contracts**
 

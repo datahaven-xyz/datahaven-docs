@@ -248,7 +248,7 @@ If you attempt to upload a file right after creating a bucket, it's possible tha
 
 <div class="grid cards" markdown>
 
--  <a href="/store-and-retrieve-data/use-storagehub-sdk/upload-a-file-sc/" markdown>:material-arrow-right: 
+-  <a href="/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/#sc" markdown>:material-arrow-right: 
     
     **Upload a File via Smart Contracts**
 
@@ -256,7 +256,7 @@ If you attempt to upload a file right after creating a bucket, it's possible tha
 
     </a>
 
--   <a href="/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow-sc/" markdown>:material-arrow-right:
+-   <a href="/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/#sc" markdown>:material-arrow-right:
 
     **Build a Data Workflow End-to-End via Smart Contracts**
 
