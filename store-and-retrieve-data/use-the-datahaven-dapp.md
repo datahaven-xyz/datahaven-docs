@@ -10,7 +10,7 @@ The DataHaven dApp is a convenient front-end for users to interact with the Data
 
 ## Prerequisites
 
-- DataHaven testnet RPC added to your wallet (see the [Testnet](/store-and-retrieve-data/network-details/testnet/#network-configurations){target=\_blank} page for RPC details; the connection flow below will also prompt you to add it)
+- DataHaven testnet RPC added to your wallet (see the [Testnet](/store-and-retrieve-data/network-details/testnet/#network-configuration){target=\_blank} page for RPC details; the connection flow below will also prompt you to add it)
 - [MOCK testnet tokens](https://apps.datahaven.xyz/testnet/faucet){target=\_blank} to cover transactions and storage fees
 - [DataHaven dApp testnet URL](https://datahaven.app/testnet){target=\_blank}
 
@@ -60,7 +60,7 @@ In the pop-up window:
 
     ![Creating a new bucket](/images/store-and-retrieve-data/use-the-datahaven-dapp/use-the-datahaven-dapp-6.webp)
 
-4. Approve the  bucket creation transaction in your wallet.
+4. Approve the bucket creation transaction in your wallet.
 
     ![Confirm bucket creation transaction](/images/store-and-retrieve-data/use-the-datahaven-dapp/use-the-datahaven-dapp-7.webp)
 
