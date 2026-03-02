@@ -31,7 +31,7 @@ The two packages differ in the following ways:
 
 Actions on the DataHaven network, such as uploading files and creating buckets, incur small transaction fees paid in HAVE tokens. Fees are automatically deducted from your connected wallet balance via payment streams when you perform these operations.
 
-You can view your detailed billing history by connecting your wallet to [apps.datahaven.xyz](https://apps.datahaven.xyz) and visiting the **Payments** section.
+You can view your detailed billing history by connecting your wallet to [apps.datahaven.xyz](https://apps.datahaven.xyz){target=\_blank} and visiting the **Payments** section.
 
 ## How do I estimate costs when comparing Main Storage Providers?
 
@@ -121,4 +121,4 @@ EigenLayer secures DataHaven by keeping operator economics on Ethereum while exe
 
 ## Don't see your question?
 
-If your question isn't answered here, join the [DataHaven Discord](https://discord.gg/datahaven) and use the Support Ticket chat. This will create a private channel to ensure your ticket is answered in a timely manner by our support team.
+If your question isn't answered here, join the [DataHaven Discord](https://discord.com/invite/datahaven){target=\_blank} and use the Support Ticket chat. This will create a private channel to ensure your ticket is answered in a timely manner by our support team.
