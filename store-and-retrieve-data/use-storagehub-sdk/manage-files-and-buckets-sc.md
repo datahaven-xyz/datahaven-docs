@@ -301,7 +301,7 @@ If you run the script with the bucket deletion code, the response should include
 
     </a>
 
--   <a href="/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/" markdown>:material-arrow-right:
+-   <a href="/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/#sc" markdown>:material-arrow-right:
 
     **Build a Data Workflow End-to-End**
 

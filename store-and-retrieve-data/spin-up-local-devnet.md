@@ -74,7 +74,7 @@ Before you begin, ensure you have the following:
             cargo install diesel_cli --no-default-features --features postgres
             ```
 
-- (Optional) [jq](https://jqlang.github.io/jq/download/){target=\_blank} installed; a command-line JSON processor for formatting chain state queries and API responses
+- (Optional) [jq](https://jqlang.org/download/){target=\_blank} installed; a command-line JSON processor for formatting chain state queries and API responses
 
 ## Clone the StorageHub Repository
 

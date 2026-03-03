@@ -134,7 +134,7 @@ Now you've successfully learned how to manipulate the file you intend to upload 
 
 <div class="grid cards" markdown>
 
--   <a href="/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets-sc/" markdown>:material-arrow-right:
+-   <a href="/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/#sc" markdown>:material-arrow-right:
 
     **Manage Files and Buckets via Smart Contracts**
 
@@ -142,7 +142,7 @@ Now you've successfully learned how to manipulate the file you intend to upload 
 
     </a>
 
--  <a href="/store-and-retrieve-data/use-storagehub-sdk/upload-a-file-sc/" markdown>:material-arrow-right: 
+-  <a href="/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/#sc" markdown>:material-arrow-right: 
     
     **Upload a File via Smart Contracts**
 

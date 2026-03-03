@@ -138,7 +138,7 @@ If the revocation was successful, the output should confirm the request was remo
 
 <div class="grid cards" markdown>
 
--   <a href="/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets-sc/" markdown>:material-arrow-right:
+-   <a href="/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/#sc" markdown>:material-arrow-right:
 
     **Manage Files and Buckets via Smart Contracts**
 
@@ -146,7 +146,7 @@ If the revocation was successful, the output should confirm the request was remo
 
     </a>
 
--  <a href="/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow-sc/" markdown>:material-arrow-right:
+-  <a href="/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/#sc" markdown>:material-arrow-right:
 
     **Build a Data Workflow End-to-End via Smart Contracts**
 
