@@ -18,25 +18,19 @@ export async function waitForBackendBucketEmpty(bucketId: string) {
 
   for (let i = 0; i < maxAttempts; i++) {
     try {
-      const bucketFiles: FileListResponse =
-        await mspClient.buckets.getFiles(bucketId);
+      const bucket: Bucket = await mspClient.buckets.getBucket(bucketId);
 
-      if (bucketFiles.files.length === 0) {
-        console.log('Bucket is empty in MSP backend:', bucketFiles);
+      if (bucket.fileCount === 0) {
+        console.log('Bucket is empty in MSP backend:', bucket);
         return;
       }
       console.log(
-        `Checking MSP backend for empty bucket... ${bucketFiles.files.length} file(s) remaining. ` +
+        `Checking MSP backend for empty bucket... bucket is still not empty. ` +
           `Attempt ${i + 1}/${maxAttempts}`,
       );
     } catch (error: any) {
-      if (error?.status === 404 || error?.body?.error === 'Not found: Record') {
-        console.log(`Bucket not found in MSP backend (404).`);
-        throw new Error(`Bucket ${bucketId} not found in MSP backend`);
-      } else {
-        console.log('Unexpected error while fetching bucket from MSP:', error);
-        throw error;
-      }
+      console.log('Unexpected error while fetching bucket from MSP:', error);
+      throw error;
     }
     await new Promise((r) => setTimeout(r, delayMs));
   }

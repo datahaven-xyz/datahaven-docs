@@ -20,9 +20,9 @@ You will fetch the bucket's metadata from your Main Storage Provider (MSP) to ve
 
 ## Initialize the Script Entry Point
 
-First, create an `index.ts` file if you haven't already. Its `run` method will orchestrate all the logic in this guide, and you'll replace the labelled placeholders with real code step by step. By now, your services folder (including the MSP and client helper services) should already be created. If not, see the [Get Started](/store-and-retrieve-data/use-storagehub-sdk/get-started/) guide.
+First, create an `index.ts` file if you have not already. Its `run` method will orchestrate all the logic in this guide, and you will replace the labelled placeholders with real code step by step. By now, your services folder (including the MSP and client helper services) should already be created. If not, see the [Get Started](/store-and-retrieve-data/use-storagehub-sdk/get-started/) guide.
 
-The `index.ts` snippet below also imports `bucketOperations.ts`, which is not in your project yet—that's expected, as you'll create it later in this guide.
+The `index.ts` snippet below also imports `bucketOperations.ts`, which is not in your project yet—that is expected, as you will create it later in this guide.
 
 Add the following code to your `index.ts` file:
 
@@ -48,7 +48,7 @@ run();
 
 ## Authenticate
 
-Before any bucket operations, authenticate with the MSP. The `authenticateUser` helper signs a SIWE message and returns a session token that authorizes your requests. Add the following code to use the `authenticateUser` helper method you've already implemented in `mspService.ts`:
+Before any bucket operations, authenticate with the MSP. The `authenticateUser` helper signs a SIWE message and returns a session token that authorizes your requests. Add the following code to use the `authenticateUser` helper method you have already implemented in `mspService.ts`:
 
 ```ts title='index.ts // **PLACEHOLDER FOR STEP 1: AUTHENTICATE**'
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/delete-a-bucket/delete-a-bucket.ts:authenticate'
@@ -57,9 +57,9 @@ Before any bucket operations, authenticate with the MSP. The `authenticateUser` 
 ??? code "View complete `index.ts` up until this point"
 
     ```ts title="index.ts"
-      --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/delete-a-bucket/delete-a-bucket.ts:imports'
+    --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/delete-a-bucket/delete-a-bucket.ts:imports'
 
-      async function run() {
+    async function run() {
       // Initialize WASM
       await initWasm();
 

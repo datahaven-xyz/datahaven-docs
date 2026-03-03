@@ -134,11 +134,11 @@ Now you've successfully learned how to manipulate the file you intend to upload 
 
 <div class="grid cards" markdown>
 
--   <a href="/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/" markdown>:material-arrow-right:
+-   <a href="/store-and-retrieve-data/use-storagehub-sdk/delete-a-file/" markdown>:material-arrow-right:
 
-    **Manage Files and Buckets**
+    **Delete a File**
 
-    Learn how to get file info, request file removal from the network, and how to delete buckets.
+    Learn how to request the deletion of a file from DataHaven using the StorageHub SDK.
 
     </a>
 

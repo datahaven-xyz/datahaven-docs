@@ -17,9 +17,9 @@ Periodically cleaning up unused buckets is important for cost management, as buc
 
 ## Initialize the Script Entry Point
 
-First, create an `index.ts` file if you haven't already. Its `run` method will orchestrate all the logic in this tutorial, and you'll replace the labelled placeholders with real code step by step. By now, your services folder (including the MSP and client helper services) should already be created. If not, see the [Get Started](/store-and-retrieve-data/use-storagehub-sdk/get-started/) guide.
+First, create an `index.ts` file if you have not already. Its `run` method will orchestrate all the logic in this tutorial, and you will replace the labelled placeholders with real code step by step. By now, your services folder (including the MSP and client helper services) should already be created. If not, see the [Get Started](/store-and-retrieve-data/use-storagehub-sdk/get-started/) guide.
 
-The `index.ts` snippet below also imports `bucketOperations.ts` and `fileOperations.ts`, which are not in your project yet—that's expected, as you'll create them later in this tutorial.
+The `index.ts` snippet below also imports `bucketOperations.ts` and `fileOperations.ts`, which are not in your project yet—that is expected, as you will create them later in this tutorial.
 
 Add the following code to your `index.ts` file:
 
@@ -48,7 +48,7 @@ run();
 
 ## Authenticate
 
-Before any file operations, authenticate with the MSP. The `authenticateUser` helper signs a SIWE message and returns a session token that authorizes your uploads, updates, and deletions. Add the following code to use the `authenticateUser` helper method you've already implemented in `mspService.ts`:
+Before any file operations, authenticate with the MSP. The `authenticateUser` helper signs a SIWE message and returns a session token that authorizes your uploads, updates, and deletions. Add the following code to use the `authenticateUser` helper method you have already implemented in `mspService.ts`:
 
 ```ts title='index.ts // **PLACEHOLDER FOR STEP 1: AUTHENTICATE**'
 --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/clean-up-a-bucket/clean-up-a-bucket.ts:authenticate'
@@ -147,16 +147,16 @@ If you run the script with the code above, the full response should look like th
 
 To delete all files in a bucket, you need two helper methods in your `fileOperations.ts` file: `requestDeleteFile` handles the on-chain deletion of a single file, and `deleteAllFilesInBucket` recursively discovers every file in the bucket's file tree and deletes them one by one. Each file deletion is an individual on-chain transaction, so they are processed sequentially.
 
-It's important to note that files are not removed instantly. When a deletion request succeeds, the file is marked for deletion on-chain, but both the MSP and all BSPs storing it still have it in their Merkle Patricia Forests until they pass the mandatory storage proof challenge. After that, the Fishermen nodes automatically update the Merkle Patricia Forest roots to remove the file.
+It is important to note that files are not removed instantly. When a deletion request succeeds, the file is marked for deletion on-chain, but both the MSP and all BSPs storing it still have it in their Merkle Patricia Forests until they pass the mandatory storage proof challenge. After that, the Fishermen nodes automatically update the Merkle Patricia Forest roots to remove the file.
 
 ### Add Methods to Delete All Files
 
 1. Create a new file within the `operations` folder called `fileOperations.ts`.
 
-2. Add the code bellow to implement the following helper methods:
-- **`requestDeleteFile`**: fetches a file's metadata from the MSP and submits the on-chain deletion transaction
-- **`getBucketFilesFromMSP`**: retrieves the file list for a given bucket
-- **`deleteAllFilesInBucket`**: recursively collects all file keys from the file tree and calls `requestDeleteFile` for each file sequentially
+2. Add the code below to implement the following helper methods:
+    - **`requestDeleteFile`** - Fetches a file's metadata from the MSP and submits the on-chain deletion transaction
+    - **`getBucketFilesFromMSP`** - Retrieves the file list for a given bucket
+    - **`deleteAllFilesInBucket`** - Recursively collects all file keys from the file tree and calls `requestDeleteFile` for each file sequentially
 
     ```ts title="fileOperations.ts"
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/clean-up-a-bucket/fileOperations.ts:imports'
@@ -223,9 +223,9 @@ If you run the script with the code above, the full response should look like th
 
 ## Wait for Backend to Return Empty Bucket
 
-Right after your files' deletions are requested, your script will immediately try to delete the bucket. At this point, the files might not have been fully removed, or if they have been, DataHaven's indexer may not have processed those blocks yet. Until the indexer catches up, the MSP backend won't show up-to-date data, so any bucket deletion attempt will fail.
+Right after your files' deletions are requested, your script will immediately try to delete the bucket. At this point, the files might not have been fully removed, or if they have been, DataHaven's indexer may not have processed those blocks yet. Until the indexer catches up, the MSP backend will not show up-to-date data, so any bucket deletion attempt will fail.
 
-To avoid that race condition, you'll add a polling helper that waits for the indexer to acknowledge your bucket is empty before continuing.
+To avoid that race condition, you will add a polling helper that waits for the indexer to acknowledge your bucket is empty before continuing.
 
 1. Add the following code in your `bucketOperations.ts` file:
 

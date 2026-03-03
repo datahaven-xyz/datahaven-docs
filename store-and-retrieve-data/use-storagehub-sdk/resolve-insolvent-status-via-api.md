@@ -428,11 +428,11 @@ If you run the script with the code above, the response should look something li
 
     </a>
 
--   <a href="/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/" markdown>:material-arrow-right:
+-   <a href="/store-and-retrieve-data/use-storagehub-sdk/clean-up-a-bucket/" markdown>:material-arrow-right:
 
-    **Manage Files and Buckets**
+    **Clean Up a Bucket**
 
-    Learn how to manage your storage resources on DataHaven using the StorageHub SDK.
+    Remove all files from a bucket and delete it using the StorageHub SDK.
 
     </a>
 
