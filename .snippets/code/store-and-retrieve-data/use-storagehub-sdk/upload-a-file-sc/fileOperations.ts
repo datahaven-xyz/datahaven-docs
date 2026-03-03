@@ -25,7 +25,7 @@ import { NETWORK } from '../config/networks.js';
 
 // --8<-- [start:upload-file-full]
 export async function uploadFile(
-  bucketId: string,
+  bucketId: `0x${string}`,
   filePath: string,
   fileName: string,
 ) {
@@ -185,7 +185,7 @@ export async function uploadFile(
 // --8<-- [end:upload-file-full]
 
 // --8<-- [start:wait-for-msp-confirm-on-chain]
-export async function waitForMSPConfirmOnChain(fileKey: string) {
+export async function waitForMSPConfirmOnChain(fileKey: `0x${string}`) {
   const maxAttempts = 20;
   const delayMs = 2000;
 

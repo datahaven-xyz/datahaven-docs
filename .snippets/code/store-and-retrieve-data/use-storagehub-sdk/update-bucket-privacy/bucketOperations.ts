@@ -14,7 +14,7 @@ import { NETWORK } from '../config/networks.js';
 
 // --8<-- [start:update-bucket-privacy]
 export async function updateBucketPrivacy(
-  bucketId: string,
+  bucketId: `0x${string}`,
   isPrivate: boolean,
 ): Promise<boolean> {
   // Update bucket privacy on chain by calling the FileSystem precompile directly
@@ -49,7 +49,7 @@ export async function updateBucketPrivacy(
 
 // --8<-- [start:verify-bucket]
 // Verify bucket creation on chain and return bucket data
-export async function verifyBucketCreation(bucketId: string) {
+export async function verifyBucketCreation(bucketId: `0x${string}`) {
   const { mspId } = await getMspInfo();
 
   const bucket = await polkadotApi.query.providers.buckets(bucketId);

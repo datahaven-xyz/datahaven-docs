@@ -16,7 +16,7 @@ import { NETWORK } from '../config/networks.js';
 
 // --8<-- [start:get-bucket-files-msp]
 export async function getBucketFilesFromMSP(
-  bucketId: string,
+  bucketId: `0x${string}`,
 ): Promise<FileListResponse> {
   const files: FileListResponse = await mspClient.buckets.getFiles(bucketId);
   return files;

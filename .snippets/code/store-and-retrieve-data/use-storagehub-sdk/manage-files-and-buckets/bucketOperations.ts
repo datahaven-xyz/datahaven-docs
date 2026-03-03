@@ -12,7 +12,7 @@ export async function getBucketsFromMSP(): Promise<Bucket[]> {
 // --8<-- [end:get-buckets-msp]
 
 // --8<-- [start:wait-for-backend-bucket-empty]
-export async function waitForBackendBucketEmpty(bucketId: string) {
+export async function waitForBackendBucketEmpty(bucketId: `0x${string}`) {
   const maxAttempts = 144; // 12 minutes total (144 * 5s)
   const delayMs = 5000;
 
@@ -45,7 +45,7 @@ export async function waitForBackendBucketEmpty(bucketId: string) {
 // --8<-- [end:wait-for-backend-bucket-empty]
 
 // --8<-- [start:delete-bucket]
-export async function deleteBucket(bucketId: string): Promise<boolean> {
+export async function deleteBucket(bucketId: `0x${string}`): Promise<boolean> {
   const txHash: `0x${string}` | undefined = await storageHubClient.deleteBucket(
     bucketId as `0x${string}`,
   );

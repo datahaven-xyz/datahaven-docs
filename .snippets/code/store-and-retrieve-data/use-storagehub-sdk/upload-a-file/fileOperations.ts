@@ -21,7 +21,7 @@ import { PalletFileSystemStorageRequestMetadata } from '@polkadot/types/lookup';
 
 // --8<-- [start:upload-file-full]
 export async function uploadFile(
-  bucketId: string,
+  bucketId: `0x${string}`,
   filePath: string,
   fileName: string,
 ) {
@@ -176,7 +176,7 @@ export async function uploadFile(
 // --8<-- [end:upload-file-full]
 
 // --8<-- [start:wait-for-msp-confirm-on-chain]
-export async function waitForMSPConfirmOnChain(fileKey: string) {
+export async function waitForMSPConfirmOnChain(fileKey: `0x${string}`) {
   const maxAttempts = 20; // Number of polling attempts
   const delayMs = 2000; // Delay between attempts in milliseconds
 

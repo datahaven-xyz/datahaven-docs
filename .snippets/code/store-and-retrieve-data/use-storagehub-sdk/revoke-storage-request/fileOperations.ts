@@ -10,7 +10,9 @@ import { NETWORK } from '../config/networks.js';
 // --8<-- [end:imports]
 
 // --8<-- [start:revoke-storage-request]
-export async function revokeStorageRequest(fileKey: string): Promise<boolean> {
+export async function revokeStorageRequest(
+  fileKey: `0x${string}`,
+): Promise<boolean> {
   // Revoke a pending storage request by calling the FileSystem precompile directly
   const txHash = await walletClient.writeContract({
     account,
