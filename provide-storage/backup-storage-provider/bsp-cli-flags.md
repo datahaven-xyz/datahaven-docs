@@ -74,22 +74,16 @@ Operational flags are advanced parameters that influence retry behavior, synchro
 
 ## Next Steps
 
-<div class="grid cards" markdown>
+::cards:: cols=2
 
--  <a href="/provide-storage/backup-storage-provider/run-a-bsp-node" markdown>:material-arrow-right: 
-
-    **Run a BSP Node**
-
+- title: ":material-arrow-right: Run a BSP Node"
+  content: |
     Follow this guide to set up and run your own BSP node.
+  url: /provide-storage/backup-storage-provider/run-a-bsp-node
 
-    </a>
-
--  <a href="/provide-storage/backup-storage-provider/end-to-end-bsp-onboarding/" markdown>:material-arrow-right:
-
-    **End-to-End BSP Onboarding**
-
+- title: ":material-arrow-right: End-to-End BSP Onboarding"
+  content: |
     This tutorial takes you step-by-step through spinning up a BSP and verifying it on-chain.
+  url: /provide-storage/backup-storage-provider/end-to-end-bsp-onboarding/
 
-    </a>
-
-</div>
+::/cards::

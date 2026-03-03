@@ -58,22 +58,16 @@ Use the following base URL when interacting with an MSP through the StorageHub S
 
 ## Next Steps
 
-<div class="grid cards" markdown>
+::cards:: cols=2
 
--  <a href="/store-and-retrieve-data/use-storagehub-sdk/get-started/" markdown>:material-arrow-right: 
-    
-    **Get Started with the StorageHub SDK**
-
+- title: ":material-arrow-right: Get Started with the StorageHub SDK"
+  content: |
     Set up a project and install the StorageHub SDK to start storing and retrieving data.
+  url: /store-and-retrieve-data/use-storagehub-sdk/get-started/
 
-    </a>
-
--   <a href="/store-and-retrieve-data/spin-up-local-devnet/" markdown>:material-arrow-right:
-
-    **Spin Up Local Devnet**
-
+- title: ":material-arrow-right: Spin Up Local Devnet"
+  content: |
     Learn how to set up a local DataHaven development network to test storage operations and interact with the StorageHub SDK in a self-contained environment.
+  url: /store-and-retrieve-data/spin-up-local-devnet/
 
-    </a>
-
-</div>
+::/cards::

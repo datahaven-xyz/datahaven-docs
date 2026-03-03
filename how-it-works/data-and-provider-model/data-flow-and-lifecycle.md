@@ -112,24 +112,18 @@ It is important to note that whether older versions of files are retained is det
 
 Now that you understand DataHaven's data storage lifecycle, consider these resources to get hands-on and start building.
 
-<div class="grid cards" markdown>
+::cards:: cols=2
 
--   <a href="/store-and-retrieve-data/use-storagehub-sdk/get-started/" markdown>:material-arrow-right:
-
-    **Get Started with the StorageHub SDK**
-
+- title: ":material-arrow-right: Get Started with the StorageHub SDK"
+  content: |
     Environment set up and dependency installation to get your project started.
+  url: /store-and-retrieve-data/use-storagehub-sdk/get-started/
 
-    </a>
-
--  <a href="/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/" markdown>:material-arrow-right: 
-    
-    **End-to-End Storage Workflow**
-
+- title: ":material-arrow-right: End-to-End Storage Workflow"
+  content: |
     Step-by-step tutorial covering the entire data storage workflow.
+  url: /store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/
 
-    </a>
-
-</div>
+::/cards::
 
 

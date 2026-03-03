@@ -34,22 +34,16 @@ You can currently onboard with the [StorageHub SDK](/store-and-retrieve-data/use
 
 ## Next Steps
 
-<div class="grid cards" markdown>
+::cards:: cols=2
 
--  <a href="/how-it-works/data-and-provider-model/data-flow-and-lifecycle/" markdown>:material-arrow-right: 
-    
-    **Data Flow and Lifecycle**
-
+- title: ":material-arrow-right: Data Flow and Lifecycle"
+  content: |
     Follow data on a step-by-step journey through DataHaven.
+  url: /how-it-works/data-and-provider-model/data-flow-and-lifecycle/
 
-    </a>
-
--   <a href="/store-and-retrieve-data/use-storagehub-sdk/get-started/" markdown>:material-arrow-right:
-
-    **Get Started with the StorageHub SDK**
-
+- title: ":material-arrow-right: Get Started with the StorageHub SDK"
+  content: |
     Environment set up and dependency installation to get your project started.
+  url: /store-and-retrieve-data/use-storagehub-sdk/get-started/
 
-    </a>
-
-</div>
+::/cards::

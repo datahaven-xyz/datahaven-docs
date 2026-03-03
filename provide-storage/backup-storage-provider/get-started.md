@@ -65,22 +65,16 @@ For node CLI flags, key setup, and deployment patterns, see [Run a BSP Node inst
 
 ## Next Steps
 
-<div class="grid cards" markdown>
+::cards:: cols=2
 
--  <a href="/provide-storage/" markdown>:material-arrow-right: 
-    
-    **Provide Storage Overview**
-
+- title: ":material-arrow-right: Provide Storage Overview"
+  content: |
     How BSPs and MSPs fit together, plus what to expect before onboarding capacity.
+  url: /provide-storage/
 
-    </a>
-
--   <a href="/how-it-works/data-and-provider-model/buckets-files-and-merkle-proofs/" markdown>:material-arrow-right: 
-
-    **Buckets, Files, and Merkle Proofs**
-
+- title: ":material-arrow-right: Buckets, Files, and Merkle Proofs"
+  content: |
     Technical background for the commitments and proofs a BSP maintains.
+  url: /how-it-works/data-and-provider-model/buckets-files-and-merkle-proofs/
 
-    </a>
-
-</div>
+::/cards::

@@ -475,22 +475,16 @@ Uploading a file does not guarantee network-wide replication. Files are consider
 
 ## Next Steps
 
-<div class="grid cards" markdown>
+::cards:: cols=2
 
--  <a href="/how-it-works/data-and-provider-model/data-flow-and-lifecycle/" markdown>:material-arrow-right:
-
-    **Data Flow and Lifecycle**
-
+- title: ":material-arrow-right: Data Flow and Lifecycle"
+  content: |
     End-to-end overview of how data moves through the DataHaven network.
+  url: /how-it-works/data-and-provider-model/data-flow-and-lifecycle/
 
-    </a>
-
--   <a href="/store-and-retrieve-data/use-storagehub-sdk/faqs-and-troubleshooting/" markdown>:material-arrow-right:
-
-    **FAQs and Troubleshooting**
-
+- title: ":material-arrow-right: FAQs and Troubleshooting"
+  content: |
     Answers to commonly asked questions about DataHaven and using StorageHub SDK.
+  url: /store-and-retrieve-data/use-storagehub-sdk/faqs-and-troubleshooting/
 
-    </a>
-
-</div>
+::/cards::

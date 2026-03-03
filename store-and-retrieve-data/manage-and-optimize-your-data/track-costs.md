@@ -182,22 +182,16 @@ If you run the script with the code above, the response should look something li
 
 ## Next Steps
 
-<div class="grid cards" markdown>
+::cards:: cols=2
 
--  <a href="/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/" markdown>:material-arrow-right: 
-    
-    **Manage Files and Buckets**
-
+- title: ":material-arrow-right: Manage Files and Buckets"
+  content: |
     Learn how to manage your storage resources on DataHaven using the StorageHub SDK.
+  url: /store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/
 
-    </a>
-
--   <a href="/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/" markdown>:material-arrow-right:
-
-    **Build a Data Workflow End-to-End**
-
+- title: ":material-arrow-right: Build a Data Workflow End-to-End"
+  content: |
     Learn step-by-step how to store a file on DataHaven and retrieve it from the network.
+  url: /store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/
 
-    </a>
-
-</div>
+::/cards::

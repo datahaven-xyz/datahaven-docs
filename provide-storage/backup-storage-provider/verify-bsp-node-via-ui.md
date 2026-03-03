@@ -116,22 +116,16 @@ Confirm your BSP registration after the required waiting period has passed. You 
 
 ## Next Steps
 
-<div class="grid cards" markdown>
+::cards:: cols=2
 
--  <a href="/provide-storage/backup-storage-provider/faqs-and-troubleshooting" markdown>:material-arrow-right: 
-
-    **BSP FAQ and Troubleshooting**
-
+- title: ":material-arrow-right: BSP FAQ and Troubleshooting"
+  content: |
     For any issues you may have encountered regarding the BSP and all processes related to spinning it up, make sure to check out this FAQ page.
+  url: /provide-storage/backup-storage-provider/faqs-and-troubleshooting
 
-    </a>
-
--  <a href="/provide-storage/backup-storage-provider/end-to-end-bsp-onboarding/" markdown>:material-arrow-right:
-
-    **End-to-End BSP Onboarding**
-
+- title: ":material-arrow-right: End-to-End BSP Onboarding"
+  content: |
     This tutorial takes you step-by-step through spinning up a BSP and verifying it on-chain.
+  url: /provide-storage/backup-storage-provider/end-to-end-bsp-onboarding/
 
-    </a>
-
-</div>
+::/cards::

@@ -340,22 +340,16 @@ Once both checks pass, you know the file is committed on-chain, and the MSP back
 
 ## Next Steps
 
-<div class="grid cards" markdown>
+::cards:: cols=2
 
--  <a href="/store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/" markdown>:material-arrow-right:
-
-    **Retrieve Your Data**
-
+- title: ":material-arrow-right: Retrieve Your Data"
+  content: |
     Once your file is successfully uploaded, retrieve it from the Main Storage Provider (MSP) using the StorageHub SDK and save it locally.
+  url: /store-and-retrieve-data/use-storagehub-sdk/retrieve-your-data/
 
-    </a>
-
--   <a href="/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/#sc" markdown>:material-arrow-right:
-
-    **Build a Data Workflow End-to-End via Smart Contracts**
-
+- title: ":material-arrow-right: Build a Data Workflow End-to-End via Smart Contracts"
+  content: |
     Learn step-by-step how to store a file on DataHaven via smart contracts and retrieve it from the network.
+  url: /store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/#sc
 
-    </a>
-
-</div>
+::/cards::

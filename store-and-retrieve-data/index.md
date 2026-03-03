@@ -47,22 +47,16 @@ You can also visit the [End-to-End Storage Workflow](/store-and-retrieve-data/us
 
 ## Next Steps
 
-<div class="grid cards" markdown>
+::cards:: cols=2
 
--  <a href="/store-and-retrieve-data/network-details/testnet/" markdown>:material-arrow-right: 
-    
-    **Testnet**
-
+- title: ":material-arrow-right: Testnet"
+  content: |
     Find what you need to connect and build on the DataHaven testnet, from network configurations to obtaining testnet tokens.
+  url: /store-and-retrieve-data/network-details/testnet/
 
-    </a>
-
--   <a href="/store-and-retrieve-data/use-storagehub-sdk/get-started/" markdown>:material-arrow-right:
-
-    **Get Started with the StorageHub SDK**
-
+- title: ":material-arrow-right: Get Started with the StorageHub SDK"
+  content: |
     Set up a project and install the StorageHub SDK to start storing and retrieving data.
+  url: /store-and-retrieve-data/use-storagehub-sdk/get-started/
 
-    </a>
-
-</div>
+::/cards::

@@ -487,23 +487,17 @@ Finally, you have a running BSP node within an easily maintainable Docker contai
 
 ## Next Steps
 
-<div class="grid cards" markdown>
+::cards:: cols=2
 
--  <a href="/provide-storage/backup-storage-provider/verify-bsp-node-via-ui/" markdown>:material-arrow-right: 
-
-    **Verify BSP On-Chain via UI**
-
+- title: ":material-arrow-right: Verify BSP On-Chain via UI"
+  content: |
     Follow this guide to verify your BSP on-chain using the Polkadot.js Apps UI and thus enable your BSP node to participate in replicating DataHaven's files.
+  url: /provide-storage/backup-storage-provider/verify-bsp-node-via-ui/
 
-    </a>
-
--  <a href="/provide-storage/backup-storage-provider/end-to-end-bsp-onboarding/" markdown>:material-arrow-right:
-
-    **End-to-End BSP Onboarding**
-
+- title: ":material-arrow-right: End-to-End BSP Onboarding"
+  content: |
     This tutorial takes you step-by-step through spinning up a BSP and verifying it on-chain.
+  url: /provide-storage/backup-storage-provider/end-to-end-bsp-onboarding/
 
-    </a>
-
-</div>
+::/cards::
 

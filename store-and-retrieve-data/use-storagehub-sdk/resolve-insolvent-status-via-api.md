@@ -418,22 +418,16 @@ If you run the script with the code above, the response should look something li
 
 ## Next Steps
 
-<div class="grid cards" markdown>
+::cards:: cols=2
 
--  <a href="/store-and-retrieve-data/manage-and-optimize-your-data/track-costs/" markdown>:material-arrow-right:
-
-    **Track Costs**
-
+- title: ":material-arrow-right: Track Costs"
+  content: |
     Learn how to monitor your storage costs and calculate remaining time before your balance runs out.
+  url: /store-and-retrieve-data/manage-and-optimize-your-data/track-costs/
 
-    </a>
-
--   <a href="/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/" markdown>:material-arrow-right:
-
-    **Manage Files and Buckets**
-
+- title: ":material-arrow-right: Manage Files and Buckets"
+  content: |
     Learn how to manage your storage resources on DataHaven using the StorageHub SDK.
+  url: /store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/
 
-    </a>
-
-</div>
+::/cards::
