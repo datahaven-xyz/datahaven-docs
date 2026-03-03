@@ -22,7 +22,7 @@ export async function createBucket(bucketName: string) {
   const bucketId = (await storageHubClient.deriveBucketId(
     address,
     bucketName,
-  )) as string;
+  )) as `0x${string}`;
   console.log(`Derived bucket ID: ${bucketId}`);
 
   // Check that the bucket doesn't exist yet
