@@ -296,6 +296,30 @@ const txHash = await walletClient.writeContract({
 
 With both the SDK and the ABI in place, you're ready to follow either path in the guides that follow.
 
+## Demo DApps
+
+To see the StorageHub SDK in action, check out the following open-source demo applications. Both are publicly available and can serve as practical references for building your own dApps on DataHaven.
+
+<div class="grid cards" markdown>
+
+-   :material-file: **File Storage Demo DApp**
+
+    ---
+
+    A full-featured demo dApp that showcases the core StorageHub SDK workflow, including connecting a wallet, creating buckets, uploading files, and retrieving data from the network.
+
+    [:octicons-arrow-right-24: Live Demo](https://demosdk.datahaven.xyz){target=\_blank} · [:octicons-mark-github-24: Source Code](https://github.com/papermoonio/datahaven-demo-dapp){target=\_blank}
+
+-   :material-image-multiple: **Mortal NFT Demo DApp**
+
+    ---
+
+    A demo dApp that demonstrates how to use DataHaven as the storage layer for NFT metadata and assets. It walks through minting NFTs with on-chain metadata backed by decentralized storage.
+
+    [:octicons-arrow-right-24: Live Demo](https://demonft.datahaven.xyz){target=\_blank} · [:octicons-mark-github-24: Source Code](https://github.com/papermoonio/datahaven-nft-demo-dapp){target=\_blank}
+
+</div>
+
 ## Next Steps
 
 Now that you have the StorageHub SDK packages installed and all the necessary clients set up, you are ready to start building with DataHaven.

@@ -475,10 +475,10 @@ Uploading a file does not guarantee network-wide replication. Files are consider
 
 ::cards:: cols=2
 
-- title: ":material-arrow-right: Data Flow and Lifecycle"
+- title: ":material-arrow-right: File Storage Demo DApp"
   content: |
-    End-to-end overview of how data moves through the DataHaven network.
-  url: /how-it-works/data-and-provider-model/data-flow-and-lifecycle/
+    Explore a complete working demo dApp that puts the StorageHub SDK into practice. Check out the source code to see how it all fits together.
+  url: https://github.com/papermoonio/datahaven-demo-dapp
 
 - title: ":material-arrow-right: FAQs and Troubleshooting"
   content: |
