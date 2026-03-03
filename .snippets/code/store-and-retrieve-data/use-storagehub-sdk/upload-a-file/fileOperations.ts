@@ -160,6 +160,7 @@ export async function uploadFile(
     bucketId,
     fileKey.toHex(),
     await fileManager.getFileBlob(),
+    fingerprint.toHex(),
     address,
     fileName,
   );
