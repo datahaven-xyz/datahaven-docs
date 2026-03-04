@@ -21,10 +21,10 @@ export async function requestDeleteFile(bucketId: `0x${string}`, fileKey: `0x${s
   });
   console.log('requestDeleteFile() txReceipt:', receiptRequestDeleteFile);
   if (receiptRequestDeleteFile.status !== 'success') {
-    throw new Error(`File deletion failed: ${txHashRequestDeleteFile}`);
+    throw new Error(`File deletion request failed: ${txHashRequestDeleteFile}`);
   }
 
-  console.log(`File with key ${fileKey} deleted successfully from bucket ${bucketId}`);
+  console.log(`Deletion request transaction for file with key ${fileKey} succeeded for bucket ${bucketId}`);
   return true;
 }
 // --8<-- [end:request-file-deletion]
