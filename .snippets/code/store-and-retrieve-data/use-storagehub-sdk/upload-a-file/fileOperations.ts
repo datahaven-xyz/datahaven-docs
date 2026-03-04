@@ -21,7 +21,7 @@ import { PalletFileSystemStorageRequestMetadata } from '@polkadot/types/lookup';
 
 // --8<-- [start:upload-file-full]
 export async function uploadFile(
-  bucketId: string,
+  bucketId: `0x${string}`,
   filePath: string,
   fileName: string,
 ) {
@@ -157,9 +157,10 @@ export async function uploadFile(
   // --8<-- [start:upload-file]
   // Upload file to MSP
   const uploadReceipt = await mspClient.files.uploadFile(
-    bucketId,
+    bucketId as `0x${string}`,
     fileKey.toHex(),
     await fileManager.getFileBlob(),
+    fingerprint.toHex(),
     address,
     fileName,
   );
@@ -175,7 +176,7 @@ export async function uploadFile(
 // --8<-- [end:upload-file-full]
 
 // --8<-- [start:wait-for-msp-confirm-on-chain]
-export async function waitForMSPConfirmOnChain(fileKey: string) {
+export async function waitForMSPConfirmOnChain(fileKey: `0x${string}`) {
   const maxAttempts = 20; // Number of polling attempts
   const delayMs = 2000; // Delay between attempts in milliseconds
 
@@ -219,8 +220,8 @@ export async function waitForMSPConfirmOnChain(fileKey: string) {
 
 // --8<-- [start:wait-for-backend-file-ready]
 export async function waitForBackendFileReady(
-  bucketId: string,
-  fileKey: string,
+  bucketId: `0x${string}`,
+  fileKey: `0x${string}`,
 ) {
   // wait up to 12 minutes (144 attempts x 5 seconds)
   // 11 minutes is the amount of time BSPs have to reach the required replication level

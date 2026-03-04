@@ -16,7 +16,7 @@ import { NETWORK } from '../config/networks.js';
 
 // --8<-- [start:get-bucket-files-msp]
 export async function getBucketFilesFromMSP(
-  bucketId: string,
+  bucketId: `0x${string}`,
 ): Promise<FileListResponse> {
   const files: FileListResponse = await mspClient.buckets.getFiles(bucketId);
   return files;
@@ -25,8 +25,8 @@ export async function getBucketFilesFromMSP(
 
 // --8<-- [start:request-file-deletion]
 export async function requestDeleteFile(
-  bucketId: string,
-  fileKey: string,
+  bucketId: `0x${string}`,
+  fileKey: `0x${string}`,
 ): Promise<boolean> {
   // Get file info before deletion
   const fileInfo: FileInfo = await mspClient.files.getFileInfo(

@@ -25,9 +25,9 @@ import { NETWORK } from '../config/networks.js';
 
 // --8<-- [start:upload-file-full]
 export async function uploadFile(
-  bucketId: string,
+  bucketId: `0x${string}`,
   filePath: string,
-  fileName: string
+  fileName: string,
 ) {
   //   ISSUE STORAGE REQUEST
 
@@ -122,21 +122,20 @@ export async function uploadFile(
   const registry = new TypeRegistry();
   const owner = registry.createType(
     'AccountId20',
-    account.address
+    account.address,
   ) as AccountId20;
   const bucketIdH256 = registry.createType('H256', bucketId) as H256;
   const fileKey = await fileManager.computeFileKey(
     owner,
     bucketIdH256,
-    fileName
+    fileName,
   );
   // --8<-- [end:compute-file-key]
 
   // --8<-- [start:verify-storage-request]
   // Verify storage request on chain
-  const storageRequest = await polkadotApi.query.fileSystem.storageRequests(
-    fileKey
-  );
+  const storageRequest =
+    await polkadotApi.query.fileSystem.storageRequests(fileKey);
   if (!storageRequest.isSome) {
     throw new Error('Storage request not found on chain');
   }
@@ -148,11 +147,11 @@ export async function uploadFile(
   console.log('Storage request data:', storageRequestData);
   console.log(
     'Storage request bucketId matches initial bucketId:',
-    storageRequestData.bucketId === bucketId
+    storageRequestData.bucketId === bucketId,
   );
   console.log(
     'Storage request fingerprint matches initial fingerprint',
-    storageRequestData.fingerprint === fingerprint.toString()
+    storageRequestData.fingerprint === fingerprint.toString(),
   );
   // --8<-- [end:read-storage-request]
 
@@ -167,11 +166,12 @@ export async function uploadFile(
   // --8<-- [start:upload-file]
   // Upload file to MSP
   const uploadReceipt = await mspClient.files.uploadFile(
-    bucketId,
+    bucketId as `0x${string}`,
     fileKey.toHex(),
     await fileManager.getFileBlob(),
+    fingerprint.toHex(),
     address,
-    fileName
+    fileName,
   );
   console.log('File upload receipt:', uploadReceipt);
 
@@ -185,7 +185,7 @@ export async function uploadFile(
 // --8<-- [end:upload-file-full]
 
 // --8<-- [start:wait-for-msp-confirm-on-chain]
-export async function waitForMSPConfirmOnChain(fileKey: string) {
+export async function waitForMSPConfirmOnChain(fileKey: `0x${string}`) {
   const maxAttempts = 20;
   const delayMs = 2000;
 
@@ -193,13 +193,13 @@ export async function waitForMSPConfirmOnChain(fileKey: string) {
     console.log(
       `Check if storage request has been confirmed by the MSP on-chain, attempt ${
         i + 1
-      } of ${maxAttempts}...`
+      } of ${maxAttempts}...`,
     );
 
     const req = await polkadotApi.query.fileSystem.storageRequests(fileKey);
     if (req.isNone) {
       throw new Error(
-        `StorageRequest for ${fileKey} no longer exists on-chain.`
+        `StorageRequest for ${fileKey} no longer exists on-chain.`,
       );
     }
     const data: PalletFileSystemStorageRequestMetadata = req.unwrap();
@@ -223,8 +223,8 @@ export async function waitForMSPConfirmOnChain(fileKey: string) {
 
 // --8<-- [start:wait-for-backend-file-ready]
 export async function waitForBackendFileReady(
-  bucketId: string,
-  fileKey: string
+  bucketId: `0x${string}`,
+  fileKey: `0x${string}`,
 ) {
   // wait up to 12 minutes (144 attempts x 5 seconds)
   // around 11 minutes is the amount of time BSPs have to reach the required replication level
@@ -233,7 +233,7 @@ export async function waitForBackendFileReady(
 
   for (let i = 0; i < maxAttempts; i++) {
     console.log(
-      `Checking for file in MSP backend, attempt ${i + 1} of ${maxAttempts}...`
+      `Checking for file in MSP backend, attempt ${i + 1} of ${maxAttempts}...`,
     );
     try {
       const fileInfo = await mspClient.files.getFileInfo(bucketId, fileKey);
@@ -247,7 +247,7 @@ export async function waitForBackendFileReady(
         throw new Error('File upload was rejected by MSP');
       } else if (fileInfo.status === 'expired') {
         throw new Error(
-          'Storage request expired: the required number of BSP replicas was not achieved within the deadline'
+          'Storage request expired: the required number of BSP replicas was not achieved within the deadline',
         );
       }
 
@@ -256,7 +256,7 @@ export async function waitForBackendFileReady(
     } catch (error: any) {
       if (error?.status === 404 || error?.body?.error === 'Not found: Record') {
         console.log(
-          'File not yet indexed in MSP backend (404 Not Found). Waiting before retry...'
+          'File not yet indexed in MSP backend (404 Not Found). Waiting before retry...',
         );
       } else {
         console.log('Unexpected error while fetching file from MSP:', error);

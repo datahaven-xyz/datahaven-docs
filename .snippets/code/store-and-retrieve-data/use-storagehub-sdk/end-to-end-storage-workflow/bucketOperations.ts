@@ -25,7 +25,7 @@ export async function createBucket(bucketName: string) {
   const bucketId = (await storageHubClient.deriveBucketId(
     address,
     bucketName,
-  )) as string;
+  )) as `0x${string}`;
   console.log(`Derived bucket ID: ${bucketId}`);
 
   // Check that the bucket doesn't exist yet
@@ -65,7 +65,7 @@ export async function createBucket(bucketName: string) {
 
 // --8<-- [start:verify-bucket]
 // Verify bucket creation on chain and return bucket data
-export async function verifyBucketCreation(bucketId: string) {
+export async function verifyBucketCreation(bucketId: `0x${string}`) {
   const { mspId } = await getMspInfo();
 
   const bucket = await polkadotApi.query.providers.buckets(bucketId);
@@ -86,7 +86,7 @@ export async function verifyBucketCreation(bucketId: string) {
 // --8<-- [end:verify-bucket]
 
 // --8<-- [start:wait-for-backend-bucket-ready]
-export async function waitForBackendBucketReady(bucketId: string) {
+export async function waitForBackendBucketReady(bucketId: `0x${string}`) {
   const maxAttempts = 10; // Number of polling attempts
   const delayMs = 2000; // Delay between attempts in milliseconds
 

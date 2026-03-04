@@ -44,7 +44,7 @@ Because of the `uploadFile` method's complexity, you will be adding pieces of it
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:imports'
 
     export async function uploadFile(
-      bucketId: string,
+      bucketId: `0x${string}`,
       filePath: string,
       fileName: string
     ) {
@@ -119,7 +119,7 @@ Upon a successful storage request, the output will look something like this:
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:imports'
 
     export async function uploadFile(
-      bucketId: string,
+      bucketId: `0x${string}`,
       filePath: string,
       fileName: string
     ) {
@@ -179,7 +179,7 @@ Upon successful storage request verification, you'll see a message like:
     --8<-- 'code/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/fileOperations.ts:imports'
 
     export async function uploadFile(
-      bucketId: string,
+      bucketId: `0x${string}`,
       filePath: string,
       fileName: string
     ) {

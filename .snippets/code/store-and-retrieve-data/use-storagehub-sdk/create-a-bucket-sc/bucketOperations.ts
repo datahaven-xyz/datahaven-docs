@@ -32,7 +32,7 @@ export async function createBucket(bucketName: string) {
     abi: fileSystemAbi,
     functionName: 'deriveBucketId',
     args: [address, toHex(bucketName)],
-  })) as string;
+  })) as `0x${string}`;
   console.log(`Derived bucket ID: ${bucketId}`);
 
   // Check that the bucket doesn't exist yet
@@ -74,7 +74,7 @@ export async function createBucket(bucketName: string) {
 
 // --8<-- [start:verify-bucket]
 // Verify bucket creation on chain and return bucket data
-export async function verifyBucketCreation(bucketId: string) {
+export async function verifyBucketCreation(bucketId: `0x${string}`) {
   const { mspId } = await getMspInfo();
 
   const bucket = await polkadotApi.query.providers.buckets(bucketId);
@@ -97,7 +97,7 @@ export async function verifyBucketCreation(bucketId: string) {
 
 // --8<-- [start:wait-bucket]
 // Wait until the backend/indexer has indexed the newly created bucket
-export async function waitForBackendBucketReady(bucketId: string) {
+export async function waitForBackendBucketReady(bucketId: `0x${string}`) {
   const maxAttempts = 10; // Number of polling attempts
   const delayMs = 2000; // Delay between attempts in milliseconds
 
