@@ -41,22 +41,16 @@ DataHaven depends on independent operators to keep replicas available and verifi
 
 ## Next Steps
 
-<div class="grid cards" markdown>
+::cards:: cols=2
 
--   <a href="/provide-storage/backup-storage-provider/get-started/" markdown>:material-arrow-right: 
- 
-    **Backup Storage Provider: Get Started**
-
+- title: ":material-arrow-right: Backup Storage Provider: Get Started"
+  content: |
     Responsibilities, operational flow, and readiness checklist for running a BSP.
+  url: /provide-storage/backup-storage-provider/get-started/
 
-    </a>
-
--   <a href="/provide-storage/backup-storage-provider/end-to-end-bsp-onboarding/" markdown>:material-arrow-right:
-
-    **End-to-End BSP Onboarding**
-
+- title: ":material-arrow-right: End-to-End BSP Onboarding"
+  content: |
     This tutorial takes you step-by-step through spinning up a BSP and verifying it on-chain.
+  url: /provide-storage/backup-storage-provider/end-to-end-bsp-onboarding/
 
-    </a>
-
-</div>
+::/cards::

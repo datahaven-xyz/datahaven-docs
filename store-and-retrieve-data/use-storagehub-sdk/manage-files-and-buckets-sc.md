@@ -291,22 +291,16 @@ If you run the script with the bucket deletion code, the response should include
 
 ## Next Steps
 
-<div class="grid cards" markdown>
+::cards:: cols=2
 
--  <a href="/how-it-works/data-and-provider-model/data-flow-and-lifecycle/" markdown>:material-arrow-right:
-
-    **Data Flow and Lifecycle**
-
+- title: ":material-arrow-right: Data Flow and Lifecycle"
+  content: |
     Follow data on a step-by-step journey through DataHaven.
+  url: /how-it-works/data-and-provider-model/data-flow-and-lifecycle/
 
-    </a>
-
--   <a href="/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/#sc" markdown>:material-arrow-right:
-
-    **Build a Data Workflow End-to-End**
-
+- title: ":material-arrow-right: Build a Data Workflow End-to-End"
+  content: |
     Learn step-by-step how to store a file on DataHaven and retrieve it from the network.
+  url: /store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/#sc
 
-    </a>
-
-</div>
+::/cards::

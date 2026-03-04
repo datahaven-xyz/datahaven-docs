@@ -136,22 +136,16 @@ If the revocation was successful, the output should confirm the request was remo
 
 ## Next Steps
 
-<div class="grid cards" markdown>
+::cards:: cols=2
 
--   <a href="/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/#sc" markdown>:material-arrow-right:
-
-    **Manage Files and Buckets via Smart Contracts**
-
+- title: ":material-arrow-right: Manage Files and Buckets via Smart Contracts"
+  content: |
     Learn how to get file info, request file removal from the network, and how to delete buckets via smart contracts.
+  url: /store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/#sc
 
-    </a>
-
--  <a href="/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/#sc" markdown>:material-arrow-right:
-
-    **Build a Data Workflow End-to-End via Smart Contracts**
-
+- title: ":material-arrow-right: Build a Data Workflow End-to-End via Smart Contracts"
+  content: |
     Learn step-by-step how to store a file on DataHaven via smart contracts and retrieve it from the network.
+  url: /store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/#sc
 
-    </a>
-
-</div>
+::/cards::

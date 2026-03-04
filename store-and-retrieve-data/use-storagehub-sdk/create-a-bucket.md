@@ -246,22 +246,16 @@ If you attempt to upload a file right after creating a bucket, it's possible tha
 
 ## Next Steps
 
-<div class="grid cards" markdown>
+::cards:: cols=2
 
--  <a href="/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/" markdown>:material-arrow-right: 
-    
-    **Upload a File**
-
+- title: ":material-arrow-right: Upload a File"
+  content: |
     Once your storage request is confirmed, use the StorageHub SDK to upload a file to the network.
+  url: /store-and-retrieve-data/use-storagehub-sdk/upload-a-file/
 
-    </a>
-
--   <a href="/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/" markdown>:material-arrow-right:
-
-    **Build a Data Workflow End-to-End**
-
+- title: ":material-arrow-right: Build a Data Workflow End-to-End"
+  content: |
     Learn step-by-step how to store a file on DataHaven and retrieve it from the network.
+  url: /store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/
 
-    </a>
-
-</div>
+::/cards::

@@ -132,22 +132,16 @@ Now you've successfully learned how to manipulate the file you intend to upload 
 
 ## Next Steps
 
-<div class="grid cards" markdown>
+::cards:: cols=2
 
--   <a href="/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/" markdown>:material-arrow-right:
-
-    **Manage Files and Buckets**
-
+- title: ":material-arrow-right: Manage Files and Buckets"
+  content: |
     Learn how to get file info, request file removal from the network, and how to delete buckets.
+  url: /store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/
 
-    </a>
-
--  <a href="/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/" markdown>:material-arrow-right: 
-    
-    **Upload a File**
-
+- title: ":material-arrow-right: Upload a File"
+  content: |
     Once your storage request is confirmed, use the StorageHub SDK to upload a file to the network.
+  url: /store-and-retrieve-data/use-storagehub-sdk/upload-a-file/
 
-    </a>
-
-</div>
+::/cards::

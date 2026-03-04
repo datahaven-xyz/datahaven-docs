@@ -132,22 +132,16 @@ Now you've successfully learned how to manipulate the file you intend to upload 
 
 ## Next Steps
 
-<div class="grid cards" markdown>
+::cards:: cols=2
 
--   <a href="/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/#sc" markdown>:material-arrow-right:
-
-    **Manage Files and Buckets via Smart Contracts**
-
+- title: ":material-arrow-right: Manage Files and Buckets via Smart Contracts"
+  content: |
     Learn how to get file info, request file removal from the network, and how to delete buckets via smart contracts.
+  url: /store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/#sc
 
-    </a>
-
--  <a href="/store-and-retrieve-data/use-storagehub-sdk/upload-a-file/#sc" markdown>:material-arrow-right: 
-    
-    **Upload a File via Smart Contracts**
-
+- title: ":material-arrow-right: Upload a File via Smart Contracts"
+  content: |
     Learn how to issue storage requests via smart contracts and upload files to the network.
+  url: /store-and-retrieve-data/use-storagehub-sdk/upload-a-file/#sc
 
-    </a>
-
-</div>
+::/cards::

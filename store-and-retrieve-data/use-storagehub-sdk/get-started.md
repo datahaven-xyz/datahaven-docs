@@ -324,22 +324,16 @@ To see the StorageHub SDK in action, check out the following open-source demo ap
 
 Now that you have the StorageHub SDK packages installed and all the necessary clients set up, you are ready to start building with DataHaven.
 
-<div class="grid cards" markdown>
+::cards:: cols=2
 
--  <a href="/store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/" markdown>:material-arrow-right: 
-
-    **Create A Bucket**
-
+- title: ":material-arrow-right: Create A Bucket"
+  content: |
     Follow this guide to create your first bucket, DataHaven's storage container for your files. This is the perfect first step on your journey of building on DataHaven.
+  url: /store-and-retrieve-data/use-storagehub-sdk/create-a-bucket/
 
-    </a>
-
--  <a href="/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/" markdown>:material-arrow-right:
-
-    **End-to-End Storage Workflow**
-
+- title: ":material-arrow-right: End-to-End Storage Workflow"
+  content: |
     This tutorial takes you step-by-step through storing a file on DataHaven and retrieving it from the network. Take this step to see how all the pieces fit together in one go.
+  url: /store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/
 
-    </a>
-
-</div>
+::/cards::

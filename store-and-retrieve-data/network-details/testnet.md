@@ -62,22 +62,16 @@ Use this base URL when connecting to an MSP via the StorageHub SDK:
 
 ## Next Steps
 
-<div class="grid cards" markdown>
+::cards:: cols=2
 
--  <a href="/store-and-retrieve-data/use-storagehub-sdk/get-started/" markdown>:material-arrow-right: 
-    
-    **Get Started with the StorageHub SDK**
-
+- title: ":material-arrow-right: Get Started with the StorageHub SDK"
+  content: |
     Set up a project and install the StorageHub SDK to start storing and retrieving data.
+  url: /store-and-retrieve-data/use-storagehub-sdk/get-started/
 
-    </a>
-
--   <a href="/store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/" markdown>:material-arrow-right:
-
-    **End-to-End Storage Workflow**
-
+- title: ":material-arrow-right: End-to-End Storage Workflow"
+  content: |
     Learn step-by-step how to store a file on DataHaven and retrieve it from the network.
+  url: /store-and-retrieve-data/use-storagehub-sdk/end-to-end-storage-workflow/
 
-    </a>
-
-</div>
+::/cards::

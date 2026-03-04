@@ -535,24 +535,18 @@ Confirm your BSP registration after the required waiting period has passed. You 
 
 ## Next Steps
 
-<div class="grid cards" markdown>
+::cards:: cols=2
 
--  <a href="/provide-storage/backup-storage-provider/faqs-and-troubleshooting" markdown>:material-arrow-right: 
-
-    **BSP FAQ and Troubleshooting**
-
+- title: ":material-arrow-right: BSP FAQ and Troubleshooting"
+  content: |
     For any issues you may have encountered regarding the BSP and all processes related to spinning it up, make sure to check out this FAQ page.
+  url: /provide-storage/backup-storage-provider/faqs-and-troubleshooting
 
-    </a>
-
--  <a href="/provide-storage/backup-storage-provider/bsp-cli-flags" markdown>:material-arrow-right:
-
-    **BSP CLI Flags**
-
+- title: ":material-arrow-right: BSP CLI Flags"
+  content: |
     Check out all the flags that can be ran via your BSP node to configure it in the best way for your needs.
+  url: /provide-storage/backup-storage-provider/bsp-cli-flags
 
-    </a>
-
-</div>
+::/cards::
 
 

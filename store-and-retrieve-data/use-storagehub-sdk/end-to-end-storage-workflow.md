@@ -473,22 +473,16 @@ Uploading a file does not guarantee network-wide replication. Files are consider
 
 ## Next Steps
 
-<div class="grid cards" markdown>
+::cards:: cols=2
 
--  <a href="https://github.com/papermoonio/datahaven-demo-dapp" target="_blank" markdown>:material-arrow-right:
-
-    **File Storage Demo DApp**
-
+- title: ":material-arrow-right: File Storage Demo DApp"
+  content: |
     Explore a complete working demo dApp that puts the StorageHub SDK into practice. Check out the source code to see how it all fits together.
+  url: https://github.com/papermoonio/datahaven-demo-dapp
 
-    </a>
-
--   <a href="/store-and-retrieve-data/use-storagehub-sdk/faqs-and-troubleshooting/" markdown>:material-arrow-right:
-
-    **FAQs and Troubleshooting**
-
+- title: ":material-arrow-right: FAQs and Troubleshooting"
+  content: |
     Answers to commonly asked questions about DataHaven and using StorageHub SDK.
+  url: /store-and-retrieve-data/use-storagehub-sdk/faqs-and-troubleshooting/
 
-    </a>
-
-</div>
+::/cards::
