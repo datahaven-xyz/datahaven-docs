@@ -6,7 +6,9 @@ nav:
  - 'Upload a File': upload-a-file.md
  - 'Retrieve Your Data': retrieve-your-data.md
  - 'End-to-End Storage Workflow': end-to-end-storage-workflow.md
- - 'Manage Files and Buckets': manage-files-and-buckets.md
+ - 'Delete a File': delete-a-file.md
+ - 'Delete a Bucket': delete-a-bucket.md
+ - 'Clean Up a Bucket': clean-up-a-bucket.md
  - 'Update Bucket Privacy': update-bucket-privacy-sc.md
  - 'Revoke a Storage Request': revoke-storage-request-sc.md
  - 'Set Custom Gas Params': set-custom-gas-params.md

@@ -184,11 +184,11 @@ If you run the script with the code above, the response should look something li
 
 <div class="grid cards" markdown>
 
--  <a href="/store-and-retrieve-data/use-storagehub-sdk/manage-files-and-buckets/" markdown>:material-arrow-right: 
-    
-    **Manage Files and Buckets**
+-  <a href="/store-and-retrieve-data/use-storagehub-sdk/clean-up-a-bucket/" markdown>:material-arrow-right:
 
-    Learn how to manage your storage resources on DataHaven using the StorageHub SDK.
+    **Clean Up a Bucket**
+
+    Remove all files from a bucket and delete it using the StorageHub SDK.
 
     </a>
 
