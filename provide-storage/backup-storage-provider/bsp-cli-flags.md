@@ -45,7 +45,7 @@ BSP-specific task flags enable and configure background BSP tasks such as file u
 | `--bsp-charge-fees-min-debt <AMOUNT>` | Minimum debt threshold to charge | 0 |
 | `--bsp-submit-proof-task` | Enable proof submission task | false |
 | `--bsp-submit-proof-max-attempts <N>` | Max attempts to submit proof | 3 |
-| `--trusted-msps <MSP_IDs>` | Comma-separated list of MSP IDs authorized to request file recovery downloads from this BSP | None |
+| `--trusted-msps <MSP_IDS>` | Comma-separated list of MSP IDs authorized to request file recovery downloads from this BSP | None |
 
 ### Trusted MSPs
 
